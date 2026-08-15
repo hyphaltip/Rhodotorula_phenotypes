@@ -31,7 +31,9 @@
 
 ## Caveats
 
-- Species labels contain apparent near-duplicates (paludigenum/paludigena,
-  evergladensis/evergladiensis) left unmerged; single-strain, low-n taxa
-  (kratochvilovae, glutinis) need confirmation against per-strain tables.
+- Species labelling: two misspellings in `data/metadata/Copper.Strain_info.csv`
+  (paludigenum, evergladiensis) were corrected to paludigena/evergladensis and
+  re-imported via `10_import_experiment.py --strain-only` (strain 84 and 327
+  regrouped). Remaining caveat: single-strain, small-n taxa (kratochvilovae,
+  glutinis) need confirmation against per-strain tables.
 - High-Cu missingness (~15-18%) is itself part of the sensitivity signal.

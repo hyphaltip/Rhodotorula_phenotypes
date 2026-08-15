@@ -52,10 +52,10 @@ input: db/rhodotorula_phenotypes.duckdb (v_phenotype), runs 353-356, per (plate,
 scripts:
   - scripts/00_build_series.R      # per-colony x timepoint table + species join -> colony_growth_series + coverage
   - scripts/01_fit_growth_models.R # Gompertz + Logistic per colony/trait (mu/lambda/A, AIC-preferred), fallback log-linear; primary rate = peak 6 h slope of log(area) [rate_area] and of intensity [rate_int]
-  - scripts/02_species_cu_rates.R  # strain x Cu aggregation (up to 4 run-replicates), mixed models rate ~ Cu(factor) + (1|species/strain), Cu x species interaction (well-sampled spp), contrasts vs 0 mM
+  - scripts/02_species_cu_rates.R  # strain x Cu aggregation (up to 4 run-replicates), mixed models rate ~ Cu(factor) + (1|species/strain), Cu x species interaction (well-sampled spp >= 8 strains, unnamed 'sp. clade I' excluded), contrasts vs 0 mM; rate_by_cu_spp / rate_int_by_cu_spp facet top-16 species (4x4)
   - scripts/03_color_interaction.R # endpoint L*/a*/b* as outcomes of rate_area/rate_int x copper (+ species/strain random); documents L*-Intensity ~0.999 collinearity; also endpoint color (L*/a*/b*) vs Cu plots
   - scripts/04_doubling_time.R     # phase-independent estimator: exponential-region specific rate (best-R2 4-pt window) -> doubling time, t50, saturation fraction; tests whether peak-slope Cu trend persists
-  - scripts/05_species_cu_sensitivity.R # extent/yield-based Cu-sensitivity index per strain & species (log2 max-area ratio 25-30 vs 0-5 mM, saturation drop, dbl fold), species extent model (Cu x species)
+  - scripts/05_species_cu_sensitivity.R # extent/yield-based Cu-sensitivity index per strain & species (log2 max-area ratio 25-30 vs 0-5 mM, saturation drop, dbl fold), species extent model (Cu x species); sensitivity figures facet top-16 species (4x4)
 outputs:
   - results/tables/colony_growth_series.rds/csv
   - results/tables/series_coverage.csv
@@ -102,5 +102,8 @@ key_findings:
   - L* (endpoint) vs Intensity_MeanIntensity r=0.999: same axis; L* is "light intensity"; intensity only used as growth readout.
   - Growth-rate x Cu interaction on endpoint L* significant (F=8.16 p~8e-9): faster-growing colonies end lighter, slope largest at low Cu (5mM +3.7 L*/unit rate) smallest at 30mM (+1.3); Cu dominates chromatic outcome (~1000x F on L*/a*).
   - 8,446 colonies (97.6% of 8,652 design slots; 309 strains, 112 plates); 130/2183 strain-Cu aggregates are single-culture, 282 colonies lack species label (-> unknown level).
+  - Doubling-time test (04): exponential doubling time is flat ~37 h across 0-30 mM (fold-change 0.99 at 30 mM; Kendall tau between peak-slope rate_area and doubling time = 0.002) -> the rising peak-slope with Cu IS A PHASE ARTIFACT. Cu's real effect is extent-limited: saturation fraction 95.4% -> 73.9%, lower max area, median t50 72.6 -> 64.1 h.
+  - Species Cu sensitivity (05, extent-based log2 ratio 25-30/0-5 mM): most tolerant R. glutinis (+1.01) and, among well-sampled, R. mucilaginosa (-0.72); most sensitive R. kratochvilovae (-4.13), R. araucariae (-3.68), R. taiwanensis (-3.06); well-sampled R. diobovata (-2.00). Cu x species interaction on log(max_area) F = 4.34 (p ~ 6.0e-4).
+  - Species mislabels in data/metadata/Copper.Strain_info.csv (paludigenum -> paludigena, evergladiensis -> evergladensis) corrected and re-imported via scripts/db/10_import_experiment.py --strain-only (strain 84 & 327 regrouped).
 tags: [copper, growth-rate, growth-curve, species, mixed-model, lme4, rhodotorula, color, light-intensity, gompertz, logistic, timecourse]
 ```

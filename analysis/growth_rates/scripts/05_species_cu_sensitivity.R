@@ -79,11 +79,15 @@ print(species_sens %>% select(species, n_strains, min_group, median_extent_ratio
                               median_log2_extent, median_sat_drop, median_dbl_fold), digits = 3)
 
 # ---- extent mixed model: does the Cu slope differ among well-sampled species? ----
+known_spp <- c("unknown", "Rhodotorula sp. clade I")
+well_spp <- d %>%
+  filter(!species %in% known_spp) %>%
+  group_by(species) %>% summarise(n_strains = n_distinct(strain_id), .groups = "drop") %>%
+  filter(n_strains >= 8)
+cat("Well-sampled species (>= 8 strains) for extent model: ",
+    paste(well_spp$species, "(", well_spp$n_strains, ")", collapse = ", "), "\n", sep = "")
 well <- d %>%
-  filter(species %in% c("Rhodotorula mucilaginosa", "Rhodotorula paludigena",
-                        "Rhodotorula diobovata", "Rhodotorula toruloides",
-                        "Rhodotorula dairenensis", "Rhodotorula sphaerocarpa") &
-           species != "unknown" & !is.na(max_area))
+  filter(species %in% well_spp$species & !is.na(max_area))
 well <- well %>% mutate(species = factor(species), Cu = copper_mm)
 cat("\nExtent model (log max_area ~ Cu x species, well-sampled): ", nrow(well), " colonies\n", sep = "")
 
@@ -117,38 +121,43 @@ p_rank <- rank10 %>%
   scale_x_continuous(labels = function(x) sprintf("%.2f", x))
 ggsave(file.path(out_fig, "sensitivity_species_rank.png"), p_rank, width = 6.5, height = 5, dpi = 150)
 
-# per well-sampled species, extent by Cu
-spp_med <- d %>%
-  filter(species %in% c("Rhodotorula mucilaginosa", "Rhodotorula paludigena",
-                        "Rhodotorula diobovata", "Rhodotorula toruloides",
-                        "Rhodotorula dairenensis", "Rhodotorula sphaerocarpa")) %>%
-  mutate(species = factor(species),
-         copper_mm = factor(copper_mm, levels = sort(unique(copper_mm)))) %>%
-  group_by(species, copper_mm) %>%
-  summarise(m = median(max_area, na.rm = TRUE), .groups = "drop")
+# per-species facets: same top-16 panel set as scripts 02 (4x4 grid) + catch-all
+spp_strains <- d %>%
+  filter(!species %in% known_spp) %>%
+  distinct(strain_id, species) %>%
+  count(species, name = "n_strains") %>%
+  arrange(desc(n_strains), species)
+panel_spp <- spp_strains$species[seq_len(min(nrow(spp_strains), 16))]
+panelize <- function(df) {
+  df %>% mutate(panel = ifelse(as.character(species) %in% panel_spp,
+                               as.character(species), "other / unidentified"),
+                panel = factor(panel, levels = c(panel_spp, "other / unidentified")))
+}
 
-p_ext <- spp_med %>% ggplot(aes(copper_mm, m, group = 1)) +
+p_ext <- panelize(d %>% filter(!is.na(max_area))) %>%
+  mutate(copper_mm = factor(copper_mm, levels = sort(unique(copper_mm)))) %>%
+  group_by(panel, copper_mm) %>%
+  summarise(m = median(max_area, na.rm = TRUE), .groups = "drop") %>%
+  ggplot(aes(copper_mm, m, group = 1)) +
   geom_line(linewidth = 1) + geom_point(size = 2) +
-  facet_wrap(~ species, scales = "free_y") +
+  facet_wrap(~ panel, scales = "free_y", ncol = 4) +
   scale_y_continuous(labels = scales::scientific) +
   labs(x = "Copper (mM)", y = "median max colony area (px)",
-       title = "Final extent by copper per species (sensitivity of yield)")
-ggsave(file.path(out_fig, "sensitivity_extent_by_cu_spp.png"), p_ext, width = 9, height = 6, dpi = 150)
+       title = "Final extent by copper per species (sensitivity of yield)") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+ggsave(file.path(out_fig, "sensitivity_extent_by_cu_spp.png"), p_ext, width = 12, height = 11, dpi = 150)
 
-p_sat <- d %>%
-  filter(species %in% c("Rhodotorula mucilaginosa", "Rhodotorula paludigena",
-                        "Rhodotorula diobovata", "Rhodotorula toruloides",
-                        "Rhodotorula dairenensis", "Rhodotorula sphaerocarpa")) %>%
-  mutate(species = factor(species),
-         copper_mm = factor(copper_mm, levels = sort(unique(copper_mm)))) %>%
-  group_by(species, copper_mm) %>%
+p_sat <- panelize(d) %>%
+  mutate(copper_mm = factor(copper_mm, levels = sort(unique(copper_mm)))) %>%
+  group_by(panel, copper_mm) %>%
   summarise(sat = 100 * mean(saturated, na.rm = TRUE), .groups = "drop") %>%
   ggplot(aes(copper_mm, sat, group = 1)) +
   geom_line(linewidth = 1) + geom_point(size = 2) +
-  facet_wrap(~ species) +
+  facet_wrap(~ panel, ncol = 4) +
   labs(x = "Copper (mM)", y = "% colonies saturated in-window",
        title = "Plateau reachability by copper per species") +
-  scale_y_continuous(limits = c(0, 100))
-ggsave(file.path(out_fig, "sensitivity_saturation_by_cu_spp.png"), p_sat, width = 9, height = 6, dpi = 150)
+  scale_y_continuous(limits = c(0, 100)) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+ggsave(file.path(out_fig, "sensitivity_saturation_by_cu_spp.png"), p_sat, width = 12, height = 11, dpi = 150)
 
 cat("\nDone: 05_species_cu_sensitivity.R\n")

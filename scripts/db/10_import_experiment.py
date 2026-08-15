@@ -51,13 +51,45 @@ def load_plate_run_map(path: str) -> dict[int, tuple[int, int]]:
     }
 
 
+def sync_strain(con, strain_df: pl.DataFrame) -> None:
+    """Upsert the global `strain` table from the strain CSV (CSV authoritative).
+
+    Reruns are idempotent: on a strain_id conflict the metadata columns are
+    refreshed from the CSV, so name/species corrections propagate on re-import.
+    """
+    strain_rows = (
+        strain_df.select(
+            pl.col("Strain ID").alias("strain_id"),
+            pl.col("Strain").alias("strain_code"),
+            pl.col("Strain Name").alias("strain_name"),
+            pl.col("Species").alias("species"),
+            pl.col("Origin").alias("origin"),
+            pl.col("Environment").alias("environment"),
+        )
+        .unique(subset=["strain_id"])
+    )
+    con.execute("CREATE OR REPLACE TEMP TABLE _strain_stage AS SELECT * FROM strain_rows")
+    con.execute(
+        """
+        INSERT INTO strain SELECT * FROM _strain_stage
+        ON CONFLICT (strain_id) DO UPDATE SET
+            strain_code = excluded.strain_code,
+            strain_name = excluded.strain_name,
+            species = excluded.species,
+            origin = excluded.origin,
+            environment = excluded.environment
+        """
+    )
+    print(f"strain: {strain_rows.height} rows staged")
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--db", default=None, help="Path to the DuckDB file (default: db/rhodotorula_phenotypes.duckdb)")
-    ap.add_argument("--experiment-name", required=True)
-    ap.add_argument("--factor-name", required=True, help="e.g. 'Copper concentration', 'Temperature', 'pH'")
+    ap.add_argument("--experiment-name", default=None)
+    ap.add_argument("--factor-name", default=None, help="e.g. 'Copper concentration', 'Temperature', 'pH'")
     ap.add_argument("--factor-unit", default=None, help="e.g. 'mM', 'C', 'pH units'")
-    ap.add_argument("--plate-info-csv", required=True)
+    ap.add_argument("--plate-info-csv", default=None)
     ap.add_argument("--strain-info-csv", required=True)
     ap.add_argument("--plate-number-column", default="Batch Number")
     ap.add_argument("--factor-value-column", default="Concentration (mM)")
@@ -74,6 +106,11 @@ def main():
                      help="CSV with columns plate_number,run_number,configuration -- "
                           "use instead of the block-arithmetic default")
     ap.add_argument("--notes", default=None)
+    ap.add_argument("--strain-only", action="store_true",
+                     help="Sync the global `strain` table from the strain CSV and exit. "
+                          "Use after editing Strain_info.csv (e.g. a species-name fix) without "
+                          "touching imager_run/well_placement, which full re-runs cannot "
+                          "rewrite once measurements reference the runs.")
     args = ap.parse_args()
 
     con = get_connection(args.db)
@@ -87,6 +124,20 @@ def main():
     if n_blank:
         print(f"Dropped {n_blank} fully-blank padding rows from {args.strain_info_csv} "
               f"(Strain ID null) -- {strain_df.height} real strain rows remain")
+
+    if args.strain_only:
+        sync_strain(con, strain_df)
+        con.close()
+        print("Done (strain-only).")
+        return
+
+    missing = [a for a, v in (("--experiment-name", args.experiment_name),
+                              ("--factor-name", args.factor_name),
+                              ("--plate-info-csv", args.plate_info_csv)) if v is None]
+    if missing:
+        con.close()
+        raise SystemExit(f"error: {', '.join(missing)} is required unless --strain-only is set")
+
     plate_df = pl.read_csv(args.plate_info_csv, infer_schema_length=None)
 
     base_run_number = args.base_run_number
@@ -170,26 +221,8 @@ def main():
             [run_number, experiment_id, lp, run_number not in known_run_numbers],
         )
 
-    # --- strain (global, upsert-ignore) --------------------------------------------
-    strain_rows = (
-        strain_df.select(
-            pl.col("Strain ID").alias("strain_id"),
-            pl.col("Strain").alias("strain_code"),
-            pl.col("Strain Name").alias("strain_name"),
-            pl.col("Species").alias("species"),
-            pl.col("Origin").alias("origin"),
-            pl.col("Environment").alias("environment"),
-        )
-        .unique(subset=["strain_id"])
-    )
-    con.execute("CREATE OR REPLACE TEMP TABLE _strain_stage AS SELECT * FROM strain_rows")
-    con.execute(
-        """
-        INSERT INTO strain SELECT * FROM _strain_stage
-        ON CONFLICT (strain_id) DO NOTHING
-        """
-    )
-    print(f"strain: {strain_rows.height} rows staged")
+    # --- strain (global, upsert) --------------------------------------------------
+    sync_strain(con, strain_df)
 
     # --- well_placement --------------------------------------------------------------
     well_rows = strain_df.select(

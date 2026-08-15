@@ -133,11 +133,9 @@ models$int_trend <- fit_model(
   colony_int, "rate_int ~ Cu(numeric) + species/strain (sensitivity)")
 
 # Interaction among well-sampled species (>= 8 strains), Cu x species fixed
-well_spp <- sxc %>%
-  filter(!species %in% c("unknown", "R. sp. clade I")) %>%
-  count(species)  # strain-Cu rows; better count distinct strains:
+known_spp <- c("unknown", "Rhodotorula sp. clade I")
 well_spp <- colony_area %>%
-  filter(!species %in% c("unknown", "R. sp. clade I")) %>%
+  filter(!species %in% known_spp) %>%
   group_by(species) %>% summarise(n_strains = n_distinct(strain_id), .groups = "drop") %>%
   filter(n_strains >= 8)
 note("Well-sampled species (>= 8 strains): %s",
@@ -209,35 +207,45 @@ p_overall <- ggplot(sxc, aes(copper_mm, mean_rate_area)) +
 ggsave(file.path(out_fig, "rate_by_cu_overall.png"), p_overall,
        width = 7.5, height = 5.5, dpi = 150)
 
-# per well-sampled species + others
-sxc$grp <- ifelse(sxc$species %in% well_spp$species, sxc$species, "rare / other")
-sxc$grp <- factor(sxc$grp, levels = c(well_spp$species, "rare / other"))
-p_spp <- ggplot(sxc, aes(copper_mm, mean_rate_area)) +
+# per-species facets: top-16 named species (4x4 grid) + catch-all for the rest.
+# Ordering by strain count so the best-sampled species come first.
+spp_strains <- sxc %>%
+  filter(!species %in% known_spp) %>%
+  distinct(strain_id, species) %>%
+  count(species, name = "n_strains") %>%
+  arrange(desc(n_strains), species)
+panel_spp <- spp_strains$species[seq_len(min(nrow(spp_strains), 16))]
+note("Facet panels (%d) by strain count: %s", length(panel_spp),
+     paste(sprintf("%s (%d)", panel_spp, spp_strains$n_strains[seq_along(panel_spp)]), collapse = ", "))
+facet_panel <- function(df) {
+  df %>% mutate(panel = ifelse(species %in% panel_spp, as.character(species), "other / unidentified"),
+                panel = factor(panel, levels = c(panel_spp, "other / unidentified")))
+}
+
+p_spp <- facet_panel(sxc) %>% ggplot(aes(copper_mm, mean_rate_area)) +
   geom_hline(yintercept = 0, linetype = 2, colour = "grey60") +
   geom_jitter(width = 0.10, size = 0.7, alpha = 0.45, colour = "grey40") +
   stat_summary(aes(group = 1), fun = mean, geom = "line", linewidth = 1.0, colour = "darkred") +
   stat_summary(aes(group = 1), fun = mean, geom = "point", size = 1.8, colour = "darkred") +
-  facet_wrap(~ grp, scales = "free_y") +
+  facet_wrap(~ panel, scales = "free_y", ncol = 4) +
   labs(x = "Copper (mM)", y = "peak d(log area)/dt per h",
-       title = "Growth rate (area) by species and copper") +
+       title = "Growth rate (area) by species and copper (panels by # strains)") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ggsave(file.path(out_fig, "rate_by_cu_spp.png"), p_spp,
-       width = 9, height = 6.5, dpi = 150)
+       width = 12, height = 11, dpi = 150)
 
-# intensity-rate version (well-sampled spp)
-sxc$grp2 <- ifelse(sxc$species %in% well_spp$species, sxc$species, "rare / other")
-sxc$grp2 <- factor(sxc$grp2, levels = c(well_spp$species, "rare / other"))
-p_int <- ggplot(sxc, aes(copper_mm, mean_rate_int)) +
+# intensity-rate version (same panels)
+p_int <- facet_panel(sxc) %>% ggplot(aes(copper_mm, mean_rate_int)) +
   geom_hline(yintercept = 0, linetype = 2, colour = "grey60") +
   geom_jitter(width = 0.10, size = 0.7, alpha = 0.45, colour = "grey40") +
   stat_summary(aes(group = 1), fun = mean, geom = "line", linewidth = 1.0, colour = "darkblue") +
   stat_summary(aes(group = 1), fun = mean, geom = "point", size = 1.8, colour = "darkblue") +
-  facet_wrap(~ grp2, scales = "free_y") +
+  facet_wrap(~ panel, scales = "free_y", ncol = 4) +
   labs(x = "Copper (mM)", y = "peak d(intensity)/dt per h",
-       title = "Consumer-light-intensity rise rate by species and copper") +
+       title = "Consumer-light-intensity rise rate by species and copper (panels by # strains)") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ggsave(file.path(out_fig, "rate_int_by_cu_spp.png"), p_int,
-       width = 9, height = 6.5, dpi = 150)
+       width = 12, height = 11, dpi = 150)
 
 sink(file.path(out_tab, "rate_fit_notes.txt"))
 cat(paste(notes, collapse = "\n"), "\n")

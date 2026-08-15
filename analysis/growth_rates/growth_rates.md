@@ -242,14 +242,14 @@ species label).
 
 rate_area: fixed effects (diff vs 0 mM)
 
-| copper_mm |     diff |       se |       lo |       hi | tvalue | pvalue | model    |
-|----------:|---------:|---------:|---------:|---------:|-------:|-------:|:---------|
-|         5 | 0.000631 | 0.000121 | 0.000394 | 0.000867 |   5.23 |  2e-07 | rate_int |
-|        10 | 0.001030 | 0.000122 | 0.000786 | 0.001260 |   8.39 |  0e+00 | rate_int |
-|        15 | 0.001470 | 0.000122 | 0.001230 | 0.001710 |  12.10 |  0e+00 | rate_int |
-|        20 | 0.002400 | 0.000122 | 0.002160 | 0.002630 |  19.60 |  0e+00 | rate_int |
-|        25 | 0.003670 | 0.000123 | 0.003420 | 0.003910 |  29.70 |  0e+00 | rate_int |
-|        30 | 0.005910 | 0.000123 | 0.005670 | 0.006150 |  47.90 |  0e+00 | rate_int |
+| copper_mm |    diff |       se |       lo |       hi | tvalue | pvalue | model    |
+|----------:|--------:|---------:|---------:|---------:|-------:|-------:|:---------|
+|         5 | 0.00063 | 0.000121 | 0.000394 | 0.000867 |   5.23 |  2e-07 | rate_int |
+|        10 | 0.00102 | 0.000122 | 0.000785 | 0.001260 |   8.38 |  0e+00 | rate_int |
+|        15 | 0.00147 | 0.000122 | 0.001230 | 0.001710 |  12.10 |  0e+00 | rate_int |
+|        20 | 0.00240 | 0.000122 | 0.002160 | 0.002630 |  19.60 |  0e+00 | rate_int |
+|        25 | 0.00366 | 0.000123 | 0.003420 | 0.003900 |  29.70 |  0e+00 | rate_int |
+|        30 | 0.00591 | 0.000123 | 0.005670 | 0.006150 |  47.90 |  0e+00 | rate_int |
 
 rate_int vs 0 mM (Wald 95% CI)
 
@@ -267,10 +267,12 @@ observed”.
 
 ![](results/figures/rate_by_cu_spp.png)<!-- -->![](results/figures/rate_int_by_cu_spp.png)<!-- -->
 
-Well-sampled species (\>=8 strains): dairenensis (8), diobovata (10),
-mucilaginosa (216), paludigena (16), sphaerocarpa (8), toruloides (10);
-`R. sp. clade I` excluded from the interaction test (unnamed). The Cu ×
-species interaction test (well-sampled subset) is in
+The species-panel figures facet the top-16 species by strain count (4x4
+grid), plus an “other / unidentified” catch-all panel. Well-sampled
+species (\>=8 strains): dairenensis (8), diobovata (10), mucilaginosa
+(216), paludigena (17), sphaerocarpa (8), toruloides (10);
+`Rhodotorula sp. clade I` excluded from the interaction test (unnamed
+clade). The Cu × species interaction test (well-sampled subset) is in
 `results/tables/rate_models_species_cu.csv/txt`.
 
 ## Doubling-time test: is the copper effect real or a phase artifact?
@@ -326,23 +328,21 @@ fold-change is reported for completeness (~1 expected).
 | species | n_strains | median_extent_ratio | median_log2_extent | median_sat_drop | median_dbl_fold |
 |:---|---:|---:|---:|---:|---:|
 | Rhodotorula kratochvilovae | 3 | 0.0572 | -4.130 | 75.00 | 0.427 |
-| Rhodotorula paludigenum | 1 | 0.0653 | -3.940 | 16.70 | 0.805 |
 | Rhodotorula araucariae | 1 | 0.0779 | -3.680 | 16.10 | 0.805 |
 | Rhodotorula taiwanensis | 6 | 0.1210 | -3.060 | 43.80 | 0.515 |
 | Rhodotorula diobovata | 10 | 0.2510 | -2.000 | 29.20 | 0.810 |
 | Rhodotorula dairenensis | 10 | 0.3800 | -1.520 | 0.00 | 1.090 |
 | Rhodotorula sp. clade XIII | 1 | 0.3590 | -1.480 | 0.00 | 0.986 |
 | Rhodotorula graminis | 4 | 0.3650 | -1.460 | 37.50 | 0.999 |
-| Rhodotorula paludigena | 16 | 0.3790 | -1.400 | 8.75 | 1.050 |
+| Rhodotorula paludigena | 17 | 0.3750 | -1.410 | 12.50 | 1.000 |
 | Rhodotorula sp. clade I | 9 | 0.3920 | -1.350 | 25.00 | 0.972 |
 | Rhodotorula sp. clade XI | 2 | 0.4280 | -1.340 | 18.80 | 1.550 |
 | Cystobasidium sp. | 1 | 0.4600 | -1.120 | 50.00 | 0.874 |
 | Rhodotorula toruloides | 10 | 0.4740 | -1.080 | 16.40 | 0.876 |
 | Rhodotorula sphaerocarpa | 8 | 0.4830 | -1.050 | 9.82 | 1.340 |
 | Rhodotorula mucilaginosa | 217 | 0.6070 | -0.720 | 12.50 | 0.947 |
-| Rhodotorula evergladiensis | 1 | 0.6530 | -0.614 | 0.00 | 1.070 |
+| Rhodotorula evergladensis | 2 | 0.6710 | -0.575 | 14.30 | 0.981 |
 | unknown | 12 | 0.6720 | -0.573 | 12.50 | 0.945 |
-| Rhodotorula evergladensis | 1 | 0.6900 | -0.536 | 28.60 | 0.889 |
 | Pseudomicrostroma phylloplanum | 1 | 0.7640 | -0.388 | 28.60 | 0.919 |
 | Rhodotorula pacifica | 3 | 0.8100 | -0.305 | 12.50 | 1.080 |
 | Rhodotorula glutinis | 3 | 2.0100 | 1.010 | 33.30 | 2.570 |
@@ -353,26 +353,28 @@ sensitive)
 ![](results/figures/sensitivity_species_rank.png)<!-- -->![](results/figures/sensitivity_extent_by_cu_spp.png)<!-- -->![](results/figures/sensitivity_saturation_by_cu_spp.png)<!-- -->
 
 Extent mixed model `log(max_area) ~ Cu x species + (1 | strain_code)` on
-well-sampled species (7,271 colonies): Cu F = 73.0 (p ~ 1.6e-17),
-species F = 29.0, **Cu x species interaction F = 4.35 (p ~ 5.9e-4)** —
+well-sampled species (7,288 colonies): Cu F = 72.9 (p ~ 1.6e-17),
+species F = 30.2, **Cu x species interaction F = 4.34 (p ~ 6.0e-4)** —
 species differ in how copper shrinks final extent.
 
 **Most tolerant (least sensitive):** `R. glutinis` (log2 +1.01), then
 `R. pacifica`, `R. evergladensis`, `Pseudomicrostroma phylloplanum`.
 Among well-sampled taxa, **`R. mucilaginosa` is the most tolerant**
 (log2 = -0.72), then `R. sphaerocarpa` / `R. toruloides` (-1.05/-1.08),
-then `R. paludigena` / `R. dairenensis` (-1.40/-1.52).
+then `R. paludigena` / `R. dairenensis` (-1.41/-1.52).
 
-**Most sensitive:** `R. kratochvilovae` (log2 = -4.13), `R. paludigenum`
-(-3.94), `R. araucariae` (-3.68), `R. taiwanensis` (-3.06); among
-well-sampled, **`R. diobovata` is the most sensitive** (log2 = -2.00).
+**Most sensitive:** `R. kratochvilovae` (log2 = -4.13), `R. araucariae`
+(-3.68), `R. taiwanensis` (-3.06); among well-sampled, **`R. diobovata`
+is the most sensitive** (log2 = -2.00).
 
-*Data-quality note:* the species labels contain apparent near-duplicates
-(`R. paludigenum` vs `R. paludigena`, `R. evergladensis` vs
-`R. evergladiensis`) that were **not** merged — treat single-strain,
-small-n taxa (especially the `R. glutinis` +1.01 and `R. kratochvilovae`
-values, which rest on \<30 colonies) with caution; confirm with
-per-strain tables (`results/tables/strain_sensitivity.csv`).
+*Data-quality note:* two species-name misspellings in the metadata CSV
+(`Rhodotorula paludigenum`, `Rhodotorula evergladiensis`) were corrected
+to `paludigena` / `evergladensis` and re-imported, so strain 84
+(TFCN_43A-0-22) and strain 327 (NRRL_Y-48721) now group with their
+correct species. Small-n, single-strain taxa (especially the
+`R. glutinis` +1.01 and `R. kratochvilovae` values, which rest on \<30
+colonies) still need confirmation — check per-strain tables
+(`results/tables/strain_sensitivity.csv`).
 
 ## Growth-rate × color / light-intensity interaction
 
@@ -387,12 +389,12 @@ analogues)
 
 | term                                  | Estimate | Std..Error | t.value |   Pr…t.. |
 |:--------------------------------------|---------:|-----------:|--------:|---------:|
-| rate_area_ln_area:factor(copper_mm)5  |     3.70 |      0.645 |    5.74 | 0.00e+00 |
-| rate_area_ln_area:factor(copper_mm)10 |     2.91 |      0.688 |    4.23 | 2.41e-05 |
-| rate_area_ln_area:factor(copper_mm)15 |     2.56 |      0.616 |    4.16 | 3.24e-05 |
-| rate_area_ln_area:factor(copper_mm)20 |     1.52 |      0.564 |    2.69 | 7.10e-03 |
-| rate_area_ln_area:factor(copper_mm)25 |     1.78 |      0.547 |    3.25 | 1.15e-03 |
-| rate_area_ln_area:factor(copper_mm)30 |     1.30 |      0.536 |    2.42 | 1.56e-02 |
+| rate_area_ln_area:factor(copper_mm)5  |     3.70 |      0.645 |    5.73 | 0.00e+00 |
+| rate_area_ln_area:factor(copper_mm)10 |     2.90 |      0.688 |    4.22 | 2.44e-05 |
+| rate_area_ln_area:factor(copper_mm)15 |     2.56 |      0.616 |    4.16 | 3.28e-05 |
+| rate_area_ln_area:factor(copper_mm)20 |     1.52 |      0.564 |    2.69 | 7.06e-03 |
+| rate_area_ln_area:factor(copper_mm)25 |     1.78 |      0.547 |    3.25 | 1.16e-03 |
+| rate_area_ln_area:factor(copper_mm)30 |     1.30 |      0.536 |    2.42 | 1.55e-02 |
 
 L\* ~ rate_area x Cu: interaction coefficients
 
@@ -425,9 +427,9 @@ reported in the plate-position analysis. Per-species faceted versions:
   h, fold 0.99 at 30 mM); the copper phenotype is extent/yield-limited
   (saturation 95% -\> 74%, lower max area). Parametric `mu` remains
   unidentifiable in-window.
-- Species labels contain apparent near-duplicates
-  (paludigenum/paludigena, evergladensis/evergladiensis), left unmerged;
-  small-n single-strain taxa need confirmation.
+- Species-name misspellings in the metadata CSV (paludigenum,
+  evergladiensis) have been corrected (paludigena, evergladensis) and
+  re-imported; small-n single-strain taxa still need confirmation.
 - 130 of 2,183 strain-Cu aggregates rest on a single culture (flagged,
   kept).
 - 282 colonies (3.3%) lack a species label -\> `unknown` random-level.

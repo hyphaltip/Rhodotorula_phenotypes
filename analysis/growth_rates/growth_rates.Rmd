@@ -152,10 +152,12 @@ if (file.exists(file.path(fig_dir, "rate_by_cu_spp.png"))) knitr::include_graphi
 if (file.exists(file.path(fig_dir, "rate_int_by_cu_spp.png"))) knitr::include_graphics(file.path(fig_dir, "rate_int_by_cu_spp.png"))
 ```
 
-Well-sampled species (>=8 strains): dairenensis (8), diobovata (10),
-mucilaginosa (216), paludigena (16), sphaerocarpa (8), toruloides (10);
-`R. sp. clade I` excluded from the interaction test (unnamed). The Cu × species
-interaction test (well-sampled subset) is in
+The species-panel figures facet the top-16 species by strain count (4x4 grid),
+plus an "other / unidentified" catch-all panel. Well-sampled species (>=8
+strains): dairenensis (8), diobovata (10), mucilaginosa (216), paludigena
+(17), sphaerocarpa (8), toruloides (10); `Rhodotorula sp. clade I` excluded
+from the interaction test (unnamed clade). The Cu × species interaction test
+(well-sampled subset) is in
 `results/tables/rate_models_species_cu.csv/txt`.
 
 ## Doubling-time test: is the copper effect real or a phase artifact?
@@ -221,25 +223,27 @@ if (file.exists(file.path(fig_dir, "sensitivity_saturation_by_cu_spp.png"))) kni
 ```
 
 Extent mixed model `log(max_area) ~ Cu x species + (1 | strain_code)` on
-well-sampled species (7,271 colonies): Cu F = 73.0 (p ~ 1.6e-17), species
-F = 29.0, **Cu x species interaction F = 4.35 (p ~ 5.9e-4)** — species differ
+well-sampled species (7,288 colonies): Cu F = 72.9 (p ~ 1.6e-17), species
+F = 30.2, **Cu x species interaction F = 4.34 (p ~ 6.0e-4)** — species differ
 in how copper shrinks final extent.
 
 **Most tolerant (least sensitive):** `R. glutinis` (log2 +1.01), then
 `R. pacifica`, `R. evergladensis`, `Pseudomicrostroma phylloplanum`. Among
 well-sampled taxa, **`R. mucilaginosa` is the most tolerant** (log2 = -0.72),
 then `R. sphaerocarpa` / `R. toruloides` (-1.05/-1.08), then
-`R. paludigena` / `R. dairenensis` (-1.40/-1.52).
+`R. paludigena` / `R. dairenensis` (-1.41/-1.52).
 
-**Most sensitive:** `R. kratochvilovae` (log2 = -4.13), `R. paludigenum`
-(-3.94), `R. araucariae` (-3.68), `R. taiwanensis` (-3.06); among
-well-sampled, **`R. diobovata` is the most sensitive** (log2 = -2.00).
+**Most sensitive:** `R. kratochvilovae` (log2 = -4.13), `R. araucariae`
+(-3.68), `R. taiwanensis` (-3.06); among well-sampled, **`R. diobovata` is the
+most sensitive** (log2 = -2.00).
 
-*Data-quality note:* the species labels contain apparent near-duplicates
-(`R. paludigenum` vs `R. paludigena`, `R. evergladensis` vs
-`R. evergladiensis`) that were **not** merged — treat single-strain, small-n
-taxa (especially the `R. glutinis` +1.01 and `R. kratochvilovae` values, which
-rest on <30 colonies) with caution; confirm with per-strain tables
+*Data-quality note:* two species-name misspellings in the metadata CSV
+(`Rhodotorula paludigenum`, `Rhodotorula evergladiensis`) were corrected to
+`paludigena` / `evergladensis` and re-imported, so strain 84 (TFCN_43A-0-22)
+and strain 327 (NRRL_Y-48721) now group with their correct species. Small-n,
+single-strain taxa (especially the `R. glutinis` +1.01 and
+`R. kratochvilovae` values, which rest on <30 colonies) still need
+confirmation — check per-strain tables
 (`results/tables/strain_sensitivity.csv`).
 
 ## Growth-rate × color / light-intensity interaction
@@ -291,9 +295,9 @@ analysis. Per-species faceted versions:
   shows the exponential doubling time is copper-neutral (~37 h, fold 0.99 at
   30 mM); the copper phenotype is extent/yield-limited (saturation 95% -> 74%,
   lower max area). Parametric `mu` remains unidentifiable in-window.
-* Species labels contain apparent near-duplicates (paludigenum/paludigena,
-  evergladensis/evergladiensis), left unmerged; small-n single-strain taxa need
-  confirmation.
+* Species-name misspellings in the metadata CSV (paludigenum, evergladiensis)
+  have been corrected (paludigena, evergladensis) and re-imported; small-n
+  single-strain taxa still need confirmation.
 * 130 of 2,183 strain-Cu aggregates rest on a single culture (flagged, kept).
 * 282 colonies (3.3%) lack a species label -> `unknown` random-level.
 * `R. sp. clade I` is excluded from the species-interaction test.

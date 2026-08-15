@@ -51,3 +51,11 @@ Append-only log of gotchas, surprises, and insights.
 - **Resolution**: In Rmds under this repo use doc-relative `results/tables` and keep Unicode to `—` and `×` (what the plate-position report proves pdflatex accepts); else switch the engine. Detect remaining non-ASCII with a quick python one-liner printing U+ codepoints before rendering.
 - **mitigation_type**: structural — a report template/lint for allowed Unicode + doc-relative paths.
 - **Tags**: R, rmarkdown, knitr, working-directory, pdflatex, unicode, reporting
+
+### [2026-08-15] L-7 — a metadata-CSV label fix does NOT propagate to DuckDB: `strain` used `ON CONFLICT DO NOTHING` and full re-import is blocked by FK from measurements to imager_run
+- **Category**: data / DB import
+- **What happened**: Corrected two species-name misspellings in `data/metadata/Copper.Strain_info.csv`, then re-ran `10_import_experiment.py`: (1) the global `strain` upsert was `DO NOTHING`, so existing rows kept the old labels; (2) a full re-import crashed with `Constraint error: key run_number 353 is still referenced by a foreign key` — measurements reference `imager_run.run_number`, so the imager_run upsert cannot mid-flight replace rows already referenced.
+- **Why it matters**: Analyses join species from the DB `strain` table, not from the CSV, so the CSV fix silently had no effect on any downstream output until the DB was updated. And the only "official" propagation path (full re-import) is structurally impossible in place once measurements load.
+- **Resolution**: Switched the `strain` upsert to `DO UPDATE SET` the metadata columns (CSV authoritative) and added `--strain-only` to `10_import_experiment.py` to sync just the strain table without touching imager_run/well_placement; made the previously-required experiment/plate args optional with a fail-loud guard under `--strain-only`. Running `pixi run python scripts/db/10_import_experiment.py --strain-only --strain-info-csv data/metadata/Copper.Strain_info.csv` fixed strains 84 and 327.
+- **mitigation_type**: structural — any metadata edit workflow should use `--strain-only`; the full import is only safe on a fresh DB.
+- **Tags**: data, duckdb, import, metadata, strain, FK, copper
