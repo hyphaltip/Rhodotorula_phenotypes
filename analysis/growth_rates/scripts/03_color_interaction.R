@@ -144,5 +144,46 @@ ggsave(file.path(out_fig, "ratearea_vs_rateint.png"),
           "Two growth modes: area expansion vs brightness rise, by copper"),
        width = 7, height = 5.5, dpi = 150)
 
+# --- direct endpoint color (L*, a*, b*) vs copper concentration -------------
+well_spp <- c("Rhodotorula mucilaginosa", "Rhodotorula paludigena", "Rhodotorula diobovata",
+              "Rhodotorula toruloides", "Rhodotorula dairenensis", "Rhodotorula sphaerocarpa")
+dplot <- d %>% filter(species %in% well_spp) %>%
+  mutate(species = factor(species),
+         copper_mm = factor(copper_mm, levels = sort(unique(copper_mm))))
+
+color_by_cu <- function(y, ylab, tt) {
+  ggplot(dplot, aes(copper_mm, .data[[y]])) +
+    geom_boxplot(outlier.size = 0.3, width = 0.6, fill = "grey90") +
+    stat_summary(aes(group = 1), fun = median, geom = "line",
+                 colour = "darkred", linewidth = 1.2) +
+    labs(x = "Copper (mM)", y = ylab, title = tt)
+}
+color_by_cu_facet <- function(y, ylab, tt) {
+  ggplot(dplot, aes(copper_mm, .data[[y]])) +
+    geom_boxplot(outlier.size = 0.3, width = 0.6, fill = "grey90") +
+    facet_wrap(~ species, scales = "free_y", nrow = 2) +
+    labs(x = "Copper (mM)", y = ylab, title = tt) +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1))
+}
+
+ggsave(file.path(out_fig, "color_L_by_cu.png"),
+       color_by_cu("lab_l_late", "endpoint L*", "L* (lightness) vs copper"), 
+       width = 7, height = 5, dpi = 150)
+ggsave(file.path(out_fig, "color_a_by_cu.png"),
+       color_by_cu("lab_a_late", "endpoint a*", "a* (red-green) vs copper"),
+       width = 7, height = 5, dpi = 150)
+ggsave(file.path(out_fig, "color_b_by_cu.png"),
+       color_by_cu("lab_b_late", "endpoint b*", "b* (yellow-blue) vs copper"),
+       width = 7, height = 5, dpi = 150)
+ggsave(file.path(out_fig, "color_L_by_cu_spp.png"),
+       color_by_cu_facet("lab_l_late", "endpoint L*", "L* (lightness) vs copper by species"),
+       width = 9, height = 6, dpi = 150)
+ggsave(file.path(out_fig, "color_a_by_cu_spp.png"),
+       color_by_cu_facet("lab_a_late", "endpoint a*", "a* (red-green) vs copper by species"),
+       width = 9, height = 6, dpi = 150)
+ggsave(file.path(out_fig, "color_b_by_cu_spp.png"),
+       color_by_cu_facet("lab_b_late", "endpoint b*", "b* (yellow-blue) vs copper by species"),
+       width = 9, height = 6, dpi = 150)
+
 writeLines(notes, file.path(out_tab, "color_growth_notes.txt"))
 cat("\nDone: 03_color_interaction.R\n")

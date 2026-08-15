@@ -9,8 +9,14 @@ analysis/growth_rates
   extraction](#model-fitting-and-rate-extraction)
 - [Growth rate by copper and
   species](#growth-rate-by-copper-and-species)
+- [Doubling-time test: is the copper effect real or a phase
+  artifact?](#doubling-time-test-is-the-copper-effect-real-or-a-phase-artifact)
+- [Which species and strains are most vs least
+  copper-sensitive?](#which-species-and-strains-are-most-vs-least-copper-sensitive)
 - [Growth-rate × color / light-intensity
   interaction](#growth-rate--color--light-intensity-interaction)
+  - [Endpoint color vs copper
+    concentration](#endpoint-color-vs-copper-concentration)
 - [Limitations](#limitations)
 - [Reproduce](#reproduce)
 
@@ -267,6 +273,107 @@ mucilaginosa (216), paludigena (16), sphaerocarpa (8), toruloides (10);
 species interaction test (well-sampled subset) is in
 `results/tables/rate_models_species_cu.csv/txt`.
 
+## Doubling-time test: is the copper effect real or a phase artifact?
+
+`scripts/04_doubling_time.R`. The peak-slope rate above is phase/length
+sensitive. A phase-independent estimator is computed per colony: the
+exponential-region specific rate `k` (slope of `log(area) ~ t` over the
+highest-R^2 sliding 4-point window, requiring R^2 \>= 0.97), converted
+to a doubling time `dbl = ln(2)/k`.
+
+| copper_mm |    n | saturated_pct | median_t50 | median_dbl |
+|----------:|-----:|--------------:|-----------:|-----------:|
+|         0 | 1196 |         95.40 |      72.56 |      38.66 |
+|         5 | 1191 |         95.63 |      73.71 |      39.37 |
+|        10 | 1192 |         95.72 |      73.21 |      36.63 |
+|        15 | 1188 |         94.19 |      71.08 |      36.24 |
+|        20 | 1194 |         91.54 |      70.39 |      37.09 |
+|        25 | 1223 |         86.51 |      67.40 |      37.59 |
+|        30 | 1262 |         73.93 |      64.14 |      36.59 |
+
+Saturation fraction, t50 and doubling time by copper (medians)
+
+**Results**
+
+- Kendall tau between the peak-slope `rate_area` and doubling time:
+  0.00245 — the two estimators are **orthogonal**.
+- Mixed model `log(dbl) ~ Cu(factor) + (1 | species/strain)`: Cu
+  significant (F = 10.85, p ~ 5e-12) but biologically negligible —
+  estimated fold-change in doubling time at 30 mM vs 0 mM = 0.987x.
+- The exponential doubling time is **flat ~37 h across 0–30 mM**.
+
+**Conclusion.** The monotonically increasing peak-slope rate with copper
+is a **phase artifact**: at low Cu most colonies bend over to a plateau
+(saturated 95% at 0 mM) so their realized 6 h log-slope is modest; at
+high Cu colonies keep expanding through the ~120 h window (saturated
+only 74% at 30 mM) so their observed log-slope stays high. Copper does
+**not** change the per-cell exponential doubling rate; its effect is
+**extent-limited** — lower final yield (lower max area) and reducing
+plateau-reachability (the missingness-as-phenotype axis, consistent with
+the plate-position analysis).
+
+## Which species and strains are most vs least copper-sensitive?
+
+`scripts/05_species_cu_sensitivity.R`. Because doubling time is
+Cu-neutral, sensitivity is indexed on **final extent / yield**:
+
+    log2 extent = log2( median max(area) @ 25–30 mM / median max(area) @ 0–5 mM )
+
+(log2 \< 0 means the colony reaches less biomass at high copper), plus
+the plateau-reachability drop as a second axis. Doubling-time
+fold-change is reported for completeness (~1 expected).
+
+| species | n_strains | median_extent_ratio | median_log2_extent | median_sat_drop | median_dbl_fold |
+|:---|---:|---:|---:|---:|---:|
+| Rhodotorula kratochvilovae | 3 | 0.0572 | -4.130 | 75.00 | 0.427 |
+| Rhodotorula paludigenum | 1 | 0.0653 | -3.940 | 16.70 | 0.805 |
+| Rhodotorula araucariae | 1 | 0.0779 | -3.680 | 16.10 | 0.805 |
+| Rhodotorula taiwanensis | 6 | 0.1210 | -3.060 | 43.80 | 0.515 |
+| Rhodotorula diobovata | 10 | 0.2510 | -2.000 | 29.20 | 0.810 |
+| Rhodotorula dairenensis | 10 | 0.3800 | -1.520 | 0.00 | 1.090 |
+| Rhodotorula sp. clade XIII | 1 | 0.3590 | -1.480 | 0.00 | 0.986 |
+| Rhodotorula graminis | 4 | 0.3650 | -1.460 | 37.50 | 0.999 |
+| Rhodotorula paludigena | 16 | 0.3790 | -1.400 | 8.75 | 1.050 |
+| Rhodotorula sp. clade I | 9 | 0.3920 | -1.350 | 25.00 | 0.972 |
+| Rhodotorula sp. clade XI | 2 | 0.4280 | -1.340 | 18.80 | 1.550 |
+| Cystobasidium sp. | 1 | 0.4600 | -1.120 | 50.00 | 0.874 |
+| Rhodotorula toruloides | 10 | 0.4740 | -1.080 | 16.40 | 0.876 |
+| Rhodotorula sphaerocarpa | 8 | 0.4830 | -1.050 | 9.82 | 1.340 |
+| Rhodotorula mucilaginosa | 217 | 0.6070 | -0.720 | 12.50 | 0.947 |
+| Rhodotorula evergladiensis | 1 | 0.6530 | -0.614 | 0.00 | 1.070 |
+| unknown | 12 | 0.6720 | -0.573 | 12.50 | 0.945 |
+| Rhodotorula evergladensis | 1 | 0.6900 | -0.536 | 28.60 | 0.889 |
+| Pseudomicrostroma phylloplanum | 1 | 0.7640 | -0.388 | 28.60 | 0.919 |
+| Rhodotorula pacifica | 3 | 0.8100 | -0.305 | 12.50 | 1.080 |
+| Rhodotorula glutinis | 3 | 2.0100 | 1.010 | 33.30 | 2.570 |
+
+Species ranked by copper sensitivity (log2 extent; lower = more
+sensitive)
+
+![](results/figures/sensitivity_species_rank.png)<!-- -->![](results/figures/sensitivity_extent_by_cu_spp.png)<!-- -->![](results/figures/sensitivity_saturation_by_cu_spp.png)<!-- -->
+
+Extent mixed model `log(max_area) ~ Cu x species + (1 | strain_code)` on
+well-sampled species (7,271 colonies): Cu F = 73.0 (p ~ 1.6e-17),
+species F = 29.0, **Cu x species interaction F = 4.35 (p ~ 5.9e-4)** —
+species differ in how copper shrinks final extent.
+
+**Most tolerant (least sensitive):** `R. glutinis` (log2 +1.01), then
+`R. pacifica`, `R. evergladensis`, `Pseudomicrostroma phylloplanum`.
+Among well-sampled taxa, **`R. mucilaginosa` is the most tolerant**
+(log2 = -0.72), then `R. sphaerocarpa` / `R. toruloides` (-1.05/-1.08),
+then `R. paludigena` / `R. dairenensis` (-1.40/-1.52).
+
+**Most sensitive:** `R. kratochvilovae` (log2 = -4.13), `R. paludigenum`
+(-3.94), `R. araucariae` (-3.68), `R. taiwanensis` (-3.06); among
+well-sampled, **`R. diobovata` is the most sensitive** (log2 = -2.00).
+
+*Data-quality note:* the species labels contain apparent near-duplicates
+(`R. paludigenum` vs `R. paludigena`, `R. evergladensis` vs
+`R. evergladiensis`) that were **not** merged — treat single-strain,
+small-n taxa (especially the `R. glutinis` +1.01 and `R. kratochvilovae`
+values, which rest on \<30 colonies) with caution; confirm with
+per-strain tables (`results/tables/strain_sensitivity.csv`).
+
 ## Growth-rate × color / light-intensity interaction
 
 `scripts/03_color_interaction.R`. Endpoint color = last non-NA CIELAB
@@ -297,17 +404,38 @@ a*). The two growth modes are weakly correlated (`rate_area` vs
 `rate_int` r = 0.21) — area expansion and brightness rise are distinct
 axes.
 
+### Endpoint color vs copper concentration
+
+Direct endpoint-outcome view for all three CIELAB axes (well-sampled
+species), complementing the rate-interaction plots above:
+
+![](results/figures/color_L_by_cu.png)<!-- -->![](results/figures/color_a_by_cu.png)<!-- -->![](results/figures/color_b_by_cu.png)<!-- -->
+
+All three axes respond strongly to copper (Cu F ~ 900 `L*`, ~ 1100 `a*`,
+see `results/tables/color_growth_models.txt`): `L*` (lightness) falls
+with copper while `a*` (red-green) and `b*` (yellow-blue) shift
+substantially — consistent with the melt-pigment (carotenoid) response
+reported in the plate-position analysis. Per-species faceted versions:
+`color_{L,a,b}_by_cu_spp.png`.
+
 ## Limitations
 
-- Peak-slope rate is phase/length sensitive (see caveat above);
-  parametric `mu` is unidentifiable within the window.
+- Peak-slope rate is phase/length sensitive, but the doubling-time
+  test (04) shows the exponential doubling time is copper-neutral (~37
+  h, fold 0.99 at 30 mM); the copper phenotype is extent/yield-limited
+  (saturation 95% -\> 74%, lower max area). Parametric `mu` remains
+  unidentifiable in-window.
+- Species labels contain apparent near-duplicates
+  (paludigenum/paludigena, evergladensis/evergladiensis), left unmerged;
+  small-n single-strain taxa need confirmation.
 - 130 of 2,183 strain-Cu aggregates rest on a single culture (flagged,
   kept).
 - 282 colonies (3.3%) lack a species label -\> `unknown` random-level.
 - `R. sp. clade I` is excluded from the species-interaction test.
 - High-Cu missingness (~15-18% of strain-plates never reach late
   timepoints) shapes which colonies reach the fitting threshold;
-  missingness itself is Cu-dependent (see plate-position analysis).
+  missingness itself is Cu-dependent and is part of the sensitivity
+  signal (saturation drop).
 
 ## Reproduce
 

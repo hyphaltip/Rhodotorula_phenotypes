@@ -53,7 +53,9 @@ scripts:
   - scripts/00_build_series.R      # per-colony x timepoint table + species join -> colony_growth_series + coverage
   - scripts/01_fit_growth_models.R # Gompertz + Logistic per colony/trait (mu/lambda/A, AIC-preferred), fallback log-linear; primary rate = peak 6 h slope of log(area) [rate_area] and of intensity [rate_int]
   - scripts/02_species_cu_rates.R  # strain x Cu aggregation (up to 4 run-replicates), mixed models rate ~ Cu(factor) + (1|species/strain), Cu x species interaction (well-sampled spp), contrasts vs 0 mM
-  - scripts/03_color_interaction.R # endpoint L*/a*/b* as outcomes of rate_area/rate_int x copper (+ species/strain random); documents L*-Intensity ~0.999 collinearity
+  - scripts/03_color_interaction.R # endpoint L*/a*/b* as outcomes of rate_area/rate_int x copper (+ species/strain random); documents L*-Intensity ~0.999 collinearity; also endpoint color (L*/a*/b*) vs Cu plots
+  - scripts/04_doubling_time.R     # phase-independent estimator: exponential-region specific rate (best-R2 4-pt window) -> doubling time, t50, saturation fraction; tests whether peak-slope Cu trend persists
+  - scripts/05_species_cu_sensitivity.R # extent/yield-based Cu-sensitivity index per strain & species (log2 max-area ratio 25-30 vs 0-5 mM, saturation drop, dbl fold), species extent model (Cu x species)
 outputs:
   - results/tables/colony_growth_series.rds/csv
   - results/tables/series_coverage.csv
@@ -65,6 +67,13 @@ outputs:
   - results/tables/rate_int_diff_0mM.csv
   - results/tables/color_growth_models.csv/txt
   - results/tables/color_growth_anova.csv
+  - results/tables/colony_doubling.csv
+  - results/tables/dbl_model_cu.csv
+  - results/tables/dbl_by_cu.csv
+  - results/tables/strain_sensitivity.csv
+  - results/tables/species_sensitivity.csv
+  - results/tables/species_extent_model.txt
+  - results/tables/species_extent_anova.csv
   - results/figures/rate_by_cu_overall.png
   - results/figures/rate_by_cu_spp.png
   - results/figures/rate_int_by_cu_spp.png
@@ -72,6 +81,17 @@ outputs:
   - results/figures/color_a_vs_ratearea_by_cu.png
   - results/figures/color_b_vs_ratearea_by_cu.png
   - results/figures/ratearea_vs_rateint.png
+  - results/figures/color_L_by_cu.png
+  - results/figures/color_a_by_cu.png
+  - results/figures/color_b_by_cu.png
+  - results/figures/color_L_by_cu_spp.png
+  - results/figures/color_a_by_cu_spp.png
+  - results/figures/color_b_by_cu_spp.png
+  - results/figures/dbl_region_by_cu.png
+  - results/figures/saturation_by_cu.png
+  - results/figures/sensitivity_species_rank.png
+  - results/figures/sensitivity_extent_by_cu_spp.png
+  - results/figures/sensitivity_saturation_by_cu_spp.png
   - growth_rates.html
 reproduce: bash analysis/growth_rates/run.sh
 status: complete
