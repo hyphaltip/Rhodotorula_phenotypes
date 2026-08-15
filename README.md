@@ -233,6 +233,14 @@ Each item below was verified directly against the files, not inferred.
    plate-edge exclusion in the rearray design rather than a data error, but the rule is
    documented nowhere — it is only visible empirically.
 
+7. **`Copper.Strain_info.csv` has 2400 data rows by line count, but only 1284 of them
+   are real.** The other 1116 are fully-blank padding rows — every column empty except
+   a populated `Index` value (e.g. `Index=1285` through `2400` with every other field
+   blank). A naive `wc -l`-style row count, or any load that doesn't explicitly filter
+   on `Strain ID IS NOT NULL`, silently carries 1116 all-null strain rows into any
+   downstream join. Real per-run strain counts are uneven, not a flat 336 each as a
+   single-run sample might suggest: Run 353→336, 354→332, 355→336, 356→280.
+
 ### Resolved since initial exploration (no longer concerns)
 
 - Duplicate copies of both metadata CSVs (previously under a `PhenotypicMeasurements/`

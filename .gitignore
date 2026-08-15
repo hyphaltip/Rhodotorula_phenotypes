@@ -8,3 +8,9 @@ db/*.duckdb.wal
 
 __pycache__/
 *.pyc
+
+# Working/sandbox dirs not tracked for now
+ignore/
+
+# Preprocessed colony-measurement Parquet files -- large; comment out to track
+data/preprocessed/

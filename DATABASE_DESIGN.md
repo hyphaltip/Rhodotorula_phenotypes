@@ -8,7 +8,10 @@ per-plate Parquet measurement format, and designed so R and Python scripts can
 query strain phenotypes across conditions and replicates without re-deriving any
 of the join logic documented in `README.md`.
 
-Status: **design draft, pending review** (see "Review" section at the bottom).
+Status: **built and populated** for Copper. See "Review" and "Implementation
+notes" at the bottom for what changed between this design and the working
+`scripts/db/` pipeline, and `SCHEMA.md` (generated, do not hand-edit) for the
+live schema.
 
 ---
 
@@ -591,3 +594,76 @@ addressed in this document:
     require a pivot for any real query. No change made.
 11. *`SELECT cm.* EXCLUDE (image_name)` syntax* — confirmed correct DuckDB
     syntax, unchanged.
+
+## Implementation notes
+
+Findings from actually building `scripts/db/` and running it end-to-end
+against the full Copper dataset (2398 files, 211,800 colony rows, 0 import
+errors). None of these change the schema in DATABASE_DESIGN.md §4-§8; they
+are pipeline-level fixes and one new data quirk, recorded here so they aren't
+rediscovered the hard way on the next experiment.
+
+- **New data quirk, not previously caught**: `data/metadata/Copper.Strain_info.csv`
+  has 2400 data rows by line count, but only **1284** are real — the other
+  1116 are fully-blank padding rows (every column null except a populated
+  `Index`). `10_import_experiment.py` filters on `Strain ID IS NOT NULL`
+  before doing anything else and prints how many it dropped. Recompute-facts
+  that depended on the old 2400 figure: real per-run strain counts are
+  353→336, 354→332, 355→336, 356→280 (not a uniform 336 each, as the
+  small README-quirk-#6 sample from Run 355 alone had suggested).
+- **DuckDB cannot delete a foreign-key parent and child row in the same
+  transaction**, even when the child is deleted first — confirmed directly
+  (`DELETE FROM colony_measurement ...; DELETE FROM image ...;` inside one
+  `BEGIN/COMMIT` raises `Constraint Error: ... still referenced by a foreign
+  key in a different table`), and the same happens if the parent is
+  `UPDATE`d instead of deleted. The re-delivery path in
+  `20_import_measurements.py` therefore runs the child delete and the parent
+  delete as two separately committed transactions, then falls through to the
+  normal single-transaction insert path as if the file were new. This is
+  documented in DATABASE_DESIGN.md §5/§9 as a design intent ("wrap in a
+  transaction"); in practice that intent holds for the insert path but not
+  for the delete-and-replace path, for reasons specific to this DuckDB
+  version, not a design choice.
+- **`hours_since_plate_start` is `DOUBLE`, not `INTERVAL`.** The original
+  `v_image` draft computed it as a timestamp difference (`INTERVAL`).
+  DuckDB's `INTERVAL` type doesn't convert cleanly through Arrow into Polars
+  (`ComputeError: could not import from 'month_day_nano_interval' type`), so
+  both example query scripts would have broken on this column. Fixed to
+  epoch-seconds arithmetic (`(epoch(imaged_at) - epoch(min(imaged_at) over
+  (...))) / 3600.0`), giving fractional hours as a plain numeric column.
+- **`factors['Copper concentration']` on the `MAP` column returns the scalar
+  value directly** in this DuckDB build, not a one-element list — the
+  original view/query draft's `factors[...][1]` indexing was wrong and
+  raised a binder error; both example scripts use the plain bracket form.
+- **`Metadata_Dataset` is dropped at import**, matching
+  `PhenotypicMeasurements/Copper/Scripts/copper_metadata.py`'s original
+  choice (`Metadata_ImageName` is also dropped from the fact table, since it
+  becomes the join key `image_name` computed once from the filename, not a
+  duplicated stored column).
+- **Verified against `README.md`'s worked example**: `Plate_Number` 79 in run
+  `d000355` resolves to `run_number=355, configuration=4, factor_value=5.0
+  mM`, matching the hand-derived example in `README.md` exactly.
+- Full import of all 2398 Parquet files takes ~2m45s cold; a full re-run
+  (idempotency check only, nothing to import) takes ~4s.
+
+### What's built vs. what's still a plan
+
+Done: `scripts/db/00_init_schema.sql`, `10_import_experiment.py`,
+`20_import_measurements.py`, `30_create_views.sql`, `40_data_dictionary.py`,
+`query_examples/query_example.py`, `query_examples/query_example.R`, and a
+populated `db/rhodotorula_phenotypes.duckdb` for the Copper experiment. A
+`pixi.toml` at the repo root (`duckdb`, `polars`, `pandas`, `pyarrow`,
+`r-base`, `r-duckdb`) pins the environment these scripts run in — use `pixi
+run python3 scripts/db/...` / `pixi run Rscript scripts/db/...`.
+
+The mid-import-crash recovery drill (§10 phase 7) has been run: a fault was
+injected between the `image` insert and the `colony_measurement` insert
+inside a single file's transaction. Result: the transaction rolled back
+cleanly (zero `image` rows left for that file), and a normal re-run of
+`20_import_measurements.py` afterward imported the file correctly with no
+manual cleanup needed.
+
+Not yet exercised: a second experiment type (no Temperature/pH/Salinity data
+exists yet to import) and the `--plate-run-map` escape hatch for
+non-block-style plate numbering (untested against real data, only reasoned
+about).

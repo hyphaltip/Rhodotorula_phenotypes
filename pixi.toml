@@ -1,0 +1,15 @@
+[workspace]
+name = "rhodotorula-phenotypes"
+channels = ["conda-forge"]
+platforms = ["linux-64"]
+
+[dependencies]
+python = ">=3.11,<3.13"
+duckdb = ">=1.1,<2"
+polars = ">=1.0"
+pandas = ">=2.0"
+pyarrow = ">=15"
+r-base = ">=4.3"
+r-duckdb = "*"
+
+[tasks]
