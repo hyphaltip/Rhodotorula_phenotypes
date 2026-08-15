@@ -59,3 +59,11 @@ Append-only log of gotchas, surprises, and insights.
 - **Resolution**: Switched the `strain` upsert to `DO UPDATE SET` the metadata columns (CSV authoritative) and added `--strain-only` to `10_import_experiment.py` to sync just the strain table without touching imager_run/well_placement; made the previously-required experiment/plate args optional with a fail-loud guard under `--strain-only`. Running `pixi run python scripts/db/10_import_experiment.py --strain-only --strain-info-csv data/metadata/Copper.Strain_info.csv` fixed strains 84 and 327.
 - **mitigation_type**: structural — any metadata edit workflow should use `--strain-only`; the full import is only safe on a fresh DB.
 - **Tags**: data, duckdb, import, metadata, strain, FK, copper
+
+### [2026-08-15] L-8 — choosing a "timepoint" in this DB: bin hours_since_plate_start to the imaging pass, do NOT take per-strain max hour
+- **Category**: data / phenotype extraction
+- **What happened**: For a control-only late-timepoint strain phenotype table, taking each strain's exact maximum `hours_since_plate_start` (<=110 h) to define its "latest timepoint" yielded only 1-2 colonies/strain for 84 strains: within a single imaging pass, colonies of one strain image a few minutes apart, so an exact-max filter split one pass into fragments. Rounding to the nearest integer hour and taking the max *rounded* pass restored the full pass (median 4 colonies/strain).
+- **Why it matters**: The imaging rig interleaves two ~3 h cadences; a fixed single hour covers only ~231/320 strains, while pass-of-latest-image-in-window covers 314/320 (286 with >=3 colonies). Any per-strain/plate timepoint pick should use the rounded-hour pass.
+- **Resolution**: `with c0 as (select *, round(hours_since_plate_start,0) tp_h ...), latest as (select *, max(tp_h) over (partition by strain_id) tp_hmax from c0) ... where tp_h = tp_hmax` — i.e. round, then window-max the rounded hour.
+- **mitigation_type**: structural — a reusable timepoint-binning helper / convention for time-series extractions on this pipeline data.
+- **Tags**: data, duckdb, timepoint, imaging-pass, cadence, phenotype, gotcha, copper

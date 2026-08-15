@@ -107,3 +107,22 @@ key_findings:
   - Species mislabels in data/metadata/Copper.Strain_info.csv (paludigenum -> paludigena, evergladiensis -> evergladensis) corrected and re-imported via scripts/db/10_import_experiment.py --strain-only (strain 84 & 327 regrouped).
 tags: [copper, growth-rate, growth-curve, species, mixed-model, lme4, rhodotorula, color, light-intensity, gompertz, logistic, timecourse]
 ```
+
+### control-late-timepoint-phenotype
+```yaml
+name: control-late-timepoint-phenotype
+question: What are the per-strain colony size and CIELAB color (L*, a*, b*) summary statistics on control media (Cu=0, YPD) at a late timepoint, aggregated across all replicate colonies?
+input: db/rhodotorula_phenotypes.duckdb (v_phenotype + condition_plate_factor Cu=0 + strain)
+scripts:
+  - scripts/build_phenotype_table.py # latest imaging pass (rounded hour) per strain within [80,110]h on Cu=0; per-strain median/mean/var/sd of Shape_Area and per-colony ColorLab_{L*,a*,b*}Median
+outputs:
+  - results/phenotype_control_late_timepoint.csv
+  - CONTROL_LATE_PHENOTYPE.md
+reproduce: bash analysis/control_late_timepoint_phenotype/run.sh
+status: complete
+key_findings:
+  - 314/320 strains have a late (80-110 h) Cu=0 image; 286 have >=3 replicate colonies. Latest pass is 105 h (84 strains, alternate cadence) or 108 h (230 strains); using an exact max-hour per strain would fragment a single imaging pass (1-2 colonies/strain) and was rejected in favor of rounding to the imaging pass.
+  - Color drives the table: L* medians 70.2-79.8, a* 0.6-14.2 (carotenoid red/orange), b* -1.4-9.1 on YPD control; colony area 0.8-70 k px.
+  - Per-strain stats reproduced exactly by independent manual aggregation (strain 185).
+tags: [copper, control, YPD, color, CIELAB, L*a*b*, colony-size, phenotype-table, duckdb, strain, rhodotorula]
+```
