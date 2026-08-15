@@ -1,0 +1,22 @@
+# Active Convention Packs
+# Updated by install_convention.py
+
+active_conventions: []
+- name: robust-analysis
+  path: .living/conventions/robust-analysis/
+  installed: 2026-08-15T18:59:30Z
+- name: report-generator
+  path: .living/conventions/report-generator/
+  installed: 2026-08-15T18:59:30Z
+- name: idea-generator
+  path: .living/conventions/idea-generator/
+  installed: 2026-08-15T18:59:30Z
+- name: bioinformatics
+  path: .living/conventions/bioinformatics/
+  installed: 2026-08-15T18:59:31Z
+- name: image-analysis
+  path: .living/conventions/image-analysis/
+  installed: 2026-08-15T18:59:31Z
+- name: skill-bridge
+  path: .living/conventions/skill-bridge/
+  installed: 2026-08-15T18:59:31Z

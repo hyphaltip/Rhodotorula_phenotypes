@@ -1,0 +1,10 @@
+# DuckDB database file -- fully rebuildable from data/ via scripts/db/
+# (see DATABASE_DESIGN.md §9). Don't commit it; it's large and disposable.
+db/*.duckdb
+db/*.duckdb.wal
+
+# pixi-managed environment -- rebuilt from pixi.toml/pixi.lock via `pixi install`
+.pixi/
+
+__pycache__/
+*.pyc
