@@ -14,3 +14,9 @@ ignore/
 
 # Preprocessed colony-measurement Parquet files -- large; comment out to track
 data/preprocessed/
+
+# Derived analysis outputs -- rebuildable from source via each analysis' run.sh
+analysis/*/results/
+analysis/*/*.html
+analysis/*/*.knit.md
+analysis/*/*_files/

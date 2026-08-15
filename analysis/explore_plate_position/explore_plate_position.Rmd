@@ -1,0 +1,218 @@
+---
+title: "Does plate position explain strain-replicate variance?"
+author: "analysis/explore_plate_position"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+library(dplyr)
+library(tidyr)
+library(knitr)
+
+tab_dir <- "results/tables"
+fig_dir <- "results/figures"
+```
+
+## Question
+
+Colony color (`ColorLab_L*Mean`, `a*Mean`, `b*Mean`) and colony size/morphology
+(`Shape_Area`, `Shape_Solidity`, `Shape_Eccentricity`) are measured once per
+strain per Copper concentration per run, via `v_phenotype`. Each run is a
+physically distinct plate/well for that strain (see
+[`DATABASE_DESIGN.md`](../../DATABASE_DESIGN.md) and the README quirks list —
+`replicate_label` is an imager-run proxy, **not** a true technical replicate).
+That gives up to 4 independent (plate, well) observations per strain per
+concentration. This analysis asks:
+
+1. **Primary**: how much of a strain's across-run variance in these traits is
+   attributable to which plate it landed on / where on the plate it sat,
+   versus genuine strain identity, versus residual noise?
+2. **Secondary**: after accounting for a colony's own strain and grid
+   position, do its immediate grid-neighbors on the same plate predict its
+   trait value (a local microenvironment / segmentation-bleed signal distinct
+   from a plate-wide position effect)?
+
+## Data
+
+Built by `scripts/00_build_dataset.R`: one row per colony at the **endpoint**
+image of its plate (last timepoint, ~117h) from `v_phenotype`, restricted to
+`experiment_name = 'Copper'` and matched strains (`strain_id IS NOT NULL`).
+Endpoint-only avoids confounding growth stage with plate position, since each
+plate has ~21 timepoints spanning the full time course.
+
+```{r load-data}
+endpoint <- readRDS(file.path(tab_dir, "endpoint_colonies.rds"))
+cat(sprintf(
+  "%d colonies | %d plates | %d strains | %d runs (%s)\n",
+  nrow(endpoint), n_distinct(endpoint$plate_id), n_distinct(endpoint$strain_code),
+  n_distinct(endpoint$run_number), paste(sort(unique(endpoint$run_number)), collapse = ", ")
+))
+```
+
+Three wells had two segmented objects at the endpoint timepoint (a real
+colony plus a small fragment); `00_build_dataset.R` keeps the larger object
+at each and logs which wells were affected.
+
+**Design note (why the analysis is stratified by Cu concentration):** every
+plate was imaged at exactly one Copper concentration — `plate_id` is *nested*
+inside `copper_mm`, no plate carries multiple Cu levels (112 plates, 0 with
+more than one level; 7 concentrations × 16 plates each). A single pooled model
+would average the plate variance component across Cu conditions with very
+different biology (0 mM control vs 30 mM stress), and a random slope of `Cu`
+within `plate_id` is not estimable because Cu does not vary within a plate.
+The primary analysis is therefore **fit independently within each Cu
+concentration** (see below).
+
+## Primary analysis: variance partition, stratified by Cu concentration
+
+`scripts/01_variance_partition.R` fits, per trait and per Cu concentration,
+a mixed model over strains observed on ≥2 plates within that concentration:
+
+```
+trait ~ grid_row_c + grid_col_c + is_edge
+        + (1 | strain_code) + (1 | run_number) + (1 | plate_id)
+```
+
+The `copper_mm` term is dropped — it is constant within a stratum. `strain_code`
+and `plate_id` are crossed (a strain moves plate-to-plate across runs);
+`run_number` captures imager-batch effects; `grid_row_c` / `grid_col_c` (grid
+position, mean-centered) and `is_edge` are fixed effects for a linear position
+gradient. A categorical-position version (`grid_row`/`grid_col` as factors,
+tested by `anova()`) is fit alongside within each stratum as a robustness
+check for non-monotonic position effects the linear terms would average away.
+
+### Variance components by Cu concentration
+
+```{r vc-table}
+vc <- read.csv(file.path(tab_dir, "variance_components_by_copper.csv"))
+vc %>%
+  mutate(pct_of_total = round(pct_of_total, 1)) %>%
+  pivot_wider(names_from = group, values_from = pct_of_total) %>%
+  select(trait, copper_mm, strain_code, run_number, plate_id, Residual) %>%
+  rename(Strain = strain_code, `Run (batch)` = run_number, Plate = plate_id,
+         `Cu (mM)` = copper_mm) %>%
+  arrange(desc(Plate)) %>%
+  kable(caption = "% of total variance attributable to each random-effect group, per Cu concentration")
+```
+
+```{r vc-plot, fig.cap="Variance partition by trait and Cu concentration (stratified)"}
+include_graphics(file.path(fig_dir, "variance_components_by_copper.png"))
+```
+
+```{r plate-pct-heatmap, fig.cap="Plate-explained variance (%) across trait and Cu concentration"}
+include_graphics(file.path(fig_dir, "plate_pct_heatmap.png"))
+```
+
+**Reading this table**: `Plate` variance is the headline number for the
+primary hypothesis — it is the share of a trait's total variance explained
+purely by which physical plate a colony sat on (pooling row/col position,
+local microenvironment, and any plate-to-plate imaging/lighting drift), over
+and above strain identity, within a given Cu concentration. A high `Plate`
+share alongside a low `Run` share means the effect is plate-specific, not a
+run-wide batch shift. Reading down Cu concentrations shows whether the plate
+effect grows under Cu stress (e.g. plate-to-plate heterogeneity in copper
+handling) or is condition-independent.
+
+### Fixed effects (linear position gradient), per Cu concentration
+
+```{r fe-table}
+fe <- read.csv(file.path(tab_dir, "fixed_effects_by_copper.csv"))
+fe %>%
+  filter(grepl("grid_row_c|grid_col_c|is_edge", term)) %>%
+  mutate(across(where(is.numeric), ~ round(.x, 4))) %>%
+  select(trait, copper_mm, term, estimate, std.error, statistic, p.value) %>%
+  kable(caption = "Row/column/edge fixed-effect coefficients per Cu concentration, strain+run+plate accounted for")
+```
+
+### Categorical position robustness check, per Cu concentration
+
+```{r cat-anova}
+cat_anova <- read.csv(file.path(tab_dir, "categorical_position_anova_by_copper.csv"))
+cat_anova %>%
+  filter(grepl("grid_row_f|grid_col_f", term)) %>%
+  mutate(across(where(is.numeric), ~ signif(.x, 3))) %>%
+  select(trait, copper_mm, term, `F value` = `F.value`, `Pr(>F)` = `Pr..F.`) %>%
+  kable(caption = "Type-III ANOVA (Satterthwaite) for row/col as factors, per Cu concentration")
+```
+
+### Visualizing plate structure
+
+A representative plate, colors centered on each strain's own mean (so plate
+structure isn't swamped by strain-to-strain color differences):
+
+```{r plate-heatmap, fig.cap="Strain-centered L* across one plate"}
+include_graphics(file.path(fig_dir, "plate_heatmap_L_example.png"))
+```
+
+```{r edge-boxplots, fig.cap="Strain-centered trait value by distance from plate edge, all plates pooled"}
+include_graphics(file.path(fig_dir, "edge_distance_boxplots.png"))
+```
+
+## Secondary analysis: adjacent-colony effect
+
+`scripts/02_adjacency_effect.R` computes, for every colony, the mean trait of
+its 4-connected grid neighbors (up/down/left/right, same plate/image — not
+adjacent `well_position`, which is column-major and not spatially adjacent).
+It then fits:
+
+```
+trait ~ copper_mm + is_edge + trait_neighbor_mean
+        + (1 | strain_code) + (1 | run_number) + (1 | plate_id)
+```
+
+testing whether a colony's own trait value tracks its neighbors' values after
+strain identity, run, plate, and edge status are already accounted for.
+
+```{r adj-table}
+adj_fe <- read.csv(file.path(tab_dir, "adjacency_fixed_effects.csv"))
+adj_fe %>%
+  filter(grepl("_neighbor_mean$", term)) %>%
+  mutate(across(where(is.numeric), ~ signif(.x, 3))) %>%
+  select(trait, term, estimate, std.error, statistic, df, p.value) %>%
+  kable(caption = "Neighbor-mean coefficient per trait (0 = no adjacency effect)")
+```
+
+```{r adj-scatter, fig.cap="Focal colony L* vs mean L* of its grid-adjacent neighbors"}
+include_graphics(file.path(fig_dir, "adjacency_scatter_L.png"))
+```
+
+## Interpretation
+
+- Fill in after reviewing the tables above for the current data — the
+  numbers change as more experiments are imported, so this section is
+  deliberately left for a human read of the live output rather than
+  hard-coded prose.
+- The analysis is **stratified by Cu concentration** because each plate was
+  imaged at exactly one Cu level (`plate_id` nested in `copper_mm`); a pooled
+  model would conflate plate-to-plate variance with Cu-condition differences.
+  Treat the `Plate %` numbers as per-condition, not overall.
+- Caveats: `run_number` has only 4 levels *within each Cu stratum*, so the
+  `Run (batch)` variance component is estimated on limited data and several
+  models report `boundary (singular) fit` for that term — treat near-zero `Run`
+  estimates as "not detectably different from zero at n=4", not "definitely
+  zero". `strain_code` (~300 per stratum) and `plate_id` (16 per stratum) are
+  the well-powered terms.
+- The adjacency model uses the neighbor's *raw* trait value, which is itself
+  a function of the neighbor's own strain — a genuine local-environment
+  effect and a "similar strains happen to cluster spatially by design"
+  artifact would look similar in this test. `well_placement` layout would
+  need to be checked to rule the second one out if the adjacency signal is
+  used for anything beyond flagging plates for QC.
+
+## Reproducing
+
+```bash
+pixi run Rscript analysis/explore_plate_position/scripts/00_build_dataset.R
+pixi run Rscript analysis/explore_plate_position/scripts/01_variance_partition.R
+pixi run Rscript analysis/explore_plate_position/scripts/02_adjacency_effect.R
+pixi run Rscript analysis/explore_plate_position/scripts/03_plots.R
+pixi run Rscript -e 'rmarkdown::render("analysis/explore_plate_position/explore_plate_position.Rmd")'
+```
+
+or simply `bash analysis/explore_plate_position/run.sh` from the repo root.
