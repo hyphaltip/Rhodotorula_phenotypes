@@ -28,3 +28,26 @@ Append-only log of gotchas, surprises, and insights.
 - **Resolution**: Use vectorized name lookup `unname(traits[.$trait])` so each row maps through `traits[name]`. Validate by checking `n_distinct(trait)` or that a `pivot_wider` on the relabeled key doesn't warn.
 - **mitigation_type**: structural — prefer `lookup[.$col]` over `lookup[[.$col[1]]]` when relabeling within a mutate.
 - **Tags**: R, dplyr, mutate, pivot_wider, label-map, debugging
+
+### [2026-08-15] L-4 — dplyr `summarise(across(...))` with `.names` throws "subscript out of bounds" when a group's lambda returns length-0
+- **Category**: R / data-wrangling
+- **What happened**: `summarise(across(c(a,b,c), ~ .x[which(!is.na(.x))[...]], .names = "last_{.col}"))` crashed with `Error in names(dots)[[i]] : subscript out of bounds` when a plate/well had an all-NA column (empty index vector). Repro was minimal and isolated to the `across`-with-`.names` path.
+- **Why it matters**: The "take last non-NA per group" idiom is common for endpoints; the failure is opaque and can't be debugged from the message.
+- **Resolution**: Replace with explicit per-column `summarise(x_late = last_non_na(x), ...)` using a small helper `last_non_na <- function(x){y <- x[!is.na(x)]; if(length(y)==0) NA else y[length(y)]}`.
+- **mitigation_type**: structural — avoid variadic `across` when the lambda can return length-0 inside `summarise`.
+- **Tags**: R, dplyr, summarise, across, last, endpoint, gotcha
+
+### [2026-08-15] L-5 — lmerTest `difflsmeans()` needs the fitting environment, not a list wrapper; realize such "diff vs ref" tables from fixef/vcov instead
+- **Category**: R / mixed-models
+- **What happened**: Stashed lmer fits in a list and passed the *list* to `difflsmeans()`, which then failed with `no applicable method` (class "list"); passing the model object itself failed with `object 'copper_mm' not found` because the fitting data.frame was a local that difflsmeans re-evaluates via model.frame.
+- **Why it matters**: Post-hoc contrast helpers in lmerTest/lme4 are brittle about env/data retention; the failure wastes a full model rerun cycle.
+- **Resolution**: Since `factor(copper_mm)` coefficients are already differences vs the reference level, compute contrasts directly as `fixef(m)` + `sqrt(diag(vcov(m)))` Wald 95% CI (no emmeans needed — the pixi env lacks emmeans/AICcmodavg/minpack.lm).
+- **Tags**: R, lme4, lmerTest, difflsmeans, contrasts, mixed-model, gotcha
+
+### [2026-08-15] L-6 — rmarkdown chunk CWD = directory of the .Rmd, not the render() call; pdflatex chokes on Unicode ≥/≤/→/⇒/−/…
+- **Category**: R / reporting
+- **What happened**: Merged growth-rates report failed reading `"analysis/growth_rates/results/tables/..."` because knitr executes chunks with working directory set to the document's folder (so paths must be `results/tables`). Separately, pdflatex compiled em-dashes/× fine but aborted on U+2265/≤/→/⇒/−/…; xelatex in the shared TeX Live 2022 failed on a stale l3names kernel instead.
+- **Why it matters**: Two silent portability traps cost several render cycles. The repo's existing plate-position report already follows the document-relative path convention.
+- **Resolution**: In Rmds under this repo use doc-relative `results/tables` and keep Unicode to `—` and `×` (what the plate-position report proves pdflatex accepts); else switch the engine. Detect remaining non-ASCII with a quick python one-liner printing U+ codepoints before rendering.
+- **mitigation_type**: structural — a report template/lint for allowed Unicode + doc-relative paths.
+- **Tags**: R, rmarkdown, knitr, working-directory, pdflatex, unicode, reporting

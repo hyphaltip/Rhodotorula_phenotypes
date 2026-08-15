@@ -1,25 +1,23 @@
-SESSION RESUME — Last session (2026-08-15 12:00):
+SESSION RESUME — Last session (2026-08-15 14:40):
 
 ## What was worked on
-- Completed the previously-interrupted mycelium `init` for this repo.
-- Installed 6 convention packs (core: robust-analysis, report-generator, idea-generator; domain: bioinformatics, image-analysis, skill-bridge).
-- Generated `CLAUDE.md` encoding the living-repo protocol (domain packs reflected).
-- Built `.living/INDEX.md` knowledge map; copied `todo/TODO_REGISTRY.md` + `TODO_ITEM_TEMPLATE.md`.
-- Cloned 2 of 3 skillpacks skill repos (scientific-agent-skills, bioSkills). `Autonomous-Science` clone failed — repo no longer public.
+- Completed the new `analysis/growth_rates` analysis end-to-end (`git status` clean locally, no push):
+  - `00_build_series.R` — per-colony x timepoint table + species join (runs 353-356, 8,446 colonies, 309 strains, 112 plates) -> `colony_growth_series.rds/csv`, `series_coverage.csv`.
+  - `01_fit_growth_models.R` — Gompertz + Logistic per colony/trait (mu/lambda/A, AIC-preferred, port bounds, log-linear fallback) + primary rates `rate_area` (peak 6 h slope of log area) and `rate_int` (peak 6 h slope of intensity). Fixed final pivot_wider diagnostic (names_glue -> `mu_ln_area` etc.). 7,663 colonies fitted per trait.
+  - `02_species_cu_rates.R` — strain x Cu aggregation (up to 4 run-replicates; 130 single-culture rows flagged), mixed models `rate ~ Cu(factor) + (1|species/strain)`, Cu x species interaction (well-sampled >=8 strains), Wald contrasts vs 0 mM.
+  - `03_color_interaction.R` — endpoint L*/a*/b* as outcomes of rate x copper; documented L* vs Intensity r=0.999 collinearity; rate_area vs rate_int r=0.21 (distinct axes).
+  - `growth_rates.Rmd` + `run.sh`; html+md+pdflatex-PDF all render (switched PDF unicode to ASCII; kept -- and x only).
+- Wired `analysis/ANALYSIS_MANIFEST.md` with the growth-rates entry; logged learnings L-4..L-6.
 
-## Key decisions made
-- Install all 3 requested domain packs in addition to the auto-installed core packs (D-1).
-- Skip the broken `Autonomous-Science` clone rather than block init; `skill-bridge` still works via the 2 cloned repos (D-1).
-
-## Blockers & surprises
-- Resolved: mycelium scripts require Python >= 3.10; system `python3` is 3.9.18 — workaround `/usr/bin/python3.12` (L-1).
-- Unresolved: `skillpacks/Autonomous-Science` repo is no longer public; skill-bridge persona-routing unavailable until re-pointed (L-2).
+## Key findings
+- Peak growth/brightening rate INCREASES monotonically with Cu (area F=79 p~6e-96; intensity F=540 p~0) — counter to naive toxicity; interpreted as phase/length sensitivity (high-Cu colonies stay in log-growth longer), flagged as caveat.
+- Gompertz/Logistic lag structurally unidentifiable in-window (~94% boundary lambda, ~82% area asymptote extrapolated) -> primary rate = data-derived max 6 h slope.
+- L* ~ rate_area x Cu interaction significant (F=8.16 p~8e-9): faster growers end lighter, slope largest at low Cu.
 
 ## Current state
-- Branch: main | mycelium structure validation PASSED (all checks)
-- Uncommitted: all init artifacts untracked (.living/, CLAUDE.md, 6 convention packs, skillpacks, todo templates, manifests)
+- Branch: main | growth-rates analysis complete & reproducible (run.sh green), answers the 8,446-colony question (97.6% of 8,652 design slots).
+- Uncommitted: new analysis/growth_rates files + ANALYSIS_MANIFEST.md edit + .living/learnings.md L-4..L-6. User handles push.
 
 ## Next steps
-- Review `git status` and commit the init artifacts if desired.
-- Re-point `skill-bridge` `skill-sources.yaml` to a live personas source or drop the dead entry (TODO).
-- Start using the pipeline (scripts/db/, DuckDB at db/rhodotorula_phenotypes.duckdb).
+- Commit locally (pending user confirmation), no push.
+- Optional follow-up (todo/): a phase-independent rate (fixed-interval doubling time) to separate "faster growth" from "observed still growing"; re-examine rare-species Cu curves for the species-interaction story.

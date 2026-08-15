@@ -1,0 +1,199 @@
+---
+title: "Species, copper, and colony growth-rate parameters"
+author: "analysis/growth_rates"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    df_print: paged
+  pdf_document:
+    toc: true
+    toc_depth: 2
+    df_print: kable
+    latex_engine: pdflatex
+  rmarkdown::github_document:
+    toc: true
+    toc_depth: 3
+    fig_width: 7
+    fig_height: 5
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+library(dplyr)
+library(tidyr)
+library(knitr)
+library(ggplot2)
+
+tab_dir <- "results/tables"
+fig_dir <- "results/figures"
+```
+
+## Question
+
+Each strain is measured once per Copper concentration per run, on physically
+distinct plates (`replicate_label` is an imager-run proxy — see
+[`DATABASE_DESIGN.md`](../../DATABASE_DESIGN.md)). Each (plate, well) is
+therefore an independent culture grown over ~120 h with ~6-hourly imaging.
+This analysis fits a growth curve to every culture and asks:
+
+1. **Primary**: how does per-strain growth rate vary with copper concentration
+   and with species?
+2. **Secondary**: how do growth-rate parameters interact with endpoint color
+   (CIELAB `L*`, `a*`, `b*`) — where `L*` is the "light intensity" readout of
+   interest and the measured `Intensity_MeanIntensity` is ~0.99-collinear with
+   it (same axis)?
+
+Unit of analysis: **per colony = (plate, well)**. Design capacity:
+112 plates (runs 353-356, 7 Cu × 16 plates) × 96 wells = 10,752 slots; each
+strain appears once per (run, Cu) on a distinct plate, so the theoretical max
+is 309 strains × 4 runs × 7 Cu = 8,652 colonies; **8,446 observed (97.6%**
+detection, the remainder being high-Cu dropout).
+
+## Data construction
+
+`scripts/00_build_series.R` rebuilds the per-colony × timepoint table from
+`v_phenotype` using the same selection/dedup as the plate-position timecourse:
+runs 353-356, `strain_id IS NOT NULL`, `hours_since_plate_start > 0`, largest
+object per plate/well/time, `plate_id = run_plate`. Two size readouts:
+
+* `ln_area` — `log(Shape_Area)`; colonial expansion / biomass proxy; rises
+  throughout the ~120 h window (rarely plateaus in-window).
+* `intensity` — `Intensity_MeanIntensity`; rises 0.25->0.41 and **saturates
+  ~48-54 h** (early window).
+
+```{r coverage}
+cov <- read.csv(file.path(tab_dir, "series_coverage.csv"))
+kable(cov, caption = "Series coverage (runs 353-356)")
+```
+
+## Model fitting and rate extraction
+
+`scripts/01_fit_growth_models.R` fits two sigmoid forms per colony per trait
+(Zwietering reparameterizations, parameterized as maximum rate `mu`/h, lag
+`lambda` h, asymptote `A`), requiring >=8 usable timepoints spanning >=24 h:
+
+* Gompertz:  `y = A * exp(-exp((mu*e/A)*(lambda - t) + 1))`
+* Logistic:  `y = A / (1 + exp((4*mu/A)*(lambda - t) + 2))`
+
+**Identifiability finding (why the headline is a data-derived rate):** within
+the available window the lag parameter is structurally unidentifiable — ~94% of
+fits put `lambda` on a boundary (<= -1 h or >= 144 h), and for `ln_area` the
+asymptote is extrapolated in ~82% of fits because area does not plateau
+in-window. Unbounded Gauss-Newton refits on a 60-colony sample reproduced
+degenerate lags (-297...-20 h). The parametric `mu` is therefore kept as a
+secondary parameter (weak agreement with the data-derived rate), and the
+**primary estimator is the data-derived peak slope**:
+
+* `rate_area` — max positive 6 h slope of `log(Shape_Area)` per hour
+* `rate_int`  — max positive 6 h slope of `Intensity_MeanIntensity` per hour
+
+Defined for ~99% of colonies (`rate_area` NA on 2 colonies). Both Gompertz and
+logistic fits are retained with AIC; preferred model = lower AIC
+(Gompertz favored ~80-88%, depending on trait).
+
+```{r fits}
+pref <- read.csv(file.path(tab_dir, "growth_model_preferred.csv"))
+pref_wide <- pref %>%
+  select(plate_id, well_position, trait, mu, rate_area, rate_int) %>%
+  tidyr::pivot_wider(names_from = trait, values_from = c(mu, rate_area, rate_int),
+                     names_glue = "{.value}_{trait}", names_vary = "fastest") %>%
+  filter(!is.na(mu_ln_area))
+kable(tibble(
+  `colonies fitted (>=8tp, >=24h)` = n_distinct(pref$plate_id, pref$well_position),
+  `rate_area defined` = sum(!is.na(pref$rate_area)),
+  `rate_int defined` = sum(!is.na(pref$rate_int)),
+  `pref. Gompertz (area)` =
+    round(mean(pref$pref_model[pref$trait == "ln_area"] == "Gompertz") * 100),
+  `pref. Gompertz (intens.)` =
+    round(mean(pref$pref_model[pref$trait == "intensity"] == "Gompertz") * 100),
+  `Kendall tau (mu vs rate_area)` =
+    signif(cor(pref_wide$mu_ln_area, pref_wide$rate_area_ln_area, method = "kendall", use = "complete.obs"), 3)
+), caption = "Fit coverage and rate-extraction summary (n columns)")
+```
+
+## Growth rate by copper and species
+
+`scripts/02_species_cu_rates.R`. Rates are aggregated to strain × Cu
+(plain mean across up to 4 run-plates; histogram n=1:130, n=2:161, n=3:380,
+n=4:1505 of 2,183 strain-Cu rows — the n<2 single-culture rows are flagged).
+Mixed model (colony level, REML):
+
+`rate ~ factor(copper_mm) + (1 | species / strain_code)`
+
+Species and strain enter as random effects (shrinkage toward the well-sampled
+mean; 20 named species + `unknown`, 282 colonies without a species label).
+
+```{r model}
+m <- read.csv(file.path(tab_dir, "rate_models_species_cu.csv"))
+aa <- m %>% filter(model == "rate_area ~ Cu(factor) + species/strain (colony-level)", grepl("copper", term))
+kable(aa %>% select(term, Estimate, `Std..Error`, tvalue = t.value, pvalue = `Pr...t..`, model) %>%
+        mutate(across(where(is.numeric), ~ signif(., 3))),
+      caption = "rate_area: fixed effects (diff vs 0 mM)")
+m2 <- read.csv(file.path(tab_dir, "rate_int_diff_0mM.csv"))
+kable(m2 %>% mutate(across(where(is.numeric), ~ signif(., 3))),
+      caption = "rate_int vs 0 mM (Wald 95% CI)")
+```
+
+**Result (both readouts): peak growth/brightening rate increases monotonically
+with copper** (area: F = 79.0, p ~ 6e-96; intensity: F = 540, p ~ 0; all
+levels vs 0 mM significant, monotone coefficients 5->30 mM). Counter to a naive
+"Cu is toxic => slower growth" expectation, this is consistent with the
+plate-position timecourse: at higher Cu, colony area keeps expanding through
+the ~120 h window (the log-growth phase lasts longer), so the realized peak
+log-slope is **higher** — the peak-slope measure is phase/length sensitive
+rather than a growth-rate constant. Caveat: a phase-independent rate (e.g.
+fixed-interval doubling time) would be needed to separate "faster" from
+"still growing when observed".
+
+```{r figs}
+if (file.exists(file.path(fig_dir, "rate_by_cu_spp.png"))) knitr::include_graphics(file.path(fig_dir, "rate_by_cu_spp.png"))
+if (file.exists(file.path(fig_dir, "rate_int_by_cu_spp.png"))) knitr::include_graphics(file.path(fig_dir, "rate_int_by_cu_spp.png"))
+```
+
+Well-sampled species (>=8 strains): dairenensis (8), diobovata (10),
+mucilaginosa (216), paludigena (16), sphaerocarpa (8), toruloides (10);
+`R. sp. clade I` excluded from the interaction test (unnamed). The Cu × species
+interaction test (well-sampled subset) is in
+`results/tables/rate_models_species_cu.csv/txt`.
+
+## Growth-rate × color / light-intensity interaction
+
+`scripts/03_color_interaction.R`. Endpoint color = last non-NA CIELAB reading
+per colony. `L*` (lightness) is the "light intensity" outcome; the measured
+`Intensity_MeanIntensity` is the same axis (endpoint r = 0.999) so it enters
+only as the growth readout `rate_int`, never as a co-predictor. Model:
+
+`L* ~ rate_area × copper + (1 | species/strain_code)` (and a*/b* analogues)
+
+```{r color}
+## L*-rate interaction coefficients (vs 0 mM ref)
+cc <- read.csv(file.path(tab_dir, "color_growth_models.csv"));
+ci <- function(mod, outcome) cc %>% filter(model == mod, grepl(":", term)) %>%
+  select(term, Estimate, `Std..Error`, `t.value`, `Pr...t..`)
+kable(ci("L* ~ rate_area x Cu", "lab_l") %>% mutate(across(where(is.numeric), ~ signif(., 3))),
+      caption = "L* ~ rate_area x Cu: interaction coefficients")
+```
+
+The growth-rate × Cu interaction on `L*` is significant (F = 8.16, p ~ 8e-9):
+faster-growing colonies end lighter, with the slope largest at low Cu
+(5 mM: +3.7 L* per unit rate) and weakest at 30 mM (+1.3). Copper itself
+dominates chromatic outcome (Cu F ~ 900 on L*, ~ 1100 on a*). The two growth
+modes are weakly correlated (`rate_area` vs `rate_int` r = 0.21) — area
+expansion and brightness rise are distinct axes.
+
+## Limitations
+
+* Peak-slope rate is phase/length sensitive (see caveat above); parametric
+  `mu` is unidentifiable within the window.
+* 130 of 2,183 strain-Cu aggregates rest on a single culture (flagged, kept).
+* 282 colonies (3.3%) lack a species label -> `unknown` random-level.
+* `R. sp. clade I` is excluded from the species-interaction test.
+* High-Cu missingness (~15-18% of strain-plates never reach late timepoints)
+  shapes which colonies reach the fitting threshold; missingness itself is
+  Cu-dependent (see plate-position analysis).
+
+## Reproduce
+
+    bash analysis/growth_rates/run.sh

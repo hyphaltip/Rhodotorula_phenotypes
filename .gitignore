@@ -28,3 +28,9 @@ analysis/*/*_files/
 !analysis/explore_plate_position/results/
 !analysis/explore_plate_position/results/figures/
 analysis/explore_plate_position/results/tables/
+
+# Exception: same for the growth-rates report figures (growth_rates.md links
+# results/figures/*.png relative to the report dir). Tables stay ignored.
+!analysis/growth_rates/results/
+!analysis/growth_rates/results/figures/
+analysis/growth_rates/results/tables/
