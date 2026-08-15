@@ -1,14 +1,16 @@
 #!/usr/bin/env python3
 """Control-medium (Cu=0) late-timepoint phenotype table.
 
-For each strain, take its latest image within hours_since_plate_start in
-[80, 110] on control plates (Copper concentration = 0 mM) and aggregate the
-per-colony trait values across all replicate colonies:
+For each strain, take its latest imaging pass (rounded hour) within a time
+window of hours_since_plate_start on control plates (Copper concentration
+= 0 mM) and aggregate the per-colony trait values across all replicate
+colonies:
 
   colony size (Shape_Area, px) and CIELAB color (per-colony ColorLab_*Median)
   -> MEDIAN, MEAN, VARIANCE, SD per strain.
 
-Output: results/phenotype_control_late_timepoint.csv
+The window is set via --tmin/--tmax; the default output filename encodes the
+window, e.g. results/phenotype_control_timepoint_90_110.csv.
 """
 import argparse
 from pathlib import Path
@@ -16,7 +18,8 @@ from pathlib import Path
 import duckdb
 
 DB = Path(__file__).resolve().parents[3] / "db" / "rhodotorula_phenotypes.duckdb"
-OUT = Path(__file__).resolve().parents[1] / "results" / "phenotype_control_late_timepoint.csv"
+RES = Path(__file__).resolve().parents[1] / "results"
+OUT = RES / "phenotype_control_late_timepoint.csv"
 
 QUERY = """
     with c0 as (
@@ -74,8 +77,12 @@ def main() -> None:
     ap.add_argument("--tmin", type=float, default=80.0, help="window lower bound (h)")
     ap.add_argument("--tmax", type=float, default=110.0, help="window upper bound (h)")
     ap.add_argument("--db", type=Path, default=DB)
-    ap.add_argument("--out", type=Path, default=OUT)
+    ap.add_argument("--out", type=Path, default=None,
+                    help="output path (default: results/phenotype_control_timepoint_<tmin>_<tmax>.csv)")
     args = ap.parse_args()
+    if args.out is None:
+        t = lambda v: str(int(v)) if float(v).is_integer() else f"{v:g}"
+        args.out = RES / f"phenotype_control_timepoint_{t(args.tmin)}_{t(args.tmax)}.csv"
 
     con = duckdb.connect(str(args.db), read_only=True)
     n_total = con.execute("select count(*) from strain where strain_id is not null").fetchone()[0]

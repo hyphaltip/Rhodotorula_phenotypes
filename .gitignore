@@ -34,3 +34,7 @@ analysis/explore_plate_position/results/tables/
 !analysis/growth_rates/results/
 !analysis/growth_rates/results/figures/
 analysis/growth_rates/results/tables/
+
+# Exception: control-late-timepoint phenotype tables (per-window CSVs) are
+# committed by request -- they are small and directly consumed downstream.
+!analysis/control_late_timepoint_phenotype/results/

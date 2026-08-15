@@ -114,14 +114,17 @@ name: control-late-timepoint-phenotype
 question: What are the per-strain colony size and CIELAB color (L*, a*, b*) summary statistics on control media (Cu=0, YPD) at a late timepoint, aggregated across all replicate colonies?
 input: db/rhodotorula_phenotypes.duckdb (v_phenotype + condition_plate_factor Cu=0 + strain)
 scripts:
-  - scripts/build_phenotype_table.py # latest imaging pass (rounded hour) per strain within [80,110]h on Cu=0; per-strain median/mean/var/sd of Shape_Area and per-colony ColorLab_{L*,a*,b*}Median
+  - scripts/build_phenotype_table.py # latest imaging pass (rounded hour) per strain within a [tmin,tmax] window on Cu=0; per-strain median/mean/var/sd of Shape_Area and per-colony ColorLab_{L*,a*,b*}Median; run per window (70-80, 80-90, 90-110)
 outputs:
-  - results/phenotype_control_late_timepoint.csv
+  - results/phenotype_control_timepoint_70_80.csv
+  - results/phenotype_control_timepoint_80_90.csv
+  - results/phenotype_control_timepoint_90_110.csv
   - CONTROL_LATE_PHENOTYPE.md
 reproduce: bash analysis/control_late_timepoint_phenotype/run.sh
 status: complete
 key_findings:
-  - 314/320 strains have a late (80-110 h) Cu=0 image; 286 have >=3 replicate colonies. Latest pass is 105 h (84 strains, alternate cadence) or 108 h (230 strains); using an exact max-hour per strain would fragment a single imaging pass (1-2 colonies/strain) and was rejected in favor of rounding to the imaging pass.
+  - 314/320 strains have a late Cu=0 image in each window (70-80, 80-90, 90-110 h); 286 have >=3 replicate colonies. Latest pass is the alternate-cadence (75/87/105 h, 84 strains) or main-cadence (78/90/108 h, 230 strains) pass; using an exact max-hour per strain would fragment a single imaging pass (1-2 colonies/strain) and was rejected in favor of rounding to the imaging pass.
+  - Strain sets are identical across the three windows; only the sampled pass differs. Colony size highly stable across windows (area_median r ~0.98 for 70-80 vs 90-110).
   - Color drives the table: L* medians 70.2-79.8, a* 0.6-14.2 (carotenoid red/orange), b* -1.4-9.1 on YPD control; colony area 0.8-70 k px.
   - Per-strain stats reproduced exactly by independent manual aggregation (strain 185).
 tags: [copper, control, YPD, color, CIELAB, L*a*b*, colony-size, phenotype-table, duckdb, strain, rhodotorula]
