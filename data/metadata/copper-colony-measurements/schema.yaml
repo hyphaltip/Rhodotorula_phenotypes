@@ -1,0 +1,1327 @@
+# Dataset Schema
+# Computed by scripts/db/05_generate_metadata.py
+# Generated: 2026-08-15
+
+dataset_name: copper-colony-measurements
+description: >
+  Per-colony measurements for the Copper exposure phenotyping experiment (runs 353-357).
+  One row per segmented colony object in each imaged plate well. Each of the 2,398
+  preprocessed Parquet files holds the objects detected in one image (one run/plate
+  timepoint); rows are keyed by image_name + object_label. Source columns (180) plus
+  three database-added key columns (image_name, object_label, well_position).
+format: Parquet (source), DuckDB colony_measurement table (database)
+unit_of_observation: one row per colony object per image
+
+column_families:
+  Metadata_:
+    description: Image/run metadata stamped onto every object by the segmentation export.
+    units: mixed
+  ObjectLabel:
+    description: Sequential label of the detected object (colony) within its image.
+    units: count
+  Bbox_:
+    description: Bounding-box geometry of the object in pixel coordinates.
+    units: Pixel (row/col index)
+  Grid_:
+    description: Row/column grid position the object was laid out in.
+    units: 1-based grid index
+  Shape_:
+    description: Morphometric properties of the object (MorphoLibJ).
+    units: Pixels (lengths here), pixels^2 (areas); circularity/roundness dimensionless
+  Intensity_:
+    description: Pixel-intensity statistics of the object in the (gray) channel.
+    units: Arbitrary intensity units (AU); dimensionless for ratios/CV
+  TextureGray_:
+    description: Haralick co-occurrence texture metrics computed from the gray-level co-occurrence matrix at four orientations and their average (MorphoLibJ).
+    units: Dimensionless
+  Colorxy_:
+    description: Median-filtered chromaticity (x,y) statistics of the object.
+    units: Dimensionless chromaticity coordinates
+  ColorLab_:
+    description: Perceptual CIE L*a*b* color statistics of the object.
+    units: CIELAB: L* 0-100, a*/b* signed
+  ColorHSV_:
+    description: HSV color statistics of the object (Hue, Saturation, Brightness).
+    units: Hue 0-1 (or 0-360); Saturation/Brightness 0-1
+
+columns:
+  - name: "Metadata_Dataset"
+    family: Metadata_
+    type: "VARCHAR"
+    description: >
+      Image/run metadata stamped onto every object by the segmentation export. See column_families.Metadata_.
+    units: mixed
+    nullable: true
+  - name: "Metadata_FileSuffix"
+    family: Metadata_
+    type: "VARCHAR"
+    description: >
+      Image/run metadata stamped onto every object by the segmentation export. See column_families.Metadata_.
+    units: mixed
+    nullable: true
+  - name: "Metadata_BitDepth"
+    family: Metadata_
+    type: "BIGINT"
+    description: >
+      Image/run metadata stamped onto every object by the segmentation export. See column_families.Metadata_.
+    units: mixed
+    nullable: true
+  - name: "Metadata_ImageType"
+    family: Metadata_
+    type: "VARCHAR"
+    description: >
+      Image/run metadata stamped onto every object by the segmentation export. See column_families.Metadata_.
+    units: mixed
+    nullable: true
+  - name: "Metadata_ImageName"
+    family: Metadata_
+    type: "VARCHAR"
+    description: >
+      Image/run metadata stamped onto every object by the segmentation export. See column_families.Metadata_.
+    units: mixed
+    nullable: true
+  - name: "ObjectLabel"
+    family: ObjectLabel
+    type: "BIGINT"
+    description: >
+      Sequential label of the detected object (colony) within its image. See column_families.ObjectLabel.
+    units: count
+    nullable: true
+  - name: "Bbox_CenterRR"
+    family: Bbox_
+    type: "DOUBLE"
+    description: >
+      Bounding-box geometry of the object in pixel coordinates. See column_families.Bbox_.
+    units: Pixel (row/col index)
+    nullable: true
+  - name: "Bbox_CenterCC"
+    family: Bbox_
+    type: "DOUBLE"
+    description: >
+      Bounding-box geometry of the object in pixel coordinates. See column_families.Bbox_.
+    units: Pixel (row/col index)
+    nullable: true
+  - name: "Bbox_MinRR"
+    family: Bbox_
+    type: "BIGINT"
+    description: >
+      Bounding-box geometry of the object in pixel coordinates. See column_families.Bbox_.
+    units: Pixel (row/col index)
+    nullable: true
+  - name: "Bbox_MinCC"
+    family: Bbox_
+    type: "BIGINT"
+    description: >
+      Bounding-box geometry of the object in pixel coordinates. See column_families.Bbox_.
+    units: Pixel (row/col index)
+    nullable: true
+  - name: "Bbox_MaxRR"
+    family: Bbox_
+    type: "BIGINT"
+    description: >
+      Bounding-box geometry of the object in pixel coordinates. See column_families.Bbox_.
+    units: Pixel (row/col index)
+    nullable: true
+  - name: "Bbox_MaxCC"
+    family: Bbox_
+    type: "BIGINT"
+    description: >
+      Bounding-box geometry of the object in pixel coordinates. See column_families.Bbox_.
+    units: Pixel (row/col index)
+    nullable: true
+  - name: "Bbox_IntensityWeightedCenterRR"
+    family: Bbox_
+    type: "DOUBLE"
+    description: >
+      Bounding-box geometry of the object in pixel coordinates. See column_families.Bbox_.
+    units: Pixel (row/col index)
+    nullable: true
+  - name: "Bbox_IntensityWeightedCenterCC"
+    family: Bbox_
+    type: "DOUBLE"
+    description: >
+      Bounding-box geometry of the object in pixel coordinates. See column_families.Bbox_.
+    units: Pixel (row/col index)
+    nullable: true
+  - name: "Bbox_DistWeightedCenterRR"
+    family: Bbox_
+    type: "DOUBLE"
+    description: >
+      Bounding-box geometry of the object in pixel coordinates. See column_families.Bbox_.
+    units: Pixel (row/col index)
+    nullable: true
+  - name: "Bbox_DistWeightedCenterCC"
+    family: Bbox_
+    type: "DOUBLE"
+    description: >
+      Bounding-box geometry of the object in pixel coordinates. See column_families.Bbox_.
+    units: Pixel (row/col index)
+    nullable: true
+  - name: "Grid_RowNum"
+    family: Grid_
+    type: "BIGINT"
+    description: >
+      Row/column grid position the object was laid out in. See column_families.Grid_.
+    units: 1-based grid index
+    nullable: true
+  - name: "Grid_ColNum"
+    family: Grid_
+    type: "BIGINT"
+    description: >
+      Row/column grid position the object was laid out in. See column_families.Grid_.
+    units: 1-based grid index
+    nullable: true
+  - name: "Grid_RowMajorIdx"
+    family: Grid_
+    type: "USMALLINT"
+    description: >
+      Row/column grid position the object was laid out in. See column_families.Grid_.
+    units: 1-based grid index
+    nullable: true
+  - name: "Grid_ColMajorIdx"
+    family: Grid_
+    type: "USMALLINT"
+    description: >
+      Row/column grid position the object was laid out in. See column_families.Grid_.
+    units: 1-based grid index
+    nullable: true
+  - name: "Shape_Area"
+    family: Shape_
+    type: "DOUBLE"
+    description: >
+      Morphometric properties of the object (MorphoLibJ). See column_families.Shape_.
+    units: Pixels (lengths here), pixels^2 (areas); circularity/roundness dimensionless
+    nullable: true
+  - name: "Shape_Perimeter"
+    family: Shape_
+    type: "DOUBLE"
+    description: >
+      Morphometric properties of the object (MorphoLibJ). See column_families.Shape_.
+    units: Pixels (lengths here), pixels^2 (areas); circularity/roundness dimensionless
+    nullable: true
+  - name: "Shape_Circularity"
+    family: Shape_
+    type: "DOUBLE"
+    description: >
+      Morphometric properties of the object (MorphoLibJ). See column_families.Shape_.
+    units: Pixels (lengths here), pixels^2 (areas); circularity/roundness dimensionless
+    nullable: true
+  - name: "Shape_ConvexArea"
+    family: Shape_
+    type: "DOUBLE"
+    description: >
+      Morphometric properties of the object (MorphoLibJ). See column_families.Shape_.
+    units: Pixels (lengths here), pixels^2 (areas); circularity/roundness dimensionless
+    nullable: true
+  - name: "Shape_MedianRadius"
+    family: Shape_
+    type: "DOUBLE"
+    description: >
+      Morphometric properties of the object (MorphoLibJ). See column_families.Shape_.
+    units: Pixels (lengths here), pixels^2 (areas); circularity/roundness dimensionless
+    nullable: true
+  - name: "Shape_MeanRadius"
+    family: Shape_
+    type: "DOUBLE"
+    description: >
+      Morphometric properties of the object (MorphoLibJ). See column_families.Shape_.
+    units: Pixels (lengths here), pixels^2 (areas); circularity/roundness dimensionless
+    nullable: true
+  - name: "Shape_MaxRadius"
+    family: Shape_
+    type: "DOUBLE"
+    description: >
+      Morphometric properties of the object (MorphoLibJ). See column_families.Shape_.
+    units: Pixels (lengths here), pixels^2 (areas); circularity/roundness dimensionless
+    nullable: true
+  - name: "Shape_MinFeretDiameter"
+    family: Shape_
+    type: "DOUBLE"
+    description: >
+      Morphometric properties of the object (MorphoLibJ). See column_families.Shape_.
+    units: Pixels (lengths here), pixels^2 (areas); circularity/roundness dimensionless
+    nullable: true
+  - name: "Shape_MaxFeretDiameter"
+    family: Shape_
+    type: "DOUBLE"
+    description: >
+      Morphometric properties of the object (MorphoLibJ). See column_families.Shape_.
+    units: Pixels (lengths here), pixels^2 (areas); circularity/roundness dimensionless
+    nullable: true
+  - name: "Shape_Eccentricity"
+    family: Shape_
+    type: "DOUBLE"
+    description: >
+      Morphometric properties of the object (MorphoLibJ). See column_families.Shape_.
+    units: Pixels (lengths here), pixels^2 (areas); circularity/roundness dimensionless
+    nullable: true
+  - name: "Shape_Solidity"
+    family: Shape_
+    type: "DOUBLE"
+    description: >
+      Morphometric properties of the object (MorphoLibJ). See column_families.Shape_.
+    units: Pixels (lengths here), pixels^2 (areas); circularity/roundness dimensionless
+    nullable: true
+  - name: "Shape_Extent"
+    family: Shape_
+    type: "DOUBLE"
+    description: >
+      Morphometric properties of the object (MorphoLibJ). See column_families.Shape_.
+    units: Pixels (lengths here), pixels^2 (areas); circularity/roundness dimensionless
+    nullable: true
+  - name: "Shape_BboxArea"
+    family: Shape_
+    type: "DOUBLE"
+    description: >
+      Morphometric properties of the object (MorphoLibJ). See column_families.Shape_.
+    units: Pixels (lengths here), pixels^2 (areas); circularity/roundness dimensionless
+    nullable: true
+  - name: "Shape_MajorAxisLength"
+    family: Shape_
+    type: "DOUBLE"
+    description: >
+      Morphometric properties of the object (MorphoLibJ). See column_families.Shape_.
+    units: Pixels (lengths here), pixels^2 (areas); circularity/roundness dimensionless
+    nullable: true
+  - name: "Shape_MinorAxisLength"
+    family: Shape_
+    type: "DOUBLE"
+    description: >
+      Morphometric properties of the object (MorphoLibJ). See column_families.Shape_.
+    units: Pixels (lengths here), pixels^2 (areas); circularity/roundness dimensionless
+    nullable: true
+  - name: "Shape_Compactness"
+    family: Shape_
+    type: "DOUBLE"
+    description: >
+      Morphometric properties of the object (MorphoLibJ). See column_families.Shape_.
+    units: Pixels (lengths here), pixels^2 (areas); circularity/roundness dimensionless
+    nullable: true
+  - name: "Shape_Orientation"
+    family: Shape_
+    type: "DOUBLE"
+    description: >
+      Morphometric properties of the object (MorphoLibJ). See column_families.Shape_.
+    units: Pixels (lengths here), pixels^2 (areas); circularity/roundness dimensionless
+    nullable: true
+  - name: "Intensity_IntegratedIntensity"
+    family: Intensity_
+    type: "DOUBLE"
+    description: >
+      Pixel-intensity statistics of the object in the (gray) channel. See column_families.Intensity_.
+    units: Arbitrary intensity units (AU); dimensionless for ratios/CV
+    nullable: true
+  - name: "Intensity_MinimumIntensity"
+    family: Intensity_
+    type: "DOUBLE"
+    description: >
+      Pixel-intensity statistics of the object in the (gray) channel. See column_families.Intensity_.
+    units: Arbitrary intensity units (AU); dimensionless for ratios/CV
+    nullable: true
+  - name: "Intensity_MaximumIntensity"
+    family: Intensity_
+    type: "DOUBLE"
+    description: >
+      Pixel-intensity statistics of the object in the (gray) channel. See column_families.Intensity_.
+    units: Arbitrary intensity units (AU); dimensionless for ratios/CV
+    nullable: true
+  - name: "Intensity_MeanIntensity"
+    family: Intensity_
+    type: "DOUBLE"
+    description: >
+      Pixel-intensity statistics of the object in the (gray) channel. See column_families.Intensity_.
+    units: Arbitrary intensity units (AU); dimensionless for ratios/CV
+    nullable: true
+  - name: "Intensity_MedianIntensity"
+    family: Intensity_
+    type: "DOUBLE"
+    description: >
+      Pixel-intensity statistics of the object in the (gray) channel. See column_families.Intensity_.
+    units: Arbitrary intensity units (AU); dimensionless for ratios/CV
+    nullable: true
+  - name: "Intensity_StandardDeviationIntensity"
+    family: Intensity_
+    type: "DOUBLE"
+    description: >
+      Pixel-intensity statistics of the object in the (gray) channel. See column_families.Intensity_.
+    units: Arbitrary intensity units (AU); dimensionless for ratios/CV
+    nullable: true
+  - name: "Intensity_CoefficientVarianceIntensity"
+    family: Intensity_
+    type: "DOUBLE"
+    description: >
+      Pixel-intensity statistics of the object in the (gray) channel. See column_families.Intensity_.
+    units: Arbitrary intensity units (AU); dimensionless for ratios/CV
+    nullable: true
+  - name: "Intensity_LowerQuartileIntensity"
+    family: Intensity_
+    type: "DOUBLE"
+    description: >
+      Pixel-intensity statistics of the object in the (gray) channel. See column_families.Intensity_.
+    units: Arbitrary intensity units (AU); dimensionless for ratios/CV
+    nullable: true
+  - name: "Intensity_UpperQuartileIntensity"
+    family: Intensity_
+    type: "DOUBLE"
+    description: >
+      Pixel-intensity statistics of the object in the (gray) channel. See column_families.Intensity_.
+    units: Arbitrary intensity units (AU); dimensionless for ratios/CV
+    nullable: true
+  - name: "Intensity_InterquartileRangeIntensity"
+    family: Intensity_
+    type: "DOUBLE"
+    description: >
+      Pixel-intensity statistics of the object in the (gray) channel. See column_families.Intensity_.
+    units: Arbitrary intensity units (AU); dimensionless for ratios/CV
+    nullable: true
+  - name: "Intensity_Density"
+    family: Intensity_
+    type: "DOUBLE"
+    description: >
+      Pixel-intensity statistics of the object in the (gray) channel. See column_families.Intensity_.
+    units: Arbitrary intensity units (AU); dimensionless for ratios/CV
+    nullable: true
+  - name: "Intensity_ConvexDensity"
+    family: Intensity_
+    type: "DOUBLE"
+    description: >
+      Pixel-intensity statistics of the object in the (gray) channel. See column_families.Intensity_.
+    units: Arbitrary intensity units (AU); dimensionless for ratios/CV
+    nullable: true
+  - name: "TextureGray_AngularSecondMoment-deg000-scale05"
+    family: TextureGray_
+    type: "DOUBLE"
+    description: >
+      Haralick co-occurrence texture metrics computed from the gray-level co-occurrence matrix at four orientations and their average (MorphoLibJ). See column_families.TextureGray_.
+    units: Dimensionless
+    nullable: true
+  - name: "TextureGray_AngularSecondMoment-deg045-scale05"
+    family: TextureGray_
+    type: "DOUBLE"
+    description: >
+      Haralick co-occurrence texture metrics computed from the gray-level co-occurrence matrix at four orientations and their average (MorphoLibJ). See column_families.TextureGray_.
+    units: Dimensionless
+    nullable: true
+  - name: "TextureGray_AngularSecondMoment-deg090-scale05"
+    family: TextureGray_
+    type: "DOUBLE"
+    description: >
+      Haralick co-occurrence texture metrics computed from the gray-level co-occurrence matrix at four orientations and their average (MorphoLibJ). See column_families.TextureGray_.
+    units: Dimensionless
+    nullable: true
+  - name: "TextureGray_AngularSecondMoment-deg135-scale05"
+    family: TextureGray_
+    type: "DOUBLE"
+    description: >
+      Haralick co-occurrence texture metrics computed from the gray-level co-occurrence matrix at four orientations and their average (MorphoLibJ). See column_families.TextureGray_.
+    units: Dimensionless
+    nullable: true
+  - name: "TextureGray_Contrast-deg000-scale05"
+    family: TextureGray_
+    type: "DOUBLE"
+    description: >
+      Haralick co-occurrence texture metrics computed from the gray-level co-occurrence matrix at four orientations and their average (MorphoLibJ). See column_families.TextureGray_.
+    units: Dimensionless
+    nullable: true
+  - name: "TextureGray_Contrast-deg045-scale05"
+    family: TextureGray_
+    type: "DOUBLE"
+    description: >
+      Haralick co-occurrence texture metrics computed from the gray-level co-occurrence matrix at four orientations and their average (MorphoLibJ). See column_families.TextureGray_.
+    units: Dimensionless
+    nullable: true
+  - name: "TextureGray_Contrast-deg090-scale05"
+    family: TextureGray_
+    type: "DOUBLE"
+    description: >
+      Haralick co-occurrence texture metrics computed from the gray-level co-occurrence matrix at four orientations and their average (MorphoLibJ). See column_families.TextureGray_.
+    units: Dimensionless
+    nullable: true
+  - name: "TextureGray_Contrast-deg135-scale05"
+    family: TextureGray_
+    type: "DOUBLE"
+    description: >
+      Haralick co-occurrence texture metrics computed from the gray-level co-occurrence matrix at four orientations and their average (MorphoLibJ). See column_families.TextureGray_.
+    units: Dimensionless
+    nullable: true
+  - name: "TextureGray_Correlation-deg000-scale05"
+    family: TextureGray_
+    type: "DOUBLE"
+    description: >
+      Haralick co-occurrence texture metrics computed from the gray-level co-occurrence matrix at four orientations and their average (MorphoLibJ). See column_families.TextureGray_.
+    units: Dimensionless
+    nullable: true
+  - name: "TextureGray_Correlation-deg045-scale05"
+    family: TextureGray_
+    type: "DOUBLE"
+    description: >
+      Haralick co-occurrence texture metrics computed from the gray-level co-occurrence matrix at four orientations and their average (MorphoLibJ). See column_families.TextureGray_.
+    units: Dimensionless
+    nullable: true
+  - name: "TextureGray_Correlation-deg090-scale05"
+    family: TextureGray_
+    type: "DOUBLE"
+    description: >
+      Haralick co-occurrence texture metrics computed from the gray-level co-occurrence matrix at four orientations and their average (MorphoLibJ). See column_families.TextureGray_.
+    units: Dimensionless
+    nullable: true
+  - name: "TextureGray_Correlation-deg135-scale05"
+    family: TextureGray_
+    type: "DOUBLE"
+    description: >
+      Haralick co-occurrence texture metrics computed from the gray-level co-occurrence matrix at four orientations and their average (MorphoLibJ). See column_families.TextureGray_.
+    units: Dimensionless
+    nullable: true
+  - name: "TextureGray_HaralickVariance-deg000-scale05"
+    family: TextureGray_
+    type: "DOUBLE"
+    description: >
+      Haralick co-occurrence texture metrics computed from the gray-level co-occurrence matrix at four orientations and their average (MorphoLibJ). See column_families.TextureGray_.
+    units: Dimensionless
+    nullable: true
+  - name: "TextureGray_HaralickVariance-deg045-scale05"
+    family: TextureGray_
+    type: "DOUBLE"
+    description: >
+      Haralick co-occurrence texture metrics computed from the gray-level co-occurrence matrix at four orientations and their average (MorphoLibJ). See column_families.TextureGray_.
+    units: Dimensionless
+    nullable: true
+  - name: "TextureGray_HaralickVariance-deg090-scale05"
+    family: TextureGray_
+    type: "DOUBLE"
+    description: >
+      Haralick co-occurrence texture metrics computed from the gray-level co-occurrence matrix at four orientations and their average (MorphoLibJ). See column_families.TextureGray_.
+    units: Dimensionless
+    nullable: true
+  - name: "TextureGray_HaralickVariance-deg135-scale05"
+    family: TextureGray_
+    type: "DOUBLE"
+    description: >
+      Haralick co-occurrence texture metrics computed from the gray-level co-occurrence matrix at four orientations and their average (MorphoLibJ). See column_families.TextureGray_.
+    units: Dimensionless
+    nullable: true
+  - name: "TextureGray_InverseDifferenceMoment-deg000-scale05"
+    family: TextureGray_
+    type: "DOUBLE"
+    description: >
+      Haralick co-occurrence texture metrics computed from the gray-level co-occurrence matrix at four orientations and their average (MorphoLibJ). See column_families.TextureGray_.
+    units: Dimensionless
+    nullable: true
+  - name: "TextureGray_InverseDifferenceMoment-deg045-scale05"
+    family: TextureGray_
+    type: "DOUBLE"
+    description: >
+      Haralick co-occurrence texture metrics computed from the gray-level co-occurrence matrix at four orientations and their average (MorphoLibJ). See column_families.TextureGray_.
+    units: Dimensionless
+    nullable: true
+  - name: "TextureGray_InverseDifferenceMoment-deg090-scale05"
+    family: TextureGray_
+    type: "DOUBLE"
+    description: >
+      Haralick co-occurrence texture metrics computed from the gray-level co-occurrence matrix at four orientations and their average (MorphoLibJ). See column_families.TextureGray_.
+    units: Dimensionless
+    nullable: true
+  - name: "TextureGray_InverseDifferenceMoment-deg135-scale05"
+    family: TextureGray_
+    type: "DOUBLE"
+    description: >
+      Haralick co-occurrence texture metrics computed from the gray-level co-occurrence matrix at four orientations and their average (MorphoLibJ). See column_families.TextureGray_.
+    units: Dimensionless
+    nullable: true
+  - name: "TextureGray_SumAverage-deg000-scale05"
+    family: TextureGray_
+    type: "DOUBLE"
+    description: >
+      Haralick co-occurrence texture metrics computed from the gray-level co-occurrence matrix at four orientations and their average (MorphoLibJ). See column_families.TextureGray_.
+    units: Dimensionless
+    nullable: true
+  - name: "TextureGray_SumAverage-deg045-scale05"
+    family: TextureGray_
+    type: "DOUBLE"
+    description: >
+      Haralick co-occurrence texture metrics computed from the gray-level co-occurrence matrix at four orientations and their average (MorphoLibJ). See column_families.TextureGray_.
+    units: Dimensionless
+    nullable: true
+  - name: "TextureGray_SumAverage-deg090-scale05"
+    family: TextureGray_
+    type: "DOUBLE"
+    description: >
+      Haralick co-occurrence texture metrics computed from the gray-level co-occurrence matrix at four orientations and their average (MorphoLibJ). See column_families.TextureGray_.
+    units: Dimensionless
+    nullable: true
+  - name: "TextureGray_SumAverage-deg135-scale05"
+    family: TextureGray_
+    type: "DOUBLE"
+    description: >
+      Haralick co-occurrence texture metrics computed from the gray-level co-occurrence matrix at four orientations and their average (MorphoLibJ). See column_families.TextureGray_.
+    units: Dimensionless
+    nullable: true
+  - name: "TextureGray_SumVariance-deg000-scale05"
+    family: TextureGray_
+    type: "DOUBLE"
+    description: >
+      Haralick co-occurrence texture metrics computed from the gray-level co-occurrence matrix at four orientations and their average (MorphoLibJ). See column_families.TextureGray_.
+    units: Dimensionless
+    nullable: true
+  - name: "TextureGray_SumVariance-deg045-scale05"
+    family: TextureGray_
+    type: "DOUBLE"
+    description: >
+      Haralick co-occurrence texture metrics computed from the gray-level co-occurrence matrix at four orientations and their average (MorphoLibJ). See column_families.TextureGray_.
+    units: Dimensionless
+    nullable: true
+  - name: "TextureGray_SumVariance-deg090-scale05"
+    family: TextureGray_
+    type: "DOUBLE"
+    description: >
+      Haralick co-occurrence texture metrics computed from the gray-level co-occurrence matrix at four orientations and their average (MorphoLibJ). See column_families.TextureGray_.
+    units: Dimensionless
+    nullable: true
+  - name: "TextureGray_SumVariance-deg135-scale05"
+    family: TextureGray_
+    type: "DOUBLE"
+    description: >
+      Haralick co-occurrence texture metrics computed from the gray-level co-occurrence matrix at four orientations and their average (MorphoLibJ). See column_families.TextureGray_.
+    units: Dimensionless
+    nullable: true
+  - name: "TextureGray_SumEntropy-deg000-scale05"
+    family: TextureGray_
+    type: "DOUBLE"
+    description: >
+      Haralick co-occurrence texture metrics computed from the gray-level co-occurrence matrix at four orientations and their average (MorphoLibJ). See column_families.TextureGray_.
+    units: Dimensionless
+    nullable: true
+  - name: "TextureGray_SumEntropy-deg045-scale05"
+    family: TextureGray_
+    type: "DOUBLE"
+    description: >
+      Haralick co-occurrence texture metrics computed from the gray-level co-occurrence matrix at four orientations and their average (MorphoLibJ). See column_families.TextureGray_.
+    units: Dimensionless
+    nullable: true
+  - name: "TextureGray_SumEntropy-deg090-scale05"
+    family: TextureGray_
+    type: "DOUBLE"
+    description: >
+      Haralick co-occurrence texture metrics computed from the gray-level co-occurrence matrix at four orientations and their average (MorphoLibJ). See column_families.TextureGray_.
+    units: Dimensionless
+    nullable: true
+  - name: "TextureGray_SumEntropy-deg135-scale05"
+    family: TextureGray_
+    type: "DOUBLE"
+    description: >
+      Haralick co-occurrence texture metrics computed from the gray-level co-occurrence matrix at four orientations and their average (MorphoLibJ). See column_families.TextureGray_.
+    units: Dimensionless
+    nullable: true
+  - name: "TextureGray_Entropy-deg000-scale05"
+    family: TextureGray_
+    type: "DOUBLE"
+    description: >
+      Haralick co-occurrence texture metrics computed from the gray-level co-occurrence matrix at four orientations and their average (MorphoLibJ). See column_families.TextureGray_.
+    units: Dimensionless
+    nullable: true
+  - name: "TextureGray_Entropy-deg045-scale05"
+    family: TextureGray_
+    type: "DOUBLE"
+    description: >
+      Haralick co-occurrence texture metrics computed from the gray-level co-occurrence matrix at four orientations and their average (MorphoLibJ). See column_families.TextureGray_.
+    units: Dimensionless
+    nullable: true
+  - name: "TextureGray_Entropy-deg090-scale05"
+    family: TextureGray_
+    type: "DOUBLE"
+    description: >
+      Haralick co-occurrence texture metrics computed from the gray-level co-occurrence matrix at four orientations and their average (MorphoLibJ). See column_families.TextureGray_.
+    units: Dimensionless
+    nullable: true
+  - name: "TextureGray_Entropy-deg135-scale05"
+    family: TextureGray_
+    type: "DOUBLE"
+    description: >
+      Haralick co-occurrence texture metrics computed from the gray-level co-occurrence matrix at four orientations and their average (MorphoLibJ). See column_families.TextureGray_.
+    units: Dimensionless
+    nullable: true
+  - name: "TextureGray_DiffVariance-deg000-scale05"
+    family: TextureGray_
+    type: "DOUBLE"
+    description: >
+      Haralick co-occurrence texture metrics computed from the gray-level co-occurrence matrix at four orientations and their average (MorphoLibJ). See column_families.TextureGray_.
+    units: Dimensionless
+    nullable: true
+  - name: "TextureGray_DiffVariance-deg045-scale05"
+    family: TextureGray_
+    type: "DOUBLE"
+    description: >
+      Haralick co-occurrence texture metrics computed from the gray-level co-occurrence matrix at four orientations and their average (MorphoLibJ). See column_families.TextureGray_.
+    units: Dimensionless
+    nullable: true
+  - name: "TextureGray_DiffVariance-deg090-scale05"
+    family: TextureGray_
+    type: "DOUBLE"
+    description: >
+      Haralick co-occurrence texture metrics computed from the gray-level co-occurrence matrix at four orientations and their average (MorphoLibJ). See column_families.TextureGray_.
+    units: Dimensionless
+    nullable: true
+  - name: "TextureGray_DiffVariance-deg135-scale05"
+    family: TextureGray_
+    type: "DOUBLE"
+    description: >
+      Haralick co-occurrence texture metrics computed from the gray-level co-occurrence matrix at four orientations and their average (MorphoLibJ). See column_families.TextureGray_.
+    units: Dimensionless
+    nullable: true
+  - name: "TextureGray_DiffEntropy-deg000-scale05"
+    family: TextureGray_
+    type: "DOUBLE"
+    description: >
+      Haralick co-occurrence texture metrics computed from the gray-level co-occurrence matrix at four orientations and their average (MorphoLibJ). See column_families.TextureGray_.
+    units: Dimensionless
+    nullable: true
+  - name: "TextureGray_DiffEntropy-deg045-scale05"
+    family: TextureGray_
+    type: "DOUBLE"
+    description: >
+      Haralick co-occurrence texture metrics computed from the gray-level co-occurrence matrix at four orientations and their average (MorphoLibJ). See column_families.TextureGray_.
+    units: Dimensionless
+    nullable: true
+  - name: "TextureGray_DiffEntropy-deg090-scale05"
+    family: TextureGray_
+    type: "DOUBLE"
+    description: >
+      Haralick co-occurrence texture metrics computed from the gray-level co-occurrence matrix at four orientations and their average (MorphoLibJ). See column_families.TextureGray_.
+    units: Dimensionless
+    nullable: true
+  - name: "TextureGray_DiffEntropy-deg135-scale05"
+    family: TextureGray_
+    type: "DOUBLE"
+    description: >
+      Haralick co-occurrence texture metrics computed from the gray-level co-occurrence matrix at four orientations and their average (MorphoLibJ). See column_families.TextureGray_.
+    units: Dimensionless
+    nullable: true
+  - name: "TextureGray_InfoCorrelation1-deg000-scale05"
+    family: TextureGray_
+    type: "DOUBLE"
+    description: >
+      Haralick co-occurrence texture metrics computed from the gray-level co-occurrence matrix at four orientations and their average (MorphoLibJ). See column_families.TextureGray_.
+    units: Dimensionless
+    nullable: true
+  - name: "TextureGray_InfoCorrelation1-deg045-scale05"
+    family: TextureGray_
+    type: "DOUBLE"
+    description: >
+      Haralick co-occurrence texture metrics computed from the gray-level co-occurrence matrix at four orientations and their average (MorphoLibJ). See column_families.TextureGray_.
+    units: Dimensionless
+    nullable: true
+  - name: "TextureGray_InfoCorrelation1-deg090-scale05"
+    family: TextureGray_
+    type: "DOUBLE"
+    description: >
+      Haralick co-occurrence texture metrics computed from the gray-level co-occurrence matrix at four orientations and their average (MorphoLibJ). See column_families.TextureGray_.
+    units: Dimensionless
+    nullable: true
+  - name: "TextureGray_InfoCorrelation1-deg135-scale05"
+    family: TextureGray_
+    type: "DOUBLE"
+    description: >
+      Haralick co-occurrence texture metrics computed from the gray-level co-occurrence matrix at four orientations and their average (MorphoLibJ). See column_families.TextureGray_.
+    units: Dimensionless
+    nullable: true
+  - name: "TextureGray_InfoCorrelation2-deg000-scale05"
+    family: TextureGray_
+    type: "DOUBLE"
+    description: >
+      Haralick co-occurrence texture metrics computed from the gray-level co-occurrence matrix at four orientations and their average (MorphoLibJ). See column_families.TextureGray_.
+    units: Dimensionless
+    nullable: true
+  - name: "TextureGray_InfoCorrelation2-deg045-scale05"
+    family: TextureGray_
+    type: "DOUBLE"
+    description: >
+      Haralick co-occurrence texture metrics computed from the gray-level co-occurrence matrix at four orientations and their average (MorphoLibJ). See column_families.TextureGray_.
+    units: Dimensionless
+    nullable: true
+  - name: "TextureGray_InfoCorrelation2-deg090-scale05"
+    family: TextureGray_
+    type: "DOUBLE"
+    description: >
+      Haralick co-occurrence texture metrics computed from the gray-level co-occurrence matrix at four orientations and their average (MorphoLibJ). See column_families.TextureGray_.
+    units: Dimensionless
+    nullable: true
+  - name: "TextureGray_InfoCorrelation2-deg135-scale05"
+    family: TextureGray_
+    type: "DOUBLE"
+    description: >
+      Haralick co-occurrence texture metrics computed from the gray-level co-occurrence matrix at four orientations and their average (MorphoLibJ). See column_families.TextureGray_.
+    units: Dimensionless
+    nullable: true
+  - name: "TextureGray_AngularSecondMoment-avg-scale05"
+    family: TextureGray_
+    type: "DOUBLE"
+    description: >
+      Haralick co-occurrence texture metrics computed from the gray-level co-occurrence matrix at four orientations and their average (MorphoLibJ). See column_families.TextureGray_.
+    units: Dimensionless
+    nullable: true
+  - name: "TextureGray_Contrast-avg-scale05"
+    family: TextureGray_
+    type: "DOUBLE"
+    description: >
+      Haralick co-occurrence texture metrics computed from the gray-level co-occurrence matrix at four orientations and their average (MorphoLibJ). See column_families.TextureGray_.
+    units: Dimensionless
+    nullable: true
+  - name: "TextureGray_Correlation-avg-scale05"
+    family: TextureGray_
+    type: "DOUBLE"
+    description: >
+      Haralick co-occurrence texture metrics computed from the gray-level co-occurrence matrix at four orientations and their average (MorphoLibJ). See column_families.TextureGray_.
+    units: Dimensionless
+    nullable: true
+  - name: "TextureGray_HaralickVariance-avg-scale05"
+    family: TextureGray_
+    type: "DOUBLE"
+    description: >
+      Haralick co-occurrence texture metrics computed from the gray-level co-occurrence matrix at four orientations and their average (MorphoLibJ). See column_families.TextureGray_.
+    units: Dimensionless
+    nullable: true
+  - name: "TextureGray_InverseDifferenceMoment-avg-scale05"
+    family: TextureGray_
+    type: "DOUBLE"
+    description: >
+      Haralick co-occurrence texture metrics computed from the gray-level co-occurrence matrix at four orientations and their average (MorphoLibJ). See column_families.TextureGray_.
+    units: Dimensionless
+    nullable: true
+  - name: "TextureGray_SumAverage-avg-scale05"
+    family: TextureGray_
+    type: "DOUBLE"
+    description: >
+      Haralick co-occurrence texture metrics computed from the gray-level co-occurrence matrix at four orientations and their average (MorphoLibJ). See column_families.TextureGray_.
+    units: Dimensionless
+    nullable: true
+  - name: "TextureGray_SumVariance-avg-scale05"
+    family: TextureGray_
+    type: "DOUBLE"
+    description: >
+      Haralick co-occurrence texture metrics computed from the gray-level co-occurrence matrix at four orientations and their average (MorphoLibJ). See column_families.TextureGray_.
+    units: Dimensionless
+    nullable: true
+  - name: "TextureGray_SumEntropy-avg-scale05"
+    family: TextureGray_
+    type: "DOUBLE"
+    description: >
+      Haralick co-occurrence texture metrics computed from the gray-level co-occurrence matrix at four orientations and their average (MorphoLibJ). See column_families.TextureGray_.
+    units: Dimensionless
+    nullable: true
+  - name: "TextureGray_Entropy-avg-scale05"
+    family: TextureGray_
+    type: "DOUBLE"
+    description: >
+      Haralick co-occurrence texture metrics computed from the gray-level co-occurrence matrix at four orientations and their average (MorphoLibJ). See column_families.TextureGray_.
+    units: Dimensionless
+    nullable: true
+  - name: "TextureGray_DiffVariance-avg-scale05"
+    family: TextureGray_
+    type: "DOUBLE"
+    description: >
+      Haralick co-occurrence texture metrics computed from the gray-level co-occurrence matrix at four orientations and their average (MorphoLibJ). See column_families.TextureGray_.
+    units: Dimensionless
+    nullable: true
+  - name: "TextureGray_DiffEntropy-avg-scale05"
+    family: TextureGray_
+    type: "DOUBLE"
+    description: >
+      Haralick co-occurrence texture metrics computed from the gray-level co-occurrence matrix at four orientations and their average (MorphoLibJ). See column_families.TextureGray_.
+    units: Dimensionless
+    nullable: true
+  - name: "TextureGray_InfoCorrelation1-avg-scale05"
+    family: TextureGray_
+    type: "DOUBLE"
+    description: >
+      Haralick co-occurrence texture metrics computed from the gray-level co-occurrence matrix at four orientations and their average (MorphoLibJ). See column_families.TextureGray_.
+    units: Dimensionless
+    nullable: true
+  - name: "TextureGray_InfoCorrelation2-avg-scale05"
+    family: TextureGray_
+    type: "DOUBLE"
+    description: >
+      Haralick co-occurrence texture metrics computed from the gray-level co-occurrence matrix at four orientations and their average (MorphoLibJ). See column_families.TextureGray_.
+    units: Dimensionless
+    nullable: true
+  - name: "Colorxy_xMin"
+    family: Colorxy_
+    type: "DOUBLE"
+    description: >
+      Median-filtered chromaticity (x,y) statistics of the object. See column_families.Colorxy_.
+    units: Dimensionless chromaticity coordinates
+    nullable: true
+  - name: "Colorxy_xQ1"
+    family: Colorxy_
+    type: "DOUBLE"
+    description: >
+      Median-filtered chromaticity (x,y) statistics of the object. See column_families.Colorxy_.
+    units: Dimensionless chromaticity coordinates
+    nullable: true
+  - name: "Colorxy_xMean"
+    family: Colorxy_
+    type: "DOUBLE"
+    description: >
+      Median-filtered chromaticity (x,y) statistics of the object. See column_families.Colorxy_.
+    units: Dimensionless chromaticity coordinates
+    nullable: true
+  - name: "Colorxy_xMedian"
+    family: Colorxy_
+    type: "DOUBLE"
+    description: >
+      Median-filtered chromaticity (x,y) statistics of the object. See column_families.Colorxy_.
+    units: Dimensionless chromaticity coordinates
+    nullable: true
+  - name: "Colorxy_xQ3"
+    family: Colorxy_
+    type: "DOUBLE"
+    description: >
+      Median-filtered chromaticity (x,y) statistics of the object. See column_families.Colorxy_.
+    units: Dimensionless chromaticity coordinates
+    nullable: true
+  - name: "Colorxy_xMax"
+    family: Colorxy_
+    type: "DOUBLE"
+    description: >
+      Median-filtered chromaticity (x,y) statistics of the object. See column_families.Colorxy_.
+    units: Dimensionless chromaticity coordinates
+    nullable: true
+  - name: "Colorxy_xStdDev"
+    family: Colorxy_
+    type: "DOUBLE"
+    description: >
+      Median-filtered chromaticity (x,y) statistics of the object. See column_families.Colorxy_.
+    units: Dimensionless chromaticity coordinates
+    nullable: true
+  - name: "Colorxy_xCoeffVar"
+    family: Colorxy_
+    type: "DOUBLE"
+    description: >
+      Median-filtered chromaticity (x,y) statistics of the object. See column_families.Colorxy_.
+    units: Dimensionless chromaticity coordinates
+    nullable: true
+  - name: "Colorxy_yMin"
+    family: Colorxy_
+    type: "DOUBLE"
+    description: >
+      Median-filtered chromaticity (x,y) statistics of the object. See column_families.Colorxy_.
+    units: Dimensionless chromaticity coordinates
+    nullable: true
+  - name: "Colorxy_yQ1"
+    family: Colorxy_
+    type: "DOUBLE"
+    description: >
+      Median-filtered chromaticity (x,y) statistics of the object. See column_families.Colorxy_.
+    units: Dimensionless chromaticity coordinates
+    nullable: true
+  - name: "Colorxy_yMean"
+    family: Colorxy_
+    type: "DOUBLE"
+    description: >
+      Median-filtered chromaticity (x,y) statistics of the object. See column_families.Colorxy_.
+    units: Dimensionless chromaticity coordinates
+    nullable: true
+  - name: "Colorxy_yMedian"
+    family: Colorxy_
+    type: "DOUBLE"
+    description: >
+      Median-filtered chromaticity (x,y) statistics of the object. See column_families.Colorxy_.
+    units: Dimensionless chromaticity coordinates
+    nullable: true
+  - name: "Colorxy_yQ3"
+    family: Colorxy_
+    type: "DOUBLE"
+    description: >
+      Median-filtered chromaticity (x,y) statistics of the object. See column_families.Colorxy_.
+    units: Dimensionless chromaticity coordinates
+    nullable: true
+  - name: "Colorxy_yMax"
+    family: Colorxy_
+    type: "DOUBLE"
+    description: >
+      Median-filtered chromaticity (x,y) statistics of the object. See column_families.Colorxy_.
+    units: Dimensionless chromaticity coordinates
+    nullable: true
+  - name: "Colorxy_yStdDev"
+    family: Colorxy_
+    type: "DOUBLE"
+    description: >
+      Median-filtered chromaticity (x,y) statistics of the object. See column_families.Colorxy_.
+    units: Dimensionless chromaticity coordinates
+    nullable: true
+  - name: "Colorxy_yCoeffVar"
+    family: Colorxy_
+    type: "DOUBLE"
+    description: >
+      Median-filtered chromaticity (x,y) statistics of the object. See column_families.Colorxy_.
+    units: Dimensionless chromaticity coordinates
+    nullable: true
+  - name: "ColorLab_L*Min"
+    family: ColorLab_
+    type: "DOUBLE"
+    description: >
+      Perceptual CIE L*a*b* color statistics of the object. See column_families.ColorLab_.
+    units: CIELAB: L* 0-100, a*/b* signed
+    nullable: true
+  - name: "ColorLab_L*Q1"
+    family: ColorLab_
+    type: "DOUBLE"
+    description: >
+      Perceptual CIE L*a*b* color statistics of the object. See column_families.ColorLab_.
+    units: CIELAB: L* 0-100, a*/b* signed
+    nullable: true
+  - name: "ColorLab_L*Mean"
+    family: ColorLab_
+    type: "DOUBLE"
+    description: >
+      Perceptual CIE L*a*b* color statistics of the object. See column_families.ColorLab_.
+    units: CIELAB: L* 0-100, a*/b* signed
+    nullable: true
+  - name: "ColorLab_L*Median"
+    family: ColorLab_
+    type: "DOUBLE"
+    description: >
+      Perceptual CIE L*a*b* color statistics of the object. See column_families.ColorLab_.
+    units: CIELAB: L* 0-100, a*/b* signed
+    nullable: true
+  - name: "ColorLab_L*Q3"
+    family: ColorLab_
+    type: "DOUBLE"
+    description: >
+      Perceptual CIE L*a*b* color statistics of the object. See column_families.ColorLab_.
+    units: CIELAB: L* 0-100, a*/b* signed
+    nullable: true
+  - name: "ColorLab_L*Max"
+    family: ColorLab_
+    type: "DOUBLE"
+    description: >
+      Perceptual CIE L*a*b* color statistics of the object. See column_families.ColorLab_.
+    units: CIELAB: L* 0-100, a*/b* signed
+    nullable: true
+  - name: "ColorLab_L*StdDev"
+    family: ColorLab_
+    type: "DOUBLE"
+    description: >
+      Perceptual CIE L*a*b* color statistics of the object. See column_families.ColorLab_.
+    units: CIELAB: L* 0-100, a*/b* signed
+    nullable: true
+  - name: "ColorLab_L*CoeffVar"
+    family: ColorLab_
+    type: "DOUBLE"
+    description: >
+      Perceptual CIE L*a*b* color statistics of the object. See column_families.ColorLab_.
+    units: CIELAB: L* 0-100, a*/b* signed
+    nullable: true
+  - name: "ColorLab_a*Min"
+    family: ColorLab_
+    type: "DOUBLE"
+    description: >
+      Perceptual CIE L*a*b* color statistics of the object. See column_families.ColorLab_.
+    units: CIELAB: L* 0-100, a*/b* signed
+    nullable: true
+  - name: "ColorLab_a*Q1"
+    family: ColorLab_
+    type: "DOUBLE"
+    description: >
+      Perceptual CIE L*a*b* color statistics of the object. See column_families.ColorLab_.
+    units: CIELAB: L* 0-100, a*/b* signed
+    nullable: true
+  - name: "ColorLab_a*Mean"
+    family: ColorLab_
+    type: "DOUBLE"
+    description: >
+      Perceptual CIE L*a*b* color statistics of the object. See column_families.ColorLab_.
+    units: CIELAB: L* 0-100, a*/b* signed
+    nullable: true
+  - name: "ColorLab_a*Median"
+    family: ColorLab_
+    type: "DOUBLE"
+    description: >
+      Perceptual CIE L*a*b* color statistics of the object. See column_families.ColorLab_.
+    units: CIELAB: L* 0-100, a*/b* signed
+    nullable: true
+  - name: "ColorLab_a*Q3"
+    family: ColorLab_
+    type: "DOUBLE"
+    description: >
+      Perceptual CIE L*a*b* color statistics of the object. See column_families.ColorLab_.
+    units: CIELAB: L* 0-100, a*/b* signed
+    nullable: true
+  - name: "ColorLab_a*Max"
+    family: ColorLab_
+    type: "DOUBLE"
+    description: >
+      Perceptual CIE L*a*b* color statistics of the object. See column_families.ColorLab_.
+    units: CIELAB: L* 0-100, a*/b* signed
+    nullable: true
+  - name: "ColorLab_a*StdDev"
+    family: ColorLab_
+    type: "DOUBLE"
+    description: >
+      Perceptual CIE L*a*b* color statistics of the object. See column_families.ColorLab_.
+    units: CIELAB: L* 0-100, a*/b* signed
+    nullable: true
+  - name: "ColorLab_a*CoeffVar"
+    family: ColorLab_
+    type: "DOUBLE"
+    description: >
+      Perceptual CIE L*a*b* color statistics of the object. See column_families.ColorLab_.
+    units: CIELAB: L* 0-100, a*/b* signed
+    nullable: true
+  - name: "ColorLab_b*Min"
+    family: ColorLab_
+    type: "DOUBLE"
+    description: >
+      Perceptual CIE L*a*b* color statistics of the object. See column_families.ColorLab_.
+    units: CIELAB: L* 0-100, a*/b* signed
+    nullable: true
+  - name: "ColorLab_b*Q1"
+    family: ColorLab_
+    type: "DOUBLE"
+    description: >
+      Perceptual CIE L*a*b* color statistics of the object. See column_families.ColorLab_.
+    units: CIELAB: L* 0-100, a*/b* signed
+    nullable: true
+  - name: "ColorLab_b*Mean"
+    family: ColorLab_
+    type: "DOUBLE"
+    description: >
+      Perceptual CIE L*a*b* color statistics of the object. See column_families.ColorLab_.
+    units: CIELAB: L* 0-100, a*/b* signed
+    nullable: true
+  - name: "ColorLab_b*Median"
+    family: ColorLab_
+    type: "DOUBLE"
+    description: >
+      Perceptual CIE L*a*b* color statistics of the object. See column_families.ColorLab_.
+    units: CIELAB: L* 0-100, a*/b* signed
+    nullable: true
+  - name: "ColorLab_b*Q3"
+    family: ColorLab_
+    type: "DOUBLE"
+    description: >
+      Perceptual CIE L*a*b* color statistics of the object. See column_families.ColorLab_.
+    units: CIELAB: L* 0-100, a*/b* signed
+    nullable: true
+  - name: "ColorLab_b*Max"
+    family: ColorLab_
+    type: "DOUBLE"
+    description: >
+      Perceptual CIE L*a*b* color statistics of the object. See column_families.ColorLab_.
+    units: CIELAB: L* 0-100, a*/b* signed
+    nullable: true
+  - name: "ColorLab_b*StdDev"
+    family: ColorLab_
+    type: "DOUBLE"
+    description: >
+      Perceptual CIE L*a*b* color statistics of the object. See column_families.ColorLab_.
+    units: CIELAB: L* 0-100, a*/b* signed
+    nullable: true
+  - name: "ColorLab_b*CoeffVar"
+    family: ColorLab_
+    type: "DOUBLE"
+    description: >
+      Perceptual CIE L*a*b* color statistics of the object. See column_families.ColorLab_.
+    units: CIELAB: L* 0-100, a*/b* signed
+    nullable: true
+  - name: "ColorHSV_HueMin"
+    family: ColorHSV_
+    type: "DOUBLE"
+    description: >
+      HSV color statistics of the object (Hue, Saturation, Brightness). See column_families.ColorHSV_.
+    units: Hue 0-1 (or 0-360); Saturation/Brightness 0-1
+    nullable: true
+  - name: "ColorHSV_HueQ1"
+    family: ColorHSV_
+    type: "DOUBLE"
+    description: >
+      HSV color statistics of the object (Hue, Saturation, Brightness). See column_families.ColorHSV_.
+    units: Hue 0-1 (or 0-360); Saturation/Brightness 0-1
+    nullable: true
+  - name: "ColorHSV_HueMean"
+    family: ColorHSV_
+    type: "DOUBLE"
+    description: >
+      HSV color statistics of the object (Hue, Saturation, Brightness). See column_families.ColorHSV_.
+    units: Hue 0-1 (or 0-360); Saturation/Brightness 0-1
+    nullable: true
+  - name: "ColorHSV_HueMedian"
+    family: ColorHSV_
+    type: "DOUBLE"
+    description: >
+      HSV color statistics of the object (Hue, Saturation, Brightness). See column_families.ColorHSV_.
+    units: Hue 0-1 (or 0-360); Saturation/Brightness 0-1
+    nullable: true
+  - name: "ColorHSV_HueQ3"
+    family: ColorHSV_
+    type: "DOUBLE"
+    description: >
+      HSV color statistics of the object (Hue, Saturation, Brightness). See column_families.ColorHSV_.
+    units: Hue 0-1 (or 0-360); Saturation/Brightness 0-1
+    nullable: true
+  - name: "ColorHSV_HueMax"
+    family: ColorHSV_
+    type: "DOUBLE"
+    description: >
+      HSV color statistics of the object (Hue, Saturation, Brightness). See column_families.ColorHSV_.
+    units: Hue 0-1 (or 0-360); Saturation/Brightness 0-1
+    nullable: true
+  - name: "ColorHSV_HueStdDev"
+    family: ColorHSV_
+    type: "DOUBLE"
+    description: >
+      HSV color statistics of the object (Hue, Saturation, Brightness). See column_families.ColorHSV_.
+    units: Hue 0-1 (or 0-360); Saturation/Brightness 0-1
+    nullable: true
+  - name: "ColorHSV_HueCoeffVar"
+    family: ColorHSV_
+    type: "DOUBLE"
+    description: >
+      HSV color statistics of the object (Hue, Saturation, Brightness). See column_families.ColorHSV_.
+    units: Hue 0-1 (or 0-360); Saturation/Brightness 0-1
+    nullable: true
+  - name: "ColorHSV_SaturationMin"
+    family: ColorHSV_
+    type: "DOUBLE"
+    description: >
+      HSV color statistics of the object (Hue, Saturation, Brightness). See column_families.ColorHSV_.
+    units: Hue 0-1 (or 0-360); Saturation/Brightness 0-1
+    nullable: true
+  - name: "ColorHSV_SaturationQ1"
+    family: ColorHSV_
+    type: "DOUBLE"
+    description: >
+      HSV color statistics of the object (Hue, Saturation, Brightness). See column_families.ColorHSV_.
+    units: Hue 0-1 (or 0-360); Saturation/Brightness 0-1
+    nullable: true
+  - name: "ColorHSV_SaturationMean"
+    family: ColorHSV_
+    type: "DOUBLE"
+    description: >
+      HSV color statistics of the object (Hue, Saturation, Brightness). See column_families.ColorHSV_.
+    units: Hue 0-1 (or 0-360); Saturation/Brightness 0-1
+    nullable: true
+  - name: "ColorHSV_SaturationMedian"
+    family: ColorHSV_
+    type: "DOUBLE"
+    description: >
+      HSV color statistics of the object (Hue, Saturation, Brightness). See column_families.ColorHSV_.
+    units: Hue 0-1 (or 0-360); Saturation/Brightness 0-1
+    nullable: true
+  - name: "ColorHSV_SaturationQ3"
+    family: ColorHSV_
+    type: "DOUBLE"
+    description: >
+      HSV color statistics of the object (Hue, Saturation, Brightness). See column_families.ColorHSV_.
+    units: Hue 0-1 (or 0-360); Saturation/Brightness 0-1
+    nullable: true
+  - name: "ColorHSV_SaturationMax"
+    family: ColorHSV_
+    type: "DOUBLE"
+    description: >
+      HSV color statistics of the object (Hue, Saturation, Brightness). See column_families.ColorHSV_.
+    units: Hue 0-1 (or 0-360); Saturation/Brightness 0-1
+    nullable: true
+  - name: "ColorHSV_SaturationStdDev"
+    family: ColorHSV_
+    type: "DOUBLE"
+    description: >
+      HSV color statistics of the object (Hue, Saturation, Brightness). See column_families.ColorHSV_.
+    units: Hue 0-1 (or 0-360); Saturation/Brightness 0-1
+    nullable: true
+  - name: "ColorHSV_SaturationCoeffVar"
+    family: ColorHSV_
+    type: "DOUBLE"
+    description: >
+      HSV color statistics of the object (Hue, Saturation, Brightness). See column_families.ColorHSV_.
+    units: Hue 0-1 (or 0-360); Saturation/Brightness 0-1
+    nullable: true
+  - name: "ColorHSV_BrightnessMin"
+    family: ColorHSV_
+    type: "DOUBLE"
+    description: >
+      HSV color statistics of the object (Hue, Saturation, Brightness). See column_families.ColorHSV_.
+    units: Hue 0-1 (or 0-360); Saturation/Brightness 0-1
+    nullable: true
+  - name: "ColorHSV_BrightnessQ1"
+    family: ColorHSV_
+    type: "DOUBLE"
+    description: >
+      HSV color statistics of the object (Hue, Saturation, Brightness). See column_families.ColorHSV_.
+    units: Hue 0-1 (or 0-360); Saturation/Brightness 0-1
+    nullable: true
+  - name: "ColorHSV_BrightnessMean"
+    family: ColorHSV_
+    type: "DOUBLE"
+    description: >
+      HSV color statistics of the object (Hue, Saturation, Brightness). See column_families.ColorHSV_.
+    units: Hue 0-1 (or 0-360); Saturation/Brightness 0-1
+    nullable: true
+  - name: "ColorHSV_BrightnessMedian"
+    family: ColorHSV_
+    type: "DOUBLE"
+    description: >
+      HSV color statistics of the object (Hue, Saturation, Brightness). See column_families.ColorHSV_.
+    units: Hue 0-1 (or 0-360); Saturation/Brightness 0-1
+    nullable: true
+  - name: "ColorHSV_BrightnessQ3"
+    family: ColorHSV_
+    type: "DOUBLE"
+    description: >
+      HSV color statistics of the object (Hue, Saturation, Brightness). See column_families.ColorHSV_.
+    units: Hue 0-1 (or 0-360); Saturation/Brightness 0-1
+    nullable: true
+  - name: "ColorHSV_BrightnessMax"
+    family: ColorHSV_
+    type: "DOUBLE"
+    description: >
+      HSV color statistics of the object (Hue, Saturation, Brightness). See column_families.ColorHSV_.
+    units: Hue 0-1 (or 0-360); Saturation/Brightness 0-1
+    nullable: true
+  - name: "ColorHSV_BrightnessStdDev"
+    family: ColorHSV_
+    type: "DOUBLE"
+    description: >
+      HSV color statistics of the object (Hue, Saturation, Brightness). See column_families.ColorHSV_.
+    units: Hue 0-1 (or 0-360); Saturation/Brightness 0-1
+    nullable: true
+  - name: "ColorHSV_BrightnessCoeffVar"
+    family: ColorHSV_
+    type: "DOUBLE"
+    description: >
+      HSV color statistics of the object (Hue, Saturation, Brightness). See column_families.ColorHSV_.
+    units: Hue 0-1 (or 0-360); Saturation/Brightness 0-1
+    nullable: true
+  - name: "ColorLab_ChromaEstimatedMean"
+    family: ColorLab_
+    type: "DOUBLE"
+    description: >
+      Perceptual CIE L*a*b* color statistics of the object. See column_families.ColorLab_.
+    units: CIELAB: L* 0-100, a*/b* signed
+    nullable: true
+  - name: "ColorLab_ChromaEstimatedMedian"
+    family: ColorLab_
+    type: "DOUBLE"
+    description: >
+      Perceptual CIE L*a*b* color statistics of the object. See column_families.ColorLab_.
+    units: CIELAB: L* 0-100, a*/b* signed
+    nullable: true
+
+# Database-added key columns (not in the source parquet):
+  - name: "image_name"
+    family: _database_key
+    type: "VARCHAR NOT NULL REFERENCES image(image_name)"
+    description: DB-added link to the image row / object identity and well position.
+    units: n/a
+    nullable: false
+  - name: "object_label"
+    family: _database_key
+    type: "INTEGER NOT NULL"
+    description: DB-added link to the image row / object identity and well position.
+    units: n/a
+    nullable: false
+  - name: "well_position"
+    family: _database_key
+    type: "INTEGER"
+    description: DB-added link to the image row / object identity and well position.
+    units: n/a
+    nullable: true
