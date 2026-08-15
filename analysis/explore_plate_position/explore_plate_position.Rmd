@@ -7,6 +7,16 @@ output:
     toc: true
     toc_float: true
     df_print: paged
+  pdf_document:
+    toc: true
+    toc_depth: 2
+    df_print: kable
+    latex_engine: pdflatex
+  rmarkdown::github_document:
+    toc: true
+    toc_depth: 3
+    fig_width: 7
+    fig_height: 5
 ---
 
 ```{r setup, include=FALSE}
@@ -72,7 +82,7 @@ concentration** (see below).
 ## Primary analysis: variance partition, stratified by Cu concentration
 
 `scripts/01_variance_partition.R` fits, per trait and per Cu concentration,
-a mixed model over strains observed on ≥2 plates within that concentration:
+a mixed model over strains observed on >= 2 plates within that concentration:
 
 ```
 trait ~ grid_row_c + grid_col_c + is_edge
@@ -212,7 +222,9 @@ pixi run Rscript analysis/explore_plate_position/scripts/00_build_dataset.R
 pixi run Rscript analysis/explore_plate_position/scripts/01_variance_partition.R
 pixi run Rscript analysis/explore_plate_position/scripts/02_adjacency_effect.R
 pixi run Rscript analysis/explore_plate_position/scripts/03_plots.R
-pixi run Rscript -e 'rmarkdown::render("analysis/explore_plate_position/explore_plate_position.Rmd")'
+pixi run Rscript -e 'rmarkdown::render("analysis/explore_plate_position/explore_plate_position.Rmd", output_format = "all")'
 ```
 
-or simply `bash analysis/explore_plate_position/run.sh` from the repo root.
+or simply `bash analysis/explore_plate_position/run.sh` from the repo root. The
+render step emits both `explore_plate_position.html` and
+`explore_plate_position.pdf` (LaTeX via `pdflatex`).

@@ -18,5 +18,13 @@ data/preprocessed/
 # Derived analysis outputs -- rebuildable from source via each analysis' run.sh
 analysis/*/results/
 analysis/*/*.html
+analysis/*/*.pdf
 analysis/*/*.knit.md
 analysis/*/*_files/
+
+# Exception: keep the plate-position report's figures -- the rendered GitHub
+# markdown (explore_plate_position.md) links to them relative to the report dir,
+# so they must be tracked or the figures break on GitHub. Tables stay ignored.
+!analysis/explore_plate_position/results/
+!analysis/explore_plate_position/results/figures/
+analysis/explore_plate_position/results/tables/
