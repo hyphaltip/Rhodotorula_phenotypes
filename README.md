@@ -19,15 +19,20 @@ data/
     Copper.Strain_info.csv       # 2400 data rows, 14 columns: strain identity per Run/Config/Well
   preprocessed/
     d000353_300_028_2026-02-21_10-31-05.parquet    # one file per imaged plate/timepoint
-    ...                                            # 2398 parquet files total
-    d000355_300_079_2026-02-24_17-14-27.parquet
+    ...                                            # 2398 parquet files total, Parquet only
+
+ignore/                          # background only -- not read by any analysis script
+  About.MD                       # human-written notes on file naming and the join process
+  d000355_300_079_2026-02-24_17-14-27.csv   # leftover one-off test export of one plate
 
 scripts/                         # new analysis scripts go here; read from data/ and its subfolders
 lib/                             # currently empty
 ```
 
-New work reads from `data/` holds the original delivery,
-the authoritative `About.MD` notes, and the reference join script.
+All analysis work reads from `data/`. `ignore/` holds background material on how this
+dataset used to be organized (the original `About.MD` naming notes, and a one-off test
+CSV export of a single plate) — useful for context, not part of the pipeline going
+forward.
 
 ---
 
@@ -38,7 +43,7 @@ detected colony object within that image. Roughly 50–90 rows per plate — not
 positions have a detected colony, so occupancy varies.
 
 **Parquet is the only supported input format.** All measurement data should be read from
-the `*.parquet` files in `data/preprocessed/` (2398 files).  
+the `*.parquet` files in `data/preprocessed/` (2398 files).
 
 Columns, in order, by group:
 
@@ -57,7 +62,7 @@ Columns, in order, by group:
 
 ### Filename convention
 
-From `PhenotypicMeasurements/Copper/About.MD` (authoritative). Example:
+From `ignore/About.MD` (authoritative background notes). Example:
 `d000320_300_001_2026-02-01_15-44-58`
 
 | Field | Example | Meaning |
@@ -67,7 +72,7 @@ From `PhenotypicMeasurements/Copper/About.MD` (authoritative). Example:
 | Plate/batch position | `001` | Plate position within the imager. Valid range 1–160; this dataset uses 1–120. Parsed as `Plate_Number`. |
 | Datetime | `2026-02-01_15-44-58` | `year-month-day_hour-min-sec` the image was taken. |
 
-Standard parse (Polars), as used in the reference script:
+Standard parse (Polars):
 
 ```python
 df = df.with_columns(
@@ -102,8 +107,8 @@ df = df.with_columns(
 
 2400 data rows (2401 lines including the header), 14 columns:
 `Index`, `Strain ID`, `Strain Name`, `Strain`, `Species`, `Origin`, `Environment`,
-`Run Number`, `Library Plate`, `Configuration`, `Well position ` (trailing space in the
-header), `Incubation Temp (°C)`, `Time stamped`, `Media`.
+`Run Number`, `Library Plate`, `Configuration`, `Well position`,
+`Incubation Temp (°C)`, `Time stamped`, `Media`.
 
 - `Run Number` values present: 353, 354, 355, 356. **357 never appears** — it is the
   Control-only imager run and has no strain rows.
@@ -113,9 +118,6 @@ header), `Incubation Temp (°C)`, `Time stamped`, `Media`.
   skipped positions follow a consistent pattern (for example, Run 355 / Configuration 1
   is missing positions 1, 11, 21, 31, 34, 44, 54, 64, 65, 75, 85, 95), consistent with
   intentional edge/corner exclusion in the rearray design rather than a data gap.
-
-Parse this file with a real CSV parser — several `Strain Name` values contain embedded
-newlines inside quoted fields (see quirks).
 
 ---
 
@@ -137,11 +139,11 @@ flowchart TD
 
     DER["Derive strain join keys<br/>run_number = 353 + (Plate_Number−1)//28<br/>configuration = (Plate_Number−1)//7 %% 4 + 1<br/>well_position = Grid_ColMajorIdx + 1"]
 
-    SI["data/metadata/Copper.Strain_info.csv<br/>Run Number, Configuration, 'Well position '<br/>Strain ID, Strain Name, Species, Origin, ..."]
+    SI["data/metadata/Copper.Strain_info.csv<br/>Run Number, Configuration, Well position<br/>Strain ID, Strain Name, Species, Origin, ..."]
 
-    J2["JOIN 2 — strain identity (left)<br/>(run_number, configuration, well_position)<br/>== (Run Number, Configuration, 'Well position ')"]
+    J2["JOIN 2 — strain identity (left)<br/>(run_number, configuration, well_position)<br/>== (Run Number, Configuration, Well position)"]
 
-    OUT["Combined strain + experiment + measurement table<br/>one row per colony per image<br/>reference output: 298,038 rows"]
+    OUT["Combined strain + experiment + measurement table<br/>one row per colony per image"]
 
     P --> D --> H --> J1
     PI --> J1
@@ -166,30 +168,18 @@ configuration = (Plate_Number - 1) // 7 % 4 + 1
 well_position = Grid_ColMajorIdx + 1               # column-major, 1-indexed
 ```
 
-These are matched against `Strain_info`'s `(Run Number, Configuration, "Well position ")`
-— note the trailing space in the third column name.
+These are matched against `Strain_info`'s `(Run Number, Configuration, Well position)`.
 
-Because it is a left join on a unique key triple, it never fans out or drops rows; the
-reference script asserts the row count is unchanged. Rows with no strain match (Control
-batches 113–120, and any unoccupied well position) simply carry null strain columns and
-should be filtered out downstream.
+Because it is a left join on a unique key triple, it should never fan out or drop rows —
+assert the row count is unchanged after this join as a sanity check. Rows with no strain
+match (Control batches 113–120, and any unoccupied well position) simply carry null
+strain columns and should be filtered out downstream.
 
 ### The `Hours` column
 
 `Hours = Datetime - min(Datetime) grouped by Plate_Number`, as whole hours. This gives
 elapsed imaging time per plate. Each plate is imaged repeatedly over time, so `Hours` is
 the time axis for growth-curve and kinetics analysis.
-
-### Reference implementation
-
-`PhenotypicMeasurements/Copper/Scripts/copper_metadata.py` implements exactly the above
-in Polars: glob the parquet files, `pl.read_parquet` them as one frame, drop
-`Metadata_Dataset`, decode the image name, parse `Datetime` with `%Y-%m-%d_%H-%M-%S`,
-compute `Hours`, run the two joins, drop any `*_right` collision columns after join 1,
-assert the row count is preserved across join 2, report the unmatched-row count, and
-write `copper_measurements_combined(1).csv` (298,038 rows). It reads its inputs from the
-`PhenotypicMeasurements/Copper/` copies and from a `per_image/` glob; new scripts in
-`scripts/` should point at `data/metadata/` and `data/preprocessed/` instead.
 
 ---
 
@@ -205,11 +195,11 @@ Each item below was verified directly against the files, not inferred.
 
 2. **The well-position join uses `Grid_ColMajorIdx`, not `Grid_RowMajorIdx`, despite the
    row-major field's more intuitive name.** Both fields exist in every measurement row:
-   `Grid_RowMajorIdx = row*12 + col`, `Grid_ColMajorIdx = col*8 + row`. The reference
-   script uses column-major. Anyone re-deriving this join from first principles (as
-   happened during initial exploration of this repo) will naturally reach for
-   `RowMajorIdx` and get a silently wrong join — it will not error, it will just
-   mismatch strains to wells. Easy to make, hard to detect.
+   `Grid_RowMajorIdx = row*12 + col`, `Grid_ColMajorIdx = col*8 + row`. Anyone
+   re-deriving this join from first principles (as happened during initial exploration
+   of this repo) will naturally reach for `RowMajorIdx` and get a silently wrong join —
+   it will not error, it will just mismatch strains to wells. Easy to make, hard to
+   detect.
 
 3. **The `Replicate` column name in `Plate_info.csv` is misleading.** Its values
    (1, 2, 3, 4, Control) are not independent technical replicates of the same condition
@@ -221,36 +211,14 @@ Each item below was verified directly against the files, not inferred.
    arithmetic inferred from plate-number block boundaries.**
    `run_number = 353 + (Plate_Number-1)//28` and
    `configuration = (Plate_Number-1)//7 % 4 + 1` are documented in neither metadata CSV;
-   they were reverse-engineered by whoever wrote `copper_metadata.py` (per `About.MD`),
-   and are only correct because plate numbering happens to be laid out in perfectly
-   regular contiguous blocks of 28. Any future batch that does not follow this exact
-   block size and order (a run with a different number of configurations or
-   concentration steps, for instance) will silently break the formula, with no
-   validation in place to catch it.
+   they were reverse-engineered from the plate numbering (per `ignore/About.MD`), and
+   are only correct because plate numbering happens to be laid out in perfectly regular
+   contiguous blocks of 28. Any future batch that does not follow this exact block size
+   and order (a run with a different number of configurations or concentration steps,
+   for instance) will silently break the formula, with no validation in place to catch
+   it.
 
-5. **Two independent copies of both metadata CSVs exist in the repo**
-   (`data/metadata/*` versus `PhenotypicMeasurements/Copper/metadata/*`), with no
-   indication which is canonical going forward now that scripts are moving to `data/`
-   plus `scripts/`. The `Plate_info` copies are byte-identical (verified). The
-   `Strain_info` copies contain identical data (2400 rows, verified via proper CSV
-   parsing), but the `PhenotypicMeasurements` copy carries 20 extra always-empty
-   `Image 1`..`Image 20` columns not present in the `data/metadata/` copy — so they are
-   not literally identical files, only data-equivalent. Any workflow reading columns by
-   position rather than by name would break silently when switching between them.
-
-6. **`Copper.Strain_info.csv`'s `"Well position "` column header has a trailing space.**
-   Both copies of the file have it. Code joining on this column name must match it
-   exactly (the reference script does). Re-typing the column name cleanly is a common
-   source of silent null / no-match bugs.
-
-7. **Strain names contain embedded newlines inside quoted CSV fields** (for example
-   `"17-291Y-1\n BY126-B8"`). Naive line-counting tools (`wc -l`, `grep -c`, line-based
-   readers) therefore report row counts roughly 20% higher than the true count. A real
-   CSV parser is required (Polars' reader, Python's `csv` module); parsed correctly,
-   both metadata copies have exactly 2400 data rows, not the inflated counts raw line
-   counts suggest.
-
-8. **The Control-only imager run (`d000357`, `Plate_Number` 113–120) has no
+5. **The Control-only imager run (`d000357`, `Plate_Number` 113–120) has no
    corresponding rows in `Strain_info.csv` at all** — `Run Number` 357 never appears
    there — and it is also explicitly filtered out of `Plate_info.csv` by
    `Replicate == "Control"` before the first join. These plates are dropped from the
@@ -258,16 +226,19 @@ Each item below was verified directly against the files, not inferred.
    intentional, and that the same filter logic could not silently exclude a *non-control*
    row in the future.
 
-9. **Not every well position (1–96) is populated for a given Run/Configuration.**
+6. **Not every well position (1–96) is populated for a given Run/Configuration.**
    `Strain_info` has only 84 of 96 possible positions filled per configuration, in a
    consistent skipped pattern (for example, positions 1, 11, 21, 31, 34, 44, 54, 64, 65,
    75, 85, 95 are missing for Run 355 / Configuration 1). This looks like intentional
    plate-edge exclusion in the rearray design rather than a data error, but the rule is
    documented nowhere — it is only visible empirically.
 
-### Note (resolved, not a concern)
+### Resolved since initial exploration (no longer concerns)
 
-`data/preprocessed/` contains 2398 `*.parquet` measurement files plus a single `.csv`,
-`d000355_300_079_2026-02-24_17-14-27.csv`. That CSV is a one-off test artifact, confirmed
-as such — not a supported input format and not evidence of a dual-format convention.
-Read all measurement data from `*.parquet`; ignore the CSV.
+- Duplicate copies of both metadata CSVs (previously under a `PhenotypicMeasurements/`
+  symlink) no longer exist in the working tree — `data/metadata/` is the single source.
+- The stray one-off test CSV (`d000355_300_079_2026-02-24_17-14-27.csv`) has been moved
+  out of `data/preprocessed/` into `ignore/` and is no longer a candidate input.
+- `Copper.Strain_info.csv`'s `Well position` header no longer has a trailing space.
+- `Strain Name` values no longer contain embedded newlines inside quoted CSV fields;
+  the file now parses to its true row count with any tool, not just a real CSV parser.
