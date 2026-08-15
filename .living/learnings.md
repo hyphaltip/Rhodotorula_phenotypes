@@ -20,3 +20,11 @@ Append-only log of gotchas, surprises, and insights.
 - **Resolution**: Left `skillpacks/` with the two working repos. TODO: re-point `skill-bridge` `skill-sources.yaml` to a live personas source or drop the source entry.
 - **mitigation_type**: ambient-awareness — monitor whether the org restores/renames the repo.
 - **Tags**: tooling, skill-bridge, skillpacks, third-party
+
+### [2026-08-15] L-3 — dplyr mutate using `named_vec[[.$col[1]]]` broadcasts row 1's value to all rows
+- **Category**: R / data-wrangling
+- **What happened**: In `05_time_variance_partition.R` I relabeled a bound list's `.id` column with `mutate(trait = traits[[.$trait[1]]])`. Because `.[1]` takes the *first element of the whole tibble*, every row got the first trait's label ("L* (lightness)") instead of its own — 6 distinct model fits collapsed to 6 identical labels, and the `pivot_wider` in validation then threw "values not uniquely identified".
+- **Why it matters**: This exact anti-pattern (indexing a lookup vector with `[[...]]` + `[1]` inside a single mutate) silently labels every row with the first group's name; it only surfaces later as duplicate keys. Recovery was easy here because the models had already been fit correctly.
+- **Resolution**: Use vectorized name lookup `unname(traits[.$trait])` so each row maps through `traits[name]`. Validate by checking `n_distinct(trait)` or that a `pivot_wider` on the relabeled key doesn't warn.
+- **mitigation_type**: structural — prefer `lookup[.$col]` over `lookup[[.$col[1]]]` when relabeling within a mutate.
+- **Tags**: R, dplyr, mutate, pivot_wider, label-map, debugging

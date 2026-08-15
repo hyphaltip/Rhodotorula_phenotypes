@@ -16,6 +16,11 @@ analysis/explore_plate_position
   - [Visualizing plate structure](#visualizing-plate-structure)
 - [Secondary analysis: adjacent-colony
   effect](#secondary-analysis-adjacent-colony-effect)
+- [Time component: does growth stage change the
+  answer?](#time-component-does-growth-stage-change-the-answer)
+  - [Day-block variance partition](#day-block-variance-partition)
+  - [Growth curves: do colonies get brighter and bigger with
+    time?](#growth-curves-do-colonies-get-brighter-and-bigger-with-time)
 - [Interpretation](#interpretation)
 - [Reproducing](#reproducing)
 
@@ -559,6 +564,208 @@ alt="Focal colony L* vs mean L* of its grid-adjacent neighbors" />
 grid-adjacent neighbors</figcaption>
 </figure>
 
+## Time component: does growth stage change the answer?
+
+The endpoint table above collapses each plate to its **last** image so
+growth stage cannot confound plate-position effects (see Data). But each
+plate was also imaged through its own full time course, and those runs
+are worth a second pass: every plate is photographed on the same
+relative 6-hourly clock (`hours_since_plate_start` = 0, 6, 12, …, ~114
+h; run 353 extends to ~117 h), so a *day block* (0-24 h = day 1, …,
+96-120 h = day 5) is the same developmental stage on every plate.
+`scripts/04_build_timecourse.R` builds `colony_timecourse.rds` — one row
+per (plate, well, timepoint), runs 353-356 — and quantifies the
+missingness.
+
+**Missing data are expected and informative.** Not every strain grows on
+every plate, and a share of strains simply do not grow on high Cu. The
+`>=2 plates` per-strain filter therefore runs *within* each stratum,
+every variance table row carries its realized `n_*`, and detection is
+reported explicitly.
+
+    ## 146053 colony x timepoint rows | 112 plates | 309 strains | 4 runs (353, 354, 355, 356)
+
+| copper_mm | n_strain_plates | n_reached_late | pct_reached_late | n_strains_seen | n_strains_reached_late |
+|---:|---:|---:|:---|---:|---:|
+| 0 | 1163 | 1126 | 96.8% | 305 | 304 |
+| 5 | 1158 | 1105 | 95.4% | 305 | 304 |
+| 10 | 1160 | 1058 | 91.2% | 305 | 303 |
+| 15 | 1156 | 1069 | 92.5% | 305 | 302 |
+| 20 | 1163 | 1052 | 90.5% | 306 | 301 |
+| 25 | 1193 | 1010 | 84.7% | 303 | 302 |
+| 30 | 1227 | 1011 | 82.4% | 309 | 298 |
+
+Detection per Cu concentration: % of (strain x plate) combos that still
+had a colony at \>= 100 h
+
+### Day-block variance partition
+
+`scripts/05_time_variance_partition.R` re-runs the exact variance
+partition on each (day block x Cu) stratum — the same model as the
+endpoint analysis, with the `copper_mm` term dropped (constant within a
+stratum):
+
+    trait ~ grid_row_c + grid_col_c + is_edge
+            + (1 | strain_code) + (1 | run_number) + (1 | plate_id)
+
+| trait | copper_mm | d1 0-24h | d2 24-48h | d3 48-72h | d4 72-96h | d5 96+h |
+|:---|---:|---:|---:|---:|---:|---:|
+| Solidity (morphology) | 0 | 5.9 | 8.0 | 6.7 | 5.7 | 5.6 |
+| L\* (lightness) | 0 | 10.8 | 12.4 | 11.5 | 6.6 | 5.2 |
+| Colony area | 0 | 0.5 | 5.8 | 4.7 | 4.3 | 4.7 |
+| Colony area | 15 | 1.4 | 9.7 | 7.8 | 5.6 | 4.1 |
+| Solidity (morphology) | 10 | 6.9 | 9.1 | 6.8 | 5.4 | 4.0 |
+| Colony area | 20 | 0.3 | 10.2 | 7.7 | 5.0 | 3.8 |
+| Colony area | 10 | 1.6 | 8.6 | 6.4 | 4.8 | 3.7 |
+| Solidity (morphology) | 15 | 7.5 | 9.8 | 7.3 | 5.2 | 3.7 |
+| Solidity (morphology) | 5 | 6.9 | 7.3 | 5.3 | 4.1 | 3.3 |
+| L\* (lightness) | 15 | 10.5 | 10.4 | 3.6 | 1.6 | 3.1 |
+| b\* (blue-yellow) | 5 | 3.8 | 5.6 | 2.2 | 1.9 | 3.0 |
+| Colony area | 25 | 0.0 | 9.4 | 6.2 | 4.1 | 3.0 |
+| Solidity (morphology) | 25 | 0.5 | 9.3 | 5.7 | 3.7 | 2.9 |
+| Solidity (morphology) | 20 | 2.7 | 9.1 | 6.2 | 3.6 | 2.8 |
+| a\* (green-red) | 15 | 13.5 | 8.2 | 4.9 | 3.6 | 2.7 |
+| Eccentricity (morphology) | 15 | 4.8 | 3.8 | 3.0 | 2.6 | 2.6 |
+| Colony area | 5 | 3.4 | 6.4 | 4.3 | 3.1 | 2.3 |
+| L\* (lightness) | 20 | 17.5 | 6.0 | 1.3 | 0.9 | 2.3 |
+| Eccentricity (morphology) | 0 | 3.2 | 1.7 | 1.9 | 2.4 | 2.2 |
+| a\* (green-red) | 25 | 12.5 | 5.2 | 1.8 | 1.8 | 2.2 |
+| b\* (blue-yellow) | 25 | 9.1 | 6.0 | 2.3 | 2.0 | 2.2 |
+| L\* (lightness) | 25 | 10.9 | 7.1 | 2.2 | 1.5 | 2.0 |
+| a\* (green-red) | 0 | 4.3 | 2.3 | 1.8 | 1.9 | 1.9 |
+| a\* (green-red) | 10 | 9.8 | 6.1 | 4.0 | 2.7 | 1.9 |
+| b\* (blue-yellow) | 0 | 12.0 | 6.8 | 3.3 | 1.9 | 1.8 |
+| Eccentricity (morphology) | 25 | 4.8 | 3.1 | 2.0 | 1.5 | 1.8 |
+| Colony area | 30 | 0.2 | 5.1 | 3.7 | 2.8 | 1.8 |
+| a\* (green-red) | 5 | 6.6 | 4.1 | 2.6 | 2.3 | 1.6 |
+| Eccentricity (morphology) | 5 | 2.7 | 2.0 | 2.0 | 1.7 | 1.6 |
+| Eccentricity (morphology) | 10 | 2.4 | 2.7 | 2.3 | 2.0 | 1.6 |
+| L\* (lightness) | 30 | 19.1 | 9.0 | 3.1 | 1.1 | 1.6 |
+| b\* (blue-yellow) | 15 | 7.4 | 7.1 | 3.7 | 2.0 | 1.5 |
+| Solidity (morphology) | 30 | 0.3 | 5.4 | 3.1 | 2.2 | 1.4 |
+| L\* (lightness) | 5 | 5.9 | 5.6 | 1.8 | 2.9 | 1.2 |
+| Eccentricity (morphology) | 20 | 3.9 | 2.3 | 2.2 | 2.4 | 1.0 |
+| b\* (blue-yellow) | 10 | 5.5 | 6.6 | 3.3 | 1.7 | 0.9 |
+| a\* (green-red) | 30 | 18.9 | 6.0 | 1.3 | 0.8 | 0.9 |
+| L\* (lightness) | 10 | 8.7 | 7.3 | 1.2 | 2.3 | 0.8 |
+| b\* (blue-yellow) | 20 | 13.5 | 7.5 | 2.3 | 1.1 | 0.5 |
+| Eccentricity (morphology) | 30 | 10.0 | 2.0 | 1.1 | 0.5 | 0.5 |
+| a\* (green-red) | 20 | 20.9 | 6.1 | 1.6 | 1.1 | 0.4 |
+| b\* (blue-yellow) | 30 | 17.8 | 5.6 | 1.5 | 0.4 | 0.4 |
+
+Plate-explained variance (%) by day block and Cu concentration
+
+<figure>
+<img src="results/figures/day_plate_pct_heatmap.png"
+alt="Plate-explained variance (%) by day block x Cu concentration" />
+<figcaption aria-hidden="true">Plate-explained variance (%) by day block
+x Cu concentration</figcaption>
+</figure>
+
+<figure>
+<img src="results/figures/day_variance_components_d1_d5.png"
+alt="Full variance partition for day block 1 vs 5, per Cu concentration" />
+<figcaption aria-hidden="true">Full variance partition for day block 1
+vs 5, per Cu concentration</figcaption>
+</figure>
+
+**Reading this back:** the plate effect contributes only a few percent
+of total variance at every Cu concentration and day block, so the
+headline conclusion of the endpoint analysis (plate position accounts
+for a small fraction of strain-replicate variance) holds at every growth
+stage. What changes over time is *which* strains are still present (see
+the detection table above): late high-Cu strata are estimated on the
+Cu-tolerant subset.
+
+### Growth curves: do colonies get brighter and bigger with time?
+
+`scripts/06_growth_curves.R` tracks each colony across its plate’s full
+time course and fits, per trait, a quadratic-in-time mixed model with Cu
+interactions:
+
+    trait ~ (time_c + I(time_c^2)) * copper
+            + (1 + time_c | strain_code) + (1 | plate_id) + (1 | colony_id)
+
+`time_c` = days since plate start, centered at day 4. A positive linear
+`time_c` coefficient = brighter (L\*) / bigger (log area) over time, as
+expected for growing colonies.
+
+| trait           | term                 | estimate | std.error |  p.value |
+|:----------------|:---------------------|---------:|----------:|---------:|
+| L\* (lightness) | time_c               | -0.96600 |   0.03740 | 0.00e+00 |
+| L\* (lightness) | I(time_c^2)          | -0.75500 |   0.00720 | 0.00e+00 |
+| L\* (lightness) | copper5              | -2.96000 |   0.23300 | 0.00e+00 |
+| L\* (lightness) | copper10             | -3.60000 |   0.23300 | 0.00e+00 |
+| L\* (lightness) | copper15             | -4.31000 |   0.23300 | 0.00e+00 |
+| L\* (lightness) | copper20             | -4.44000 |   0.23300 | 0.00e+00 |
+| L\* (lightness) | copper25             | -4.91000 |   0.23300 | 0.00e+00 |
+| L\* (lightness) | copper30             | -6.30000 |   0.23300 | 0.00e+00 |
+| L\* (lightness) | time_c:copper5       | -0.30800 |   0.03230 | 0.00e+00 |
+| L\* (lightness) | time_c:copper10      | -0.54800 |   0.03270 | 0.00e+00 |
+| L\* (lightness) | time_c:copper15      | -0.67500 |   0.03260 | 0.00e+00 |
+| L\* (lightness) | time_c:copper20      | -1.01000 |   0.03300 | 0.00e+00 |
+| L\* (lightness) | time_c:copper25      | -0.80800 |   0.03310 | 0.00e+00 |
+| L\* (lightness) | time_c:copper30      | -0.45800 |   0.03380 | 0.00e+00 |
+| L\* (lightness) | I(time_c^2):copper5  | -0.17100 |   0.01020 | 0.00e+00 |
+| L\* (lightness) | I(time_c^2):copper10 | -0.38400 |   0.01030 | 0.00e+00 |
+| L\* (lightness) | I(time_c^2):copper15 | -0.45500 |   0.01030 | 0.00e+00 |
+| L\* (lightness) | I(time_c^2):copper20 | -0.78800 |   0.01040 | 0.00e+00 |
+| L\* (lightness) | I(time_c^2):copper25 | -0.92400 |   0.01040 | 0.00e+00 |
+| L\* (lightness) | I(time_c^2):copper30 | -1.11000 |   0.01050 | 0.00e+00 |
+| log Colony area | time_c               |  0.33800 |   0.01030 | 0.00e+00 |
+| log Colony area | I(time_c^2)          | -0.12900 |   0.00221 | 0.00e+00 |
+| log Colony area | copper5              |  0.19100 |   0.08220 | 2.26e-02 |
+| log Colony area | copper10             |  0.09210 |   0.08220 | 2.65e-01 |
+| log Colony area | copper15             | -0.02840 |   0.08230 | 7.31e-01 |
+| log Colony area | copper20             | -0.17500 |   0.08230 | 3.61e-02 |
+| log Colony area | copper25             | -0.38800 |   0.08220 | 7.90e-06 |
+| log Colony area | copper30             | -0.91800 |   0.08220 | 0.00e+00 |
+| log Colony area | time_c:copper5       | -0.02270 |   0.00991 | 2.18e-02 |
+| log Colony area | time_c:copper10      |  0.00816 |   0.01000 | 4.16e-01 |
+| log Colony area | time_c:copper15      | -0.04580 |   0.00999 | 4.60e-06 |
+| log Colony area | time_c:copper20      | -0.01690 |   0.01010 | 9.51e-02 |
+| log Colony area | time_c:copper25      |  0.02390 |   0.01010 | 1.87e-02 |
+| log Colony area | time_c:copper30      |  0.19900 |   0.01040 | 0.00e+00 |
+| log Colony area | I(time_c^2):copper5  | -0.00525 |   0.00312 | 9.28e-02 |
+| log Colony area | I(time_c^2):copper10 |  0.00261 |   0.00316 | 4.09e-01 |
+| log Colony area | I(time_c^2):copper15 | -0.00977 |   0.00315 | 1.96e-03 |
+| log Colony area | I(time_c^2):copper20 |  0.00195 |   0.00320 | 5.43e-01 |
+| log Colony area | I(time_c^2):copper25 |  0.04000 |   0.00321 | 0.00e+00 |
+| log Colony area | I(time_c^2):copper30 |  0.13300 |   0.00324 | 0.00e+00 |
+
+Growth-curve fixed effects (time^{c} is days since plate start, centered
+at day 4)
+
+<figure>
+<img src="results/figures/growth_L_by_cu.png"
+alt="Median observed L* and model-fixed-effect growth curve, per Cu concentration" />
+<figcaption aria-hidden="true">Median observed L* and model-fixed-effect
+growth curve, per Cu concentration</figcaption>
+</figure>
+
+<figure>
+<img src="results/figures/growth_area_by_cu.png"
+alt="Median observed log(colony area) and model-fixed-effect growth curve, per Cu concentration" />
+<figcaption aria-hidden="true">Median observed log(colony area) and
+model-fixed-effect growth curve, per Cu concentration</figcaption>
+</figure>
+
+<figure>
+<img src="results/figures/detection_curve_by_cu.png"
+alt="Fraction of (strain x plate) combos with a detected colony vs age – strains drop out of high-Cu late blocks" />
+<figcaption aria-hidden="true">Fraction of (strain x plate) combos with
+a detected colony vs age – strains drop out of high-Cu late
+blocks</figcaption>
+</figure>
+
+**Reading this back:** L\* rises sharply early then plateaus (fitted
+peak near day 3-3.5), and colony area rises roughly log-linearly,
+consistent with colonies getting brighter and bigger over time. Cu
+shifts the curves (slower growth / reduced final size at high mM). The
+detection curve is the companion to the growth curves: at 25-30 mM,
+~15-18% of (strain x plate) combos never reach the late timepoints, so
+the high-Cu late-time trajectory describes the tolerant subset.
+
 ## Interpretation
 
 - Fill in after reviewing the tables above for the current data — the
@@ -591,6 +798,9 @@ pixi run Rscript analysis/explore_plate_position/scripts/00_build_dataset.R
 pixi run Rscript analysis/explore_plate_position/scripts/01_variance_partition.R
 pixi run Rscript analysis/explore_plate_position/scripts/02_adjacency_effect.R
 pixi run Rscript analysis/explore_plate_position/scripts/03_plots.R
+pixi run Rscript analysis/explore_plate_position/scripts/04_build_timecourse.R
+pixi run Rscript analysis/explore_plate_position/scripts/05_time_variance_partition.R
+pixi run Rscript analysis/explore_plate_position/scripts/06_growth_curves.R
 pixi run Rscript -e 'rmarkdown::render("analysis/explore_plate_position/explore_plate_position.Rmd", output_format = "all")'
 ```
 

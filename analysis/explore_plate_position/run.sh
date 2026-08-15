@@ -8,6 +8,9 @@ pixi run Rscript analysis/explore_plate_position/scripts/00_build_dataset.R
 pixi run Rscript analysis/explore_plate_position/scripts/01_variance_partition.R
 pixi run Rscript analysis/explore_plate_position/scripts/02_adjacency_effect.R
 pixi run Rscript analysis/explore_plate_position/scripts/03_plots.R
+pixi run Rscript analysis/explore_plate_position/scripts/04_build_timecourse.R
+pixi run Rscript analysis/explore_plate_position/scripts/05_time_variance_partition.R
+pixi run Rscript analysis/explore_plate_position/scripts/06_growth_curves.R
 # Render HTML + GitHub-flavored markdown + PDF. The PDF needs a complete TeX
 # distribution: the default pdflatex on PATH is a minimal TinyTeX missing
 # common packages (e.g. xcolor.sty), so prefer the full HPCC TeX Live 2022

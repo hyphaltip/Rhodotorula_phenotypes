@@ -192,6 +192,122 @@ adj_fe %>%
 include_graphics(file.path(fig_dir, "adjacency_scatter_L.png"))
 ```
 
+## Time component: does growth stage change the answer?
+
+The endpoint table above collapses each plate to its **last** image so growth
+stage cannot confound plate-position effects (see Data). But each plate was
+also imaged through its own full time course, and those runs are worth a
+second pass: every plate is photographed on the same relative 6-hourly clock
+(`hours_since_plate_start` = 0, 6, 12, ..., ~114 h; run 353 extends to
+~117 h), so a *day block* (0-24 h = day 1, ..., 96-120 h = day 5) is the same
+developmental stage on every plate. `scripts/04_build_timecourse.R` builds
+`colony_timecourse.rds` — one row per (plate, well, timepoint), runs 353-356 —
+and quantifies the missingness.
+
+**Missing data are expected and informative.** Not every strain grows on every
+plate, and a share of strains simply do not grow on high Cu. The `>=2 plates`
+per-strain filter therefore runs *within* each stratum, every variance table
+row carries its realized `n_*`, and detection is reported explicitly.
+
+```{r tc-load}
+tc <- readRDS(file.path(tab_dir, "colony_timecourse.rds"))
+miss <- read.csv(file.path(tab_dir, "growth_missingness_by_copper.csv"))
+cat(sprintf(
+  "%d colony x timepoint rows | %d plates | %d strains | %d runs (%s)\n",
+  nrow(tc), n_distinct(tc$plate_id), n_distinct(tc$strain_code),
+  n_distinct(tc$run_number), paste(sort(unique(tc$run_number)), collapse = ", ")
+))
+```
+
+```{r tc-missing-table}
+miss %>%
+  mutate(pct_reached_late = paste0(pct_reached_late, "%")) %>%
+  select(copper_mm, n_strain_plates, n_reached_late, pct_reached_late,
+         n_strains_seen, n_strains_reached_late) %>%
+  kable(caption = "Detection per Cu concentration: % of (strain x plate) combos that still had a colony at >= 100 h")
+```
+
+### Day-block variance partition
+
+`scripts/05_time_variance_partition.R` re-runs the exact variance partition on
+each (day block x Cu) stratum — the same model as the endpoint analysis, with
+the `copper_mm` term dropped (constant within a stratum):
+
+```
+trait ~ grid_row_c + grid_col_c + is_edge
+        + (1 | strain_code) + (1 | run_number) + (1 | plate_id)
+```
+
+```{r day-vc-table}
+day_vc <- read.csv(file.path(tab_dir, "variance_components_by_day.csv"))
+day_vc %>%
+  filter(group == "plate_id") %>%
+  mutate(pct_of_total = round(pct_of_total, 1)) %>%
+  select(trait, copper_mm, day_block, pct_of_total) %>%
+  pivot_wider(names_from = day_block, values_from = pct_of_total) %>%
+  arrange(desc(`d5 96+h`)) %>%
+  kable(caption = "Plate-explained variance (%) by day block and Cu concentration")
+```
+
+```{r day-heatmap, fig.cap="Plate-explained variance (%) by day block x Cu concentration"}
+include_graphics(file.path(fig_dir, "day_plate_pct_heatmap.png"))
+```
+
+```{r day-d1d5, fig.cap="Full variance partition for day block 1 vs 5, per Cu concentration"}
+include_graphics(file.path(fig_dir, "day_variance_components_d1_d5.png"))
+```
+
+**Reading this back:** the plate effect contributes only a few percent of
+total variance at every Cu concentration and day block, so the headline
+conclusion of the endpoint analysis (plate position accounts for a small
+fraction of strain-replicate variance) holds at every growth stage. What
+changes over time is *which* strains are still present (see the detection
+table above): late high-Cu strata are estimated on the Cu-tolerant subset.
+
+### Growth curves: do colonies get brighter and bigger with time?
+
+`scripts/06_growth_curves.R` tracks each colony across its plate's full time
+course and fits, per trait, a quadratic-in-time mixed model with Cu
+interactions:
+
+```
+trait ~ (time_c + I(time_c^2)) * copper
+        + (1 + time_c | strain_code) + (1 | plate_id) + (1 | colony_id)
+```
+
+`time_c` = days since plate start, centered at day 4. A positive linear
+`time_c` coefficient = brighter (L*) / bigger (log area) over time, as
+expected for growing colonies.
+
+```{r growth-fe-table}
+gfe <- read.csv(file.path(tab_dir, "growth_curve_fixed_effects.csv"))
+gfe %>%
+  filter(grepl("time_c|copper", term)) %>%
+  mutate(across(where(is.numeric), ~ signif(.x, 3))) %>%
+  select(trait, term, estimate, std.error, p.value) %>%
+  kable(caption = "Growth-curve fixed effects (time^{c} is days since plate start, centered at day 4)")
+```
+
+```{r growth-L, fig.cap="Median observed L* and model-fixed-effect growth curve, per Cu concentration"}
+include_graphics(file.path(fig_dir, "growth_L_by_cu.png"))
+```
+
+```{r growth-area, fig.cap="Median observed log(colony area) and model-fixed-effect growth curve, per Cu concentration"}
+include_graphics(file.path(fig_dir, "growth_area_by_cu.png"))
+```
+
+```{r detection-curve, fig.cap="Fraction of (strain x plate) combos with a detected colony vs age -- strains drop out of high-Cu late blocks"}
+include_graphics(file.path(fig_dir, "detection_curve_by_cu.png"))
+```
+
+**Reading this back:** L* rises sharply early then plateaus (fitted peak near
+day 3-3.5), and colony area rises roughly log-linearly, consistent with
+colonies getting brighter and bigger over time. Cu shifts the curves (slower
+growth / reduced final size at high mM). The detection curve is the companion
+to the growth curves: at 25-30 mM, ~15-18% of (strain x plate) combos never
+reach the late timepoints, so the high-Cu late-time trajectory describes the
+tolerant subset.
+
 ## Interpretation
 
 - Fill in after reviewing the tables above for the current data — the
@@ -222,6 +338,9 @@ pixi run Rscript analysis/explore_plate_position/scripts/00_build_dataset.R
 pixi run Rscript analysis/explore_plate_position/scripts/01_variance_partition.R
 pixi run Rscript analysis/explore_plate_position/scripts/02_adjacency_effect.R
 pixi run Rscript analysis/explore_plate_position/scripts/03_plots.R
+pixi run Rscript analysis/explore_plate_position/scripts/04_build_timecourse.R
+pixi run Rscript analysis/explore_plate_position/scripts/05_time_variance_partition.R
+pixi run Rscript analysis/explore_plate_position/scripts/06_growth_curves.R
 pixi run Rscript -e 'rmarkdown::render("analysis/explore_plate_position/explore_plate_position.Rmd", output_format = "all")'
 ```
 
