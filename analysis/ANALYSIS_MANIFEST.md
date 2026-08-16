@@ -148,6 +148,7 @@ scripts:
   - scripts/idea_07_ecology.py     # environment stratification, species-conditional permutation (trait-ecology)
   - scripts/idea_08_onset.py       # onset threshold sweep + pigment-area coupling (temporal-dynamics)
   - scripts/idea_09_phylogeny.R    # phylogeny join + Mantel perm signal (phylogeneticist, post-campaign) on data/raw/rhodotorula-phyling-protein-tree
+  - scripts/idea_10_species_variation.py # per-species boxplots + between/within-species variance decomposition (scale of variation) on the 5 key traits
 outputs:
   - results/idea01_{arrest_collapse,dispersion}.csv; figures/fig01_{master_collapse,arrest_exponent,gibrat_dispersion}.png
   - results/idea02_{species_color_triple,heterogeneity,pigment_morphs,run_calibration,onset_times}.csv; fig02{a,b}_*.png
@@ -158,6 +159,7 @@ outputs:
   - results/idea07_{trait_environment,env_trait_means,env_trait_z}.csv; fig07_trait_environment.png
   - results/idea08_{onset_threshold_sweep,pigment_pace,logistic_onset,well_growth_onset}.csv; fig08_{onset_vs_capture,example_growth_pigment}.png
   - results/idea09_{phylo_signal,tip_traits}.csv; results/idea09_pruned_trees.rds; fig09_trait_on_tree_{cu_slope,baseline_chroma,dispersion}.png
+  - results/idea10_{variance_decomposition,species_variation}.csv; figures/fig10_boxplot_{slope_logchroma_per_mM,intercept_logchroma,l10med_fixed,partial_slope_sd_cu,pace_loglog}.png
   - FINDINGS.md  # master synthesis of all 8 results
 reproduce: pixi run python scripts/idea_XX_name.py per script
 status: complete
@@ -170,5 +172,6 @@ key_findings:
   - Strain phenotypes carry phylogenetic signal when measured tree-robustly (idea09): Mantel permutation, all-strains scope, l10med_fixed r=0.43, partial_slope_sd_cu r=0.31, intercept_logchroma r=0.19, slope_logchroma_per_mM r=0.10 (all p<=0.003, n~266-272); pace_loglog n.s. Within R. mucilaginosa only baseline chroma (p=0.002) and size (p=0.027) retain signal -> between-species structure, consistent with within-species continuum (idea05).
   - IMPORTANT methodological caveat (idea09): the PHYling protein tree is a near-comet topology (giant polytomy of near-duplicate R. mucilaginosa; 167/541 edges <=1e-7, 22 zero-length pendant tips). Blomberg's K collapses to ~1e-7 here regardless of truth (BM power check K=2.25) and likelihood lambda is numerically unstable (geiger lnL inconsistent) -> use rank-based Mantel permutation for phylogenetic signal on near-comet/genome-cluster trees, never raw K.
   - Species monophyly on this tree (idea09): dairenensis, diobovata, graminis, kratochvilovae, sphaerocarpa, sp. clade I monophyletic; mucilaginosa/paludigena/taiwanensis/toruloides NOT.
-tags: [ideas, ideation, persona, phenotype-space, color-space, CIELAB, mediation, information-theory, heritability, GxE, UMAP, HDBSCAN, varimax, ecology, onset, rhodotorula, copper, duckdb, pixi, phylogenetics, mantel, phylogenetic-signal]
+  - Within-species (among-strain) variation is the DOMINANT scale of variation for all 5 key traits (idea10): exact SS decomposition, 11 species n>=3, fraction of variance WITHIN species = Cu slope 87%, baseline chroma 92%, colony size 62%, within-strain heterogeneity 67%, pigment pace 84% (ANOVA F 2.6-17.5). Colony size is the most species-structured (38% between); chroma/Cu-slope least (~8-13% between). Consistent with idea09 (between-species Mantel signal in the smaller component) + idea05 (within-species continuum). CV% unreliable for near-zero-mean traits (pace diobovata).
+tags: [ideas, ideation, persona, phenotype-space, color-space, CIELAB, mediation, information-theory, heritability, GxE, UMAP, HDBSCAN, varimax, ecology, onset, rhodotorula, copper, duckdb, pixi, phylogenetics, mantel, phylogenetic-signal, within-species, variance-partition, boxplot]
 ```

@@ -59,6 +59,14 @@
    and likelihood lambda was numerically unstable (geiger white-vs-lambda lnL
    internally inconsistent). Use rank-based Mantel permutation on such
    topologies, never raw K.
+7. **[robust] Within-species (among-strain) variation is the DOMINANT scale of
+   variation for every trait (idea 10).** Exact SS decomposition (11 species,
+   n≥3): fraction of variance WITHIN species = Cu-sensitivity slope 87%,
+   baseline chroma 92%, colony size 62%, within-strain heterogeneity 67%,
+   pigment pace 84% (ANOVA F 2.6–17.5; n≈293–301). Colony size is most
+   species-structured (38% between-species), chroma & Cu-slope least
+   (~8–13%). Reconciles idea 09 (detectable between-species Mantel signal in
+   the smaller component) with idea 05 (within-species continuum).
 
 ## Caveats
 

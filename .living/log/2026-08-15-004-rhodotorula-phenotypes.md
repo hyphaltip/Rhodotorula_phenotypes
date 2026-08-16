@@ -27,3 +27,8 @@ files_changed: ~15
 
 ### Next
 - Commit plus optional push. Possible follow-up: concatenated-loci species tree check; within-clade Mantel on the non-mucilaginosa singleton clades; reconcile with idea 05 atlas via trait-on-tree figures.
+
+### 21:10 — Idea 10: scale of within-species variation (user request)
+- `scripts/idea_10_species_variation.py`: builds per-strain trait table (5 key traits incl. median pace), per-species boxplots (n>=3) + exact SS variance decomposition (between vs within species).
+- Result: within-species (strain) variance DOMINATES for all traits — Cu slope 87%, chroma 92%, size 62%, heterogeneity 67%, pace 84% within-species fraction; colony size most species-structured (38% between). Reconciles idea 09 Mantel signal (sits in the smaller between-species component) + idea 05 continuum.
+- Updated 00_index (row 10), FINDINGS (idea 10 section + synthesis pt 7), ANALYSIS_MANIFEST (script/outputs/findings/tags), `.living/findings/phenotype-color-space.md` (F7).

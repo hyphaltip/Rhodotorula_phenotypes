@@ -163,6 +163,30 @@ Caveat up front: several "statistical findings" are threshold/definition-sensiti
 
 ---
 
+## Idea 10 — Scale of within-species variation
+`scripts/idea_10_species_variation.py`
+
+- **[robust] Within-species (among-strain) variation dominates the scale of
+  variation for every trait.** Exact SS decomposition (11 species with n≥3):
+  fraction of total variance that is *within* species — Cu-sensitivity slope
+  87%, baseline chroma 92%, colony size 62%, within-strain heterogeneity 67%,
+  pigment pace 84% (all-strain species, ANOVA F 2.6–17.5; n≈293–301 strains).
+  Colony size is the most species-structured (38% between-species), chroma and
+  Cu-slope the least (~8–13% between).
+- **Consistent with idea 09 + idea 05:** the phylogenetic signal detected by
+  Mantel (idea 09) is *between-species* and modest in absolute terms because
+  most of the phenotypic variance sits *inside* species — the strain atlas
+  really is largely a within-species continuum (idea 05), with a smaller
+  between-species component that is nonetheless statistically detectable.
+- Per-species spread is broad: e.g. colony size sp. clade I sd=0.68
+  (17.7% CV), sphaerocarpa sd=0.60, paludigena sd=0.53 (log10 area);
+  baseline chroma sphaerocarpa sd=0.32, dairenensis sd=0.31 (log chroma).
+- Caveats: CV% is not meaningful for traits with mean ≈ 0 (pace_loglog of
+  diobovata/graminis/granis); small species (n=3: graminis/pacifica/
+  kratochvilovae) have unstable SD estimates; boxplots count n≥3 species.
+
+---
+
 ## Cross-cutting synthesis
 
 1. **A tri-partite latent structure dominates the screen:** color-amount (F1), 
@@ -182,3 +206,7 @@ Caveat up front: several "statistical findings" are threshold/definition-sensiti
    sd(log Asat) correlates ~−0.6 with colony size, so pooled "dispersion vs Cu"
    trends (incl. idea 01's v1 Gibrat claim) are confounded unless within-strain
    and size-controlled; always pair such metrics with a size covariate.
+7. **The dominant scale of phenotypic variation is *within* species (idea 10):**
+   62–92% of variance for the 5 key traits is among-strain, not across species;
+   the phylogenetic signal (idea 09) sits in the smaller between-species
+   component. Interpret species-level summaries in that light.
