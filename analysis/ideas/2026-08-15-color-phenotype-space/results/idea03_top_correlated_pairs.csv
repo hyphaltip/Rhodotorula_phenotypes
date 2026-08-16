@@ -1,0 +1,11 @@
+abs_corr,f1,f2
+0.9999999999999998,Shape_Compactness,Shape_Circularity
+0.9999999999999998,Intensity_MeanIntensity,Intensity_Density
+0.9999978595781603,Intensity_MedianIntensity,ColorLab_L*Median
+0.9992824235782451,Shape_Area,Shape_Solidity
+0.9957012256876927,Shape_MeanRadius,Shape_MaxRadius
+0.9919231181879402,Intensity_CoefficientVarianceIntensity,ColorLab_L*CoeffVar
+0.9905949788877162,Shape_MajorAxisLength,Shape_Perimeter
+0.9886958971591518,Shape_Area,Shape_MajorAxisLength
+0.9869214874540511,Shape_Solidity,Shape_MajorAxisLength
+0.9847853464580429,ColorHSV_SaturationMedian,Colorxy_xMedian

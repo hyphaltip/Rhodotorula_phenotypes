@@ -129,3 +129,39 @@ key_findings:
   - Per-strain stats reproduced exactly by independent manual aggregation (strain 185).
 tags: [copper, control, YPD, color, CIELAB, L*a*b*, colony-size, phenotype-table, duckdb, strain, rhodotorula]
 ```
+
+### 2026-08-15-color-phenotype-space
+```yaml
+name: 2026-08-15-color-phenotype-space
+question: What else should we explore for phenotypic data space or color space in this dataset? (persona-driven ideation campaign, 8 personas x 2 ideas = 16 ideas, all implemented)
+input: db/rhodotorula_phenotypes.duckdb (v_phenotype, 211,800 rows) via shared extract data/db_extract.parquet (116 cols)
+scripts:
+  - scripts/build_series.py        # shared extract: v_phenotype -> data/db_extract.tsv.gz/.parquet + strain_metadata.tsv
+  - scripts/common.py              # read_extract/read_meta/save/boot_ci/circular_stats/hue asat helpers
+  - scripts/idea_01_arrest.py      # Weibull arrest collapse + Gibrat dispersion (statistical-physicist)
+  - scripts/idea_02_color.py       # hue/chroma/L* triple, morphs, onset, run calibration (color-imaging)
+  - scripts/idea_03_information.py # species info, redundancy, forward selection (information-theorist)
+  - scripts/idea_04_qg.py          # ICC/repeatability, reaction norms, GxE (quantitative-geneticist)
+  - scripts/idea_05_repl.py        # rank-PCA/varimax factors + UMAP/HDBSCAN atlas (representation-learning)
+  - scripts/idea_06_mediation.py   # Cu -> growth -> pigment endpoint mediation (causal-inference)
+  - scripts/idea_07_ecology.py     # environment stratification, species-conditional permutation (trait-ecology)
+  - scripts/idea_08_onset.py       # onset threshold sweep + pigment-area coupling (temporal-dynamics)
+outputs:
+  - results/idea01_{arrest_collapse,dispersion}.csv; figures/fig01_{master_collapse,arrest_exponent,gibrat_dispersion}.png
+  - results/idea02_{species_color_triple,heterogeneity,pigment_morphs,run_calibration,onset_times}.csv; fig02{a,b}_*.png
+  - results/idea03_{feature_species_info,redundancy_summary,top_correlated_pairs,forward_selection}.csv; fig03_{mi_top,redundancy_heatmap}.png
+  - results/idea04_{icc_audit,heterogeneity_repeatability,reaction_norms,gxe_interaction_mucilaginosa}.csv; fig04_{icc_audit,reaction_norms}.png
+  - results/idea05_{pca_variance,varimax_loadings,factor_block_top,atlas,cluster_species_matrix}.csv; fig05_{atlas_umap,cluster_species}.png
+  - results/idea06_mediation_decomposition.csv; fig06_growth_pigment_decouple.png
+  - results/idea07_{trait_environment,env_trait_means,env_trait_z}.csv; fig07_trait_environment.png
+  - results/idea08_{onset_threshold_sweep,pigment_pace,logistic_onset,well_growth_onset}.csv; fig08_{onset_vs_capture,example_growth_pigment}.png
+  - FINDINGS.md  # master synthesis of all 8 results
+reproduce: pixi run python scripts/idea_XX_name.py per script
+status: complete
+key_findings:
+  - Cu acts mostly THROUGH growth: log(chroma) loss at 90-110 h is ~fully mediated by colony area (mediation frac ~1.2, direct b~0 per well, boot CI [0.49,2.69]); only the a* (redness) channel keeps a ~40% direct, growth-independent Cu effect.
+  - Species/stress/environment signal rides on intra-colony heterogeneity and shape, NOT on L*/intensity: L*Median has the least species MI (~0.07 bit vs best feature 0.19 bit of H=3.0); environment associates only with b*CoeffVar (p_strat~0.006) and L*Median after species-blocking. Camouflage caveat: a*/b*CoeffVar are colony-noise (ICC_strain 0.19/~0) while shape/chroma are repeatable (ICC 0.82-0.93).
+  - The strain atlas is a CONTINUUM: varimax factors F1 color-level / F2 heterogeneity / F6-F8 shape are block-diagonal, but UMAP+HDBSCAN finds no discrete species clusters; GxE on log(chroma) within R. mucilaginosa is real but modest (F=1.66, p<<1e-6).
+  - Define onset with chroma>7-10: basal chroma noise ~1.5-2 in late Cu=0 colonies; at thr7 median onset 48 h, 91% ever pigment, while >=20 mM Cu gives 0% ever pigment. Colony size gates onset only weakly (rho_onset,size 0.30-0.42 across thresholds).
+tags: [ideas, ideation, persona, phenotype-space, color-space, CIELAB, mediation, information-theory, heritability, GxE, UMAP, HDBSCAN, varimax, ecology, onset, rhodotorula, copper, duckdb, pixi]
+```

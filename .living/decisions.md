@@ -12,6 +12,22 @@ Append-only log of non-obvious decisions and their rationale.
 - **Consequences**: `strain` rows now refresh from the CSV on any re-import or `--strain-only` run; the analysis pipeline (00-05 + render) was regenerated cleanly with the corrected labels. Minor: curated strain metadata no longer survives a conflicting CSV value (documented trade-off; CSV is authoritative).
 - **Tags**: data, metadata, import, duckdb, strain, copper
 
+### [2026-08-15] D-5 — Serialize repeated analyses through a shared extract (db_extract) instead of re-querying DuckDB per idea script
+- **Context**: The persona ideation campaign (8 personas, 16 ideas) produced 8 independent analysis scripts, almost all needing the full phenotype screen (211,800 colony-rows × 193 cols v_phenotype) with Cu concentration, species, and environment joined. Naively, every idea script would re-run the same DuckDB query (seconds each) and re-derive Cu/species/environment joins, risking divergent joins/definitions across scripts.
+- **Decision**: Built one shared `scripts/build_series.py` that materializes `data/db_extract.parquet` (211,800 × 116, color/chroma/hue-compatible subset + species + environment + coppermM) plus `data/strain_metadata.tsv` (tracked), and a `scripts/common.py` with read/extract/save/boot_ci/CIELAB-hue/circular-stats helpers. All idea scripts call only common.py against the parquet.
+- **Alternatives considered**: Each script re-querying DuckDB independently (fragile, duplicative); building one monolithic mega-table with every one of the 193 columns (unused-large).
+- **Rationale**: A single, tested extract is reproducible, fast to iterate on, and guarantees consistent Cu/species/environment joins across the whole campaign; `data/` stays gitignored except the small strain metadata.
+- **Consequences**: All 8 ideas share the same source of truth; methodology divergences are now definitional (thresholds, windows) rather than data joins. If v_phenotype semantics change, rebuild the one extract and all ideas refresh.
+- **Tags**: analysis, data-engineering, duckdb, parquet, reproducible-pipeline, ideation
+
+### [2026-08-15] D-6 — Pin numpy to 2.4.x in pixi and disable user-site so the conda env is authoritative
+- **Context**: `numba` failed to import under the pixi env (`numba` is a hard dependency of `umap-learn`, added for the representation-learning idea 05). Root cause: user-site `~/.local` numpy 2.5.2 shadowed the conda env's numpy 2.4.x via sys.path, and they are ABI-incompatible for numba.
+- **Decision**: (1) `pixi add "numpy>=2.4,<2.5"`; (2) added `[activation.env] PYTHONNOUSERSITE = "1"` to `pixi.toml` so the conda env never imports user-site packages; verified `import numpy` resolves to the conda 2.4.6 and numba imports.
+- **Alternatives considered**: Uninstall user-site numpy (affects other projects, out of repo control); always run with `PYTHONNOUSERSITE=1` manually in every command (error-prone).
+- **Rationale**: `PYTHONNOUSERSITE=1` in the activation env is declarative, reproducible, and scoped to this repo's env only.
+- **Consequences**: Env is now deterministic w.r.t. numpy/user-site packages; the constraint is recorded in pixi.toml so any future `pixi install` reproduces it (install `numba`/`umap-learn`/`hdbscan` via pixi, never pip-user).
+- **Tags**: environment, pixi, numpy, numba, umap-learn, activation-env, gotcha
+
 ### [2026-08-15] D-3 — Stratify plate-effect variance partition by Copper concentration
 - **Context**: `analysis/explore_plate_position/01_variance_partition.R` estimated a pooled mixed model (`trait ~ copper_mm + grid_row_c + grid_col_c + is_edge + (1|strain_code) + (1|run_number) + (1|plate_id)`) reporting 23% (L*) and 33% (b*) plate-explained variance. Inspection showed `plate_id` is **nested** inside `copper_mm`: every plate was imaged at exactly one Cu level (0 of 112 plates have >1 concentration), so a random slope of Cu within plate is not estimable and the pooled plate term can absorb any non-linear Cu response.
 - **Decision**: Replaced the pooled model with a per-Cu-concentration stratified analysis: fit the variance partition independently within each of the 7 Cu levels (0-30 mM), dropping `copper_mm` (invariant within a stratum), applying the ≥2-plates-per-strain filter within each stratum, plus the categorical row/col robustness check per stratum.

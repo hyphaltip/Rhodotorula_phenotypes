@@ -24,5 +24,12 @@ scipy = ">=1.18.0,<2"
 scikit-learn = ">=1.9.0,<2"
 matplotlib = ">=3.11.1,<4"
 statsmodels = ">=0.14.6,<0.15"
+umap-learn = ">=0.5.12,<0.6"
+hdbscan = ">=0.8.44,<0.9"
+numpy = ">=2.4,<2.5"
+
+[activation.env]
+# Isolate the pixi env from user-site packages (~/.local) which shadow conda deps
+PYTHONNOUSERSITE = "1"
 
 [tasks]

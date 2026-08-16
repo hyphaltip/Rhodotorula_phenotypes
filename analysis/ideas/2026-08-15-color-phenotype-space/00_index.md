@@ -31,6 +31,27 @@ Session following the `idea-generator` convention (persona-based, data-grounded)
 
 ---
 
+## Implementation status (all 16 ideas via 8 scripts)
+
+Shared pipeline: `scripts/build_series.py` → `data/db_extract.parquet`
+(211,800 colony-rows × 116 cols) + `scripts/common.py`; results in
+`results/idea*.csv`, figures in `figures/fig*.png`. Headline result per idea:
+
+| Idea | Line | Headline result | Outputs |
+|------|------|-----------------|---------|
+| 01 | Statistical Physicist | Arrest is Cu-invariant in shape (Weibull k≈0.45 flat); Cu amplifies replicate dispersion sd(log₁₀area) 0.30→0.43 (ρ=0.23–0.28, p<1e-27) | `idea01_{arrest_collapse,dispersion}.csv`, `fig01_{master_collapse,arrest_exponent,gibrat_dispersion}.png` |
+| 02 | Color/Imaging | Species separate in hue/chroma not L*; ≥20 mM Cu → 0% ever pigment, <10 mM → 98% (onset≈24 h); k=2 morphs = Cystobasidium outgroup | `idea02_{species_color_triple,heterogeneity,pigment_morphs,run_calibration,onset_times}.csv`, `fig02{a,b}_*.png` |
+| 03 | Information | Species info ≤0.19 bit/feature (H=3.0); L*/intensity carry least; shape+heterogeneity carry most; effective rank ≈11/37 | `idea03_{feature_species_info,redundancy_summary,top_correlated_pairs,forward_selection}.csv`, `fig03_{mi_top,redundancy_heatmap}.png` |
+| 04 | Quantitative Geneticist | ICC_strain: shape 0.86–0.93, chroma 0.82; a*/b*CoeffVar are noise (ICC≤0.19); reaction norm slope⇔baseline ρ=−0.59; strong strain×Cu GxE (F=1.66, p<1e-50) | `idea04_{icc_audit,heterogeneity_repeatability,reaction_norms,gxe_interaction_mucilaginosa}.csv`, `fig04_{icc_audit,reaction_norms}.png` |
+| 05 | Representation Learning | Latent tripartition color-level / heterogeneity / shape (varimax F1/F2/F6-F8); UMAP+HDBSCAN ⇒ continuum, no species clusters | `idea05_{pca_variance,varimax_loadings,factor_block_top,atlas,cluster_species_matrix}.csv`, `fig05_{atlas_umap,cluster_species}.png` |
+| 06 | Causal Endpoint | Chroma loss is **fully growth-mediated** (mediation frac≈1.2, b_direct≈0); a* redness has ~40% direct Cu effect | `idea06_mediation_decomposition.csv`, `fig06_growth_pigment_decouple.png` |
+| 07 | Trait Ecology | After species-block permutation only b*CoeffVar (p≈0.006) and L*Median (p≈0.027) associate with environment; mean pigment does NOT | `idea07_{trait_environment,env_trait_means,env_trait_z}.csv`, `fig07_trait_environment.png` |
+| 08 | Temporal Dynamics | Size gates onset only weakly (ρ=0.30–0.42, thr2–10); pigment–area exponent species-specific (0.19–0.53); basal chroma≈2 noise → use onset thr≥7 | `idea08_{onset_threshold_sweep,pigment_pace,logistic_onset,well_growth_onset}.csv`, `fig08_{onset_vs_capture,example_growth_pigment}.png` |
+
+Full write-up: [`FINDINGS.md`](FINDINGS.md). `[robust]` claims are threshold/CI-stable.
+
+---
+
 ## Cross-cutting themes (synthesis)
 
 1. **The ~170 unused feature columns are the frontier.** Every prior analysis used only

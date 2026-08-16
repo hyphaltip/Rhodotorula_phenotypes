@@ -1,0 +1,47 @@
+# Finding: Copper acts mostly through growth; phenotype signal lives in heterogeneity/shape, not lightness
+
+- **Date**: 2026-08-15
+- **Source**: `analysis/ideas/2026-08-15-color-phenotype-space/` (8 scripts, ideas 01–08; summary in FINDINGS.md)
+- **Topic**: phenotype-color-space, copper-pigment-mediation
+
+## Result
+
+1. **[robust] Cu suppresses pigmentation largely via growth arrest, not a direct
+   pigment block.** At 90–110 h well level, total Cu effect on log(chroma)
+   (Δb≈−0.022) vanishes once colony area + species are controlled
+   (direct b≈+0.004; mediation fraction ≈1.2, bootstrap CI [0.49, 2.69]).
+   The a* (redness) channel is different: total −0.32 → direct −0.13, i.e.
+   ~60% growth-mediated but a real ~40% growth-independent direct component.
+2. **[robust] The strain phenotype space is a continuum, and species/interactions
+   are distributed across it, not localized.** Varimax-factorized axes form a
+   near-block-diagonal tripartition: (F1) color level — chroma/saturation/L*,
+   (F2) intra-colony heterogeneity — texture entropy + L*CoeffVar, (F6/F8)
+   shape/area. UMAP + HDBSCAN finds no discrete species clusters (all clusters
+   mucilaginosa-dominated). GxE on log(chroma) within R. mucilaginosa is real
+   but modest (F=1.66).
+3. **[robust] Lightness/intensity carry almost no species or stress information;
+   within-colony heterogeneity and shape carry the signal others miss.**
+   - Species MI: best single feature ≈0.19 bit of H(species)=3.0 bit;
+     L*Median and intensity are bottom (≈0.07 bit); top features are
+     b*CoeffVar, shape (Area/Perimeter/Solidity).
+   - Environment (marsh_tidalflat/soil/plant/food), species-blocked
+     permutation: only b*CoeffVar (p≈0.006) and L*Median (p≈0.027) associate;
+     mean pigmentation (a*, chroma) and size do NOT.
+   - Repeatability: shape ICC_strain 0.86–0.93 and chroma 0.82 are heritable-
+     style axes, but a*CoeffVar (0.19) and b*CoeffVar (~0) are colony-noise —
+     the "stress heterogeneity" in a*/b* variance is not genotypic.
+4. **Colony size only weakly gates the timing of pigmentation.** Spearman
+   (time-to-size, onset-time) ≈ 0.30–0.42 across chroma thresholds 2→10;
+   and pigment accrues sub-linearly vs area after onset, with strong
+   species-specific exponents (pigment~area^β, β 0.19–0.53).
+
+## Caveats
+
+- Onset-time results are threshold-sensitive; use chroma>7 (basal noise ~1.5–2).
+- Mediation fraction is imprecisely estimated (CI [0.49, 2.69]); "full
+  mediation" is directionally robust, not exactly 1.0.
+- Do not interpret "no direct Cu pigment effect" as "no evolutionary response":
+  the residual a* direct channel and GxE indicate a second, pigment-specific
+  mechanism.
+- Environment signal is small (η²≈0.06) and depends on coarse environment
+  categories; finer habitat fields are not available in the strain table.

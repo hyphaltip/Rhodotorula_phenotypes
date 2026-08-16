@@ -67,3 +67,35 @@ Append-only log of gotchas, surprises, and insights.
 - **Resolution**: `with c0 as (select *, round(hours_since_plate_start,0) tp_h ...), latest as (select *, max(tp_h) over (partition by strain_id) tp_hmax from c0) ... where tp_h = tp_hmax` — i.e. round, then window-max the rounded hour.
 - **mitigation_type**: structural — a reusable timepoint-binning helper / convention for time-series extractions on this pipeline data.
 - **Tags**: data, duckdb, timepoint, imaging-pass, cadence, phenotype, gotcha, copper
+
+### [2026-08-15] L-9 — user-site Python packages shadow the pixi conda env unless PYTHONNOUSERSITE=1
+- **Category**: environment / pixi
+- **What happened**: `numba` refused to import inside the pixi env with `TypeError: numpy.core.multiarray failed to import` because the conda env's numpy 2.4.x was being shadowed by a newer `~/.local/lib/python3.12/site-packages` numpy (2.5.2) on `sys.path`.
+- **Why it matters**: User-site packages are a permanent source of version skew on this host; even after pinning `numpy = ">=2.4,<2.5"` in `pixi.toml`, the shadowing can still occur depending on `PYTHONUSERBASE`/`.pth` behavior.
+- **Resolution**: Add to `pixi.toml` `[activation.env] PYTHONNOUSERSITE = "1"` so the env never reads the user-site directory; verify with `python -c "import numpy, sys; print(sys.path)"`.
+- **mitigation_type**: structural — always set PYTHONNOUSERSITE in repo pixi.toml activation env.
+- **Tags**: pixi, environment, numpy, numba, user-site, activation-env, gotcha
+
+### [2026-08-15] L-10 — statsmodels `anova_lm` cannot compare multiple fitted models; compute the F-test by hand
+- **Category**: statistics / pandas / statsmodels
+- **What happened**: Passing several model refits to `anova_lm(m1, m2, ...)` for type-II tests of a strain×Cu interaction failed (multi-model comparisons not supported in this api).
+- **Why it matters**: Hypothesis tests for GxE / added variables are a routine need; blocking on the statsmodels API was wasting time.
+- **Resolution**: Fit the reduced and full model separately and compute `F = ((RSS_reduced - RSS_full) / (df_reduced - df_full)) / (RSS_full / df_full)`, p from `scipy.stats.f.sf`.
+- **mitigation_type**: procedural — keep a small helper for hand-rolled nested-model F-tests.
+- **Tags**: statsmodels, anova, F-test, nested-model, GxE, stats, gotcha
+
+### [2026-08-15] L-11 — basal chroma noise (~1.5-2) in late Cu=0 colonies forces a minimum onset pigment threshold
+- **Category**: analysis / phenotype
+- **What happened**: With onset defined as first time chroma crosses a low threshold (2-3), nearly every colony was "onset at t=0" (`t_darkening_h=0` everywhere), and median onset collapsed to 0-12 h; threshold sweep showed median onset jumps 0/12/30/48/84 h as threshold rises 2→3→5→7→10.
+- **Why it matters**: Baseline colony color has intrinsic chroma spread (~1.5-2) unrelated to pigment onset; any "time-to-pigment" derived from low thresholds reports imaging noise, not biology.
+- **Resolution**: Use chroma threshold >=7 (`ColourLab`-scale chroma) for onset definitions; report the sweep as a robustness figure. Only ~51% of colonies reach chroma >= 7 under the IM scope window, so onset-definition must be a documented parameter.
+- **mitigation_type**: analysis, procedural — threshold-sweep before committing to an onset definition.
+- **Tags**: onset, chroma, threshold, pigment, timecourse, imaging, noise, gotcha
+
+### [2026-08-15] L-12 — median one-time: naive residual-ON-residual mediation blows up numerically
+- **Category**: statistics / modeling
+- **What happened**: A rough "regress predictor on mediator residuals, then fit outcome on those residuals" mediation attempt produced wildly unstable / non-interpretable coefficients (collinearity of constructed regressors).
+- **Why it matters**: Stats courses illustrate mediation with regressions of residuals, but those models are numerically pathological with correlated phenotype measures; the resulting "effects" are not meaningful.
+- **Resolution**: Use a proper structural decomposition: outcome ~ species + area + Cu (total) versus outcome ~ species + Cu (direct effect with the mediator in the model), i.e. compare coefficients of Cu between models with/without the mediator; bootstrap the a*b indirect component.
+- **mitigation_type**: analysis, procedural — use product-of-coefficients / model-difference decomposition, never residual-residual hacks.
+- **Tags**: mediation, collinearity, regression, stats, bootstrap, gotcha
