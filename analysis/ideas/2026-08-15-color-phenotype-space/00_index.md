@@ -47,6 +47,7 @@ Shared pipeline: `scripts/build_series.py` → `data/db_extract.parquet`
 | 06 | Causal Endpoint | Chroma loss is **fully growth-mediated** (mediation frac≈1.2, b_direct≈0); a* redness has ~40% direct Cu effect | `idea06_mediation_decomposition.csv`, `fig06_growth_pigment_decouple.png` |
 | 07 | Trait Ecology | After species-block permutation only b*CoeffVar (p≈0.006) and L*Median (p≈0.027) associate with environment; mean pigment does NOT | `idea07_{trait_environment,env_trait_means,env_trait_z}.csv`, `fig07_trait_environment.png` |
 | 08 | Temporal Dynamics | Size gates onset only weakly (ρ=0.30–0.42, thr2–10); pigment–area exponent species-specific (0.19–0.53); basal chroma≈2 noise → use onset thr≥7 | `idea08_{onset_threshold_sweep,pigment_pace,logistic_onset,well_growth_onset}.csv`, `fig08_{onset_vs_capture,example_growth_pigment}.png` |
+| 09 | Phylogeneticist | **Strain phenotypes DO carry phylo signal (Mantel perm): size r=0.43, heterogeneity r=0.31, chroma r=0.19, Cu-slope r=0.10 — all p≤0.003; pace n.s.** Within mucilaginosa only chroma+size survive → between-species. Blomberg K degenerates (~1e-7) on this near-comet tree — do not trust K | `idea09_phylo_signal.csv`, `idea09_tip_traits.csv`, `idea09_pruned_trees.rds`, `fig09_trait_on_tree_{cu_slope,baseline_chroma,dispersion}.png` |
 
 Full write-up: [`FINDINGS.md`](FINDINGS.md). `[robust]` claims are threshold/CI-stable.
 

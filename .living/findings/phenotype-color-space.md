@@ -1,7 +1,7 @@
 # Finding: Copper acts mostly through growth; phenotype signal lives in heterogeneity/shape, not lightness
 
 - **Date**: 2026-08-15
-- **Source**: `analysis/ideas/2026-08-15-color-phenotype-space/` (8 scripts, ideas 01–08; summary in FINDINGS.md)
+- **Source**: `analysis/ideas/2026-08-15-color-phenotype-space/` (8 scripts, ideas 01–08; summary in FINDINGS.md) + idea 09 phylogeny script and tree asset `data/raw/rhodotorula-phyling-protein-tree/`
 - **Topic**: phenotype-color-space, copper-pigment-mediation
 
 ## Result
@@ -42,6 +42,23 @@
    (time-to-size, onset-time) ≈ 0.30–0.42 across chroma thresholds 2→10;
    and pigment accrues sub-linearly vs area after onset, with strong
    species-specific exponents (pigment~area^β, β 0.19–0.53).
+5. **[robust] Strain phenotypes DO carry phylogenetic signal (idea 09, Mantel
+   permutation on the PHYling protein tree), but mostly BETWEEN species, not a
+   gradation within R. mucilaginosa.** All-strains scope: l10med_fixed (colony
+   size) r=0.43 (p=0.001), partial_slope_sd_cu (within-strain heterogeneity
+   broadening) r=0.31 (p=0.001), intercept_logchroma (baseline chroma) r=0.19
+   (p=0.001), slope_logchroma_per_mM (Cu sensitivity) r=0.10 (p=0.003);
+   pace_loglog not structured (r=0.06, p=0.07). Within R. mucilaginosa only
+   baseline chroma (r=0.13, p=0.002) and colony size (p=0.027) survive.
+   Reconciles the idea-05 "continuum" with real phylogenetic structure: it is a
+   within-species continuum on top of between-species differences.
+6. **[methodological, important] Blomberg's K is degenerate (~1e-7 = "no signal")
+   on near-comet trees with a giant polytomy of near-duplicate genomes.**
+   Here 167/541 edges ≤1e-7 (near-duplicate R. mucilaginosa clade); a BM power
+   check reproduced K≈2.25 on simulated data on this same tree (should be ~1),
+   and likelihood lambda was numerically unstable (geiger white-vs-lambda lnL
+   internally inconsistent). Use rank-based Mantel permutation on such
+   topologies, never raw K.
 
 ## Caveats
 

@@ -2,6 +2,34 @@
 
 <!-- Add entries below using the appropriate manifest entry template. -->
 
+### rhodotorula-phyling-protein-tree
+```yaml
+name: rhodotorula-phyling-protein-tree
+type: phylogenetic-tree
+source: PHYling protein_tree (BUSCO fungi_odb10) -> FastTree 2.2.0 (LG/CAT); copied from user's shared BFD results dir (see provenance.md)
+annotation_sources: analysis/ideas/2026-08-15-color-phenotype-space/data/strain_metadata.tsv (tip-strain join by code)
+date_acquired: 2026-08-15
+format: Newick (support + nosupport treefiles) + FastTree log
+rows: 278 tips / 265 internal nodes
+columns: n/a (tree topology + branch lengths)
+size: 49.6 KB (3 files)
+raw_path: data/raw/rhodotorula-phyling-protein-tree/
+metadata_path: data/metadata/rhodotorula-phyling-protein-tree/
+status: raw (immutable) + analyzed (idea 09)
+known_issues:
+  - Tip labels end in .proteins (strip .proteins/.proteins.fa before strain join)
+  - 2 outgroup tips (Cystobasidium, Pseudomicrostroma)
+  - Tip DH4148 has no matching strain in strain_metadata.tsv
+access_restrictions: none
+tags: [rhodotorula, phylogeny, phyling, busco, fungi_odb10, fasttree, protein-tree, strains]
+```
+
+Maximum-likelihood tree of 278 Rhodotorula-related taxa (276 Rhodotorula + 2 outgroups)
+built by the PHYling `protein_tree` workflow and FastTree 2.2.0. Copied from the shared
+directory `/bigdata/stajichlab/shared/projects/Rhodotorula/Rhodotorula_Metabolites/Rhodotorula_pheno_MS/BFD/results/phyling_pep/protein/buildtree/fungi_odb10/fasttree/`.
+Used by idea 09 (phylogeneticist) to test for phylogenetic signal in strain-level color/
+growth phenotypes. See `provenance.md` for full source path and reconstruction settings.
+
 ### copper-colony-measurements
 ```yaml
 name: copper-colony-measurements

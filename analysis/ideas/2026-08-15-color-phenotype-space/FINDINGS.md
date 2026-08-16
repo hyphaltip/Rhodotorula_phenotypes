@@ -137,6 +137,32 @@ Caveat up front: several "statistical findings" are threshold/definition-sensiti
 
 ---
 
+## Idea 09 — Phylogeneticist: strain phenotypes vs relatedness
+`scripts/idea_09_phylogeny.R` (tree asset `rhodotorula-phyling-protein-tree`)
+
+- **Strain phenotypes DO carry phylogenetic signal** once measured with a tree-
+  robust statistic. Mantel permutation (Spearman, patristic vs trait distance,
+  999 perms): colony size l10med_fixed r=0.43 (p=0.001), within-strain
+  heterogeneity broadening partial_slope_sd_cu r=0.31 (p=0.001), baseline chroma
+  intercept_logchroma r=0.19 (p=0.001), Cu-sensitivity slope r=0.10 (p=0.003);
+  pigment pace NOT structured (r=0.06, p=0.07). [n≈266–272/277 matched tips]
+- **Within R. mucilaginosa** (200 tips), signal survives only for baseline chroma
+  (r=0.13, p=0.002) and weakly colony size (p=0.027); Cu sensitivity and
+  heterogeneity show none → structure is between-species, not a fine gradation
+  within the dominant species. Reconciles with idea 05's within-species continuum.
+- **Methodological finding (important):** this tree is a near-"comet" — a giant
+  polytomy of near-duplicate R. mucilaginosa genomes (167/541 edges ≤1e-7; 22
+  zero-length pendant edges). On such topologies **Blomberg's K collapses to ~1e-7
+  (= "no signal") regardless of truth** (BM power check: K≈2.25 on simulated data
+  on this tree), and likelihood lambda becomes numerically unstable (geiger
+  white-vs-lambda lnL internally inconsistent). ⇒ Use rank-based permutation
+  (Mantel) on near-comet/genome-cluster trees, never raw K.
+- Species monophyly (≥3-tip): dairenensis, diobovata, graminis, kratochvilovae,
+  sphaerocarpa, sp. clade I monophyletic; mucilaginosa/paludigena/taiwanensis/
+  toruloides NOT (consistent with the near-zero mucilaginosa polytomy).
+
+---
+
 ## Cross-cutting synthesis
 
 1. **A tri-partite latent structure dominates the screen:** color-amount (F1), 

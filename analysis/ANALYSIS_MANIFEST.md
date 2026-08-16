@@ -147,6 +147,7 @@ scripts:
   - scripts/idea_06_mediation.py   # Cu -> growth -> pigment endpoint mediation (causal-inference)
   - scripts/idea_07_ecology.py     # environment stratification, species-conditional permutation (trait-ecology)
   - scripts/idea_08_onset.py       # onset threshold sweep + pigment-area coupling (temporal-dynamics)
+  - scripts/idea_09_phylogeny.R    # phylogeny join + Mantel perm signal (phylogeneticist, post-campaign) on data/raw/rhodotorula-phyling-protein-tree
 outputs:
   - results/idea01_{arrest_collapse,dispersion}.csv; figures/fig01_{master_collapse,arrest_exponent,gibrat_dispersion}.png
   - results/idea02_{species_color_triple,heterogeneity,pigment_morphs,run_calibration,onset_times}.csv; fig02{a,b}_*.png
@@ -156,6 +157,7 @@ outputs:
   - results/idea06_mediation_decomposition.csv; fig06_growth_pigment_decouple.png
   - results/idea07_{trait_environment,env_trait_means,env_trait_z}.csv; fig07_trait_environment.png
   - results/idea08_{onset_threshold_sweep,pigment_pace,logistic_onset,well_growth_onset}.csv; fig08_{onset_vs_capture,example_growth_pigment}.png
+  - results/idea09_{phylo_signal,tip_traits}.csv; results/idea09_pruned_trees.rds; fig09_trait_on_tree_{cu_slope,baseline_chroma,dispersion}.png
   - FINDINGS.md  # master synthesis of all 8 results
 reproduce: pixi run python scripts/idea_XX_name.py per script
 status: complete
@@ -165,5 +167,8 @@ key_findings:
   - Species/stress/environment signal rides on intra-colony heterogeneity and shape, NOT on L*/intensity: L*Median has the least species MI (~0.07 bit vs best feature 0.19 bit of H=3.0); environment associates only with b*CoeffVar (p_strat~0.006) and L*Median after species-blocking. Camouflage caveat: a*/b*CoeffVar are colony-noise (ICC_strain 0.19/~0) while shape/chroma are repeatable (ICC 0.82-0.93).
   - The strain atlas is a CONTINUUM: varimax factors F1 color-level / F2 heterogeneity / F6-F8 shape are block-diagonal, but UMAP+HDBSCAN finds no discrete species clusters; GxE on log(chroma) within R. mucilaginosa is real but modest (F=1.66, p<<1e-6).
   - Define onset with chroma>7-10: basal chroma noise ~1.5-2 in late Cu=0 colonies; at thr7 median onset 48 h, 91% ever pigment, while >=20 mM Cu gives 0% ever pigment. Colony size gates onset only weakly (rho_onset,size 0.30-0.42 across thresholds).
-tags: [ideas, ideation, persona, phenotype-space, color-space, CIELAB, mediation, information-theory, heritability, GxE, UMAP, HDBSCAN, varimax, ecology, onset, rhodotorula, copper, duckdb, pixi]
+  - Strain phenotypes carry phylogenetic signal when measured tree-robustly (idea09): Mantel permutation, all-strains scope, l10med_fixed r=0.43, partial_slope_sd_cu r=0.31, intercept_logchroma r=0.19, slope_logchroma_per_mM r=0.10 (all p<=0.003, n~266-272); pace_loglog n.s. Within R. mucilaginosa only baseline chroma (p=0.002) and size (p=0.027) retain signal -> between-species structure, consistent with within-species continuum (idea05).
+  - IMPORTANT methodological caveat (idea09): the PHYling protein tree is a near-comet topology (giant polytomy of near-duplicate R. mucilaginosa; 167/541 edges <=1e-7, 22 zero-length pendant tips). Blomberg's K collapses to ~1e-7 here regardless of truth (BM power check K=2.25) and likelihood lambda is numerically unstable (geiger lnL inconsistent) -> use rank-based Mantel permutation for phylogenetic signal on near-comet/genome-cluster trees, never raw K.
+  - Species monophyly on this tree (idea09): dairenensis, diobovata, graminis, kratochvilovae, sphaerocarpa, sp. clade I monophyletic; mucilaginosa/paludigena/taiwanensis/toruloides NOT.
+tags: [ideas, ideation, persona, phenotype-space, color-space, CIELAB, mediation, information-theory, heritability, GxE, UMAP, HDBSCAN, varimax, ecology, onset, rhodotorula, copper, duckdb, pixi, phylogenetics, mantel, phylogenetic-signal]
 ```

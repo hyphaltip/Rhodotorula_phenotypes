@@ -1,0 +1,50 @@
+# Dataset Schema
+# rhodotorula-phyling-protein-tree (PHYling fungi_odb10 protein tree, FastTree)
+
+dataset_name: rhodotorula-phyling-protein-tree
+description: >
+  Maximum-likelihood phylogeny of 278 Rhodotorula-related taxa (276 Rhodotorula +
+  Cystobasidium + Pseudomicrostroma outgroups) reconstructed by PHYling protein_tree
+  (BUSCO fungi_odb10 concatenated protein alignment) + FastTree 2.2.0 (LG/CAT). Files:
+  newick support tree, newick no-support tree, FastTree run log.
+format: Newick (text), one tree per file; log is plain text
+unit_of_observation: tips = genome assemblies (strains); nodes = inferred ancestors
+
+files:
+  - name: protein-Rhodotorula-taxa_278.fungi_odb10.fasttree.support.treefile
+    description: Newick tree with SH-like support values on internal nodes
+    size_bytes: 21129
+    md5: 704de78b2689978279870256b8b416dc
+  - name: protein-Rhodotorula-taxa_278.fungi_odb10.fasttree.nosupport.treefile
+    description: Newick tree without support values
+    size_bytes: 19809
+    md5: 9b32a896c8fcef6001d361dcd4acabf2
+  - name: protein-Rhodotorula-taxa_278.fungi_odb10.fasttree.support.log
+    description: FastTree 2.2.0 run log (settings, convergence, likelihood)
+    size_bytes: 8697
+
+tree_properties:
+  n_tips: 278
+  n_internal: 265
+  rooted: false
+  branch_lengths: substitutions per site (LG/CAT)
+  support: SH-like (1000 resamples), on internal nodes
+  tip_label_pattern: '^Rhodotorula_<species>_<strain_code>$ or Rhodotorula sp. clade <X>_<strain_code>'
+  tip_suffix: .proteins   # alignment-derived; strip .proteins / .proteins.fa before strain join
+  species_annotation_source: strain_metadata.tsv (matches by trailing strain code)
+
+construction:
+  tool: FastTree 2.2.0 (double precision, OpenMP 12 threads)
+  model: Le-Gascuel 2008, CAT approximation (20 rate categories)
+  search: Normal +NNI +SPR (2 rounds range 10) + ML-NNI opt-each=1
+  support: SH-like 1000
+  final_LogLk: -1679594.151
+  total_branch_length: 5.637
+
+joined_keys:
+  - name: tip_label
+    description: as written in the Newick file (ends in .proteins)
+  - name: strain_code
+    description: trailing identifier after "Genus_species_" (matches v_phenotype strain_code)
+    match_rate: 277/278
+    unmatched_tips: [DH4148]
