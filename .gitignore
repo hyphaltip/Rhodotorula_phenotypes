@@ -38,3 +38,10 @@ analysis/growth_rates/results/tables/
 # Exception: control-late-timepoint phenotype tables (per-window CSVs) are
 # committed by request -- they are small and directly consumed downstream.
 !analysis/control_late_timepoint_phenotype/results/
+
+# Ideation session 2026-08-15: large derived intermediate extract is rebuildable
+# via scripts/build_series.py; only final tables/figures/docs are tracked.
+analysis/ideas/2026-08-15-color-phenotype-space/data/
+!analysis/ideas/2026-08-15-color-phenotype-space/data/strain_metadata.tsv
+!analysis/ideas/2026-08-15-color-phenotype-space/results/
+!analysis/ideas/2026-08-15-color-phenotype-space/figures/

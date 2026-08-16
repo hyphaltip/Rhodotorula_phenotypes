@@ -1,0 +1,6 @@
+ WARN cache for Repodata at /rhome/jstajich/.cache/rattler/cache/repodata is on a network/parallel filesystem (NFS/SMB/FUSE/BeeGFS/Lustre/GPFS/CephFS), redirected to /scratch/jstajich/27384933/pixi-cache-jstajich/repodata for this run. Set [cache.repodata] in config.toml or PIXI_CACHE_DIR to override, or [cache.netfs-redirect] = "never" to keep the original path.
+extract rows: 211800, cols: 116
+rows with species: 169928 (0.802)
+control rows: 26529 (0.125)
+strains on extract: 320 (324 rows w/o strain? 35531)
+wrote /bigdata/stajichlab/jstajich/projects/Rhodotorula_phenotypes/analysis/ideas/2026-08-15-color-phenotype-space/data/db_extract.tsv.gz

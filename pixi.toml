@@ -20,5 +20,9 @@ r-lmertest = "*"
 "r-broom.mixed" = "*"
 r-rmarkdown = "*"
 r-knitr = "*"
+scipy = ">=1.18.0,<2"
+scikit-learn = ">=1.9.0,<2"
+matplotlib = ">=3.11.1,<4"
+statsmodels = ">=0.14.6,<0.15"
 
 [tasks]
