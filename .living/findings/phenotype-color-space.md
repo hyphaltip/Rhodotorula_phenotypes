@@ -6,6 +6,14 @@
 
 ## Result
 
+0. **[robust] sd(log₁₀ Asat) is a size/floor-coupled metric — the v1 "dispersion
+   widens with Cu" (idea 01) claim was largely confounded.**
+   sd(log Asat) correlates ~−0.63 with colony size; within-strain (paired) raw
+   Cu slopes are positive overall (median +0.0033/Mm, Wilcoxon p≈5e-16) but
+   collapse to ~0 when colony size is controlled (+0.0002/Mm, p=0.46). Only
+   lineage-specific exceptions survive: R. taiwanensis genuinely widens
+   (+0.014/Mm, p=0.03) and R. paludigena narrows (−0.025/Mm, p=0.001);
+   species differ in within-strain slope (Kruskal H=40.5, p≈1e-6).
 1. **[robust] Cu suppresses pigmentation largely via growth arrest, not a direct
    pigment block.** At 90–110 h well level, total Cu effect on log(chroma)
    (Δb≈−0.022) vanishes once colony area + species are controlled

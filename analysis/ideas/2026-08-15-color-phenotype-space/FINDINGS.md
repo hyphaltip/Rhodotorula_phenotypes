@@ -12,7 +12,7 @@ Caveat up front: several "statistical findings" are threshold/definition-sensiti
 ---
 
 ## Idea 01 — Statistical Physicist: universal arrest + growth-fluctuation dispersion
-`idea_01_arrest.py`
+`idea_01_arrest.py` (+ `idea_01b_gibrat_within.py` resolves the dispersion ambiguity)
 
 - **[robust]** Cu suppresses growth by shifts along a **common collapse**, not by
   changing the shape of the growth curve. Weibull arrest exponent k ≈ 0.45 is flat
@@ -20,9 +20,23 @@ Caveat up front: several "statistical findings" are threshold/definition-sensiti
   "shape" is Cu-invariant; Cu moves the *time* (median t50 68.4 → 65.2 h) and the
   asymptotic size, not the dynamics' form.
 - Dispersion (Gibrat check): within-strain across-well colony-size spread
-  sd(log₁₀ area) rises with Cu, mean 0.30 (Cu=0) → 0.43 (30 mM);
-  Spearman ρ = 0.23–0.28 (p<1e-27) — high Cu amplifies **quenched disorder**
-  among replicates, not just the mean.
+  sd(log₁₀ area) rises with Cu at the pooled level, mean 0.30 (Cu=0) → 0.43 (30 mM);
+  Spearman ρ = 0.23–0.28 (p<1e-27). **BUT this pooled slope is largely a
+  size/floor artifact** (idea01b):
+  - sd(log₁₀ Asat) is strongly anti-correlated with colony size
+    (Spearman −0.63, p<1e-200): Cu shrinks colonies, and smaller colonies carry
+    more log-dispersion.
+  - **Within-strain (paired, same genotype) raw slopes are positive**
+    (median +0.0033 sd per mM, Wilcoxon p≈5e-16, 75.9% strains positive);
+    **size-controlled slopes collapse to ≈0** (median +0.0002, p=0.46,
+    53.6% positive) → no universal quenched-disorder widening per genotype.
+  - Species genuinely differ (Kruskal H=40.5, p≈1e-6): `R. taiwanensis`
+    **widens with Cu even size-controlled** (+0.014 per mM, p=0.03, all 6
+    strains positive), while `R. paludigena` **narrows** (−0.025, p=0.001) — a
+    genuine lineage-specific behavior on top of an overall size artifact.
+- Implication: the v1 "dispersion widens with Cu" claim was composition+size
+  confounded; the defensible claim is a size/floor coupling plus lineage-specific
+  (taiwanensis positive, paludigena negative) trends.
 
 ## Idea 02 — Color/Imaging Scientist: pigment identity, morphs, onset, run calibration
 `idea_02_color.py`
@@ -138,3 +152,7 @@ Caveat up front: several "statistical findings" are threshold/definition-sensiti
 5. **Definitional caveats to carry forward:** onset-time thresholds, species MI
    discreteness, mediation fraction width — all sensitive to choices; the
    directionally robust claims are marked [robust].
+6. **[robust] Log-dispersion of colony size is a size-coupled, floor-prone metric.**
+   sd(log Asat) correlates ~−0.6 with colony size, so pooled "dispersion vs Cu"
+   trends (incl. idea 01's v1 Gibrat claim) are confounded unless within-strain
+   and size-controlled; always pair such metrics with a size covariate.

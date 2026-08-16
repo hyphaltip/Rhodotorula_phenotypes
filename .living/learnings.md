@@ -99,3 +99,11 @@ Append-only log of gotchas, surprises, and insights.
 - **Resolution**: Use a proper structural decomposition: outcome ~ species + area + Cu (total) versus outcome ~ species + Cu (direct effect with the mediator in the model), i.e. compare coefficients of Cu between models with/without the mediator; bootstrap the a*b indirect component.
 - **mitigation_type**: analysis, procedural — use product-of-coefficients / model-difference decomposition, never residual-residual hacks.
 - **Tags**: mediation, collinearity, regression, stats, bootstrap, gotcha
+
+### [2026-08-15] L-13 — sd(log₁₀ colony area) is a size/floor-coupled metric; pool across strains and Cu and you will fabricate a "dispersion grows with stress" trend
+- **Category**: analysis / statistics
+- **What happened**: Idea 01's Gibrat check found sd(log₁₀ Asat) across replicate wells rising with Cu (0.30→0.43; pooled Spearman 0.23–0.28, p<1e-27). A within-strain follow-up showed raw paired slopes are indeed positive (+0.0033 per mM, Wilcoxon p≈5e-16) but that sd(log₁₀ Asat) is anti-correlated with colony size (Spearman −0.63, p<1e-200): Cu shrinks colonies, and small/floor-adjacent colonies carry inflated log-dispersion. Once colony size was included as a covariate, the within-strain Cu slope collapsed to ~0 (+0.0002, p=0.46; 53.6% positive).
+- **Why it matters**: Any "heterogeneity / disorder / dispersion vs treatment" claim built on log-size (or log-intensity, log-chroma) dispersion across replicates will be confounded by the confound of treatment moving the mean near the detection floor. This subsumes the idea 01b diversity:higher-Cu => more log-variance => uncertainty story — it was an artifact.
+- **Resolution**: For dispersion-type statistics, always (1) compute within-unit slopes (paired design), (2) control for the metric's own level (median size) as a covariate, and (3) report the pooled trend only alongside the size-controlled one. Here this revealed genuine lineage exceptions (R. taiwanensis widens, R. paludigena narrows) rather than a universal effect.
+- **mitigation_type**: analysis, procedural — dispersion metrics need within-unit + size-controlled design, never naive pooled trends.
+- **Tags**: dispersion, gibrat, noise, size-artifact, log-variance, variance, stats, floor-effect, gotcha

@@ -139,6 +139,7 @@ scripts:
   - scripts/build_series.py        # shared extract: v_phenotype -> data/db_extract.tsv.gz/.parquet + strain_metadata.tsv
   - scripts/common.py              # read_extract/read_meta/save/boot_ci/circular_stats/hue asat helpers
   - scripts/idea_01_arrest.py      # Weibull arrest collapse + Gibrat dispersion (statistical-physicist)
+  - scripts/idea_01b_gibrat_within.py # within-strain + size-controlled resolution of the Gibrat dispersion ambiguity
   - scripts/idea_02_color.py       # hue/chroma/L* triple, morphs, onset, run calibration (color-imaging)
   - scripts/idea_03_information.py # species info, redundancy, forward selection (information-theorist)
   - scripts/idea_04_qg.py          # ICC/repeatability, reaction norms, GxE (quantitative-geneticist)
@@ -159,6 +160,7 @@ outputs:
 reproduce: pixi run python scripts/idea_XX_name.py per script
 status: complete
 key_findings:
+  - sd(log10 Asat) "dispersion widens with Cu" (idea 01 pooled) is largely a SIZE/FLOOR ARTIFACT: sd(log10 Asat) ~ -0.63 correlated with colony size; within-strain raw slopes +0.0033/Mm (p~5e-16) collapse to ~0 size-controlled (p=0.46); only R. taiwanensis genuinely widens (+0.014, p=0.03) and R. paludigena narrows (-0.025, p=0.001) (idea 01b).
   - Cu acts mostly THROUGH growth: log(chroma) loss at 90-110 h is ~fully mediated by colony area (mediation frac ~1.2, direct b~0 per well, boot CI [0.49,2.69]); only the a* (redness) channel keeps a ~40% direct, growth-independent Cu effect.
   - Species/stress/environment signal rides on intra-colony heterogeneity and shape, NOT on L*/intensity: L*Median has the least species MI (~0.07 bit vs best feature 0.19 bit of H=3.0); environment associates only with b*CoeffVar (p_strat~0.006) and L*Median after species-blocking. Camouflage caveat: a*/b*CoeffVar are colony-noise (ICC_strain 0.19/~0) while shape/chroma are repeatable (ICC 0.82-0.93).
   - The strain atlas is a CONTINUUM: varimax factors F1 color-level / F2 heterogeneity / F6-F8 shape are block-diagonal, but UMAP+HDBSCAN finds no discrete species clusters; GxE on log(chroma) within R. mucilaginosa is real but modest (F=1.66, p<<1e-6).
