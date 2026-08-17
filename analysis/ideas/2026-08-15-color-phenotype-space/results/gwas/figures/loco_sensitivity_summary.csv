@@ -1,0 +1,15 @@
+set,metric,trait,value
+gwas,loco_lambda_fraction,ALL,0.4595
+gwas,loco_lambda_fraction,AUC_10,0.734
+gwas,loco_lambda_fraction,chroma,0.3405
+gwas,loco_lambda_fraction,resilience_30,0.437
+gwas,anchor_p,chroma,7.609359112294703
+gwas,anchor_p,AUC_10,7.840585618686955
+gwas,anchor_p,resilience_30,8.218811013026638
+gwasc,loco_lambda_fraction,ALL,0.537
+gwasc,loco_lambda_fraction,AUC_10,0.7155
+gwasc,loco_lambda_fraction,chroma,0.398
+gwasc,loco_lambda_fraction,resilience_30,0.532
+gwasc,anchor_p,chroma,4.6472962553757755
+gwasc,anchor_p,AUC_10,7.286384646679645
+gwasc,anchor_p,resilience_30,8.433775051787263

@@ -175,3 +175,55 @@ key_findings:
   - Within-species (among-strain) variation is the DOMINANT scale of variation for all 5 key traits (idea10): exact SS decomposition, 11 species n>=3, fraction of variance WITHIN species = Cu slope 87%, baseline chroma 92%, colony size 62%, within-strain heterogeneity 67%, pigment pace 84% (ANOVA F 2.6-17.5). Colony size is the most species-structured (38% between); chroma/Cu-slope least (~8-13% between). Consistent with idea09 (between-species Mantel signal in the smaller component) + idea05 (within-species continuum). CV% unreliable for near-zero-mean traits (pace diobovata).
 tags: [ideas, ideation, persona, phenotype-space, color-space, CIELAB, mediation, information-theory, heritability, GxE, UMAP, HDBSCAN, varimax, ecology, onset, rhodotorula, copper, duckdb, pixi, phylogenetics, mantel, phylogenetic-signal, within-species, variance-partition, boxplot]
 ```
+
+### 2026-08-15-color-phenotype-space-idea11-power
+```yaml
+name: 2026-08-15-color-phenotype-space (idea 11) - GWAS power & variant feasibility
+question: Given the within-species dominance (idea09/10), is a GWAS feasible for our color/growth traits, and what effect sizes are detectable? (Also: do we even need variant calling?)
+input: analysis/ideas/2026-08-15-color-phenotype-space/results/idea09_tip_traits.csv (278 strains x 5 traits); PHYling protein tree final_tree.nw (278 tips); external SNP panel /bigdata/stajichlab/shared/projects/Population_Genomics/Rhodotorula_mucilaginosa_NRRLY2510
+scripts:
+  - scripts/idea_11_effective_n.R  # effective independent haplotypes from protein tree (collapse near-clones)
+  - scripts/idea_11_power.py       # noncentral-chi2 power table + detectable effect sizes
+outputs:
+  - results/idea11_effective_n.csv, results/idea11_genome_redundancy.csv  # 200 tips -> 178 effective for R. mucilaginosa
+  - results/idea11_power.csv  # min detectable R2 per n at alpha 5e-8/1e-6/1e-4
+  - results/idea11_detectable_effect.csv  # beta in SD & trait units, frac of additive genetic variance (h2=ICC)
+  - figures/fig11_power_curves.png
+reproduce: pixi run Rscript scripts/idea_11_effective_n.R; pixi run python scripts/idea_11_power.py
+status: complete
+key_findings:
+  - Effective independent genomes: R. mucilaginosa 200 tips -> 178 effective haplotypes (redundancy 1.12, 22 near-clones collapsed at dist 1e-7); everyone else redundancy 1.0.
+  - Min detectable per-SNP R2 @80% power at n=202: 0.164 genome-wide (5e-8), 0.140 exome (1e-6), 0.100 candidate (1e-4); at real eff n=178 GW ~0.21. Only large-effect loci (~0.71 SD/allele @ MAF 0.3, ~22-25% of additive genetic var assuming h2=ICC) are detectable.
+  - Copper slope unmappable (ICC 0.19 < required heritability); colony size/chroma/heterogeneity/pace are the GWAS-able traits.
+  - DISCOVERY: no variant calling needed. Existing population-genomics project for R. mucilaginosa (ref NRRL Y-2510, /bigdata/stajichlab/shared/projects/Population_Genomics/Rhodotorula_mucilaginosa_NRRLY2510) has vcf/RmucY2510_v2.All.SNP.combined_selected.vcf.gz = 728,581 SNPs x 422 haploid strains (GATK hard-filtered). 201 of our 278 phenotyped strains (all R. mucilaginosa) carry genotypes; 200/201 have complete data for all 4 GWAS traits -> n matches the n=202 power row.
+  - Prior art: their 218-strain growth-rate GWAS (GEMMA+LMM+linear, T4C-T37C/Salt6) found only a handful of hits (e.g. chr13, p~1.7e-11 T37C linear) - consistent with idea-11 large-effect-only limit; our color traits untested (gap).
+tags: [power, gwas, variant, effective-n, redundancy, noncentral-chi2, snp, r-mucilaginosa, NRRL-Y2510, idea11, within-species]
+```
+
+### 2026-08-15-color-phenotype-space-gwas-loco-tierb-coloc
+```yaml
+name: 2026-08-15-color-phenotype-space GWAS follow-up (LOCO sensitivity + Tier B set tests + dxy/Fst co-localization)
+question: Do Tier-A GWAS hits (chroma/AUC_10/resilience_30) survive LOCO kinship sensitivity? Do pixy high-dxy windows carry multi-SNP (set-level) signal beyond single-SNP Tier-A? Are GWAS loci co-localized with population-divergence (dxy/Fst) outliers?
+input: results/gwas/tierA_summary/{gwas,gwasc}_*_assoc.csv; results/gwas/pixy/genome_{dxy,fst}.txt; results/gwas/loco/output/loco_*.assoc.txt (120 GEMMA LOCO scans); LD cache results/gwas/tierB/ld_cache/
+scripts:
+  - scripts/merge_loco.py        # per-chr lambda + top hits vs Tier-A -> loco_merged_{gwas,gwasc}.csv
+  - scripts/make_loco_figure.py  # two-panel LOCO sensitivity PNG/PDF
+  - scripts/tierb_set_tests.py   # burden/SKAT(min-p) set tests on 178 high-dxy windows (12 traits x both sets), MC-verified top-50
+  - scripts/tierB_submit.sh / tierB2_submit.sh  # SLURM runners (gwas/gwasc)
+  - scripts/coloc_dxy_fst.py     # FDR-locus to pixy-window join + Fisher enrichment
+  - scripts/make_tierb_figure.py / make_coloc_figure.py  # result figures
+outputs:
+  - results/gwas/loco/loco_merged_{gwas,gwasc}.csv
+  - results/gwas/tierB/tierb_settests_{gwas,gwasc}.csv; tierb_skat_mcver_{gwas,gwasc}.csv
+  - results/gwas/tierB/coloc/coloc_final.csv, coloc_anchors.csv, coloc_enrichment.txt
+  - results/gwas/figures/{loco_sensitivity,tierB_settests,coloc_dxy_fst}.{png,pdf}
+  - GWAS_REPORT.md section 8
+reproduce: sbatch scripts/tierB_submit.sh; python scripts/{merge_loco,make_loco_figure,coloc_dxy_fst,make_tierb_figure,make_coloc_figure}.py
+status: complete
+key_findings:
+  - LOCO reproduces every Tier-A anchor at unchanged p (chroma 2.46e-8, AUC_10 1.44e-8, resilience_30 6.04e-9 on all-201); signals are not kinship-absorption artifacts. LOCO lambda (medians 0.34-0.73) tracks Tier-A lambda - the lambda<1 deflation is stable near-clonal structure, not per-chromosome rescue.
+  - Tier B: no set-level signal survives FDR(q<0.05) in either set. burden over-conservative (lambda~0.5; + and - z cancel with no direction prior), SKAT mildly deflated (lambda~0.6-0.8; top p~1.4e-3 not consistent across sets), min_p recovers Tier-A single-SNP hits (383/384 & 408/408 high-dxy windows). MC-verified moment-approx SKAT (r=0.984 log10, n=50 windows).
+  - dxy/Fst co-localization: FDR GWAS loci NOT enriched in high-divergence windows (OR=0.81 dxy p=0.61; OR=0.41 Fst p=0.065). Phenotype alleles segregate within the near-clonal focal clade (standing variation), decoupled from the deep pop splits driving dxy/Fst extremes.
+  - scaffold_20:100001 (dxy 0.070 genome max, ~0 Fst, 12 SNPs) = assembly/collapsed-repeat artifact, excluded, not a hotspot.
+tags: [gwas, loco, sensitivity, skat, burden, set-test, pixy, dxy, fst, co-localization, tierb, highdxy, near-clone, standing-variation, rhodotorula, gemma, mcverification]
+```

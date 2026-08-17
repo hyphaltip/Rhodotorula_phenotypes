@@ -68,6 +68,33 @@
    (~8–13%). Reconciles idea 09 (detectable between-species Mantel signal in
    the smaller component) with idea 05 (within-species continuum).
 
+8. **[robust] GWAS feasibility (idea 11): R. mucilaginosa has 178 effective
+   independent haplotypes (200 tree tips, redundancy ratio 1.12 from 22
+   near-clone strains), so only LARGE-EFFECT loci are detectable — min per-SNP
+   R² ≈0.16 genome-wide (5e-8) / 0.10 candidate (1e-4) at 80% power, n=202.**
+   A detectable allele moves the phenotype ≈0.71 SD (≈22–25% of additive genetic
+   variance assuming h²=ICC upper bound); colony size / chroma / pace / 
+   heterogeneity are mappable, copper-slope is NOT (ICC 0.19, β≈0.008 trait
+   units). Direct power check (noncentral χ²) matches the table.
+
+## (idea 11 continued) Variant resources already exist — no de-novo calling needed
+9. **A completed population-genomics + GWAS project for these strains exists**
+   at `/bigdata/stajichlab/shared/projects/Population_Genomics/Rhodotorula_mucilaginosa_NRRLY2510/`
+   (reference NRRL Y-2510): `vcf/RmucY2510_v2.All.SNP.combined_selected.vcf.gz`,
+   728,581 SNP sites × 422 strains, **haploid** GT format (no het, no HWE
+   filtering), GATK-hard-filtered (QD<2, MQ<40, SOR>3, FS>60, PASS-only).
+   **201 of our 278 phenotyped strains (all R. mucilaginosa) carry genotypes**;
+   200/201 complete for all 4 GWAS traits. So the variant pipeline blocker is
+   resolved entirely by reuse; our contribution is the colour-trait phenotype
+   side (never tested in their 218-strain growth-rate GWAS, which found only a
+   handful of loci — consistent with the idea-11 effective-n power limit).
+10. **QC signal for the GWAS run:** heterogeneous, high-depth scaffolds
+    (scaffold_6 max 25,373×, scaffold_18 10,702×, scaffold_21 mean 550×)
+    look like aneuploidy/collapsed-repeats and should be depth-QA'd; strain
+    heterozygosity varies 0.014→10.5 (they genotyped many near-clones), so
+    kinship-based LMM + LD-pruned relatedness is the right model; 6 population
+    assignments cover our 201 strains for optional structure conditioning.
+
 ## Caveats
 
 - Onset-time results are threshold-sensitive; use chroma>7 (basal noise ~1.5–2).
@@ -78,3 +105,45 @@
   mechanism.
 - Environment signal is small (η²≈0.06) and depends on coarse environment
   categories; finer habitat fields are not available in the strain table.
+
+## (GWAS + pixy run) Population-structure correction numerically unsupported; scaffold_1 diversity is strongly population-structured
+
+11. **GEMMA LMM + structure covariates degenerates in this near-clonal panel.**
+    Adding 10 genotype-PCs (or 3, or population dummies) to the kinship-corrected
+    LMM collapses the model: `pve = 0.99997`, `se(pve) = NaN`,
+    `GSL: matrix is singular`; ~55 min/trait vs ~3 min kinship-only. Root cause is
+    structural — the GRM from 22 near-clone strains is singular, and top genotype
+    PCs are nearly collinear with its eigenvectors, so any fixed covariate is
+    redundant and the joint model breaks. The **kinship-only LMM is the valid
+    analysis**: PVE = 0.180 ± 0.077 (sane), lambdas 0.357–0.638, top size hit
+    scaffold_16:121473 p_wald = 6.2e-11 (13 independent loci after clumping).
+    This empirically documents that explicit structure covariates are unsupported
+    by the near-clonal relatedness, not that structure is absent.
+12. **Scaffold_1 diversity (pixy, 201 strains, 6 populations, 22×100 kb windows) is
+    strongly population-structured.** Mean π varies >600× across populations:
+    pop5 = 0.044, pop6 = 0.016, pop3 = 8.9e-3 vs pop1 = 5.1e-5, pop4 = 7.0e-5
+    (near-monomorphic). Mean Hudson Fst across the 15 pop-pairs = **0.494**;
+    most divergent pop pairs are pop4–pop2 (0.876) and pop4–pop1 (0.773), least
+    pop3–pop6 (0.251). dxy ranges 2.9e-5 → 0.053. Pop architecture aligns with the
+    near-clone continuum and explains the conservative GWAS lambda (<1): the
+    kinship over-absorbs variance concentrated in a few divergent clones/populations.
+    Full-genome pixy (all 23 scaffolds) is the natural next step to map where
+    trait-relevant divergence lives.
+
+13. **Next-gen GWAS (expert-guided, 12 clone-mean phenotypes; kinship-only LMM):**
+    Color (chroma/sat/bright) multi-trait Fisher p = **7.5e-16 at scaffold_10:384905**
+    (chroma p=2.4e-8 co-localizes sat/bright) — a coherent pigmentation locus.
+    Copper block multi-trait Fisher p = **5.9e-12 at scaffold_16:421208**; AUC_30
+    scaffold_4:508257 repeats on all-201 and culled-173. Lambdas mostly <1
+    (conservative; near-clone structure), but clone_mean_area λ=2.12 and AUC_0
+    λ=2.74 are inflated; IC50_est-culled λ=0.19 with 673 SNPs <5e-8 is structure
+    inflation, not signal. Culled-173 (IBS0<0.005, 173 strains) shifts the top color
+    hit to scaffold_3:570085 — rank instability flagged for LOCO.
+14. **Tier-C BSLMM architecture (all-201, 100k MCMC):** AUC_10 (copper tolerance)
+    is **near-oligogenic**: PVE 0.40, PGE 0.96, only ~3 active LD-clusters, top loci
+    scaffold_5:533603 + scaffold_2:939277 (PIP 1.0) — a handful of variants carry
+    essentially all heritability. chroma is moderately heritable (PVE 0.24), partly
+    sparse (PGE 0.39), scaffold_3-enriched. resilience_30 sparse with scaffold_16:563722
+    (PIP 0.95) matching the Tier-A multi-copper block; clone_mean_area weakly heritable
+    (PVE 0.07). BSLMM clusters converge with Tier-A signals, giving trait-specific
+    candidate loci for follow-up annotation.

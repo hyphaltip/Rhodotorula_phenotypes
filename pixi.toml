@@ -27,6 +27,7 @@ statsmodels = ">=0.14.6,<0.15"
 umap-learn = ">=0.5.12,<0.6"
 hdbscan = ">=0.8.44,<0.9"
 numpy = ">=2.4,<2.5"
+pixy = ">=2.2.3,<3"
 
 [activation.env]
 # Isolate the pixi env from user-site packages (~/.local) which shadow conda deps

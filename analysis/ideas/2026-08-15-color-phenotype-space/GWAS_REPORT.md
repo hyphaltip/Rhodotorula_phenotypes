@@ -269,11 +269,135 @@ LD-clusters.
 - **clone_mean_area is weakly heritable** (PVE 0.07) — consistent with its Tier-A inflated λ;
   size-by-colony-area is dominated by noise/plate effects, not genetics.
 
-**Meff / threshold proviso (see `09-NEXT-GWAS-DESIGN.md`):** naive PCA-based Meff on n=201 is
-bounded by sample size and is NOT the test count. Defensible empirical threshold is a GEMMA
-`--pheno-permute` permutation null (or FDR on top p-values); nominal 5e-8 is already
-conservative on this near-clonal panel (est. ~5k–50k effective tests).
+**Threshold — FDR adopted (GEMMA 0.98.3 has no `--pheno-permute`; D-11).** Naive PCA-based Meff
+on n=201 is bounded by sample size and is NOT the test count. A manual maxT phenotype-permutation
+null was attempted (L-21) but its min-p collapsed to 1e-17..1e-18 under permutation (fixed
+kinship + permuted phenotype variance outliers in a near-clonal panel) — unusable, would reject
+every real hit. **Adopted Benjamini-Hochberg FDR (q=0.05) on full-scan p-values** (expert rec #4):
+`results/gwas/fdr/tiera_fdr_summary.csv`. Validated loci: chroma 345 sig (top
+scaffold_10:384905), AUC_10 3989 (scaffold_10:396172), resilience_30 524 (scaffold_13:810026),
+plus moderate sat/AUC_20/AUC_30/cu_dose_slope/IC50. FDR also flags the inflated-λ traits:
+AUC_0 (λ=2.74) → 7340 "sig" (spurious) and clone_mean_area (λ=2.12) → 0, both untrustworthy.
 
 **Tier C outputs** (in `results/gwas/tierC_summary/`): `tierc_bslmm_summary.csv`,
 `bslmm_<trait>.hyp.txt` (per-sample PVE/PGE/pge/pi/n_gamma trace), `bslmm_<trait>.gamma.txt`
 (per-MCMC-sample 300-cluster inclusion matrix; value = representative variant index, 0 = inactive).
+FDR summary in `results/gwas/fdr/tiera_fdr_summary.csv`.
+
+
+## 8. Post-Tier-A follow-up: LOCO sensitivity, Tier B set tests, dxy/Fst co-localization
+
+### 8.1 LOCO (leave-one-chromosome-out) sensitivity — results
+
+LOCO genome scans (GEMMA `-lmm 4 -k`, kinship re-computed with the candidate chromosome
+removed) were run for the three most interpretable Tier-A traits — `chroma`, `AUC_10`,
+`resilience_30` — on both the all-201 (`ngwas`) and culled-173 (`ngwasc`) sets
+(120 scans total, chr 1–20). Full runbook and the unique-key kinship-collision fix in
+`10-LOCO-RUNBOOK.md`.
+
+**Result: every Tier-A anchor reproduces under LOCO at essentially unchanged p.**
+The signals are not an artifact of chromosome-proximal structure being absorbed by the
+full kinship matrix.
+
+| trait | set | Tier-A anchor rs | Tier-A p | LOCO p (same chr) |
+|-------|-----|------------------|----------|-------------------|
+| chroma | gwas | scaffold_10:384905 | 2.40e-8 | 2.46e-8 |
+| AUC_10 | gwas | scaffold_10:396172 | 1.43e-8 | 1.44e-8 |
+| resilience_30 | gwas | scaffold_13:810026 | 6.35e-9 | 6.04e-9 |
+| chroma | gwasc | scaffold_10:384905 | 2.40e-8 | 2.25e-5 |
+| AUC_10 | gwasc | scaffold_10:396172 | 1.43e-8 | 5.17e-8 |
+| resilience_30 | gwasc | scaffold_13:810026 | 6.35e-9 | 3.68e-9 |
+
+The gwasc-chroma anchor drops to 2.3e-5 under LOCO — consistent with the earlier finding
+that on the culled-173 set the color signal shifts to `scaffold_3:570085` (robustness
+caveat noted in §6); the LOCO culled result preserves that behaviour instead of revealing
+a hidden scaffold-10 signal.
+
+Per-chromosome LOCO λ (median across 20 scaffolds; expected 1.0 under the null):
+
+| set | chroma | AUC_10 | resilience_30 | ALL |
+|-----|--------|--------|---------------|-----|
+| gwas | 0.34 | 0.73 | 0.44 | 0.46 |
+| gwasc | 0.40 | 0.72 | 0.53 | 0.54 |
+
+LOCO λ tracks the full-kinship Tier-A λ (chroma 0.32, AUC_10 0.73, resilience_30 0.45),
+i.e. removing one chromosome does not change the (already deflated, conservative)
+inflation. Conclusion from §6 caveats holds: λ<1 reflects the near-clonal structure
+over-absorbing variance, and LOCO confirms this is stable, not per-chromosome rescue.
+
+![LOCO sensitivity figure](results/gwas/figures/loco_sensitivity.png)
+
+### 8.2 Tier B — set-based tests on pixy high-dxy windows (results)
+
+Set tests (burden / SKAT vc / min-p) were run on 178 pixy 100-kb windows with ≥1 genotyped
+marker (from 215 total; 20–24 genotyped markers in 18 windows; scaffold_20:100001 etc.
+skipped — see below), 12 traits, both sets (gwas + gwasc), following design `09-NEXT-GWAS-DESIGN.md` §2B.
+SKAT p via the closed-form three-moment (Liu 2009) approximation; **MC verification
+(50,000 draws, exact) on the top-50 windows confirms the approximation tracks it well
+(r=0.984 in log10 space)**.
+
+**Result: no set-level signal survives FDR(q<0.05) in either set.** The window-mean single-SNP
+signal (`min_p`) replicates the Tier-A loci (383/384 and 408/408 high-dxy windows
+significant at FDR), but neither the burden nor the variance-component test finds any
+window where multiple SNPs jointly exceed the best single SNP.
+
+Calibration (n≈2100 window–trait tests per set):
+
+| set | test | median p | λ | frac p<0.05 | frac p<1e-5 | FDR-hit / high-dxy |
+|-----|------|----------|-----|--------------|--------------|--------------------|
+| gwas | burden | 0.734 | 0.45 | 0.05% | 0 | 0/384 |
+| gwas | SKAT | 0.643 | 0.64 | 8.4% | 0 | 0/384 |
+| gwas | min-p | 0.001 | 10.7 | 98% | 11.5% | 383/384 |
+| gwasc | burden | 0.674 | 0.57 | 0.05% | 0 | 0/408 |
+| gwasc | SKAT | 0.591 | 0.76 | 3.4% | 0 | 0/408 |
+| gwasc | min-p | 0.001 | 12.1 | 99% | 16.1% | 408/408 |
+
+- **burden is strongly over-conservative** (λ≈0.5, ~0.05% under p<0.05). With no
+  direction prior, opposite-signed per-SNP effects cancel inside high-dxy windows.
+- **SKAT is mildly deflated** (λ≈0.6–0.8) but near-unity; its top p is ~1.4e-3
+  (gwas; `cu_dose_slope` × scaffold_11:800001) — an order above genome-wide significance
+  and not consistent across sets.
+- **Interpretation:** in pixy high-dxy windows the causal-variant content is concentrated
+  in a small number of SNPs (already captured by single-SNP Tier-A), not spread in a
+  multi-SNP polygenic block — consistent with the Tier-C BSLMM near-oligogenic architecture
+  (AUC_10 PGE≈0.96, ~3 active LD clusters).
+
+Exact-Monte-Carlo verification (`mc_verify`) on top-50 windows: moment-approx SKAT p vs
+MC p correlate at r=0.984 (log10); worst-case log10 drift 0.47 (≈3×) on a window at p≈4e-3
+— the fast approximation is trustworthy for ranking; no MC-verified p crosses significance.
+
+![Tier B set-test figure](results/gwas/figures/tierB_settests.png)
+
+### 8.3 dxy/Fst co-localization (results)
+
+215 pixy 100-kb windows with per-pair dxy/Fst (15 pop pairs; mean across pairs per window).
+**GWAS FDR loci are NOT enriched in high-dxy or high-Fst windows:**
+- 189/215 windows carry ≥1 FDR(q<0.05) SNP; of these 37 are top-20% high-dxy (37 expected) and
+  34 are top-20% high-Fst (37 expected) → Fisher **OR=0.81 (p=0.61, dxy)** and
+  **OR=0.41 (p=0.065, Fst)**, both ≤ 1.
+- Anchor loci sit at moderate, not extreme, divergence: chroma/AUC_10 (scaffold_10,
+  Fst 0.52), resilience_30 (scaffold_13, Fst 0.35), IC50 (scaffold_16, Fst 0.53).
+
+Phenotypically relevant loci are therefore **decoupled from population-differentiation
+outliers**: the color/growth effects segregate among closely-related isolates (the
+near-clonal panel), not between the deep pop splits that drive the dxy/Fst extremes.
+This is consistent with standing variation within the focal clade driving phenotype,
+rather than between-clade fixed differences.
+
+Anomaly reconciliation: `scaffold_20:100001` is the genome-wide dxy extreme
+(mean dxy 0.070 vs 0.028 for the next-ranked window) yet ~0 Fst and ~12 genotyped SNPs —
+consistent with a mis-assembly / collapsed-repeat region (low no_sites, no phylogenetic
+differentiation), not genuine biological divergence; it was excluded from set tests
+(plink2 LD-step failure) and should not be interpreted as a differentiation hotspot.
+
+![dxy/Fst co-localization figure](results/gwas/figures/coloc_dxy_fst.png)
+
+### 8.4 Follow-up outputs
+
+- LOCO: `results/gwas/loco/loco_merged_{gwas,gwasc}.csv` (per-chr λ + top hits), 120 raw
+  `results/gwas/loco/output/loco_*.assoc.txt`, `results/gwas/figures/loco_sensitivity.{png,pdf}`
+- Tier B: `results/gwas/tierB/tierb_settests_{gwas,gwasc}.csv`,
+  `tierb_skat_mcver_{gwas,gwasc}.csv` (top-50 approx vs MC), `ld_cache/win_*.npz`,
+  `results/gwas/figures/tierB_settests.{png,pdf}`
+- Co-localization: `results/gwas/tierB/coloc/coloc_final.csv`, `coloc_anchors.csv`,
+  `coloc_enrichment.txt`, `results/gwas/figures/coloc_dxy_fst.{png,pdf}`

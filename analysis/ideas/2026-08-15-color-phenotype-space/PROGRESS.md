@@ -3,7 +3,7 @@
 **Project**: Rhodotorula phenotypes (analysis `2026-08-15-color-phenotype-space`)
 **Started**: 2026-08-16 ~08:30
 **Working dir**: `/scratch/jstajich/27384933/gwas/work` (results copied back to `results/gwas/`)
-**Status**: pixy pilot done; **full-genome (23-scaffold) pixy COMPLETE** (job 27502734, 6h35m); next-gen Tier-A GEMMA (24 scans) + **Tier-C BSLMM (5 traits) DONE**; manhattan/QQ figures (png+pdf) generated
+**Status**: pixy pilot done; **full-genome (23-scaffold) pixy COMPLETE** (job 27502734, 6h35m); next-gen Tier-A GEMMA (24 scans) + **Tier-C BSLMM (5 traits) DONE**; manhattan/QQ figures (png+pdf) generated; **Post-Tier-A follow-up §13 COMPLETE** (LOCO sensitivity + Tier B set tests + dxy/Fst co-localization); remaining: dataviz consult on new figures
 
 > Update this log after every step. Record: steps run, steps tested (incl. failed paths),
 > results found, wall-clock runtimes, and next actions. Companion docs: `GWAS_REPORT.md`
@@ -166,18 +166,63 @@ All 23 scaffolds joint-genotyped (invariant sites retained) → 1290×100 kb win
    divergence hotspots for trait co-localization (Tier B set tests).
 - Consistent with scaffold_1 pilot: strong genome-wide population structure (mean Fst 0.45).
 
-## 9. Tier-C completion — empirical genome-wide threshold (phenotype permutation, in progress)
+## 9. Tier-C completion — significance threshold (FDR; permutation tried, rejected)
 
-GEMMA 0.98.3 has **no `--pheno-permute` flag** (added in newer builds), so the permutation
-null is implemented manually on the LD-pruned set (`scripts/../scratch run_perm_null.py`):
-shuffle trait values in fam col-6 → rerun `-lmm 4 -k kins` → record min p per perm.
-5th percentile of null min-p = empirical genome-wide 5% threshold (maxT / Westfall-Young).
-1000 perms for chroma, AUC_10, resilience_30 (all-201, pruned 20,769 SNP). ~4s/perm ≈
-~1.1 h/trait. Run as 3 PARALLEL background processes (each writes `perm_<trait>_<i>.*`, no
-collision). Threshold then scaled/interpreted against the full 404,706-SNP scan.
+**Attempted**: GEMMA `--pheno-permute` does not exist in 0.98.3 → manual maxT null (permute
+fam col-6, rerun `-lmm 4`, min-p per perm; 1000 × chroma/AUC_10/resilience_30 on LD-pruned
+set). **REJECTED**: null min-p reached 1e-17..1e-18 (expected ~2e-6) — fixed-kinship +
+permuted-phenotype variance outliers collapse the tail in this near-clonal panel. A maxT
+threshold from it would reject every real hit (L-21, D-11).
+
+**Adopted**: **Benjamini-Hochberg FDR (q=0.05)** on existing full-scan Tier-A p-values
+(expert rec #4, design line 119). Output `output/fdr/tiera_fdr_summary.csv`:
+
+| Trait | λ | n FDR05 | top |
+|-------|-----|---------|-----|
+| chroma | 0.32 | 345 | scaffold_10:384905 (2.4e-8) |
+| sat | 0.39 | 40 | scaffold_1:218972 (1.8e-7) |
+| bright | 0.34 | 0 | - |
+| clone_mean_area | 2.12 | **0** | - (inflated λ → untrustworthy) |
+| AUC_0 | 2.74 | **7340** | scaffold_8:1190725 (spurious; inflated λ) |
+| AUC_10 | 0.73 | 3989 | scaffold_10:396172 (1.4e-8) |
+| AUC_20 | 0.66 | 56 | scaffold_16:421208 |
+| AUC_30 | 0.50 | 31 | scaffold_4:508257 |
+| AUC_ratio_10 | 0.64 | 0 | - |
+| resilience_30 | 0.45 | 524 | scaffold_13:810026 (6.4e-9) |
+| cu_dose_slope | 0.35 | 22 | scaffold_3:546068 |
+| IC50_est | 0.25 | 1 | scaffold_16:122361 (8.7e-12) |
+
+FDR doubles as an inflation detector: the two inflated-λ traits behave pathologically under
+it (AUC_0→7340 "sig", clone_mean_area→0). Validated Tier-C loci: chroma scaffold_10,
+AUC_10 scaffold_10 scaffold, resilience scaffold_13/scaffold_16, plus moderate sat/
+AUC_20/AUC_30/cu_dose_slope/IC50. Unchanged from before: BSLMM convergence (chroma
+scaffold_3, resilience scaffold_16).
 
 ## Expert review (quantitative geneticist) — status
 
 Launched 2026-08-16. Reviewing: power constraints (178 effective haplotypes, min per-SNP R²≈0.16),
 near-clone genetic structure, PC-vs-DAPC correction choice, and strategies to retain power.
 See companion output document when complete.
+
+## 13. Post-Tier-A follow-up (D-13) — COMPLETE 2026-08-16/17
+
+Three follow-ups from expert review, all executed and merged into `GWAS_REPORT.md` §8:
+
+1. **LOCO sensitivity** (6 traits × 20 chrs, GEMMA `-lmm 4 -k` per-chromosome kinship).
+   Array 27511xxx, 120/120 outputs, 0 failures. **All Tier-A anchors reproduce at unchanged p**
+   (chroma 2.46e-8, AUC_10 1.44e-8, resilience_30 6.04e-9 all-chr; gwasc anchors 2.3e-5–5e-8).
+   LOCO λ (medians 0.34–0.73) tracks Tier-A λ → the λ<1 deflation is stable near-clonal
+   structure, NOT per-chromosome rescue by LOCO. Plots: `results/gwas/figures/loco_sensitivity.*`.
+2. **Tier B set tests** (burden/SKAT/min-p on 178 high-dxy windows, gwas + culled gwasc sets).
+   No set-level signal survives FDR(q<0.05). burden over-conservative (λ≈0.5, sign-cancellation),
+   SKAT mildly deflated (λ≈0.6–0.8, top p~1.4e-3), min_p recovers Tier-A single-SNP hits.
+   SKAT three-moment approx verified vs exact MC (gwas r=0.984 n=50; gwasc r=0.997 n=47,
+   worst drift 0.871 log10 at p~1e-3 → still non-significant). Job 27511559 (gwas), 27511892 (gwasc, after L-22 eigdec fix).
+3. **dxy/Fst co-localization**: FDR GWAS loci NOT enriched in high-divergence windows
+   (dxy OR=0.81 p=0.61; Fst OR=0.41 p=0.065). Phenotypes segregate within the near-clonal focal
+   clade (standing variation), decoupled from deep pop splits. `scaffold_20:100001` (dxy 0.070)
+   flagged as mis-assembly artifact, excluded.
+
+Outputs: `results/gwas/tierB/{tierb_settests_{gwas,gwasc},tierb_skat_mcver_{gwas,gwasc}}.csv`,
+`results/gwas/tierB/coloc/*`, `results/gwas/figures/{tierB_settests,coloc_dxy_fst}.*`,
+`results/gwas/loco/loco_merged_{gwas,gwasc}.csv`.
