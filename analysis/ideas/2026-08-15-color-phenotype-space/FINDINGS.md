@@ -259,3 +259,47 @@ effect is detectable?
   (T4C–T37C, Salt6; sensitivity α≈1.18e-7) found only a handful of hits (linear
   T37C scan: p≈1.7e-11, chr13 locus), consistent with the idea-11 limit — few
   large-effect loci. Their color traits were never tested → gap this project fills.
+
+---
+
+## Tier D/E/G — gene mapping, fine-mapping, prior-locus replication (2026-08-17)
+
+Follow-ups from the GWAS divergence design (`09-NEXT-GWAS-DESIGN.md` §7); full write-up in
+`GWAS_REPORT.md` §9, outputs in `results/gwas/tierD/`, `results/gwas/tierE/`.
+
+### Tier D — locus → gene annotation (scripts/annotate_gwas_loci.py)
+- 12,348 FDR-sig SNPs annotated against a 6,799-gene index; 5,286 independent loci
+  (positional 250 kb clump) across 9 traits.
+- **Biologically informative hits**: chroma scaffold_8:831789 → **telomerase reverse
+  transcriptase (OM429_004009)**; AUC_10 scaffold_10:396172 → **RNA-dependent ATPase /
+  DBP3 (OM429_004640)**, scaffold_2 → RNA-pol-I transcription factor, scaffold_7 →
+  endodeoxyribonuclease; BSLMM chroma scaffold_3:132903 → **methionine aminopeptidase 1
+  (OM429_001379)**.
+- **Clump caveat**: the 250 kb clump keeps only the single most-significant SNP per
+  chromosome as lead → a chromosome whose top signal is at one end hides a distant
+  second signal on Chr13-like small scaffolds (chr13's 217 FDR SNPs form ONE 525 kb block
+  collapsing to a single lead 13_791853). Use window-based per-trait top-loci tables
+  (issue in `tierD_fdr_snps_annotated.csv.gz`) when many blocks per chromosome are expected.
+
+### Tier E — fine-mapping (scripts/finemap_credible_sets.py, Wakefield ABF)
+- Multiple-testing-aware credible sets (90/95/99%) for 14 anchors; 95% CSs:
+  **chroma_lead_10 (scaffold_10:384905) CS n=24, lead pp=0.054, β=1.11±0.19 SE, common AF
+  (0.81) → well-bounded common-variant signal** — this is the paper-grade anchor.
+- Rare-EF loci (AF≈0.015) resolve poorly: auc10 DBP3 CS n=67, lead pp≈0.02, β=8.2e5
+  (rare_driven); **resil_lead_13 95% CS n=1, lead pp=0.615** (99% CS n=1, pp=0.977) —
+  a singleton that fully resolves; ic50 95% CS n=10 (pp=0.183).
+- Method note: ABF prior must be in z-space (trait-scale priors break when AUC_10 betas
+  ~1e5 vs chroma ~1); candidate filter p<1e-3 needed (else sets span thousands of nulls).
+
+### Tier G — prior growth-rate locus chr13:13_30149 replicates in our AUC_10
+- Prior lab's p=1.68e-11 growth-rate locus at 13_30149 is **replicated** via our nearest
+  proxy **scaffold_13_30134 (15 bp away): p_wald=4.03e-6, FDR-sig for AUC_10, β=804,778,
+  af=0.015**. It sits inside the single chr13 rare-haplotype block (lead 13_791853 p=2.4e-7)
+  that drives all 217 chr13 FDR SNPs.
+- Gene at the locus: **OM429_005439** (scaffold_13:30,096–30,670) — hypothetical protein,
+  unannotated (no GO/InterPro/PFAM). Flanking: OM429_005440 (hypothetical), OM429_005441
+  (Ark1-family Ser/Thr kinase) 6.7 kb downstream. **Causal gene under a replicated,
+  p=1e-11-in-prior locus is functionally unknown** → priority validation target.
+- Other traits are null at 13_30134 (best nominal clone_mean_area p=0.044, bright p=0.082;
+  none FDR). Replication is restricted to the growth-like trait AUC_10 — consistent with
+  the prior scan being a growth-rate trait and our panels' niche is color/copper.

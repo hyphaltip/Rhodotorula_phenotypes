@@ -49,7 +49,7 @@ def main():
 
     rows = []
     for t in traits:
-        ta = pd.read_csv(tA / f"{args.prefix}_{t}_assoc.csv")
+        ta = pd.read_csv(tA / f"{args.prefix}_{t}_assoc.csv.gz")
         # Tier-A per-chromosome top + lambda
         ta_c = {c: g for c, g in ta.groupby("chr")}
         for c in range(1, 21):

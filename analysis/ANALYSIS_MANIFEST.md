@@ -204,7 +204,7 @@ tags: [power, gwas, variant, effective-n, redundancy, noncentral-chi2, snp, r-mu
 ```yaml
 name: 2026-08-15-color-phenotype-space GWAS follow-up (LOCO sensitivity + Tier B set tests + dxy/Fst co-localization)
 question: Do Tier-A GWAS hits (chroma/AUC_10/resilience_30) survive LOCO kinship sensitivity? Do pixy high-dxy windows carry multi-SNP (set-level) signal beyond single-SNP Tier-A? Are GWAS loci co-localized with population-divergence (dxy/Fst) outliers?
-input: results/gwas/tierA_summary/{gwas,gwasc}_*_assoc.csv; results/gwas/pixy/genome_{dxy,fst}.txt; results/gwas/loco/output/loco_*.assoc.txt (120 GEMMA LOCO scans); LD cache results/gwas/tierB/ld_cache/
+input: results/gwas/tierA_summary/{gwas,gwasc}_*_assoc.csv.gz; results/gwas/pixy/genome_{dxy,fst}.txt; results/gwas/loco/output/loco_*.assoc.txt (120 GEMMA LOCO scans); LD cache results/gwas/tierB/ld_cache/
 scripts:
   - scripts/merge_loco.py        # per-chr lambda + top hits vs Tier-A -> loco_merged_{gwas,gwasc}.csv
   - scripts/make_loco_figure.py  # two-panel LOCO sensitivity PNG/PDF
@@ -215,7 +215,7 @@ scripts:
 outputs:
   - results/gwas/loco/loco_merged_{gwas,gwasc}.csv
   - results/gwas/tierB/tierb_settests_{gwas,gwasc}.csv; tierb_skat_mcver_{gwas,gwasc}.csv
-  - results/gwas/tierB/coloc/coloc_final.csv, coloc_anchors.csv, coloc_enrichment.txt
+  - results/gwas/tierB/coloc/coloc_final.csv.gz, coloc_anchors.csv, coloc_enrichment.txt
   - results/gwas/figures/{loco_sensitivity,tierB_settests,coloc_dxy_fst}.{png,pdf}
   - GWAS_REPORT.md section 8
 reproduce: sbatch scripts/tierB_submit.sh; python scripts/{merge_loco,make_loco_figure,coloc_dxy_fst,make_tierb_figure,make_coloc_figure}.py
@@ -226,4 +226,30 @@ key_findings:
   - dxy/Fst co-localization: FDR GWAS loci NOT enriched in high-divergence windows (OR=0.81 dxy p=0.61; OR=0.41 Fst p=0.065). Phenotype alleles segregate within the near-clonal focal clade (standing variation), decoupled from the deep pop splits driving dxy/Fst extremes.
   - scaffold_20:100001 (dxy 0.070 genome max, ~0 Fst, 12 SNPs) = assembly/collapsed-repeat artifact, excluded, not a hotspot.
 tags: [gwas, loco, sensitivity, skat, burden, set-test, pixy, dxy, fst, co-localization, tierb, highdxy, near-clone, standing-variation, rhodotorula, gemma, mcverification]
+```
+
+### 2026-08-15-color-phenotype-space-gwas-tierdeg
+```yaml
+name: 2026-08-15-color-phenotype-space GWAS Tier D/E/G (locus->gene mapping + ABF fine-mapping + prior-locus replication)
+question: Which genes do the Tier-A/BSLMM FDR-significant loci map to (Tier D)? Can anchors be resolved into credible sets with effect-size bounds (Tier E)? Does the prior lab's growth-rate locus chr13:13_30149 (p=1.68e-11) replicate in our color/copper panel (Tier G)?
+input: results/gwas/fdr/*_fdr05_sig.txt; results/gwas/tierA_summary/gwas_*_assoc.csv.gz (p_wald column); results/gwas/tierC_summary/tierc_bslmm_summary.csv; gene index (mRNA-derived, 6,799 genes) results/gwas/tierD/scripts/gene_index.json; prior-GWAS file /bigdata/stajichlab/shared/projects/Population_Genomics/Rhodotorula_mucilaginosa_NRRLY2510/GWAS/SNP_GWAS_T37C_linear.tsv
+scripts:
+  - scripts/annotate_gwas_loci.py       # FDR-sig + BSLMM loci -> gene overlap/nearest; 250kb positional clump (single lead per chr)
+  - scripts/finemap_credible_sets.py    # Wakefield ABF in z-space (NCP prior SD=0.2, logsumexp, candidate p<1e-3) -> 90/95/99% credible sets
+  - scripts/make_tierde_figure.py       # Tier D gene-map (scaffold_10 anchor region) + Tier E credible-set resolution figure
+outputs:
+  - results/gwas/tierD/tierD_fdr_snps_annotated.csv.gz (12,348 rows)
+  - results/gwas/tierD/tierD_independent_loci.csv.gz (5,286 loci; 250kb clump caveat)
+  - results/gwas/tierD/tierD_bslmm_loci_annotated.csv (8 top-PIP loci)
+  - results/gwas/tierD/scripts/gene_index.json
+  - results/gwas/tierE/tierE_credible_sets.csv (42 sets x 14 anchors)
+  - results/gwas/figures/tierde_gene_finemap.{png,pdf} (panel A: scaffold_10 chroma+AUC_10 gene map; panel B: 95% CS size vs lead pp, rare-driven flag)
+  - GWAS_REPORT.md section 9 (results) + section 10 (draft publication methods, Tier A->G chain)
+reproduce: PY .pixi/envs/default/bin/python; $PY scripts/annotate_gwas_loci.py --fdr results/gwas/fdr --index results/gwas/tierD/scripts/gene_index.json --outdir results/gwas/tierD; $PY scripts/finemap_credible_sets.py; $PY scripts/make_tierde_figure.py --sig results/gwas/tierD/tierD_fdr_snps_annotated.csv.gz --credset results/gwas/tierE/tierE_credible_sets.csv --out-dir results/gwas/figures
+status: complete
+key_findings:
+  - Tier D: 12,348 FDR-sig SNPs annotated; 5,286 independent loci across 9 traits. Notable genes: chroma scaffold_8 -> telomerase RT (OM429_004009); AUC_10 scaffold_10 -> DBP3 RNA-dependent ATPase (OM429_004640), RNA-pol-I TF, endodeoxyribonuclease; BSLMM chroma scaffold_3 -> methionine aminopeptidase 1 (OM429_001379). Caveat: 250kb clump keeps only the single most-significant SNP per chromosome as lead, so a second distant block on the same small scaffold collapses (chr13's 217 FDR SNPs = ONE block, single lead 13_791853 p=2.4e-7).
+  - Tier E: chroma scaffold_10:384905 resolves well (95% CS n=24, lead pp=0.054, beta=1.11+/-0.19 SE, common AF 0.81) - the paper-grade common-variant anchor. Rare-EF loci (AF~0.015) give wide sets (auc10 DBP3 CS n=67, rare_driven) or fully-resolved singletons (resil scaffold_13 95% CS n=1, pp=0.615). ABF must be in z-space (trait-scale priors break across ~1e5 unit spans); candidate filter p<1e-3 required.
+  - Tier G: prior growth-rate locus chr13:13_30149 REPLICATES in our AUC_10 via nearest proxy scaffold_13_30134 (15 bp): p_wald=4.03e-6, FDR-sig, beta=804,778, af=0.015, inside the single chr13 rare-haplotype block. Gene at locus = OM429_005439, a hypothetical protein with no GO/InterPro/PFAM annotation (flanked by Ark1-family Ser/Thr kinase OM429_005441). Other traits null -> replication is growth-phenotype-specific. Causal gene under a p~1e-11 locus is functionally unknown - priority validation target.
+tags: [gwas, tierd, annotation, gene-mapping, tierte, finemapping, credible-sets, abf, wakefield, tierg, replication, prior-locus, chr13, AUC_10, DBP3, telomerase, methionine-aminopeptidase, OM429_005439, rare-EF, near-clone, rhodotorula, gemma]
 ```

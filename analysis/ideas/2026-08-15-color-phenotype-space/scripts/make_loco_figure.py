@@ -2,10 +2,12 @@
 """LOCO sensitivity figure + summary panel.
 
 Two-panel figure per set (gwas/gwasc):
-  [A] per-trait boxplot of LOGO lambda (across 20 scaffolds) vs the full-kinship
-      Tier-A genome lambda (vertical line)
-  [B] Tier-A anchor loci: -log10 p in LOCO scan vs Tier-A p (1:1 identity line)
-Saves PNG + PDF.  Also writes loco_sensitivity_summary.csv.
+  [A] per-trait LOCO lambda (distribution across the 20 per-scaffold scans)
+      vs the full-kinship Tier-A genome lambda (x marker) and the null (1.0)
+  [B] Tier-A anchor loci: -log10 p in LOCO scan vs the Tier-A p AT THE SAME SNP
+      (1:1 identity line)
+Saves PNG + PDF.  Also writes loco_sensitivity_summary.csv (lambda medians per trait
++ anchor same-SNP LOCO & Tier-A p).
 """
 import argparse
 from pathlib import Path
@@ -15,6 +17,13 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
+# only traits actually re-run under LOCO have merged rows; IC50_est is not in LOCO
+anchors = [  # (label, chr, rs)  -- all ran in the LOCO set
+    ("chroma", 10, "scaffold_10_384905"),
+    ("AUC_10", 10, "scaffold_10_396172"),
+    ("resilience_30", 13, "scaffold_13_810026"),
+]
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--merged", required=True, nargs="+",
@@ -23,91 +32,107 @@ def main():
     ap.add_argument("--out-dir", required=True)
     args = ap.parse_args()
     out = Path(args.out_dir); out.mkdir(parents=True, exist_ok=True)
-    ta = pd.read_csv(args.tiera_summary)
+    ta = pd.read_csv(args.tiera_summary)  # set,trait,lambda,...
 
-    anchors = [  # (label, chr, rs)
-        ("chroma", 10, "scaffold_10_384905"),
-        ("AUC_10", 10, "scaffold_10_396172"),
-        ("resilience_30", 13, "scaffold_13_810026"),
-        ("IC50_est", 16, "scaffold_16_122361"),
-    ]
-    rows = []
+    merged = {}
     for f in args.merged:
         pref = Path(f).stem.split("_")[-1]          # gwas | gwasc
-        m = pd.read_csv(f)
-        # per-trait genome LOCO lambda = median across scaffolds (GC on merged p)
-        rows.append(dict(set=pref, metric="loco_lambda_fraction",
-                         trait="ALL", value=m["lambda_LOCO"].median()))
+        merged[pref] = pd.read_csv(f)
+
+    summary_rows = []
+    for pref, m in merged.items():
+        # per-trait LOCO lambda median across scaffolds + full spread
         for t, g in m.groupby("trait"):
-            rows.append(dict(set=pref, metric="loco_lambda_fraction",
-                             trait=t, value=g["lambda_LOCO"].median()))
-        # anchors: find LOCO p for rs at its chr
+            summary_rows.append(dict(set=pref, metric="loco_lambda_fraction",
+                                     trait=t, value=g["lambda_LOCO"].median()))
+        summary_rows.append(dict(set=pref, metric="loco_lambda_fraction",
+                                 trait="ALL", value=m["lambda_LOCO"].median()))
+        # anchors: same-SNP p in LOCO (top_rs_LOCO) vs Tier-A (top_rs_TierA)
         for lab, chr_, rs in anchors:
-            g = m[(m["trait"] == lab if lab in m["trait"].unique() else m["trait"].isin(
-                [lab])) & (m["chr"] == chr_)]
+            g = m[(m["trait"] == lab) & (m["chr"] == chr_)]
             if len(g) == 0:
                 continue
             r = g.iloc[0]
-            # LOCO top on that chr
-            lo_p = r["top_p_LOCO"] if r["top_rs_LOCO"] == rs else np.nan
-            rows.append(dict(set=pref, metric="anchor_p", trait=lab,
-                             value=-np.log10(max(lo_p, 1e-300)) if lo_p == lo_p else np.nan))
-    summary = pd.DataFrame(rows)
+            if r["top_rs_LOCO"] != rs or r["top_rs_TierA"] != rs:
+                print(f"  WARN {pref} {lab} chr{chr_}: anchor {rs} not the chr top "
+                      f"(LOCO={r['top_rs_LOCO']}, TierA={r['top_rs_TierA']}) -- skipped")
+                continue
+            summary_rows.append(dict(set=pref, metric="anchor_p", trait=lab,
+                                     value=-np.log10(max(r["top_p_LOCO"], 1e-300))))
+            summary_rows.append(dict(set=pref, metric="anchor_tiera_p", trait=lab,
+                                     value=-np.log10(max(r["top_p_TierA"], 1e-300))))
+    summary = pd.DataFrame(summary_rows)
     summary.to_csv(out / "loco_sensitivity_summary.csv", index=False)
 
     fig, axes = plt.subplots(1, 2, figsize=(13, 5))
-    # --- A: lambda boxplot per set+trait ---
-    lb = summary[summary.metric == "loco_lambda_fraction"]
-    t_res = lb[lb.trait != "ALL"]
-    sets = sorted(lb["set"].unique())
+    # --- A: LOCO lambda distribution vs Tier-A lambda ---
+    ta_l = ta.set_index(["set", "trait"])["lambda"]
+    sets = sorted(merged.keys())
     ax = axes[0]
-    xpos = []
-    labs = []
-    for i, s in enumerate(sets):
-        tt = sorted(t_res[t_res.set == s]["trait"].unique())
-        sp = [ (i * (len(tt) + 1) + j) for j in range(len(tt)) ]
-        vals = [t_res[(t_res.set == s) & (t_res.trait == t)]["value"].iloc[0]
-                for t in tt]
-        ax.bar(sp, vals, width=0.8, label=f"{s} (LOCO λ)")
-        xpos.extend(sp); labs.extend(tt)
+    xpos, labs = [], []
+    bw = 0.38                      # bar width
+    i = 0
+    for s in sets:
+        m = merged[s]
+        tt = [t for t in ["chroma", "AUC_10", "resilience_30", "ALL"] if t in m["trait"].unique()]
+        for j, t in enumerate(tt):
+            x = i * 4 + j
+            g = m[m["trait"] == t]["lambda_LOCO"] if t != "ALL" else m["lambda_LOCO"]
+            vals = g.to_numpy()
+            ax.vlines(x, vals.min(), vals.max(), color="0.75", lw=1.2, zorder=1)
+            ax.scatter(np.full_like(vals, x), vals, s=10, color="0.6",
+                       alpha=.6, edgecolors="none", zorder=2,
+                       label=("per-scaffold LOCO λ" if (i == 0 and j == 0) else None))
+            med = np.median(vals)
+            ax.bar(x, med, width=bw, color="#3182bd", alpha=.85, zorder=3)
+            # Tier-A genome lambda as diamond marker
+            tkey = t.rstrip("ALL") or "ALL"
+            key = (s, t) if (s, t) in ta_l.index else (s, "ALL")
+            tl = ta_l.loc[key]
+            ax.plot(x + bw / 2 + 0.05, tl, marker="D", ms=7, color="#e31a1c",
+                    zorder=4, ls="none",
+                    label=("full-kinship Tier-A λ" if (i == 0 and j == 0) else None))
+            xpos.append(x); labs.append(f"{s}\n{t}")
+        i += 1
     ax.axhline(1.0, color="k", ls="--", lw=0.8)
-    ax.set_xticks(xpos); ax.set_xticklabels(labs, rotation=45, ha="right")
-    ax.set_ylabel("genome-x LOCO λ (median over scaffolds)")
-    ax.set_title("(A) LOCO genomic-inflation control vs full-kinship")
-    ax.legend()
-    # --- B: anchor identity plot ---
+    ax.set_xticks(xpos); ax.set_xticklabels(labs, fontsize=8)
+    ax.set_ylabel("λ (genome scan)")
+    ax.set_title("(A) LOCO per-scaffold λ vs full-kinship Tier-A λ")
+    ax.legend(fontsize=7, loc="upper right")
+    ax.set_ylim(0, 2.0)
+
+    # --- B: anchor identity plot (same-SNP p both axes) ---
     ax = axes[1]
-    ta_h = pd.read_csv(args.tiera_summary).set_index("trait")["top_p"].to_dict()
-    for i, s in enumerate(sets):
-        pts = []
-        for lab, chr_, rs in anchors:
-            a = summary[(summary.set == s) & (summary.metric == "anchor_p")
-                        & (summary.trait == lab) & summary.value.notna()]
-            if len(a):
-                pts.append((lab, rs, a["value"].iloc[0]))
-        xs = [-np.log10(max(ta_h.get(lab, 1), 1e-300)) for lab, rs, _ in pts]
-        ys = [v for _, _, v in pts]
-        if not pts:
-            continue
-        ax.scatter(xs, ys, s=80, label=f"{s} (LOCO)", marker="o")
-        for (lab, rs, _), x, y in zip(pts, xs, ys):
-            ax.annotate(lab, (x, y), xytext=(4, 4), textcoords="offset points", fontsize=8)
-    xs_all = []
-    ys_all = [v for s in sets for v in
-              summary[(summary.set == s) & (summary.metric == "anchor_p") & summary.value.notna()]["value"]]
+    ann_seen = {}
     for s in sets:
         for lab, chr_, rs in anchors:
             a = summary[(summary.set == s) & (summary.metric == "anchor_p")
-                        & (summary.trait == lab) & summary.value.notna()]
-            if len(a):
-                xs_all.append(-np.log10(max(ta_h.get(lab, 1), 1e-300)))
-    if xs_all and ys_all:
-        mx = max(max(xs_all), max(ys_all))
-        ax.plot([0, mx + .5], [0, mx + .5], "k--", lw=0.8)
-    ax.set_xlabel("-log10 p (full-kinship Tier A)")
+                        & (summary.trait == lab)]
+            b = summary[(summary.set == s) & (summary.metric == "anchor_tiera_p")
+                        & (summary.trait == lab)]
+            if len(a) == 0 or len(b) == 0:
+                continue
+            x = float(b.loc[:, "value"].iloc[0]); y = float(a.loc[:, "value"].iloc[0])
+            ax.scatter(x, y, s=80, marker="o", edgecolors="k", linewidths=.5,
+                       c={"gwas": "#1b9e77", "gwasc": "#d95f02"}[s],
+                       label=f"{s} (LOCO)" if s not in ann_seen else None)
+            ann_seen.setdefault(s, True)
+            tag = lab if (x, y) not in {k[:2] for k in ann_seen} else f"{lab} ({s})"
+            ann_seen[(x, y, lab)] = True
+            dy = 4 if lab == "AUC_10" else 4
+            ax.annotate(tag, (x, y), xytext=(5, dy), textcoords="offset points",
+                        fontsize=8)
+    if len(summary[summary.metric == "anchor_p"]):
+        xs = summary.loc[summary.metric == "anchor_tiera_p", "value"].to_numpy()
+        ys = summary.loc[summary.metric == "anchor_p", "value"].to_numpy()
+        if len(xs) and len(ys):
+            mx = max(xs.max(), ys.max()) + 0.5
+            ax.plot([0, mx], [0, mx], "k--", lw=0.8)
+            ax.set_xlim(0, mx); ax.set_ylim(0, mx)
+    ax.set_xlabel("-log10 p (full-kinship Tier A, same SNP)")
     ax.set_ylabel("-log10 p (LOCO)")
-    ax.set_title("(B) anchor loci: LOCO vs full-kinship")
-    ax.legend()
+    ax.set_title("(B) anchor loci: LOCO vs Tier-A same-SNP")
+    ax.legend(fontsize=8)
     fig.tight_layout()
     for ext in ("png", "pdf"):
         fig.savefig(out / f"loco_sensitivity.{ext}", dpi=150)

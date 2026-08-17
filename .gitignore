@@ -45,3 +45,24 @@ analysis/ideas/2026-08-15-color-phenotype-space/data/
 !analysis/ideas/2026-08-15-color-phenotype-space/data/strain_metadata.tsv
 !analysis/ideas/2026-08-15-color-phenotype-space/results/
 !analysis/ideas/2026-08-15-color-phenotype-space/figures/
+
+# GWAS downstream outputs (2026-08-17): keep the small summary tables/figures,
+# ignore the large rebuildable intermediates (~21 GB total):
+#   tierB/ld_cache: per-window LD .npz/.vcor2 (~16 GB) -- rebuildable by NGWA
+#   pixy/cohort.*.vcf.gz: filtered genotype VCFs (~4 GB), tbi indexes
+#   loco/binaries + raw per-chr assoc output (~447 MB) -- keep only loco_merged_*
+#   scratch/log/probe files at the idea dir root
+analysis/ideas/2026-08-15-color-phenotype-space/results/gwas/tierB/ld_cache/
+analysis/ideas/2026-08-15-color-phenotype-space/results/gwas/pixy/*.vcf.gz
+analysis/ideas/2026-08-15-color-phenotype-space/results/gwas/pixy/*.vcf.gz.tbi
+analysis/ideas/2026-08-15-color-phenotype-space/results/gwas/loco/*
+!analysis/ideas/2026-08-15-color-phenotype-space/results/gwas/loco/loco_merged_*.csv
+!analysis/ideas/2026-08-15-color-phenotype-space/results/gwas/loco/loco_submit.sbatch
+analysis/ideas/2026-08-15-color-phenotype-space/*.log
+analysis/ideas/2026-08-15-color-phenotype-space/slurm*.out
+analysis/ideas/2026-08-15-color-phenotype-space/slurm*.err
+analysis/ideas/2026-08-15-color-phenotype-space/*probe*
+t.txt.gz
+27499755_envprobe.log
+27499756_envprobe.log
+retry2_*.log

@@ -226,3 +226,41 @@ Three follow-ups from expert review, all executed and merged into `GWAS_REPORT.m
 Outputs: `results/gwas/tierB/{tierb_settests_{gwas,gwasc},tierb_skat_mcver_{gwas,gwasc}}.csv`,
 `results/gwas/tierB/coloc/*`, `results/gwas/figures/{tierB_settests,coloc_dxy_fst}.*`,
 `results/gwas/loco/loco_merged_{gwas,gwasc}.csv`.
+
+## 14. Tier D/E/G — gene mapping, fine-mapping, prior-locus replication — COMPLETE 2026-08-17
+
+Three approved divergences from `09-NEXT-GWAS-DESIGN.md` §7, all executed; written up in
+`GWAS_REPORT.md` §9.
+
+1. **Tier D — locus→gene annotation.** `scripts/annotate_gwas_loci.py` (fixed: FDR05_sig filter,
+   BSLMM `PIP<num>` regex, int-chr→`scaffold_N` mapping). Outputs:
+   `tierD_fdr_snps_annotated.csv.gz` (12,348 rows), `tierD_independent_loci.csv.gz` (5,286 loci across
+   9 traits: AUC_0 2832 / AUC_10 1636 / resilience_30 404 / chroma 282 / rest <60),
+   `tierD_bslmm_loci_annotated.csv` (8 top-PIP loci, 7 overlap a gene). Notable anchors: chroma
+   scaffold_8 → **telomerase RT (OM429_004009)**; AUC_10 scaffold_10 → **DBP3 RNA-dependent
+   ATPase (OM429_004640)**, RNA-pol-I TF, endodeoxyribonuclease; BSLMM chroma scaffold_3 →
+   **methionine aminopeptidase 1 (OM429_001379)**.
+2. **Tier E — fine-mapping.** `scripts/finemap_credible_sets.py` (Wakefield ABF in z-space,
+   NCP prior SD=0.2, logsumexp PIPs, candidate filter p<1e-3) → `tierE_credible_sets.csv`
+   (42 sets × 14 anchors × 90/95/99%). chroma_lead_10 resolves (CS n=24, lead pp=0.054, beta=
+   1.11±0.19, common AF); auc10 DBP3 and resil scaffold_13 are rare-driven (af≈0.015) with wide
+   or singleton sets (resil 95% CS n=1, pp=0.615).
+3. **Tier G — prior-locus replication.** Prior lab's growth-rate top hit chr13:13_30149
+   (p=1.68e-11) replicates in our **AUC_10** via nearest proxy 13_30134 (15 bp, p=4.03e-6,
+   **FDR-sig**, af=0.015), inside the single chr13 block (217 FDR-sig SNPs, one lead
+   13_791853). Gene at locus: OM429_005439 (hypothetical, 30,096–30,670), flanked by Ark1-family
+   kinase (OM429_005441). Rare-EF effect; causal gene unannotated.
+4. **Tier D/E figure** (`scripts/make_tierde_figure.py`, per-convention Agg PNG+PDF):
+   `results/gwas/figures/tierde_gene_finemap.{png,pdf}`. Panel A = scaffold_10 anchor-region
+   gene map (chroma lead 384,905 & AUC_10/DBP3 lead 396,172 ~11 kb apart): -log10 p of FDR-sig
+   SNPs per trait + schematic gene track. Panel B = 14 anchors' 95% credible-set size (log x)
+   vs lead posterior probability, coloured by rare-driven flag.
+5. **Publication methods paragraph** — GWAS_REPORT.md §10: Tier A (kinship-only GEMMA `-lmm 4 -k`,
+   all-201 + culled-173, BH-FDR q<0.05) → Tier B (burden/SKAT/min-p on pixy high-dxy windows,
+   MC-verified) → Tier C (BSLMM 100k/20% burn-in) → LOCO → Tier D (6,799-gene annotation,
+   250 kb clump) → Tier E (z-space ABF credible sets) → Tier G (nearest-proxy replication).
+
+**Going forward**: () rare-EF loci (auc10 DBP3, chr13 block) need imputation/denser markers for
+resolution — `todo/rare-ef-imputation.md`; () OM429_005439/OM429_004640/OM429_004009 are the top
+functional follow-up targets — `todo/functional-followup.md`; () dataviz consult for
+`tierde_gene_finemap.{png,pdf}` before publication (TODO_REGISTRY open item).

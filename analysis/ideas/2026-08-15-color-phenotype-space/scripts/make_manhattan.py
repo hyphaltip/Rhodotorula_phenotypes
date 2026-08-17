@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Manhattan + QQ plots for next-gen Tier-A GWAS results.
 
-Reads {gwas,gwasc}_<trait>_assoc.csv from results/gwas/tierA_summary/ and
+Reads {gwas,gwasc}_<trait>_assoc.csv.gz from results/gwas/tierA_summary/ and
 multi_{gwas,gwasc}_{color,copper}_fisher_top500.csv, produces per-trait
 manhattan + QQ PNGs plus a combined panel for the key traits.
 """
@@ -87,7 +87,7 @@ def main():
     os.makedirs(OUT, exist_ok=True)
     for t in KEY_TRAITS:
         for s in SETS:
-            f = os.path.join(SRC, f"{s}_{t}_assoc.csv")
+            f = os.path.join(SRC, f"{s}_{t}_assoc.csv.gz")
             if not os.path.exists(f):
                 continue
             df = pd.read_csv(f)

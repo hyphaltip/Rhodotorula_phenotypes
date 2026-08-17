@@ -35,4 +35,7 @@ All future work items, ideas, and planned improvements for this project are trac
 | Tier B gwasc MC-verify: sanity-check corr between moment-approx and exact MC for the culled set | low | done | gwas | 2026-08-17 | jstajich | r(log10)=0.997 (n=47), mean drift 0.171, worst cu_dose_slope p1.5e-4->1.1e-3 (0.871) still non-significant; verified in-session |
 | dxy/Fst co-localization report section (GWAS_REPORT.md §8.3) figures finalized | low | done | gwas | 2026-08-17 | jstajich | `coloc_dxy_fst.{png,pdf}`, `coloc_enrichment.txt` |
 | Dataviz consult for final figures (LOCO + Tier B + co-localization) before publication | medium | open | gwas | 2026-08-17 | jstajich | `results/gwas/figures/{loco_sensitivity,tierB_settests,coloc_dxy_fst}.*` ready for review |
+| Dataviz consult for Tier D/E figure before publication | medium | open | gwas | 2026-08-17 | jstajich | `results/gwas/figures/tierde_gene_finemap.{png,pdf}` ready for review |
+| Resolve rare-EF loci via denser genotyping/imputation — auc10 DBP3 (scaffold_10:396172) CS n=67 and chr13 block (11,701–800,664, OM429_005439) are wide sets; LD (n=201) limits resolution | high | open | gwas | 2026-08-17 | jstajich | see `todo/rare-ef-imputation.md` |
+| Functional follow-up of GWAS candidate genes — OM429_005439 (chr13 replicated locus, unannotated), OM429_004640/DBP3 (AUC_10), OM429_004009 telomerase RT (chroma) | medium | open | gwas | 2026-08-17 | jstajich | see `todo/functional-followup.md` |
 <!-- Add new entries above this line -->

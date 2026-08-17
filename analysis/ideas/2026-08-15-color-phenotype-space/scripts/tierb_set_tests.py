@@ -132,14 +132,14 @@ def main():
     print(f"window universe: {n_all}; high-dxy (top {args.top:.0%}, cutoff={hi_cut:.4f}): {win['is_highdxy'].sum()}")
 
     # ---- trait assoc files ----
-    files = sorted(Path(args.assoc_dir).glob(f"{args.prefix}_*_assoc.csv"))
-    traits = [f.name.replace(f"{args.prefix}_", "").replace("_assoc.csv", "") for f in files]
+    files = sorted(Path(args.assoc_dir).glob(f"{args.prefix}_*_assoc.csv.gz"))
+    traits = [f.name.replace(f"{args.prefix}_", "").replace("_assoc.csv.gz", "") for f in files]
     print(f"traits ({len(traits)}): {traits}")
 
     # ---- common SNP set with valid stats across all traits (for LD basis) ----
     common_rs = None
     for t in traits:
-        s = set(pd.read_csv(Path(args.assoc_dir) / f"{args.prefix}_{t}_assoc.csv",
+        s = set(pd.read_csv(Path(args.assoc_dir) / f"{args.prefix}_{t}_assoc.csv.gz",
                             usecols=["rs", "se", "p_wald"])
                 .query("se > 0 and p_wald > 0")["rs"])
         common_rs = s if common_rs is None else (common_rs & s)
@@ -210,7 +210,7 @@ def main():
 
     rows = []
     for t in traits:
-        full = pd.read_csv(Path(args.assoc_dir) / f"{args.prefix}_{t}_assoc.csv",
+        full = pd.read_csv(Path(args.assoc_dir) / f"{args.prefix}_{t}_assoc.csv.gz",
                            usecols=["rs", "chr", "ps", "af", "beta", "se", "p_wald"])
         full = full[(full.se > 0) & (full.p_wald > 0)]
         rs_index = full.set_index("rs")
@@ -254,7 +254,7 @@ def main():
     for _, r in top.iterrows():
         wi = next(x for x in windows if x["w"]["scaffold"] == r["scaffold"]
                   and x["w"]["window_pos_1"] == r["win_start"])
-        full = pd.read_csv(Path(args.assoc_dir) / f"{args.prefix}_{r['trait']}_assoc.csv",
+        full = pd.read_csv(Path(args.assoc_dir) / f"{args.prefix}_{r['trait']}_assoc.csv.gz",
                            usecols=["rs", "chr", "ps", "af", "beta", "se", "p_wald"])
         full = full[(full.se > 0) & (full.p_wald > 0)]
         sub = full.set_index("rs").reindex(wi["var_ids"]).dropna(subset=["beta", "se", "p_wald"])

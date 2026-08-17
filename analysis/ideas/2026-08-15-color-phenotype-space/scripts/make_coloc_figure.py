@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """dxy/Fst co-localization figure:
   [A] per-window mean dxy vs mean Fst, highlighting windows that contain a
-      Tier-A FDR SNP (any trait); anchor loci annotated
-  [B] bar chart: observed vs expected (genome-wide rate) fraction of GWAS-windows
-      that are high-dxy / high-Fst
+      Tier-A FDR SNP (any trait); 80th-pct high-dxy / high-Fst threshold lines;
+      anchor loci annotated
+  [B] observed vs expected (genome-wide rate) fraction of GWAS-windows that are
+      high-dxy / high-Fst, with Wilson 95% CIs and Fisher-exact p-values
 Saves PNG + PDF.
 """
 import argparse
@@ -13,6 +14,17 @@ import pandas as pd
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+from scipy.stats import fisher_exact
+
+def wilson_ci(k, n, z=1.96):
+    """Wilson score 95% CI for a binomial proportion."""
+    if n == 0:
+        return 0.0, 0.0, 0.0
+    p_hat = k / n
+    denom = 1 + z**2 / n
+    centre = (p_hat + z**2 / (2 * n)) / denom
+    half = z * np.sqrt(p_hat * (1 - p_hat) / n + z**2 / (4 * n**2)) / denom
+    return p_hat, max(0.0, centre - half), min(1.0, centre + half)
 
 def main():
     ap = argparse.ArgumentParser()
@@ -35,8 +47,11 @@ def main():
     win = win.merge(fst.groupby(["chromosome", "window_pos_1"])["avg_hudson_fst"]
                     .mean().reset_index(), on=["chromosome", "window_pos_1"])
     win = win.rename(columns={"avg_dxy": "mean_dxy", "avg_hudson_fst": "mean_fst"})
-    win["high_dxy"] = win["mean_dxy"] >= win["mean_dxy"].quantile(0.80)
-    win["high_fst"] = win["mean_fst"] >= win["mean_fst"].quantile(0.80)
+    # thresholds MATCH the enrichment computation (80th percentile across windows)
+    thr_dxy = win["mean_dxy"].quantile(0.80)
+    thr_fst = win["mean_fst"].quantile(0.80)
+    win["high_dxy"] = win["mean_dxy"] >= thr_dxy
+    win["high_fst"] = win["mean_fst"] >= thr_fst
 
     # mark windows that contain >=1 FDR SNP (f has chr_s + ps, win size 100kb)
     def in_win(row):
@@ -54,26 +69,63 @@ def main():
                c="#9ecae1", edgecolors="none", label="windows w/o FDR SNP")
     g = win.columns
     ax.scatter(win.loc[~o, "mean_fst"], win.loc[~o, "mean_dxy"], s=12, c="#3182bd",
-               edgecolors="none", label="Windows w/ FDR SNP")
+               edgecolors="none", label="windows w/ FDR SNP")
+    ax.axvline(thr_fst, color="k", ls=":", lw=0.9)
+    ax.axhline(thr_dxy, color="k", ls=":", lw=0.9)
+    ax.text(0.98, .98, f"dotted = 80th pct\n(high-dxy {thr_dxy:.3f}, high-Fst {thr_fst:.3f})",
+            transform=ax.transAxes, ha="right", va="top", fontsize=7,
+            bbox=dict(fc="w", ec="0.8", lw=0.6))
     ax.scatter(a["mean_fst"], a["mean_dxy"], s=70, facecolors="none",
                edgecolors="#e31a1c", linewidths=1.4, label="GWAS anchor loci")
-    for _, r in a.iterrows():
+    # de-collide anchor labels sharing the same window (chroma & AUC_10 both scaffold_10)
+    used = {}
+    for _, r in a.sort_values("trait").iterrows():
+        x0 = float(r["mean_fst"]); y0 = float(r["mean_dxy"])
+        key = (round(x0, 5), round(y0, 5))
+        if key in used:                 # same window -> stack labels
+            used[key] += 1
+            y0 = y0 - used[key] * 0.006
+        else:
+            used[key] = 0
         ax.annotate(r["trait"], (r["mean_fst"], r["mean_dxy"]),
-                    xytext=(5, 5), textcoords="offset points", fontsize=7,
-                    color="#e31a1c")
+                    xytext=(5, 5 - used[key] * 8), textcoords="offset points",
+                    fontsize=7, color="#e31a1c")
     ax.set_xlabel("mean Fst (15 pop pairs)"); ax.set_ylabel("mean dxy (15 pop pairs)")
     ax.set_title("(A) window divergence vs GWAS co-localization")
-    ax.legend(fontsize=7)
+    ax.legend(fontsize=7, loc="lower right")
 
     ax = axes[1]
-    obs = win.loc[win["has_gwas"], ["high_dxy", "high_fst"]].mean()
-    exp = win[["high_dxy", "high_fst"]].mean()
-    x = np.arange(2)
-    ax.bar(x - 0.18, exp, width=0.36, label="genome-wide rate", color="#969696")
-    ax.bar(x + 0.18, obs, width=0.36, label="GWAS windows", color="#3182bd")
-    ax.set_xticks(x); ax.set_xticklabels(["high-dxy", "high-Fst"])
+    n_gwas = int(win["has_gwas"].sum())
+    xt = [("high-dxy", "high_dxy"), ("high-Fst", "high_fst")]
+    for i, (name, col) in enumerate(xt):
+        # genome-wide rate across ALL windows
+        k_all = int(win[col].sum()); n_all = len(win)
+        ephat, elo, ehi = wilson_ci(k_all, n_all)
+        # GWAS windows
+        k_gw = int((win["has_gwas"] & win[col]).sum()); n_gw = n_gwas
+        phat, lo, hi = wilson_ci(k_gw, n_gw)
+        # Fisher: gwas high/low vs not-gwas high/low
+        g_high, g_low = k_gw, n_gw - k_gw
+        ng_high, ng_low = k_all - k_gw, (n_all - n_gw) - (k_all - k_gw)
+        table = [[g_high, g_low], [ng_high, ng_low]]
+        orr, pv = fisher_exact(table)   # alternative='two-sided'
+        x = np.arange(len(xt))
+        ax.bar(x[i] - 0.18, ephat, width=0.36, color="#969696",
+               yerr=[[ephat - elo], [ehi - ephat]], capsize=3,
+               label="genome-wide rate" if i == 0 else None,
+               error_kw=dict(lw=0.9))
+        ax.bar(x[i] + 0.18, phat, width=0.36, color="#3182bd",
+               yerr=[[phat - lo], [hi - phat]], capsize=3,
+               label="GWAS windows" if i == 0 else None,
+               error_kw=dict(lw=0.9))
+        ax.text(x[i] + 0.18, hi + 0.02, f"n={k_gw}/{n_gw}", ha="center", fontsize=7)
+        ax.text(x[i] + 0.18, phat / 2 if phat else 0.05,
+                f"OR={orr:.2f}\np={pv:.3f}", ha="center", va="center",
+                fontsize=7, color="#0b3d91")
+    ax.set_xticks(np.arange(len(xt))); ax.set_xticklabels(xt)
     ax.set_ylabel("fraction of windows")
-    ax.set_title("(B) GWAS windows vs genome rate")
+    ax.set_ylim(0, 0.6)
+    ax.set_title("(B) GWAS windows vs genome rate (95% Wilson CI)")
     ax.legend(fontsize=7)
     fig.tight_layout()
     for ext in ("png", "pdf"):
