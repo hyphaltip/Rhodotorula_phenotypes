@@ -210,3 +210,52 @@ Caveat up front: several "statistical findings" are threshold/definition-sensiti
    62–92% of variance for the 5 key traits is among-strain, not across species;
    the phylogenetic signal (idea 09) sits in the smaller between-species
    component. Interpret species-level summaries in that light.
+
+---
+
+## Idea 11 — GWAS power & variant feasibility (are we set up to find the causal loci?)
+`scripts/idea_11_effective_n.R` + `scripts/idea_11_power.py`
+
+Motivation: ideas 09/10 showed within-species (strain) variation dominates every
+trait, and the R. mucilaginosa panel is ~200 strains — but can we actually map
+those differences to SNPs? Two sub-questions: (a) how much *independent*
+genotypic diversity is there after redundancy, and (b) given n, how big a per-SNP
+effect is detectable?
+
+- **[robust] Effective independent genome count** (idea_11_effective_n.R, on the
+  PHYling protein tree `phyling_pep/protein/tree/fungi_odb10/final_tree.nw`,
+  278 tips): R. mucilaginosa has 200 tips but only **178 effective independent
+  haplotypes** after collapsing 22 near-clone strains (pairwise dist < 1e-7 →
+  redundancy ratio 1.12; cf. idea 09's "comet" polytomy — these are true genomic
+  near-duplicates, e.g. DBVPG 3235–3239/3442–3446 closely-related sets).
+  Every other species has redundancy exactly 1.0 (no collapse): paludigena 14,
+  diobovata 8, sp. clade I 8, toruloides 8, dairenensis 7, taiwanensis 6,
+  sphaerocarpa 5, graminis 3, kratochvilovae 3.
+- **Power table** (idea_11_power.py; noncentral χ² df=1, ncp=n·R²/(1−R²),
+  power 80%, per-SNP R²). Min detectable R² at α=5e-8 (genome-wide), 1e-6,
+  1e-4 (candidate): n=100 → 0.284/0.247/0.183; n=150 → 0.209/0.180/0.130;
+  n=202 → **0.164/0.140/0.100**; n=250 → 0.137/0.116/0.082; n=272 →
+  0.127/0.108/0.076; n=400 → 0.090/0.076/0.053. At the real effective n=178,
+  genome-wide threshold ≈ 0.21. Verified directly (n=178/202/272 vs explicit
+  noncentral-χ² power computation; R²=0.05→power 0.008–0.048, 0.15→0.56–0.93).
+- **Effect-size reading**: at MAF 0.3 a detectable allele moves the phenotype
+  ≈0.71 SD. In trait units (β = 0.71 × sd_within × √(R²_target/1−…))  ≈ 0.17 log₁₀ px
+  colony size, 0.14 log₁₀ chroma, 0.14 pace. Converting to % of *genetic* variance
+  assuming h²=ICC (upper bound): per-SNP ≈ 22–25% of additive genetic variance for
+  size/chroma/heterogeneity/pace — i.e. **only large-effect loci are detectable**,
+  unless h²<ICC or effects spread across many SNPs. Copper slope is hopeless:
+  ICC(0.19) < h² needed for mapping, β≈0.008 trait units — undetectable (avoid).
+- **Discovery (resolves the entire variant-pipeline blocker)**: no variant calling
+  is needed — a completed population-genomics + GWAS project exists at
+  `/bigdata/stajichlab/shared/projects/Population_Genomics/Rhodotorula_mucilaginosa_NRRLY2510/`
+  (ref **NRRL Y-2510**): `vcf/RmucY2510_v2.All.SNP.combined_selected.vcf.gz` =
+  728,581 SNP sites × 422 strains, haploid GTs, GATK-hard-filtered.
+  **201 of our 278 phenotyped strains (all R. mucilaginosa) carry genotypes there**
+  (200/201 have complete data for all 4 GWAS traits). Power estimate translates
+  directly: n≈201 raw / ≈178 effective ⇒ min detectable R² ≈ 0.16 (GW) / 0.10
+  (candidate) — near the n=202 row of the table. The remainder of the panel is
+  other species (must not be pooled into a GWAS against a single reference).
+- Prior art in that project: a 218-strain GEMMA+LMM+linear GWAS of *growth rates*
+  (T4C–T37C, Salt6; sensitivity α≈1.18e-7) found only a handful of hits (linear
+  T37C scan: p≈1.7e-11, chr13 locus), consistent with the idea-11 limit — few
+  large-effect loci. Their color traits were never tested → gap this project fills.
