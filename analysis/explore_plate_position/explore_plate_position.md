@@ -1,7 +1,7 @@
 Does plate position explain strain-replicate variance?
 ================
 analysis/explore_plate_position
-2026-08-15
+2026-08-17
 
 - [Question](#question)
 - [Data](#data)
