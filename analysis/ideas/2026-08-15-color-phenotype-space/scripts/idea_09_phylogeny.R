@@ -55,6 +55,15 @@ rescale_tree <- function(t) {
 }
 tr <- rescale_tree(tr)
 
+## ---- 1. Root tree with non-Rhodotorula outgroup (Cystobasidium + Pseudomicrostroma)
+# These two taxa are the only non-Rhodotorula tips in the FastTree; rooting here
+# puts the basal split at the outgroup node and orients the Rhodotorula crown
+# toward the tips. Rooting is applied to the full tree so the rooted topology is
+# preserved through subsequent drop.tip() pruning.
+og <- tr$tip.label[grepl("^(Cystobasidium|Pseudomicrostroma)", tr$tip.label)]
+cat(sprintf("Rooting on %d outgroup tip(s): %s\n", length(og), paste(og, collapse = "; ")))
+tr <- root(tr, outgroup = og, resolve.root = TRUE)
+
 ## ---- 1. Normalize tip labels ------------------------------------------------
 strip_suffix <- function(x) {
   x <- sub("\\.proteins\\.fa$", "", x)

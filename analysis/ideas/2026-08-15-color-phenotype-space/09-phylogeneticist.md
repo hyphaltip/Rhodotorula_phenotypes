@@ -29,7 +29,14 @@ of them R. mucilaginosa.
 `scripts/idea_09_phylogeny.R`
 
 1. Load tree (ape::read.tree), normalize tip labels.
-2. Join traits to tips via `tip_label ⇄ strain_id` through strain_metadata.
+2. **Root the tree** on the only two non-*Rhodotorula* tips present —
+   `Cystobasidium_sp._DBVPG_10075` and `Pseudomicrostroma_phylloplanum_DBVPG_6740` —
+   via `ape::root(tr, outgroup = og, resolve.root = TRUE)`. Rooting is applied to the
+   full tree before pruning so the rooted topology is preserved through
+   `drop.tip()`; the basal root splits the two outgroup lineages from the
+   *Rhodotorula* crown. (Tip-only statistics — Mantel on patristic distances — are
+   rooting-invariant; rooting affects figure orientation only.)
+3. Join traits to tips via `tip_label ⇄ strain_id` through strain_metadata.
    277/278 tips matched; only `Rhodotorula_mucilaginosa_DH4148` unmatched.
 3. Prune tree to matched tips; compute the two scopes: **all strains** and
    **within R. mucilaginosa** (200+ tips).
