@@ -26,3 +26,9 @@ Source: L-16, L-17, L-18, L-19, L-20, L-21, L-22, L-23, L-24, L-25, L-26; D-9, D
 Recurred 3x in one session (hmmer, kofamscan, snpEff) before being crystallized here — see L-30.
 
 Source: L-30.
+
+## Convention-pack feedback: robust-analysis on the candidate-gene alignment pilot (2026-08-26)
+
+The `robust-analysis` core convention's "fail loudly on unexpected data / assert shapes-types-ranges" practice paid off directly in `analysis/candidate_gene_alignment/scripts/extract_gene_sequences.py`: the hard assertion that every VCF REF allele matches the genome base at build time, and that all 213 strains produce equal-length CDS, are exactly what let the NRRL_Y-2510 reference-strain sanity check (D-21) be trusted as a real correctness check rather than a coincidence — if either assertion had been silently skipped, a coordinate or REF/ALT-swap bug could have passed unnoticed. No gaps found in the convention for this task; it directly caught the class of bug it's designed to catch, even though no bug was actually present this time.
+
+Source: D-21.
