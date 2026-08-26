@@ -88,3 +88,57 @@ lab storage at `/bigdata/stajichlab/shared/projects/Population_Genomics/Rhodotor
 to preserve storage and maintain a single canonical source. Checksums and resolved paths recorded in
 `MANIFEST.yaml`. A subset (201 of 422 samples) overlaps with our phenotyped strains; strain reconciliation
 conducted in `analysis/gwas/results/strain_reconciliation/`.
+
+### pigmentation-pathway-hmms
+```yaml
+name: pigmentation-pathway-hmms
+type: other
+source: external "pigment bioprotectant discovery" genome/metagenome mining project (hmmbuild, HMMER 3.4); hand-copied from ~/pigment_HMMs/
+date_acquired: 2026-08-26
+format: HMMER3/f text profile HMM (amino-acid), 133 files
+rows: n/a (28 gene profiles + 1 combined library + 1 unverified duplicate + 103 exploratory files in specific/)
+columns: n/a
+size: ~18 MB
+raw_path: data/raw/pigmentation-pathway-hmms/
+metadata_path: data/metadata/pigmentation-pathway-hmms/
+status: raw (immutable)
+known_issues:
+  - mysA_test.hmm same size as mysA.hmm but not byte-identical; origin undocumented upstream
+  - 9/28 profiles flagged "medium confidence" (broad-domain architecture) by source report
+  - No hmmpress index files included; not validated against any Rhodotorula sequence data
+access_restrictions: none
+tags: [pigmentation, carotenoid, melanin, mysporine, scytonemin, hmm, hmmer, gene-annotation, external, reference]
+```
+
+HMMER3 profile HMM library spanning 7 pigment biosynthesis pathways (cyanobacterial MAA/scytonemin/
+carotenoid; fungal DHN-melanin/DOPA-melanin/pyomelanin/carotenoid) from an external mining pipeline,
+imported as a reference resource for annotating pigmentation genes in Rhodotorula genomes/proteomes.
+The fungal and cyanobacterial carotenoid profiles are most directly relevant to this project's
+carotenogenic pigmentation phenotypes. Includes a `specific/` subdirectory of exploratory
+discriminative-HMM work for t3hnr/t4hnr aimed at reducing false positives against the broad bacterial
+SDR superfamily. See `PIGMENTATION_PATHWAY_HMMS.md` for the full gene/pathway table and caveats.
+
+### pigmentation-pathway-reference
+```yaml
+name: pigmentation-pathway-reference
+type: other
+source: external "pigment bioprotectant discovery" project report + diagram; hand-copied from ~/report_pigmentation_genes.md and ~/pigmentation_pathways_diagram.png
+date_acquired: 2026-08-26
+format: Markdown (17 KB) + PNG (1.4 MB)
+rows: n/a
+columns: n/a
+size: 1.4 MB
+raw_path: data/raw/pigmentation-pathway-reference/
+metadata_path: data/metadata/pigmentation-pathway-reference/
+status: raw (immutable)
+known_issues:
+  - Report references source-project file paths (/mnt/shared-workspace/..., /mnt/results/...) not accessible from this repo
+  - No Rhodotorula genomes analyzed in the source report; background/reference material only
+access_restrictions: none
+tags: [pigmentation, carotenoid, melanin, uv-protection, report, diagram, external, reference]
+```
+
+Methods report and pathway-diagram reference material documenting how the `pigmentation-pathway-hmms`
+HMM library was built and validated (285 genomes + 3,275 metagenome MAGs, GNPS2 compound linking),
+imported as background reading for pigmentation pathway biology. Not primary data generated in this
+project — see `PIGMENTATION_PATHWAY_REFERENCE.md` for scope and caveats.

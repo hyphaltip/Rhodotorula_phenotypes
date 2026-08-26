@@ -1,0 +1,63 @@
+dataset_name: pigmentation-pathway-hmms
+description: >
+  HMMER3 profile HMM library (28 profiles + 1 combined library + 1 unverified duplicate,
+  plus 103 exploratory discriminative-HMM benchmarking files in specific/) for 7 microbial
+  pigment biosynthesis pathways (cyanobacterial MAA/scytonemin/carotenoid; fungal
+  DHN-melanin/DOPA-melanin/pyomelanin/carotenoid). One file per gene profile; not tabular.
+format: HMMER3/f text profile HMM (amino-acid alphabet)
+
+columns:
+  # Not tabular data. Logical fields per HMM record (as found in each .hmm file header):
+  - name: NAME
+    type: str
+    description: Gene/profile identifier (e.g. crtB, mysA, t3hnr). Matches file basename for the 28 individual profiles.
+    nullable: false
+  - name: LENG
+    type: int
+    description: Profile match-state length (number of consensus columns).
+    nullable: false
+  - name: ALPH
+    type: categorical
+    description: Sequence alphabet.
+    nullable: false
+    values:
+      - amino
+  - name: NSEQ
+    type: int
+    description: Number of seed sequences used to build the profile.
+    nullable: false
+    notes: >
+      Ranges widely; low-NSEQ profiles (e.g. scyD, scyE per source report) have less
+      training data and lower confidence.
+  - name: EFFN
+    type: float
+    description: Effective sequence number after relative-weighting (HMMER internal).
+    nullable: false
+  - name: pathway
+    type: categorical
+    description: Biosynthetic pathway grouping, assigned from source report (not stored in the .hmm file itself).
+    nullable: false
+    values:
+      - MAA
+      - scytonemin
+      - carotenoid_cyanobacterial
+      - DHN-melanin
+      - DOPA-melanin
+      - pyomelanin
+      - carotenoid_fungal
+  - name: organism_group
+    type: categorical
+    description: Cyanobacteria or Fungi, per source report's taxonomic filtering design.
+    nullable: false
+    values:
+      - cyanobacteria
+      - fungi
+  - name: confidence
+    type: categorical
+    description: >
+      "high" (specific profile) or "medium" (broad-domain profile flagged in source report:
+      mysB, pks_melanin, tyrosinase, hppd, crt_fungal_psy, crt_fungal_pds, crtO, crtR, scyA).
+    nullable: false
+    values:
+      - high
+      - medium

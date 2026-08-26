@@ -1,0 +1,24 @@
+dataset_name: pigmentation-pathway-reference
+description: >
+  Reference report (Markdown) and pathway diagram (PNG) documenting the methodology and
+  results behind the pigmentation-pathway-hmms HMM library. Not tabular data; two
+  unstructured/semi-structured reference documents.
+format: other
+
+columns:
+  - name: report_pigmentation_genes.md
+    type: str
+    description: >
+      Full text report: methods (HMM construction, genome/MAG selection, GNPS2 linking),
+      results (genome-based gene catalog, pathway completeness, metagenomic mining,
+      bioprotectant candidate ranking), key findings, limitations, and deliverables list.
+      Contains several embedded summary tables (pathway hit counts, pathway completeness,
+      GNPS2 compound matches, top candidates) — see report body for exact table schemas.
+    nullable: false
+
+  - name: pigmentation_pathways_diagram.png
+    type: str
+    description: >
+      Schematic diagram (raster image) showing gene order and end-product compounds for
+      the 7 pigmentation pathways, split into Cyanobacteria and Fungi panels.
+    nullable: false
