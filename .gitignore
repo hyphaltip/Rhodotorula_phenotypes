@@ -72,6 +72,9 @@ analysis/gwas/results/gwas/tierC_summary/superseded_short_chain/*.param.txt
 analysis/gwas/results/gwas/loco/output/*.assoc.txt
 analysis/gwas/results/gwas/loco/output/*.assoc.txt.gz
 analysis/gwas/results/gwas/loco/output/*.log.txt
+# Tier B per-window LD cache (~21 GB) -- rebuilt automatically by
+# tierb_set_tests.py if missing (checks os.path.exists(npz) per window).
+analysis/gwas/results/gwas/tierB/ld_cache/
 analysis/gwas/data/db_extract.parquet
 
 # Ideation session 2026-08-15: large derived intermediate extract is rebuildable

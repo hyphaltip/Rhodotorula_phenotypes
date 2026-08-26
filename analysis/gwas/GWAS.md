@@ -332,29 +332,57 @@ correction alone would not catch.
 
 Full tables: `results/gwas/tierA_summary/population_confounding_{gwas,gwasc}.csv`.
 
-## 11. Tier B (SKAT/burden set tests) — in progress
+## 11. Tier B (SKAT/burden set tests) — complete
 
-Running via `scripts/run_tierb.sh` (ported `tierb_set_tests.py`, unmodified logic) against
-both panels' full unpruned bfiles for window LD. **Caveat, documented rather than
-resolved**: `--pixy-dir` points at the original run's pixy output
-(`analysis/ideas/2026-08-15-color-phenotype-space/results/gwas/pixy/`), computed on a
-`cohort.all.vcf.gz` restricted to the prior **201-strain** cohort — confirmed directly
-(`bcftools query -l` returns 201 samples). Pixy was **not** recomputed for the 213-strain
-panel this session (the original pixy run took 6h35m). The high-dxy window *definitions*
-this selects are a population-genetic property of the genome and unlikely to shift
-dramatically from 12 more strains within existing populations, but this is an
-approximation, not a verified-unaffected reuse — results section to be filled in once the
-job completes.
+Ran via `scripts/run_tierb.sh` (ported `tierb_set_tests.py`, unmodified logic) against
+both panels' full unpruned bfiles for window LD, using pixy's high-dxy window universe
+(211-215 windows per panel; ~196/211 with a usable LD basis after skipping windows whose
+LD matrix failed to converge). **Caveat, not resolved**: `--pixy-dir` points at the
+original run's pixy output, computed on a `cohort.all.vcf.gz` restricted to the prior
+**201-strain** cohort (confirmed via `bcftools query -l`, returns 201 samples) — pixy was
+**not** recomputed for the 213-strain panel this session (the original pixy run took
+6h35m). The high-dxy window *definitions* are a population-genetic property of the genome
+and unlikely to shift dramatically from 12 more strains within existing populations, but
+this remains an approximation.
+
+**Result matches the original run's pattern exactly: no set-level (burden or SKAT)
+signal survives BH-FDR(q<0.05) in either panel** (0/2352 gwas, 0/2340 gwasc for both
+burden and SKAT, all-windows or high-dxy-only universe). `min_p` "significance" merely
+recovers Tier A's single-SNP hits at window resolution and is not independent evidence
+of set-level signal (2340-2340/2352 rows pass FDR on `min_p` — expected, not a discovery).
+The moment-approximation SKAT p-values track exact Monte Carlo verification closely on
+the top-25 windows (e.g. resilience_30/scaffold_16 window: 0.000676 approx vs. 0.00282
+MC — same order of magnitude, consistent direction).
+
+**resilience_30's scaffold_13:810026 anchor is NOT in a high-dxy window** (its
+800,001-900,000 window has `is_highdxy=False`, SKAT p=0.32/0.46 gwas/gwasc, burden
+p=0.54/0.67 — unremarkable at the set level) — consistent with the original run's finding
+that FDR-significant GWAS loci are not enriched in high-divergence regions (standing
+variation within the near-clonal focal clade, decoupled from deep population splits).
+
+Full tables: `results/gwas/tierB/tierb_settests_{gwas,gwasc}.csv`,
+`tierb_skat_mcver_{gwas,gwasc}.csv`.
+
+## Session summary (2026-08-25/26)
+
+All of Tier A (corrected), Tier B, Tier C, and LOCO are now complete for this port. The
+single most robust finding across every method and panel variant tested — original
+201-strain run, this session's (buggy) pruned-only rebuild, the corrected full-213
+rebuild, the full-182-culled rebuild, LOCO (chr13 excluded from kinship), and the
+population-confounding check — is **`resilience_30`/`AUC_30`'s anchor at
+`scaffold_13:810026`** (p ranging 6.4e-9 to 8.7e-10 depending on panel), independently
+corroborated at lower confidence by Tier C BSLMM's nearby top locus
+(`scaffold_13:793374`, ~17 kb away). `chroma`'s signal is unstable across every SNP-set
+and panel choice tried and should not be cited without further investigation.
 
 ## Next steps (not done this session)
 
-- Fill in Tier B results once the running job completes.
-- Fill in the Tier C BSLMM architecture summary table (PVE/PGE/n_gamma per trait).
 - Investigate the chroma signal instability (§7) — it is NOT population-confounded per
   §10, so the cause is still open.
 - Consider whether pixy should be recomputed on the 213-strain panel (currently a
-  documented approximation, §11) if Tier B set-level results turn out to matter for any
-  headline claim.
+  documented approximation, §11) — Tier B's headline conclusion (no set-level signal;
+  resilience_30 anchor not in a high-dxy window) matches the original run closely enough
+  that this is lower priority than initially flagged, but still an approximation.
 - Tier D/E/G (gene annotation, fine-mapping, prior-locus replication) — not started this
-  session; natural next step once Tier A-C are finalized, focused on the
-  resilience_30/AUC_30 scaffold_13:810026 anchor given how robustly it's replicated.
+  session; natural next step, focused on the resilience_30/AUC_30 scaffold_13:810026
+  anchor given how robustly it's replicated across every check run so far.

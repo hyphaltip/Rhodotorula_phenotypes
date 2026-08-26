@@ -1,0 +1,83 @@
+ WARN cache for Repodata at /rhome/jstajich/.cache/rattler/cache/repodata is on a network/parallel filesystem (NFS/SMB/FUSE/BeeGFS/Lustre/GPFS/CephFS), redirected to /scratch/jstajich/27782385/pixi-cache-jstajich/repodata for this run. Set [cache.repodata] in config.toml or PIXI_CACHE_DIR to override, or [cache.netfs-redirect] = "never" to keep the original path.
+window universe: 215; high-dxy (top 20%, cutoff=0.0235): 43
+traits (12): ['AUC_0', 'AUC_10', 'AUC_20', 'AUC_30', 'AUC_ratio_10', 'IC50_est', 'bright', 'chroma', 'clone_mean_area', 'cu_dose_slope', 'resilience_30', 'sat']
+  valid rs AUC_0: 496358
+  valid rs AUC_10: 496358
+  valid rs AUC_20: 498459
+  valid rs AUC_30: 498459
+  valid rs AUC_ratio_10: 496358
+  valid rs IC50_est: 496364
+  valid rs bright: 496358
+  valid rs chroma: 496358
+  valid rs clone_mean_area: 496358
+  valid rs cu_dose_slope: 496347
+  valid rs resilience_30: 496358
+  valid rs sat: 496358
+common valid rs across 12 traits: 494248
+  window scaffold_20/100001-200000: no LD (too few variants); skipped
+windows with >=2 genotyped SNPs: 211
+  window scaffold_5/700001: eig non-convergence; skipped
+  window scaffold_16/200001: eig non-convergence; skipped
+  basis precomputed for 25/211 windows
+  window scaffold_10/200001: eig non-convergence; skipped
+  window scaffold_14/200001: eig non-convergence; skipped
+  window scaffold_10/800001: eig non-convergence; skipped
+  window scaffold_2/1200001: eig non-convergence; skipped
+  basis precomputed for 50/211 windows
+  window scaffold_8/100001: eig non-convergence; skipped
+  basis precomputed for 75/211 windows
+  window scaffold_3/900001: eig non-convergence; skipped
+  window scaffold_12/500001: eig non-convergence; skipped
+  basis precomputed for 100/211 windows
+  window scaffold_14/100001: eig non-convergence; skipped
+  basis precomputed for 125/211 windows
+  window scaffold_5/1000001: eig non-convergence; skipped
+  window scaffold_4/1: eig non-convergence; skipped
+  basis precomputed for 150/211 windows
+  window scaffold_2/1500001: eig non-convergence; skipped
+  window scaffold_1/600001: eig non-convergence; skipped
+  window scaffold_13/1: eig non-convergence; skipped
+  basis precomputed for 175/211 windows
+windows in basis: 196
+  AUC_0: done
+  AUC_10: done
+  AUC_20: done
+  AUC_30: done
+  AUC_ratio_10: done
+  IC50_est: done
+  bright: done
+  chroma: done
+  clone_mean_area: done
+  cu_dose_slope: done
+  resilience_30: done
+  sat: done
+
+wrote 2352 (trait,window) rows -> tierb_settests_gwas.csv
+
+Top 25 by SKAT p (moment approx vs MC verification):
+          trait    scaffold  win_start  n_assoc   skat_p  skat_p_mcver
+  resilience_30 scaffold_16     500001     2351 0.000676       0.00282
+  resilience_30 scaffold_16     600001     1366 0.001359       0.00458
+  resilience_30 scaffold_16     100001     2146 0.003604       0.00908
+clone_mean_area  scaffold_5          1     2292 0.010695       0.01702
+         AUC_20 scaffold_16     600001     1366 0.013263       0.01966
+  resilience_30 scaffold_17     500001     2423 0.013548       0.02066
+clone_mean_area scaffold_15          1     1919 0.017372       0.02486
+clone_mean_area scaffold_15     600001     2260 0.025339       0.03402
+  cu_dose_slope scaffold_16     500001     2351 0.025627       0.03276
+          AUC_0  scaffold_5          1     2292 0.031652       0.04400
+         AUC_20  scaffold_9     100001     2045 0.032990       0.03942
+          AUC_0  scaffold_6    1200001     2087 0.036490       0.04512
+  cu_dose_slope scaffold_16     600001     1366 0.039922       0.04780
+         AUC_20 scaffold_16     500001     2351 0.050138       0.05684
+  cu_dose_slope  scaffold_3     500001     2724 0.051078       0.05460
+         chroma  scaffold_9     100001     2045 0.055696       0.05968
+          AUC_0  scaffold_6     800001     2545 0.057203       0.06126
+            sat  scaffold_8    1200001      773 0.059516       0.06126
+         AUC_20 scaffold_16     400001     2326 0.060209       0.06364
+          AUC_0  scaffold_7     500001     2673 0.060500       0.06426
+clone_mean_area scaffold_18     600001     1127 0.061673       0.06426
+          AUC_0 scaffold_13     400001     2581 0.063105       0.06626
+          AUC_0  scaffold_5     300001     2651 0.063993       0.06768
+          AUC_0 scaffold_15     300001     2490 0.066689       0.07004
+clone_mean_area scaffold_15     100001     2444 0.066702       0.06720
