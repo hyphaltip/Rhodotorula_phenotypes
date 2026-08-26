@@ -1,0 +1,27 @@
+PLINK v2.00a5LM 64-bit Intel (23 Sep 2023)
+Options in effect:
+  --allow-extra-chr
+  --bfile analysis/gwas/results/gwas/grm_conditioning/rebuilt_kinship/gwas.pruned
+  --make-king-table cols=id,nsnp,ibs0
+  --out analysis/gwas/results/gwas/near_clone_culling/king_table
+
+Hostname: x01
+Working directory: /bigdata/stajichlab/jstajich/projects/Rhodotorula_phenotypes
+Start time: Tue Aug 25 19:49:12 2026
+
+Random number seed: 1787712552
+514646 MiB RAM detected, ~298328 available; reserving 257323 MiB for main
+workspace.
+Using up to 8 compute threads.
+213 samples (0 females, 0 males, 213 ambiguous; 213 founders) loaded from
+analysis/gwas/results/gwas/grm_conditioning/rebuilt_kinship/gwas.pruned.fam.
+29453 variants loaded from
+analysis/gwas/results/gwas/grm_conditioning/rebuilt_kinship/gwas.pruned.bim.
+Note: No phenotype data present.
+--make-king-table pass 1/1: Scanning for rare variants... done.
+14167 variants handled by initial scan (15286 remaining).
+--make-king-table: 29453 variants processed.
+Results written to
+analysis/gwas/results/gwas/near_clone_culling/king_table.kin0 .
+
+End time: Tue Aug 25 19:49:12 2026

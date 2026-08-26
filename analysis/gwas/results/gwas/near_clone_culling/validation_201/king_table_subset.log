@@ -1,0 +1,35 @@
+PLINK v2.00a5LM 64-bit Intel (23 Sep 2023)
+Options in effect:
+  --allow-extra-chr
+  --bfile analysis/gwas/results/gwas/grm_conditioning/rebuilt_kinship/gwas.pruned
+  --keep analysis/gwas/results/gwas/near_clone_culling/validation_201/king_table_subset.keep.txt
+  --make-bed
+  --out analysis/gwas/results/gwas/near_clone_culling/validation_201/king_table_subset
+
+Hostname: x01
+Working directory: /bigdata/stajichlab/jstajich/projects/Rhodotorula_phenotypes
+Start time: Tue Aug 25 19:48:53 2026
+
+Random number seed: 1787712533
+514646 MiB RAM detected, ~283041 available; reserving 257323 MiB for main
+workspace.
+Using up to 8 compute threads.
+213 samples (0 females, 0 males, 213 ambiguous; 213 founders) loaded from
+analysis/gwas/results/gwas/grm_conditioning/rebuilt_kinship/gwas.pruned.fam.
+29453 variants loaded from
+analysis/gwas/results/gwas/grm_conditioning/rebuilt_kinship/gwas.pruned.bim.
+Note: No phenotype data present.
+--keep: 201 samples remaining.
+201 samples (0 females, 0 males, 201 ambiguous; 201 founders) remaining after
+main filters.
+Writing
+analysis/gwas/results/gwas/near_clone_culling/validation_201/king_table_subset.fam
+... done.
+Writing
+analysis/gwas/results/gwas/near_clone_culling/validation_201/king_table_subset.bim
+... done.
+Writing
+analysis/gwas/results/gwas/near_clone_culling/validation_201/king_table_subset.bed
+... done.
+
+End time: Tue Aug 25 19:48:53 2026
