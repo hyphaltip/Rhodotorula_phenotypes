@@ -253,3 +253,35 @@ key_findings:
   - Tier G: prior growth-rate locus chr13:13_30149 REPLICATES in our AUC_10 via nearest proxy scaffold_13_30134 (15 bp): p_wald=4.03e-6, FDR-sig, beta=804,778, af=0.015, inside the single chr13 rare-haplotype block. Gene at locus = OM429_005439, a hypothetical protein with no GO/InterPro/PFAM annotation (flanked by Ark1-family Ser/Thr kinase OM429_005441). Other traits null -> replication is growth-phenotype-specific. Causal gene under a p~1e-11 locus is functionally unknown - priority validation target.
 tags: [gwas, tierd, annotation, gene-mapping, tierte, finemapping, credible-sets, abf, wakefield, tierg, replication, prior-locus, chr13, AUC_10, DBP3, telomerase, methionine-aminopeptidase, OM429_005439, rare-EF, near-clone, rhodotorula, gemma]
 ```
+
+### gwas
+```yaml
+name: gwas
+question: Can Rhodotorula mucilaginosa color and copper-response phenotypes be mapped with GWAS (GEMMA kinship-only LMM), after an audited strain-name reconciliation and per-strain ploidy validation?
+input: data/raw/genotypes/RmucY2510_v2/ (versioned symlinks), data/metadata/Copper.Strain_info.csv
+scripts:
+  - scripts/ingest_gwas_vcf.sh                          # repo-root: versioned VCF ingestion
+  - analysis/gwas/scripts/reconcile_strains.py
+  - analysis/gwas/scripts/check_ploidy.py
+  - analysis/gwas/scripts/diff_strain_state.py
+  - analysis/gwas/scripts/check_grm_conditioning.py
+  - analysis/gwas/scripts/rebuild_tiers_abc.sh
+  - analysis/gwas/scripts/build_gwas_phenotypes.py
+  - analysis/gwas/scripts/run_tiera_gemma.sh
+  - analysis/gwas/scripts/summarize_tiera.py
+outputs:
+  - analysis/gwas/results/strain_reconciliation/strain_match_table.reviewed.csv
+  - analysis/gwas/results/ploidy_check/ploidy_flags.csv
+  - analysis/gwas/results/strain_state_diff/state_diff_report.json
+  - analysis/gwas/results/gwas/grm_conditioning/{grm_diagnostic.json,rebuilt_kinship/}
+  - analysis/gwas/results/gwas/tierA_summary/{gemma_output/,tiera_summary.csv}
+  - analysis/gwas/results/gwas/fdr/*_fdr05.csv
+reproduce: bash analysis/gwas/run.sh (human-review gates at reconciliation and ploidy steps; SLURM submission steps for the kinship rebuild and Tier A scan documented inline)
+status: in-progress (Tier A rebuild complete on 213-strain panel; Tier B/SKAT, Tier C/BSLMM, LOCO, and pixy reuse-validity all pending -- near-clone culling algorithm behind the culled-173 partition was never saved as reusable code in the original run and has not yet been reconstructed)
+key_findings:
+  - Audited reconciliation accepted 213/308 phenotype strains (12 more than the prior informal our200.txt match), all 62 fuzzy candidates hand-reviewed and rejected as coincidental string similarity, 0 removed vs. prior run.
+  - Ploidy check confirms haploid GT encoding genome-wide (0 het in every strain); 46/213 strains flag watch_contamination (depth >2.5x panel median) and 14 watch (1.5-2.5x) -- kept per user decision, informational only for now.
+  - GRM conditioning diagnostic flagged singular_risk (condition_number=2.1e11) but investigation traced it to a genuine, small near-clone triplet (DBVPG_5757/5758/5759, same collection batch) plus one benign GRM-centering null eigenvalue -- consistent with D-9's precedent, not new pathology.
+  - Tier A GEMMA rebuild (12 traits, 213 strains): resilience_30/AUC_30 replicate the prior run's scaffold_13:810026 anchor cleanly; chroma's signal shifted substantially (prior scaffold_10:384905 p=2.4e-8/345 FDR-sig vs. this run's scaffold_8:831789 p=1.3e-6/1 FDR-sig) -- flagged for investigation, not yet explained.
+tags: [gwas, gemma, rhodotorula, mucilaginosa, copper, color, kinship, ploidy, strain-reconciliation, ported, in-progress]
+```
