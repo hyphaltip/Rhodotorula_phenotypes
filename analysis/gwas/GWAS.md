@@ -565,6 +565,49 @@ functional data) is needed to narrow these still-broad blocks further.
 Full tables: `results/gwas/tierE/candidate_genes_credible_sets.csv` (credible-set level),
 `candidate_genes_window.csv` (every gene per locus window, 561 rows).
 
+## 16. The actual carotenoid gene cluster — found, but not colocalized with our loci
+
+§15's keyword search found nothing because it was the wrong tool: keyword-searching
+*existing* product-name annotation cannot find a gene whose annotation is wrong or
+uninformative. Built a proper functional-annotation pipeline instead
+(`algorithms/functional_annotation/`, see that folder's `FUNCTIONAL_ANNOTATION.md` for
+the reusable practice) using a pre-ingested pigment-pathway HMM library
+(`data/DATA_MANIFEST.md` "pigmentation-pathway-hmms") and found the real fungal
+carotenoid biosynthesis gene cluster immediately:
+
+- **`OM429_003333`** (scaffold_7:168,525–170,261; existing annotation: "hypothetical
+  protein") scores 689.9 against `crt_fungal_psy` and 751.1 against `crt_fungal_lcy` —
+  the classic fungal **bifunctional phytoene synthase/lycopene cyclase fusion**
+  (CrtYB-like), with a clean 600+ bit-score gap to the next candidate across all 11
+  genomes scanned (§ functional-annotation manifest).
+- **`OM429_003336`** (scaffold_7:173,916–175,999; existing annotation: "transcription
+  factor, contains a PHD finger motif") scores 877.4 against `crt_fungal_pds` and 306.1
+  against the cyanobacterial `crtP` ortholog profile — strongly suggesting this gene's
+  *existing annotation is a misidentification* and it is actually the **phytoene
+  desaturase**, positioned exactly where expected (adjacent to the synthase/cyclase gene,
+  the canonical Xanthophyllomyces/Rhodotorula-type carotenoid gene cluster architecture).
+
+**This cluster is NOT colocalized with any of the 8 GWAS-validated loci** (§13) — the
+nearest is `lab_L`'s scaffold_3 locus, on a different scaffold entirely.
+
+**But a genome-wide scan of every trait's Tier A p-values within ±100kb of this cluster
+found one tantalizing signal**: `lab_L` at `scaffold_7:172154` (the intergenic region
+between the two genes), p=1.1e-7, FDR-significant, rank 104 of 496,358 genome-wide.
+**This does NOT survive validation**, however — run through the same within-population
+test as §13: only 1 of 6 populations (pop 6) had testable allelic variance (n_pops=1,
+meta-analysis requires ≥2 for replication); population 4 is ~98% fixed for the allele
+(AF range 0.98 across populations — more extreme than any of the 8 validated loci). The
+striking genome-wide p-value is almost entirely explained by population 4's near-fixation
+— the textbook population-stratification pattern this whole disambiguation exercise (§13)
+exists to catch. **Reported here as an unconfirmed, tantalizing lead worth someone
+revisiting** (e.g. if population 4's phenotype difference itself has a biological
+explanation connected to carotenoid regulation), not as a validated finding.
+
+**Genome-wide KEGG KO annotation (KofamScan) submitted, running in background** — will
+let any future gene-list query check KEGG pathway membership (map00906 carotenoid
+biosynthesis) directly, per the functional-annotation pipeline's design as a durable,
+reusable resource rather than a one-off check for these 8 loci.
+
 ## Session summary (2026-08-25/26)
 
 All of Tier A (corrected), Tier B, Tier C, and LOCO are now complete for this port. The
