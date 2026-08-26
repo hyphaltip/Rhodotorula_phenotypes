@@ -1,0 +1,21 @@
+=== Tier C BSLMM: chroma ===
+ WARN cache for Repodata at /rhome/jstajich/.cache/rattler/cache/repodata is on a network/parallel filesystem (NFS/SMB/FUSE/BeeGFS/Lustre/GPFS/CephFS), redirected to /scratch/jstajich/27773639/pixi-cache-jstajich/repodata for this run. Set [cache.repodata] in config.toml or PIXI_CACHE_DIR to override, or [cache.netfs-redirect] = "never" to keep the original path.
+  chroma: 212/213 with phenotype, 1 NA
+  wrote analysis/gwas/results/gwas/tierC_summary/bslmm_chroma.{hyp,gamma,param}.txt(.gz)
+=== Tier C BSLMM: AUC_10 ===
+ WARN cache for Repodata at /rhome/jstajich/.cache/rattler/cache/repodata is on a network/parallel filesystem (NFS/SMB/FUSE/BeeGFS/Lustre/GPFS/CephFS), redirected to /scratch/jstajich/27773639/pixi-cache-jstajich/repodata for this run. Set [cache.repodata] in config.toml or PIXI_CACHE_DIR to override, or [cache.netfs-redirect] = "never" to keep the original path.
+  AUC_10: 212/213 with phenotype, 1 NA
+  wrote analysis/gwas/results/gwas/tierC_summary/bslmm_AUC_10.{hyp,gamma,param}.txt(.gz)
+=== Tier C BSLMM: AUC_30 ===
+ WARN cache for Repodata at /rhome/jstajich/.cache/rattler/cache/repodata is on a network/parallel filesystem (NFS/SMB/FUSE/BeeGFS/Lustre/GPFS/CephFS), redirected to /scratch/jstajich/27773639/pixi-cache-jstajich/repodata for this run. Set [cache.repodata] in config.toml or PIXI_CACHE_DIR to override, or [cache.netfs-redirect] = "never" to keep the original path.
+  AUC_30: 213/213 with phenotype, 0 NA
+  wrote analysis/gwas/results/gwas/tierC_summary/bslmm_AUC_30.{hyp,gamma,param}.txt(.gz)
+=== Tier C BSLMM: clone_mean_area ===
+ WARN cache for Repodata at /rhome/jstajich/.cache/rattler/cache/repodata is on a network/parallel filesystem (NFS/SMB/FUSE/BeeGFS/Lustre/GPFS/CephFS), redirected to /scratch/jstajich/27773639/pixi-cache-jstajich/repodata for this run. Set [cache.repodata] in config.toml or PIXI_CACHE_DIR to override, or [cache.netfs-redirect] = "never" to keep the original path.
+  clone_mean_area: 212/213 with phenotype, 1 NA
+  wrote analysis/gwas/results/gwas/tierC_summary/bslmm_clone_mean_area.{hyp,gamma,param}.txt(.gz)
+=== Tier C BSLMM: resilience_30 ===
+ WARN cache for Repodata at /rhome/jstajich/.cache/rattler/cache/repodata is on a network/parallel filesystem (NFS/SMB/FUSE/BeeGFS/Lustre/GPFS/CephFS), redirected to /scratch/jstajich/27773639/pixi-cache-jstajich/repodata for this run. Set [cache.repodata] in config.toml or PIXI_CACHE_DIR to override, or [cache.netfs-redirect] = "never" to keep the original path.
+  resilience_30: 212/213 with phenotype, 1 NA
+  wrote analysis/gwas/results/gwas/tierC_summary/bslmm_resilience_30.{hyp,gamma,param}.txt(.gz)
+Tier C BSLMM complete: 5 traits x 213 strains.

@@ -1,0 +1,49 @@
+##
+## GEMMA Version    = 0.98.3 (2020-11-28)
+## Build profile    = 
+## GCC version      = 7.5.0
+## GSL Version      = 1.16
+## OpenBlas         = OpenBLAS 0.3.12  - OpenBLAS 0.3.25 DYNAMIC_ARCH NO_AFFINITY Zen MAX_THREADS=128
+##   arch           = Zen
+##   threads        = 2
+##   parallel type  = threaded
+##
+## Command Line Input = /bigdata/stajichlab/shared/projects/Population_Genomics/Rhodotorula_mucilaginosa_NRRLY2510/GWAS/vc2gwas_env/bin/gemma -bfile /scratch/jstajich/27773639/gwas_tierc/resilience_30/g -bslmm 1 -w 20000 -s 100000 -o bslmm_resilience_30 -outdir analysis/gwas/results/gwas/tierC_summary 
+##
+## Date = Tue Aug 25 22:04:25 2026
+##
+## Summary Statistics:
+## number of total individuals = 213
+## number of analyzed individuals = 212
+## number of covariates = 1
+## number of phenotypes = 1
+## number of total SNPs/var = 498484
+## number of analyzed SNPs/var = 496358
+## REMLE log-likelihood in the null model = -160.444
+## MLE log-likelihood in the null model = -160.617
+## pve estimate in the null model = 0.315565
+## se(pve) in the null model = 0.12223
+## vg estimate in the null model = 6.953e-310
+## ve estimate in the null model = -3.80703e-109
+## beta estimate in the null model = 
+## se(beta) = 
+## estimated mean = 0.709446
+##
+## MCMC related:
+## initial value of h = 0.315565
+## initial value of rho = 1
+## initial value of pi = 2.01467e-05
+## initial value of |gamma| = 10
+## random seed = -1
+## acceptance ratio = 0.191975
+##
+## Computation Time:
+## total computation time = 1.78702 min 
+## computation time break down: 
+##      time on calculating relatedness matrix = 0 min 
+##      time on eigen-decomposition = 0.0002444 min 
+##      time on calculating UtX = 0.263678 min 
+##      time on proposal = 1.06273 min 
+##      time on mcmc = 1.29974 min 
+##      time on Omega = 0.036707 min 
+##
