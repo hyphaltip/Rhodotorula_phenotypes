@@ -514,6 +514,57 @@ candidate genes (natural continuation of the deferred Tier D/E/G work, §"Next s
 Full results: `results/gwas/mas_gates/mas_gates.csv`, per-window detail in
 `timepoint_{trait}_{panel}.csv`.
 
+## 15. Fine-mapping toward candidate genes
+
+`scripts/finemap_candidate_genes.py` ports the original run's Wakefield-ABF fine-mapping
+method (z-space, prior SD=0.2 on the causal NCP, candidate filter p<1e-3, 90/95/99%
+credible sets by posterior probability — unchanged methodology, cited not re-derived) to
+this port's 8 validated `likely_real` loci, reusing the original run's genome annotation
+index (`gene_index.json`, 6,799 genes) as fixed reference material. Adds a fuller
+gene-window listing (every gene overlapping the ±100kb LD block already characterized in
+§14's LD-decay check, not just the single nearest gene) since these blocks span hundreds
+of SNPs in LD — a nearest-gene call alone is too narrow a candidate list here.
+
+| locus | 95% credible set size | lead PP | lead AF | nearest gene | product |
+|---|---|---|---|---|---|
+| cu_dose_slope (gwas) | 144 | 0.009 | 0.58 | OM429_001533 | hypothetical protein |
+| lab_L (gwas) | 125 | 0.010 | 0.22 | OM429_001415 | hypothetical protein |
+| **lab_a (gwas)** | **29** | **0.056** | 0.78 | OM429_003729 | histone chaperone |
+| lab_b (gwas) | 220 | 0.009 | 0.32 | OM429_005034 | GTPase-activating protein |
+| sat (gwas) | 101 | 0.011 | 0.43 | OM429_000065 | hypothetical protein |
+| lab_L (gwasc) | 152 | 0.009 | 0.28 | OM429_001430 | hypothetical protein |
+| **lab_a (gwasc)** | **37** | **0.047** | 0.83 | OM429_002663 | Saccharopine dehydrogenase |
+| lab_b (gwasc) | 368 | 0.004 | 0.70 | OM429_001521 | 8-oxoguanine glycosylase (ogg1) |
+
+**Credible sets remain wide** (29–368 SNPs at 95%) — consistent with §14's finding that
+each locus's LD block spans hundreds of SNPs; `lab_a`'s are the tightest (29 gwas, 37
+gwasc), matching it having the strongest overall signal of the eight. Note `lab_a`'s two
+panel-specific loci are on **different scaffolds entirely** (scaffold_8 in gwas,
+scaffold_5 in gwasc) — these are two distinct candidate regions for the same trait, not
+the same locus with two nearby gene names; both independently passed the within-population
+replication test (§13), so both are worth carrying forward rather than picking one.
+
+**Honest negative result**: a keyword search across all 561 gene-window rows (phytoene,
+carotenoid, torulene, torularhodin, crtY/I/E/B, lycopene, and related pigment-pathway
+terms) found **no direct carotenoid/pigment-biosynthesis gene** within any of the 8 loci's
+±100kb windows. The two "desaturase" hits found (`lab_b`'s stearoyl-CoA 9-desaturases,
+~50kb away) are fatty-acid desaturases, a different pathway, not carotenoid desaturases.
+Nearest genes to the 8 lead SNPs are a mix of hypothetical proteins (3/8) and
+generically-annotated genes (histone chaperone, GTPase-activating protein, saccharopine
+dehydrogenase, 8-oxoguanine glycosylase) — none obviously pigment-pathway by name. This
+is reported as a genuine open question, not glossed over: either (a) the causal gene in
+these broad LD blocks is present but poorly annotated (several "hypothetical protein"
+candidates warrant closer look — e.g. via homology search against characterized fungal
+carotenoid pathways rather than this genome's own product-name annotation), (b) the
+causal variant acts through a non-pigment-pathway mechanism (e.g. general stress/
+membrane/chromatin regulation affecting pigment accumulation indirectly — histone
+chaperone and saccharopine dehydrogenase, `lab_a`'s two nearest genes, are at least
+plausible indirect-regulation candidates), or (c) finer resolution (denser markers,
+functional data) is needed to narrow these still-broad blocks further.
+
+Full tables: `results/gwas/tierE/candidate_genes_credible_sets.csv` (credible-set level),
+`candidate_genes_window.csv` (every gene per locus window, 561 rows).
+
 ## Session summary (2026-08-25/26)
 
 All of Tier A (corrected), Tier B, Tier C, and LOCO are now complete for this port. The
