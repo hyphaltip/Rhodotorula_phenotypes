@@ -69,8 +69,9 @@ analysis/gwas/results/gwas/grm_conditioning/rebuilt_kinship_culled/gwasc.fam
 analysis/gwas/results/gwas/tierC_summary/*.param.txt
 analysis/gwas/results/gwas/tierC_summary/*.bv.txt
 analysis/gwas/results/gwas/tierC_summary/superseded_short_chain/*.param.txt
-analysis/gwas/results/gwas/loco/output/
-!analysis/gwas/results/gwas/loco/output/loco_merged_*.csv
+analysis/gwas/results/gwas/loco/output/*.assoc.txt
+analysis/gwas/results/gwas/loco/output/*.assoc.txt.gz
+analysis/gwas/results/gwas/loco/output/*.log.txt
 analysis/gwas/data/db_extract.parquet
 
 # Ideation session 2026-08-15: large derived intermediate extract is rebuildable

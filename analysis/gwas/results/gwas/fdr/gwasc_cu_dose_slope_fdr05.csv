@@ -1,0 +1,2 @@
+chr,rs,ps,n_miss,allele1,allele0,af,beta,se,logl_H1,l_remle,l_mle,p_wald,p_lrt,p_score
+7,scaffold_7:897138:C:T,897138,0,T,C,0.017,-0.02346946,0.003583279,532.452,8.648767,8.959947,5.912116e-10,1.198523e-09,6.678155e-08
