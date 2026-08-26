@@ -265,23 +265,38 @@ scripts:
   - analysis/gwas/scripts/check_ploidy.py
   - analysis/gwas/scripts/diff_strain_state.py
   - analysis/gwas/scripts/check_grm_conditioning.py
-  - analysis/gwas/scripts/rebuild_tiers_abc.sh
+  - analysis/gwas/scripts/cull_near_clones.py
+  - analysis/gwas/scripts/rebuild_full_genotypes_and_tiera.sh    # supersedes rebuild_tiers_abc.sh's Tier A scope
+  - analysis/gwas/scripts/resume_tiera_gemma.sh
   - analysis/gwas/scripts/build_gwas_phenotypes.py
-  - analysis/gwas/scripts/run_tiera_gemma.sh
   - analysis/gwas/scripts/summarize_tiera.py
+  - analysis/gwas/scripts/convert_assoc_for_tierb.py
+  - analysis/gwas/scripts/check_population_confounding.py
+  - analysis/gwas/scripts/run_tierb.sh + tierb_set_tests.py
+  - analysis/gwas/scripts/run_tierc_bslmm.sh + summarize_tierc.py
+  - analysis/gwas/scripts/run_loco.sh + run_loco_shared.sh + merge_loco.py
 outputs:
   - analysis/gwas/results/strain_reconciliation/strain_match_table.reviewed.csv
   - analysis/gwas/results/ploidy_check/ploidy_flags.csv
   - analysis/gwas/results/strain_state_diff/state_diff_report.json
-  - analysis/gwas/results/gwas/grm_conditioning/{grm_diagnostic.json,rebuilt_kinship/}
-  - analysis/gwas/results/gwas/tierA_summary/{gemma_output/,tiera_summary.csv}
-  - analysis/gwas/results/gwas/fdr/*_fdr05.csv
-reproduce: bash analysis/gwas/run.sh (human-review gates at reconciliation and ploidy steps; SLURM submission steps for the kinship rebuild and Tier A scan documented inline)
-status: in-progress (Tier A rebuild complete on 213-strain panel; Tier B/SKAT, Tier C/BSLMM, LOCO, and pixy reuse-validity all pending -- near-clone culling algorithm behind the culled-173 partition was never saved as reusable code in the original run and has not yet been reconstructed)
+  - analysis/gwas/results/gwas/near_clone_culling/culled_keep.txt
+  - analysis/gwas/results/gwas/grm_conditioning/{grm_diagnostic.json,grm_diagnostic_culled.json,rebuilt_kinship/,rebuilt_kinship_culled/}
+  - analysis/gwas/results/gwas/tierA_summary/{tiera_summary_gwas.csv,tiera_summary_gwasc.csv,assoc_csv/,fdr/}
+  - analysis/gwas/results/gwas/tierA_summary/population_confounding_{gwas,gwasc}.csv
+  - analysis/gwas/results/gwas/tierB/tierb_settests_{gwas,gwasc}.csv
+  - analysis/gwas/results/gwas/tierC_summary/{tierc_bslmm_summary.csv,pip/}
+  - analysis/gwas/results/gwas/loco/output/loco_merged_{gwas,gwasc}.csv
+reproduce: bash analysis/gwas/run.sh (human-review gates at reconciliation and ploidy steps; SLURM submission steps for the kinship rebuild, Tier A/B/C, and LOCO documented inline in each script's header)
+status: in-progress (Tier A [corrected, full unpruned SNP set], Tier B, Tier C, and LOCO all complete on both the 213-strain and 182-strain near-clone-culled panels; Tier D/E/G gene annotation/fine-mapping/replication not started; pixy reused from the prior 201-strain run as a documented approximation, not recomputed)
 key_findings:
   - Audited reconciliation accepted 213/308 phenotype strains (12 more than the prior informal our200.txt match), all 62 fuzzy candidates hand-reviewed and rejected as coincidental string similarity, 0 removed vs. prior run.
   - Ploidy check confirms haploid GT encoding genome-wide (0 het in every strain); 46/213 strains flag watch_contamination (depth >2.5x panel median) and 14 watch (1.5-2.5x) -- kept per user decision, informational only for now.
-  - GRM conditioning diagnostic flagged singular_risk (condition_number=2.1e11) but investigation traced it to a genuine, small near-clone triplet (DBVPG_5757/5758/5759, same collection batch) plus one benign GRM-centering null eigenvalue -- consistent with D-9's precedent, not new pathology.
-  - Tier A GEMMA rebuild (12 traits, 213 strains): resilience_30/AUC_30 replicate the prior run's scaffold_13:810026 anchor cleanly; chroma's signal shifted substantially (prior scaffold_10:384905 p=2.4e-8/345 FDR-sig vs. this run's scaffold_8:831789 p=1.3e-6/1 FDR-sig) -- flagged for investigation, not yet explained.
-tags: [gwas, gemma, rhodotorula, mucilaginosa, copper, color, kinship, ploidy, strain-reconciliation, ported, in-progress]
+  - GRM conditioning diagnostic flagged singular_risk (condition_number ~2e11) on both panels, but investigation traced it to a small near-clone triplet (DBVPG_5757/5758/5759) plus one benign GRM-centering null eigenvalue -- consistent with D-9's precedent, not new pathology.
+  - Population-structure check (GRM PC1=33%/PC2=10% var explained, cleanly separating 6 subpopulations, Fst~0.45) confirms real structure but kinship-only LMM is already the correct correction (D-9); no additional PC/population covariate is warranted or would even run (collinearity with near-clone eigenvectors).
+  - Near-clone IBS0 culling reconstructed as reusable code (never saved originally), validated at 93.6% membership overlap against the prior run's known 173-strain result; 182/213 kept on the new panel.
+  - **resilience_30/AUC_30's scaffold_13:810026 anchor is the standout robust finding**, replicating across every panel and method tested (prior 201-strain run, full-213, full-182-culled, LOCO with chr13 excluded from kinship, and clean on the population-confounding check) at p ranging 6.4e-9 to 8.7e-10; independently corroborated at lower confidence by Tier C BSLMM's nearby top locus (scaffold_13:793374, ~17kb away). Not in a high-dxy window (Tier B), consistent with standing variation rather than deep population divergence.
+  - chroma's top hit is unstable across every SNP-set/panel choice tried (5 different top loci across 5 variants) and is NOT population-confounded -- cause still open, flagged not to be cited as a replicated finding.
+  - Tier B: no set-level (burden/SKAT) signal survives BH-FDR in either panel, matching the original run's pattern exactly.
+  - Tier C BSLMM architecture looks substantively more polygenic here than the original run (no locus reaches PIP>=0.5 in any of the 5 traits tested, vs. the original's several near-oligogenic PIP~1.0 loci) -- not yet explained, candidate causes include the larger unpruned marker set diluting PIP and/or the different near-clone structure.
+tags: [gwas, gemma, rhodotorula, mucilaginosa, copper, color, kinship, ploidy, strain-reconciliation, near-clone-culling, tierb, tierc, bslmm, loco, population-structure, ported, in-progress]
 ```
