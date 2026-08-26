@@ -6,7 +6,7 @@
   "indel_vcf_screened_only": {
     "path": "data/raw/genotypes/RmucY2510_v2/RmucY2510_v2.All.INDEL.combined_selected.vcf.gz",
     "sha256": "9081c5e141b873161b5ad74e5fadad22fcec376a5ad158439b016260418bf062",
-    "note": "screened for presence/absence within each gene's CDS +/- 2kb flank only; never used to build any sequence"
+    "note": "screened read-only for CDS-exon overlap; NEVER used to build any sequence. 2026-08-26 CORRECTION: the pilot's screen_indels.sh silently reported 0 for all genes because the toolchain (bcftools) was not on PATH in that session -- the pipe + `|| true` swallowed the failure. The real INDEL VCF has 362-777 records in every candidate gene's CDS+/-2kb and segregating in-CDS indels in all 10 genes (see gene_coding_indel_screen.csv)."
   },
   "genome_fasta": "/bigdata/stajichlab/shared/projects/Population_Genomics/Rhodotorula_mucilaginosa_NRRLY2510/genome/Rhodotorula_mucilaginosa_NRRL_Y-2510.scaffolds.fa",
   "gff3": "/bigdata/stajichlab/shared/projects/Population_Genomics/Rhodotorula_mucilaginosa_NRRLY2510/genome/Rhodotorula_mucilaginosa_NRRL_Y-2510.gff3.gz",
@@ -16,23 +16,44 @@
     "module_used": "snpEff/4.3m",
     "data_dir": "/bigdata/stajichlab/shared/projects/Population_Genomics/Rhodotorula_mucilaginosa_NRRLY2510/snpEff/data",
     "config": "/bigdata/stajichlab/shared/projects/Population_Genomics/Rhodotorula_mucilaginosa_NRRLY2510/snpEff/snpEff.config",
-    "note": "must load snpEff/4.3m specifically -- the default-loaded snpEff module (5.1) refuses this database (version mismatch)"
+    "note": "must load snpEff/4.3m (default 5.1 refuses this DB) AND pass -dataDir pointing at .../snpEff/data -- the DB config's own `data.dir = ./data/` is relative and resolves to the repo root when run from here, so snpEff tries to download the DB without the explicit -dataDir. java must be absolute too (module load snpEff resets PATH and drops java)."
   },
   "accepted_strain_list": "analysis/gwas/results/strain_reconciliation/accepted_vcf_ids.txt",
   "population_map": "analysis/gwas/data/prior_run_state/pop_assignment_at_run.csv",
   "phenotype_csv": "analysis/gwas/results/gwas_next_phenotypes.csv",
+  "target_genes": ["OM429_003333", "OM429_003336", "OM429_001533", "OM429_001415", "OM429_001430", "OM429_003729", "OM429_002663", "OM429_005034", "OM429_001521", "OM429_000065"],
   "pilot_genes": ["OM429_003333", "OM429_003336"],
-  "pilot_date": "2026-08-26",
+  "extended_genes": ["OM429_001533", "OM429_001415", "OM429_001430", "OM429_003729", "OM429_002663", "OM429_005034", "OM429_001521", "OM429_000065"],
+  "extension_date": "2026-08-26",
   "reference_strain_sanity_check": {
     "strain": "NRRL_Y-2510",
     "present_in_213_panel": true,
     "genotype_calls_checked": 139,
     "homozygous_ref_calls": 139,
     "alt_calls": 0,
-    "result": "PASS -- reference-genome strain is 0/0 at every CDS variant site in both pilot genes, confirming no systematic substitution bug"
+    "result": "PASS for the pilot SNP table -- reference-genome strain is 0/0 at every CDS variant site in both pilot genes. NOTE this validates the SNP substitution pipeline, not the indel question (separate screen)."
   },
   "indel_screen_result": {
-    "OM429_003333": {"region": "scaffold_7:166525-172261", "n_indels": 0},
-    "OM429_003336": {"region": "scaffold_7:171916-177999", "n_indels": 0}
-  }
+    "note": "flank-window counts (screen_indels.sh, corrected 2026-08-26 -- previous 0s were a silent toolchain failure). See gene_coding_indel_screen.csv for the EXACT CDS-exon-overlap counts.",
+    "OM429_003333": {"region": "scaffold_7:166525-172261", "n_indels": 433},
+    "OM429_003336": {"region": "scaffold_7:171916-177999", "n_indels": 821},
+    "OM429_001533": {"region": "scaffold_3:542610-548394", "n_indels": 499},
+    "OM429_001415": {"region": "scaffold_3:225541-231892", "n_indels": 397},
+    "OM429_001430": {"region": "scaffold_3:262409-268988", "n_indels": 593},
+    "OM429_003729": {"region": "scaffold_8:36699-43014", "n_indels": 484},
+    "OM429_002663": {"region": "scaffold_5:880726-886304", "n_indels": 402},
+    "OM429_005034": {"region": "scaffold_11:606768-614742", "n_indels": 777},
+    "OM429_001521": {"region": "scaffold_3:500667-506489", "n_indels": 362},
+    "OM429_000065": {"region": "scaffold_1:205031-214775", "n_indels": 585}
+  },
+  "cds_exon_indel_screen": "analysis/candidate_gene_alignment/results/gene_coding_indel_screen.csv",
+  "phenotype_association": {
+    "snp_coding_variants": "analysis/candidate_gene_alignment/results/candidate_gene_phenotype_assoc.csv",
+    "indel_variants_pilot": "analysis/candidate_gene_alignment/results/candidate_indel_phenotype_assoc_pilot.csv"
+  },
+  "tool_fixes_2026-08-26": [
+    "screen_indels.sh now FAILS LOUDLY instead of silently reporting 0 when bcftools is missing or the tabix index is absent",
+    "run_extend_to_gwas_genes.sh hardcodes BCFTOOLS/SAMTOOLS/JAVA absolute paths + htslib/libdeflate LD_LIBRARY_PATH + java/htslib bin dirs on PATH (pixi and module loads each silently reset these)",
+    "snpEff batch invocation passes -dataDir <.../snpEff/data> explicitly"
+  ]
 }

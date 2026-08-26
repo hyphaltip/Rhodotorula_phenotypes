@@ -1,0 +1,290 @@
+
+############################################################
+# OM429_001533  (scaffold_3:544610-546394, cu_dose_slope/gwas, lead=scaffold_3:546065)
+############################################################
+--- step 1/5: extract gene sequences ---
+ WARN cache for Repodata at /rhome/jstajich/.cache/rattler/cache/repodata is on a network/parallel filesystem (NFS/SMB/FUSE/BeeGFS/Lustre/GPFS/CephFS), redirected to /scratch/jstajich/27725761/pixi-cache-jstajich/repodata for this run. Set [cache.repodata] in config.toml or PIXI_CACHE_DIR to override, or [cache.netfs-redirect] = "never" to keep the original path.
+Strains: 213
+
+=== OM429_001533 ===
+  scaffold_3 - 7 exon(s)
+  CDS length: 1356 bp, 77 variant sites
+  premature stop codons: 0/213 strains
+  protein lengths seen: [451]
+  strains with >=1 missing (N) site: 0
+  polymorphic CDS positions (0 constant columns dropped): 64
+--- step 2/5: indel screen ---
+Indel screen for OM429_001533 (scaffold_3:542610-548394): 499 indel sites -- see analysis/candidate_gene_alignment/results/OM429_001533/indel_screen.csv
+--- step 3/5: snpEff annotation ---
+   snpEff log tail:
+--- step 4/5: build variant table ---
+ WARN cache for Repodata at /rhome/jstajich/.cache/rattler/cache/repodata is on a network/parallel filesystem (NFS/SMB/FUSE/BeeGFS/Lustre/GPFS/CephFS), redirected to /scratch/jstajich/27725761/pixi-cache-jstajich/repodata for this run. Set [cache.repodata] in config.toml or PIXI_CACHE_DIR to override, or [cache.netfs-redirect] = "never" to keep the original path.
+OM429_001533: 215 annotated CDS-region variant rows -> analysis/candidate_gene_alignment/results/OM429_001533/variant_table.csv
+  consequence counts:
+consequence
+downstream_gene_variant                     75
+upstream_gene_variant                       63
+synonymous_variant                          57
+missense_variant                             9
+intron_variant                               9
+splice_region_variant&intron_variant         1
+splice_region_variant&synonymous_variant     1
+  strain context (population/phenotype/lead-SNP-genotype) -> analysis/candidate_gene_alignment/results/OM429_001533/variant_table_strain_context.csv
+--- step 5/5: render alignment image ---
+ WARN cache for Repodata at /rhome/jstajich/.cache/rattler/cache/repodata is on a network/parallel filesystem (NFS/SMB/FUSE/BeeGFS/Lustre/GPFS/CephFS), redirected to /scratch/jstajich/27725761/pixi-cache-jstajich/repodata for this run. Set [cache.repodata] in config.toml or PIXI_CACHE_DIR to override, or [cache.netfs-redirect] = "never" to keep the original path.
+OM429_001533: alignment image -> analysis/candidate_gene_alignment/results/OM429_001533/alignment.png (213 strains x 64 positions)
+completed OM429_001533
+
+############################################################
+# OM429_001415  (scaffold_3:227541-229892, lab_L/gwas, lead=scaffold_3:229210)
+############################################################
+--- step 1/5: extract gene sequences ---
+ WARN cache for Repodata at /rhome/jstajich/.cache/rattler/cache/repodata is on a network/parallel filesystem (NFS/SMB/FUSE/BeeGFS/Lustre/GPFS/CephFS), redirected to /scratch/jstajich/27725761/pixi-cache-jstajich/repodata for this run. Set [cache.repodata] in config.toml or PIXI_CACHE_DIR to override, or [cache.netfs-redirect] = "never" to keep the original path.
+Strains: 213
+
+=== OM429_001415 ===
+  scaffold_3 - 12 exon(s)
+  CDS length: 1488 bp, 95 variant sites
+  premature stop codons: 0/213 strains
+  protein lengths seen: [495]
+  strains with >=1 missing (N) site: 0
+  polymorphic CDS positions (0 constant columns dropped): 60
+--- step 2/5: indel screen ---
+Indel screen for OM429_001415 (scaffold_3:225541-231892): 397 indel sites -- see analysis/candidate_gene_alignment/results/OM429_001415/indel_screen.csv
+--- step 3/5: snpEff annotation ---
+   snpEff log tail:
+--- step 4/5: build variant table ---
+ WARN cache for Repodata at /rhome/jstajich/.cache/rattler/cache/repodata is on a network/parallel filesystem (NFS/SMB/FUSE/BeeGFS/Lustre/GPFS/CephFS), redirected to /scratch/jstajich/27725761/pixi-cache-jstajich/repodata for this run. Set [cache.repodata] in config.toml or PIXI_CACHE_DIR to override, or [cache.netfs-redirect] = "never" to keep the original path.
+OM429_001415: 230 annotated CDS-region variant rows -> analysis/candidate_gene_alignment/results/OM429_001415/variant_table.csv
+  consequence counts:
+consequence
+downstream_gene_variant                     75
+upstream_gene_variant                       60
+synonymous_variant                          51
+intron_variant                              29
+missense_variant                             9
+splice_region_variant&intron_variant         4
+splice_region_variant&synonymous_variant     2
+  strain context (population/phenotype/lead-SNP-genotype) -> analysis/candidate_gene_alignment/results/OM429_001415/variant_table_strain_context.csv
+--- step 5/5: render alignment image ---
+ WARN cache for Repodata at /rhome/jstajich/.cache/rattler/cache/repodata is on a network/parallel filesystem (NFS/SMB/FUSE/BeeGFS/Lustre/GPFS/CephFS), redirected to /scratch/jstajich/27725761/pixi-cache-jstajich/repodata for this run. Set [cache.repodata] in config.toml or PIXI_CACHE_DIR to override, or [cache.netfs-redirect] = "never" to keep the original path.
+OM429_001415: alignment image -> analysis/candidate_gene_alignment/results/OM429_001415/alignment.png (213 strains x 60 positions)
+completed OM429_001415
+
+############################################################
+# OM429_001430  (scaffold_3:264409-266988, lab_L/gwasc, lead=scaffold_3:265939)
+############################################################
+--- step 1/5: extract gene sequences ---
+ WARN cache for Repodata at /rhome/jstajich/.cache/rattler/cache/repodata is on a network/parallel filesystem (NFS/SMB/FUSE/BeeGFS/Lustre/GPFS/CephFS), redirected to /scratch/jstajich/27725761/pixi-cache-jstajich/repodata for this run. Set [cache.repodata] in config.toml or PIXI_CACHE_DIR to override, or [cache.netfs-redirect] = "never" to keep the original path.
+Strains: 213
+
+=== OM429_001430 ===
+  scaffold_3 + 12 exon(s)
+  CDS length: 1701 bp, 122 variant sites
+  premature stop codons: 0/213 strains
+  protein lengths seen: [566]
+  strains with >=1 missing (N) site: 0
+  polymorphic CDS positions (0 constant columns dropped): 88
+--- step 2/5: indel screen ---
+Indel screen for OM429_001430 (scaffold_3:262409-268988): 593 indel sites -- see analysis/candidate_gene_alignment/results/OM429_001430/indel_screen.csv
+--- step 3/5: snpEff annotation ---
+   snpEff log tail:
+--- step 4/5: build variant table ---
+ WARN cache for Repodata at /rhome/jstajich/.cache/rattler/cache/repodata is on a network/parallel filesystem (NFS/SMB/FUSE/BeeGFS/Lustre/GPFS/CephFS), redirected to /scratch/jstajich/27725761/pixi-cache-jstajich/repodata for this run. Set [cache.repodata] in config.toml or PIXI_CACHE_DIR to override, or [cache.netfs-redirect] = "never" to keep the original path.
+OM429_001430: 240 annotated CDS-region variant rows -> analysis/candidate_gene_alignment/results/OM429_001430/variant_table.csv
+  consequence counts:
+consequence
+upstream_gene_variant                       73
+synonymous_variant                          63
+downstream_gene_variant                     45
+missense_variant                            25
+intron_variant                              24
+splice_region_variant&intron_variant         9
+splice_region_variant&synonymous_variant     1
+  strain context (population/phenotype/lead-SNP-genotype) -> analysis/candidate_gene_alignment/results/OM429_001430/variant_table_strain_context.csv
+--- step 5/5: render alignment image ---
+ WARN cache for Repodata at /rhome/jstajich/.cache/rattler/cache/repodata is on a network/parallel filesystem (NFS/SMB/FUSE/BeeGFS/Lustre/GPFS/CephFS), redirected to /scratch/jstajich/27725761/pixi-cache-jstajich/repodata for this run. Set [cache.repodata] in config.toml or PIXI_CACHE_DIR to override, or [cache.netfs-redirect] = "never" to keep the original path.
+OM429_001430: alignment image -> analysis/candidate_gene_alignment/results/OM429_001430/alignment.png (213 strains x 88 positions)
+completed OM429_001430
+
+############################################################
+# OM429_003729  (scaffold_8:38699-41014, lab_a/gwas, lead=scaffold_8:38068)
+############################################################
+--- step 1/5: extract gene sequences ---
+ WARN cache for Repodata at /rhome/jstajich/.cache/rattler/cache/repodata is on a network/parallel filesystem (NFS/SMB/FUSE/BeeGFS/Lustre/GPFS/CephFS), redirected to /scratch/jstajich/27725761/pixi-cache-jstajich/repodata for this run. Set [cache.repodata] in config.toml or PIXI_CACHE_DIR to override, or [cache.netfs-redirect] = "never" to keep the original path.
+Strains: 213
+
+=== OM429_003729 ===
+  scaffold_8 - 7 exon(s)
+  CDS length: 1365 bp, 81 variant sites
+  premature stop codons: 0/213 strains
+  protein lengths seen: [454]
+  strains with >=1 missing (N) site: 0
+  polymorphic CDS positions (0 constant columns dropped): 46
+--- step 2/5: indel screen ---
+Indel screen for OM429_003729 (scaffold_8:36699-43014): 484 indel sites -- see analysis/candidate_gene_alignment/results/OM429_003729/indel_screen.csv
+--- step 3/5: snpEff annotation ---
+   snpEff log tail:
+--- step 4/5: build variant table ---
+ WARN cache for Repodata at /rhome/jstajich/.cache/rattler/cache/repodata is on a network/parallel filesystem (NFS/SMB/FUSE/BeeGFS/Lustre/GPFS/CephFS), redirected to /scratch/jstajich/27725761/pixi-cache-jstajich/repodata for this run. Set [cache.repodata] in config.toml or PIXI_CACHE_DIR to override, or [cache.netfs-redirect] = "never" to keep the original path.
+OM429_003729: 218 annotated CDS-region variant rows -> analysis/candidate_gene_alignment/results/OM429_003729/variant_table.csv
+  consequence counts:
+consequence
+upstream_gene_variant                       76
+downstream_gene_variant                     61
+synonymous_variant                          45
+intron_variant                              23
+missense_variant                             9
+splice_region_variant&intron_variant         3
+splice_region_variant&synonymous_variant     1
+  strain context (population/phenotype/lead-SNP-genotype) -> analysis/candidate_gene_alignment/results/OM429_003729/variant_table_strain_context.csv
+--- step 5/5: render alignment image ---
+ WARN cache for Repodata at /rhome/jstajich/.cache/rattler/cache/repodata is on a network/parallel filesystem (NFS/SMB/FUSE/BeeGFS/Lustre/GPFS/CephFS), redirected to /scratch/jstajich/27725761/pixi-cache-jstajich/repodata for this run. Set [cache.repodata] in config.toml or PIXI_CACHE_DIR to override, or [cache.netfs-redirect] = "never" to keep the original path.
+OM429_003729: alignment image -> analysis/candidate_gene_alignment/results/OM429_003729/alignment.png (213 strains x 46 positions)
+completed OM429_003729
+
+############################################################
+# OM429_002663  (scaffold_5:882726-884304, lab_a/gwasc, lead=scaffold_5:882396)
+############################################################
+--- step 1/5: extract gene sequences ---
+ WARN cache for Repodata at /rhome/jstajich/.cache/rattler/cache/repodata is on a network/parallel filesystem (NFS/SMB/FUSE/BeeGFS/Lustre/GPFS/CephFS), redirected to /scratch/jstajich/27725761/pixi-cache-jstajich/repodata for this run. Set [cache.repodata] in config.toml or PIXI_CACHE_DIR to override, or [cache.netfs-redirect] = "never" to keep the original path.
+Strains: 213
+
+=== OM429_002663 ===
+  scaffold_5 - 5 exon(s)
+  CDS length: 1191 bp, 56 variant sites
+  premature stop codons: 0/213 strains
+  protein lengths seen: [396]
+  strains with >=1 missing (N) site: 0
+  polymorphic CDS positions (0 constant columns dropped): 34
+--- step 2/5: indel screen ---
+Indel screen for OM429_002663 (scaffold_5:880726-886304): 402 indel sites -- see analysis/candidate_gene_alignment/results/OM429_002663/indel_screen.csv
+--- step 3/5: snpEff annotation ---
+   snpEff log tail:
+--- step 4/5: build variant table ---
+ WARN cache for Repodata at /rhome/jstajich/.cache/rattler/cache/repodata is on a network/parallel filesystem (NFS/SMB/FUSE/BeeGFS/Lustre/GPFS/CephFS), redirected to /scratch/jstajich/27725761/pixi-cache-jstajich/repodata for this run. Set [cache.repodata] in config.toml or PIXI_CACHE_DIR to override, or [cache.netfs-redirect] = "never" to keep the original path.
+OM429_002663: 196 annotated CDS-region variant rows -> analysis/candidate_gene_alignment/results/OM429_002663/variant_table.csv
+  consequence counts:
+consequence
+downstream_gene_variant                 78
+upstream_gene_variant                   62
+synonymous_variant                      32
+missense_variant                        14
+intron_variant                           9
+splice_region_variant&intron_variant     1
+  strain context (population/phenotype/lead-SNP-genotype) -> analysis/candidate_gene_alignment/results/OM429_002663/variant_table_strain_context.csv
+--- step 5/5: render alignment image ---
+ WARN cache for Repodata at /rhome/jstajich/.cache/rattler/cache/repodata is on a network/parallel filesystem (NFS/SMB/FUSE/BeeGFS/Lustre/GPFS/CephFS), redirected to /scratch/jstajich/27725761/pixi-cache-jstajich/repodata for this run. Set [cache.repodata] in config.toml or PIXI_CACHE_DIR to override, or [cache.netfs-redirect] = "never" to keep the original path.
+OM429_002663: alignment image -> analysis/candidate_gene_alignment/results/OM429_002663/alignment.png (213 strains x 34 positions)
+completed OM429_002663
+
+############################################################
+# OM429_005034  (scaffold_11:608768-612742, lab_b/gwas, lead=scaffold_11:608491)
+############################################################
+--- step 1/5: extract gene sequences ---
+ WARN cache for Repodata at /rhome/jstajich/.cache/rattler/cache/repodata is on a network/parallel filesystem (NFS/SMB/FUSE/BeeGFS/Lustre/GPFS/CephFS), redirected to /scratch/jstajich/27725761/pixi-cache-jstajich/repodata for this run. Set [cache.repodata] in config.toml or PIXI_CACHE_DIR to override, or [cache.netfs-redirect] = "never" to keep the original path.
+Strains: 213
+
+=== OM429_005034 ===
+  scaffold_11 + 11 exon(s)
+  CDS length: 2709 bp, 161 variant sites
+  premature stop codons: 6/213 strains
+  protein lengths seen: [36, 902]
+  strains with >=1 missing (N) site: 0
+  polymorphic CDS positions (0 constant columns dropped): 105
+--- step 2/5: indel screen ---
+Indel screen for OM429_005034 (scaffold_11:606768-614742): 777 indel sites -- see analysis/candidate_gene_alignment/results/OM429_005034/indel_screen.csv
+--- step 3/5: snpEff annotation ---
+   snpEff log tail:
+--- step 4/5: build variant table ---
+ WARN cache for Repodata at /rhome/jstajich/.cache/rattler/cache/repodata is on a network/parallel filesystem (NFS/SMB/FUSE/BeeGFS/Lustre/GPFS/CephFS), redirected to /scratch/jstajich/27725761/pixi-cache-jstajich/repodata for this run. Set [cache.repodata] in config.toml or PIXI_CACHE_DIR to override, or [cache.netfs-redirect] = "never" to keep the original path.
+OM429_005034: 328 annotated CDS-region variant rows -> analysis/candidate_gene_alignment/results/OM429_005034/variant_table.csv
+  consequence counts:
+consequence
+upstream_gene_variant                       91
+synonymous_variant                          85
+downstream_gene_variant                     76
+intron_variant                              40
+missense_variant                            18
+splice_region_variant&intron_variant        10
+splice_region_variant&synonymous_variant     7
+stop_gained                                  1
+  strain context (population/phenotype/lead-SNP-genotype) -> analysis/candidate_gene_alignment/results/OM429_005034/variant_table_strain_context.csv
+--- step 5/5: render alignment image ---
+ WARN cache for Repodata at /rhome/jstajich/.cache/rattler/cache/repodata is on a network/parallel filesystem (NFS/SMB/FUSE/BeeGFS/Lustre/GPFS/CephFS), redirected to /scratch/jstajich/27725761/pixi-cache-jstajich/repodata for this run. Set [cache.repodata] in config.toml or PIXI_CACHE_DIR to override, or [cache.netfs-redirect] = "never" to keep the original path.
+OM429_005034: alignment image -> analysis/candidate_gene_alignment/results/OM429_005034/alignment.png (213 strains x 105 positions)
+completed OM429_005034
+
+############################################################
+# OM429_001521  (scaffold_3:502667-504489, lab_b/gwasc, lead=scaffold_3:503756)
+############################################################
+--- step 1/5: extract gene sequences ---
+ WARN cache for Repodata at /rhome/jstajich/.cache/rattler/cache/repodata is on a network/parallel filesystem (NFS/SMB/FUSE/BeeGFS/Lustre/GPFS/CephFS), redirected to /scratch/jstajich/27725761/pixi-cache-jstajich/repodata for this run. Set [cache.repodata] in config.toml or PIXI_CACHE_DIR to override, or [cache.netfs-redirect] = "never" to keep the original path.
+Strains: 213
+
+=== OM429_001521 ===
+  scaffold_3 - 3 exon(s)
+  CDS length: 1662 bp, 68 variant sites
+  premature stop codons: 0/213 strains
+  protein lengths seen: [553]
+  strains with >=1 missing (N) site: 0
+  polymorphic CDS positions (0 constant columns dropped): 61
+--- step 2/5: indel screen ---
+Indel screen for OM429_001521 (scaffold_3:500667-506489): 362 indel sites -- see analysis/candidate_gene_alignment/results/OM429_001521/indel_screen.csv
+--- step 3/5: snpEff annotation ---
+   snpEff log tail:
+--- step 4/5: build variant table ---
+ WARN cache for Repodata at /rhome/jstajich/.cache/rattler/cache/repodata is on a network/parallel filesystem (NFS/SMB/FUSE/BeeGFS/Lustre/GPFS/CephFS), redirected to /scratch/jstajich/27725761/pixi-cache-jstajich/repodata for this run. Set [cache.repodata] in config.toml or PIXI_CACHE_DIR to override, or [cache.netfs-redirect] = "never" to keep the original path.
+OM429_001521: 226 annotated CDS-region variant rows -> analysis/candidate_gene_alignment/results/OM429_001521/variant_table.csv
+  consequence counts:
+consequence
+upstream_gene_variant                       86
+downstream_gene_variant                     72
+synonymous_variant                          48
+missense_variant                            14
+intron_variant                               5
+splice_region_variant&synonymous_variant     1
+  strain context (population/phenotype/lead-SNP-genotype) -> analysis/candidate_gene_alignment/results/OM429_001521/variant_table_strain_context.csv
+--- step 5/5: render alignment image ---
+ WARN cache for Repodata at /rhome/jstajich/.cache/rattler/cache/repodata is on a network/parallel filesystem (NFS/SMB/FUSE/BeeGFS/Lustre/GPFS/CephFS), redirected to /scratch/jstajich/27725761/pixi-cache-jstajich/repodata for this run. Set [cache.repodata] in config.toml or PIXI_CACHE_DIR to override, or [cache.netfs-redirect] = "never" to keep the original path.
+OM429_001521: alignment image -> analysis/candidate_gene_alignment/results/OM429_001521/alignment.png (213 strains x 61 positions)
+completed OM429_001521
+
+############################################################
+# OM429_000065  (scaffold_1:207031-212775, sat/gwas, lead=scaffold_1:208569)
+############################################################
+--- step 1/5: extract gene sequences ---
+ WARN cache for Repodata at /rhome/jstajich/.cache/rattler/cache/repodata is on a network/parallel filesystem (NFS/SMB/FUSE/BeeGFS/Lustre/GPFS/CephFS), redirected to /scratch/jstajich/27725761/pixi-cache-jstajich/repodata for this run. Set [cache.repodata] in config.toml or PIXI_CACHE_DIR to override, or [cache.netfs-redirect] = "never" to keep the original path.
+Strains: 213
+
+=== OM429_000065 ===
+  scaffold_1 + 17 exon(s)
+  CDS length: 3858 bp, 244 variant sites
+  premature stop codons: 0/213 strains
+  protein lengths seen: [1285]
+  strains with >=1 missing (N) site: 0
+  polymorphic CDS positions (0 constant columns dropped): 157
+--- step 2/5: indel screen ---
+Indel screen for OM429_000065 (scaffold_1:205031-214775): 585 indel sites -- see analysis/candidate_gene_alignment/results/OM429_000065/indel_screen.csv
+--- step 3/5: snpEff annotation ---
+   snpEff log tail:
+--- step 4/5: build variant table ---
+ WARN cache for Repodata at /rhome/jstajich/.cache/rattler/cache/repodata is on a network/parallel filesystem (NFS/SMB/FUSE/BeeGFS/Lustre/GPFS/CephFS), redirected to /scratch/jstajich/27725761/pixi-cache-jstajich/repodata for this run. Set [cache.repodata] in config.toml or PIXI_CACHE_DIR to override, or [cache.netfs-redirect] = "never" to keep the original path.
+OM429_000065: 398 annotated CDS-region variant rows -> analysis/candidate_gene_alignment/results/OM429_000065/variant_table.csv
+  consequence counts:
+consequence
+synonymous_variant                          131
+downstream_gene_variant                      81
+upstream_gene_variant                        73
+intron_variant                               64
+missense_variant                             26
+splice_region_variant&intron_variant         18
+splice_region_variant&synonymous_variant      4
+splice_donor_variant&intron_variant           1
+  strain context (population/phenotype/lead-SNP-genotype) -> analysis/candidate_gene_alignment/results/OM429_000065/variant_table_strain_context.csv
+--- step 5/5: render alignment image ---
+ WARN cache for Repodata at /rhome/jstajich/.cache/rattler/cache/repodata is on a network/parallel filesystem (NFS/SMB/FUSE/BeeGFS/Lustre/GPFS/CephFS), redirected to /scratch/jstajich/27725761/pixi-cache-jstajich/repodata for this run. Set [cache.repodata] in config.toml or PIXI_CACHE_DIR to override, or [cache.netfs-redirect] = "never" to keep the original path.
+OM429_000065: alignment image -> analysis/candidate_gene_alignment/results/OM429_000065/alignment.png (213 strains x 157 positions)
+completed OM429_000065
+
+All 8 GWAS-locus genes extended.

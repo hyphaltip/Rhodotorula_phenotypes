@@ -304,23 +304,30 @@ tags: [gwas, gemma, rhodotorula, mucilaginosa, copper, color, kinship, ploidy, s
 ### candidate_gene_alignment
 ```yaml
 name: candidate_gene_alignment
-question: For candidate genes identified during the GWAS port (2 confirmed carotenoid pathway genes + 8 GWAS-locus nearest genes), what do the actual per-strain DNA/protein sequence changes look like across the 213-strain panel -- moving from "this SNP is statistically associated" to "here is the specific allelic/amino-acid change"?
-input: data/raw/genotypes/RmucY2510_v2/RmucY2510_v2.All.SNP.combined_selected.vcf.gz, .../genome/Rhodotorula_mucilaginosa_NRRL_Y-2510.{gff3.gz,scaffolds.fa}, pre-built snpEff database RmucNRRLY2510
+question: For candidate genes identified during the GWAS port (2 confirmed carotenoid pathway genes + 8 GWAS-locus nearest genes), what do the actual per-strain DNA/protein sequence changes look like across the 213-strain panel -- moving from "this SNP is statistically associated" to "here is the specific allelic/amino-acid change", and does any candidate-gene coding variation (SNP or indel) associate with the 6 color traits under the population-aware battery?
+input: data/raw/genotypes/RmucY2510_v2/RmucY2510_v2.All.SNP.combined_selected.vcf.gz, .../RmucY2510_v2.All.INDEL.combined_selected.vcf.gz, .../genome/Rhodotorula_mucilaginosa_NRRL_Y-2510.{gff3.gz,scaffolds.fa}, pre-built snpEff database RmucNRRLY2510
 scripts:
   - scripts/extract_gene_sequences.py       # GFF3 + VCF + genome -> per-strain spliced CDS/protein FASTA + polymorphic-positions CSV
-  - scripts/screen_indels.sh                # read-only screen of the separate INDEL VCF against each gene's CDS+/-2kb (never used to build sequence)
+  - scripts/screen_indels.sh                # read-only screen of the separate INDEL VCF against CDS+/-2kb (fixed 8/26 to fail loudly; pilot's silent-0 was wrong)
+  - scripts/check_gene_coding_indels.py     # CDS-exon-exact INDEL screen + segregating-in-panel count (results/gene_coding_indel_screen.csv)
+  - scripts/run_extend_to_gwas_genes.sh     # batch driver: 8 GWAS-locus genes through steps 1-5 (abs-path toolchain + snpEff dataDir fixes)
   - scripts/build_variant_table.py          # snpEff ANN parsing + per-strain genotype/population/phenotype/lead-SNP/Tier-A-p-value join
   - scripts/render_alignment_image.py       # static color-block alignment PNG per gene
+  - scripts/associate_variants_with_phenotype.py  # population-aware battery (within-pop meta + covariate + FDR) for coding SNP variants x 6 color traits
+  - scripts/associate_indels_with_phenotype.py    # same battery for segregating in-CDS INDEL genotypes (INDEL VCF direct)
 outputs:
-  - results/<gene_id>/{dna.fasta, protein.fasta, dna_polymorphic_positions.csv, indel_screen.csv, variant_table.csv, variant_table_strain_context.csv, alignment.png}
-  - results/snpeff_pilot/ (region-restricted + snpEff-annotated VCF for the pilot)
-  - results/PROVENANCE.json
-reproduce: run scripts in order per CANDIDATE_GENE_ALIGNMENT.md (not yet consolidated into a single run.sh -- pilot was run gene-by-gene)
-status: pilot complete (2/10 genes: OM429_003333, OM429_003336, both confirmed carotenoid pathway genes with no GWAS locus). Remaining 8 GWAS-locus genes not yet run.
+  - results/<gene_id>/{dna.fasta, protein.fasta, dna_polymorphic_positions.csv, indel_screen.csv, variant_table.csv, variant_table_strain_context.csv, alignment.png} for all 10 genes
+  - results/gene_coding_indel_screen.csv
+  - results/candidate_gene_phenotype_assoc_all10.csv (+_within_pop_details.csv), results/candidate_indel_phenotype_assoc_all10.csv (+_within_pop_details.csv)
+  - results/snpeff_pilot/, results/PROVENANCE.json
+reproduce: bash scripts/run_extend_to_gwas_genes.sh (8 GWAS-locus genes; pilot run gene-by-gene per CANDIDATE_GENE_ALIGNMENT.md); then run the two associate_* scripts
+status: complete for all 10 target genes (2 carotenoid + 8 GWAS-locus). Phenotype-association step (SNP + indel) complete. Interactive viewer still deferred.
 key_findings:
-  - Reference-genome strain NRRL_Y-2510 (present in the 213-strain panel) is homozygous-reference (0/0) at all 139 CDS variant sites across both pilot genes, 0 alt calls -- confirms the substitution pipeline has no systematic REF/ALT-swap or coordinate bug.
-  - 0 indels found in either pilot gene's CDS+/-2kb region in the separate INDEL VCF -- the "SNP-only" simplifying assumption holds for these 2 genes (not yet checked for the remaining 8).
-  - OM429_003333: 1293bp CDS, 49 polymorphic sites in the panel, 0 premature stops, 7 missense + 1 splice_donor_variant (HIGH impact) among CDS-internal consequences.
-  - OM429_003336 (the gene independently found misannotated as "transcription factor" but confirmed phytoene desaturase, D-20): 1929bp CDS, 72 polymorphic sites, 0 premature stops, 23 missense variants.
-tags: [gwas, candidate-gene, sequence-alignment, snpeff, carotenoid, pigment, rhodotorula, mucilaginosa, pilot, in-progress]
+  - CORRECTION (8/26): pilot's screen_indels.sh silently reported 0 indels (bcftools not on PATH; pipe+`|| true` swallowed failure). Real INDEL VCF has 362-821 records in every candidate gene's CDS+/-2kb, and all 10 genes have >=2 segregating indels INSIDE their CDS exons -> the SNP-only sequence premise does NOT hold for any target gene; indel genotypes must be tested separately (now done).
+  - Association battery (within-pop replication + meta + covariate + FDR) across 10 genes x 6 color traits: 39 FDR-sig SNP-coding tests / 32 FDR-sig indel tests.
+  - Strongest finding: OM429_000065 (sat-locus gene) c.839C>T p.Ala280Val (lead SNP 208569) + a +6bp in-frame GAGCGG-repeat insertion at 208398 in perfect LD with it -- both associate with lab_a/chroma/sat (meta_p~9e-11, partial R2 0.09-0.10) replicated 3/3 testable pops. The insertion is invisible to SNP-only pipelines.
+  - Other replicated coding hits: OM429_001521 p.Gln245His (bright), OM429_005034 p.Tyr12His (lab_a/chroma/sat), OM429_002663 p.Asn4Lys (lab_a/chroma/sat), OM429_001533 p.Tyr427Phe.
+  - OM429_003333 splice_donor (HIGH) is monomorphic in the 213 panel (0/213 alt) -> cannot be tested / cannot drive within-panel color variation.
+  - Neither carotenoid gene (OM429_003333/003336) shows an FDR-sig + replicated color association (SNP or indel), consistent with no co-localization with validated color loci.
+tags: [gwas, candidate-gene, sequence-alignment, snpeff, carotenoid, pigment, rhodotorula, mucilaginosa, indels, association, population-structure, complete]
 ```

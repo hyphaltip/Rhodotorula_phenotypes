@@ -105,5 +105,44 @@ desaturase — see D-20's misannotation finding) across all 213 panel strains, s
   genes specifically (not yet checked for other candidate genes).
 
 This is a lead for follow-up (e.g. does the splice-donor genotype at `OM429_003333`
-correlate with any color/pigment phenotype), not a validated finding — no statistical test
-has been run on it yet.
+correlate with any color/pigment phenotype), not a validated finding — no statistical
+test has been run on it yet.
+
+## Candidate-gene coding variation DOES associate with color — at the GWAS-locus genes, not the carotenoid genes (2026-08-26, corrected)
+
+Sequence pipeline extended to all 10 candidate genes (`analysis/candidate_gene_alignment/`,
+see `results/candidate_gene_phenotype_assoc_all10.csv` + `..._all10.csv` and the indel
+battery `candidate_indel_phenotype_assoc_all10.csv`), with the SAME population-aware
+battery as the disambiguation exercise (within-pop re-test + meta + covariate + FDR).
+
+1. **CORRECTION to the pilot (CRITICAL for any reader of the older finding above)**: the
+   pilot's "0 indels" claim was a silent toolchain failure — `screen_indels.sh` reported
+   the count of an empty bcftools pipe when bcftools wasn't on PATH (`2>/dev/null` +
+   `|| true` masked it). The real INDEL VCF has 433/821 records in the two carotenoid
+   genes' CDS±2kb and every one of the 10 target genes has ≥2 segregating indels INSIDE
+   its CDS exons (`results/gene_coding_indel_screen.csv`). The SNP-only sequences/tables
+   are the SNP layer only; indel genotypes must be tested separately (now done).
+2. **The OM429_003333 splice_donor finding above is MONOMORPHIC in the 213-strain panel
+   (0/213 alt at a PASS-quality site)** — it cannot be tested against phenotype and
+   cannot drive within-panel color variation. The "splice-donor as top validation
+   target" framing is answered: no testable variation there.
+3. **NEW headline result — sat locus has a coding repeat-copy variant invisible to
+   SNP-only analysis**: `OM429_000065` (sat-locus gene) carries c.839C>T p.Ala280Val
+   (the lead SNP scaffold_1:208569) AND a +6 bp in-frame GAGCGG-repeat insertion at
+   scaffold_1:208398 that is **100% concordant with the lead SNP** across all 213
+   strains. Both associate with lab_a/chroma/sat under the population-aware battery
+   (meta_p ≈ 8.8e-11, FDR q ≈ 1e-8, partial R² 0.086–0.10, replicated in 3/3
+   testable populations). The sat locus's probable molecular driver may be a coding
+   repeat-copy-number polymorphism — invisible to any SNP-only pipeline.
+4. Other replicated candidate-gene coding hits (FDR-sig + `likely_real`): OM429_001521
+   p.Gln245His (bright), OM429_005034 p.Tyr12His (lab_a/chroma/sat), OM429_002663
+   p.Asn4Lys (lab_a/chroma/sat), OM429_001533 p.Tyr427Phe (sat/chroma/lab_b). These are
+   the *coding layer* of loci already validated in D-17/D-18 — new contribution is the
+   specific codon/AA.
+5. **Neither carotenoid gene (OM429_003333/003336) shows an FDR-significant AND
+   replicated color association** for either SNP or indel surface — consistent with the
+   GWAS port's "carotenoid cluster not co-localized with any validated color locus."
+
+Caveat: perfect LD between the sat insertion and lead SNP means insertion-causal vs
+SNP-causal cannot be split without denser or functional data; populations 1/2/4 are
+near-fixed for these alleles, so only 3/6 are testable for the top loci.
