@@ -1,0 +1,35 @@
+PLINK v2.00a5LM 64-bit Intel (23 Sep 2023)
+Options in effect:
+  --allow-extra-chr
+  --bfile analysis/gwas/results/gwas/grm_conditioning/rebuilt_kinship_culled/gwasc.pruned
+  --keep analysis/gwas/results/gwas/population_vs_locus/work/collapse_pop1.keep.txt
+  --make-bed
+  --out analysis/gwas/results/gwas/population_vs_locus/work/collapse_pop1_subset
+
+Hostname: i31
+Working directory: /bigdata/stajichlab/jstajich/projects/Rhodotorula_phenotypes
+Start time: Wed Aug 26 08:59:30 2026
+
+Random number seed: 1787759970
+515874 MiB RAM detected, ~468481 available; reserving 257937 MiB for main
+workspace.
+Using up to 8 compute threads.
+182 samples (0 females, 0 males, 182 ambiguous; 182 founders) loaded from
+analysis/gwas/results/gwas/grm_conditioning/rebuilt_kinship_culled/gwasc.pruned.fam.
+28707 variants loaded from
+analysis/gwas/results/gwas/grm_conditioning/rebuilt_kinship_culled/gwasc.pruned.bim.
+Note: No phenotype data present.
+--keep: 77 samples remaining.
+77 samples (0 females, 0 males, 77 ambiguous; 77 founders) remaining after main
+filters.
+Writing
+analysis/gwas/results/gwas/population_vs_locus/work/collapse_pop1_subset.fam
+... done.
+Writing
+analysis/gwas/results/gwas/population_vs_locus/work/collapse_pop1_subset.bim
+... done.
+Writing
+analysis/gwas/results/gwas/population_vs_locus/work/collapse_pop1_subset.bed
+... done.
+
+End time: Wed Aug 26 08:59:30 2026

@@ -1,0 +1,7 @@
+trait,panel,top_snp,population,n_raw,n_effective,beta,se,p,tested,reason
+lab_a,gwas,scaffold_8:38068:T:A,1,77,77,,,,False,n_effective allele classes too small (2/75)
+lab_a,gwas,scaffold_8:38068:T:A,2,12,12,,,,False,n_effective allele classes too small (1/11)
+lab_a,gwas,scaffold_8:38068:T:A,3,15,15,3.230326788773816,0.841671907889673,0.002053778622057996,True,
+lab_a,gwas,scaffold_8:38068:T:A,4,39,39,,,,False,n_effective allele classes too small (0/39)
+lab_a,gwas,scaffold_8:38068:T:A,5,17,17,,,,False,n_effective allele classes too small (16/1)
+lab_a,gwas,scaffold_8:38068:T:A,6,21,21,1.6476535251551472,0.2783701539232741,1.066978013554601e-05,True,

@@ -1,0 +1,24 @@
+PLINK v2.00a5LM 64-bit Intel (23 Sep 2023)
+Options in effect:
+  --allow-extra-chr
+  --bfile analysis/gwas/results/gwas/grm_conditioning/rebuilt_kinship/gwas.pruned
+  --export A
+  --out analysis/gwas/results/gwas/population_vs_locus/work/null_pool_gwas
+
+Hostname: i31
+Working directory: /bigdata/stajichlab/jstajich/projects/Rhodotorula_phenotypes
+Start time: Wed Aug 26 08:59:24 2026
+
+Random number seed: 1787759964
+515874 MiB RAM detected, ~468642 available; reserving 257937 MiB for main
+workspace.
+Using up to 8 compute threads.
+213 samples (0 females, 0 males, 213 ambiguous; 213 founders) loaded from
+analysis/gwas/results/gwas/grm_conditioning/rebuilt_kinship/gwas.pruned.fam.
+29453 variants loaded from
+analysis/gwas/results/gwas/grm_conditioning/rebuilt_kinship/gwas.pruned.bim.
+Note: No phenotype data present.
+--export A:
+analysis/gwas/results/gwas/population_vs_locus/work/null_pool_gwas.raw written.
+
+End time: Wed Aug 26 08:59:24 2026

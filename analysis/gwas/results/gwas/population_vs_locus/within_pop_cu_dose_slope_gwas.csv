@@ -1,0 +1,7 @@
+trait,panel,top_snp,population,n_raw,n_effective,beta,se,p,tested,reason
+cu_dose_slope,gwas,scaffold_3:546065:G:A,1,77,77,,,,False,n_effective allele classes too small (0/77)
+cu_dose_slope,gwas,scaffold_3:546065:G:A,2,12,12,,,,False,n_effective allele classes too small (0/12)
+cu_dose_slope,gwas,scaffold_3:546065:G:A,3,15,15,0.03392525471123475,0.008570512365775997,0.0016355049499225571,True,
+cu_dose_slope,gwas,scaffold_3:546065:G:A,4,39,39,,,,False,n_effective allele classes too small (39/0)
+cu_dose_slope,gwas,scaffold_3:546065:G:A,5,17,17,,,,False,n_effective allele classes too small (17/0)
+cu_dose_slope,gwas,scaffold_3:546065:G:A,6,21,21,0.023152861701453732,0.003757778295379245,6.386111812418644e-06,True,
