@@ -363,6 +363,43 @@ variation within the near-clonal focal clade, decoupled from deep population spl
 Full tables: `results/gwas/tierB/tierb_settests_{gwas,gwasc}.csv`,
 `tierb_skat_mcver_{gwas,gwasc}.csv`.
 
+## 12. Raw CIELAB traits (L*, a*, b*) — added 2026-08-26 on user request
+
+Neither the original run nor this port's first pass tested raw CIELAB components
+directly — only derived `chroma` (Lab-magnitude of a*/b*), `sat`, `bright` (HSV, not
+Lab at all). Added `lab_L`, `lab_a`, `lab_b` (median, clone-mean over plates — same
+construction as the existing color block) to `scripts/build_gwas_phenotypes.py`, and
+ran Tier A (`scripts/run_tiera_lab_traits.sh`, full unpruned SNP set, both panels).
+
+| trait | panel | n FDR05 | top SNP | top p_wald |
+|---|---|---|---|---|
+| lab_L | gwas (213) | 1,619 | scaffold_3:229210 | 5.8e-9 |
+| lab_a | gwas (213) | 758 | scaffold_8:38068 | 9.9e-13 |
+| lab_b | gwas (213) | 1,614 | scaffold_11:608491 | 9.2e-13 |
+| lab_L | gwasc (182) | 942 | scaffold_3:265939 | 4.1e-10 |
+| lab_a | gwasc (182) | 117 | scaffold_5:882396 | 3.5e-11 |
+| lab_b | gwasc (182) | 687 | scaffold_3:503756 | 1.6e-10 |
+
+**Far more FDR-significant SNPs than any derived color trait** (chroma/sat/bright top
+out at 0-41). `lab_a`'s top hit in the gwas-213 panel, `scaffold_8:38068`, is the **same
+SNP as chroma's top hit in that panel** (p=2.5e-7) — consistent with chroma being
+mathematically derived from a*/b*, with the raw component carrying a much stronger
+signal at that locus (p=9.9e-13).
+
+**But: do not read this as strong single-locus color biology without more work.**
+`check_population_confounding.py` flags **all three raw Lab traits' top hits as
+population-confound risk in BOTH panels** (AF swings 0.03-0.98+ across the 6
+populations — the same pattern already seen for `AUC_20`) — including `lab_a`'s
+striking `scaffold_8:38068` hit. The top SNP is also unstable across panels for all
+three traits (different locus in gwas-213 vs. gwasc-182 for every one), mirroring
+chroma's instability (§7). The abundance of FDR-significant hits likely reflects
+population structure showing through at the top-hit level despite kinship correction,
+not necessarily a clean color-specific causal locus — this needs the same scrutiny
+chroma already got flagged for, not a headline claim.
+
+Full tables: `results/gwas/tierA_summary/{tiera_summary_gwas,tiera_summary_gwasc}.csv`
+(now include lab_L/a/b), `population_confounding_{gwas,gwasc}.csv`.
+
 ## Session summary (2026-08-25/26)
 
 All of Tier A (corrected), Tier B, Tier C, and LOCO are now complete for this port. The
@@ -379,10 +416,15 @@ and panel choice tried and should not be cited without further investigation.
 
 - Investigate the chroma signal instability (§7) — it is NOT population-confounded per
   §10, so the cause is still open.
+- Investigate lab_L/a/b's population-confounding flags (§12) before treating their large
+  FDR-significant hit counts as real color-specific signal — same open question as
+  chroma, now affecting three more traits.
 - Consider whether pixy should be recomputed on the 213-strain panel (currently a
   documented approximation, §11) — Tier B's headline conclusion (no set-level signal;
   resilience_30 anchor not in a high-dxy window) matches the original run closely enough
   that this is lower priority than initially flagged, but still an approximation.
+- Tier B/C/LOCO were not rerun for lab_L/a/b (§12 is Tier A only) — natural follow-up if
+  those traits turn out, after the confounding investigation above, to carry real signal.
 - Tier D/E/G (gene annotation, fine-mapping, prior-locus replication) — not started this
   session; natural next step, focused on the resilience_30/AUC_30 scaffold_13:810026
   anchor given how robustly it's replicated across every check run so far.
