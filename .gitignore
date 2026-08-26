@@ -45,6 +45,34 @@ analysis/growth_rates/results/tables/
 !analysis/gwas/results/
 !analysis/gwas/results/strain_reconciliation/
 
+# GWAS Tier A/B/C/LOCO rebuild (2026-08-25): keep small summaries/kinship inputs,
+# ignore large rebuildable raw GEMMA output -- all regenerable via the saved
+# scripts in analysis/gwas/scripts/ against the persisted VCF + phenotype CSV.
+#   gemma_output/*.assoc.txt: raw per-trait scans (~74 MB x 24 = ~1.7 GB) --
+#     keep only the compressed assoc_csv/*.csv.gz (Tier B's input format) and
+#     tierA_summary.csv/fdr/ outputs.
+#   grm_conditioning/rebuilt_kinship{,_culled}/{gwas,gwasc}.{bed,bim,fam}: the
+#     large UNPRUNED QC'd genotype sets (~27+19 MB each) -- keep the small
+#     .pruned.* kinship-input bfiles and kins*.cXX.txt kinship matrices.
+#   tierC_summary/*.param.txt: per-SNP BSLMM posterior means (~36 MB x 10) --
+#     keep *.hyp.txt.gz (MCMC trace, small) and *.gamma.txt.gz.
+#   loco/output/*: raw per-(trait,panel,chromosome) assoc files (~450 MB) --
+#     keep only a merged summary.
+analysis/gwas/results/gwas/tierA_summary/gemma_output/*.assoc.txt
+!analysis/gwas/results/gwas/tierA_summary/gemma_output/*.log.txt
+analysis/gwas/results/gwas/grm_conditioning/rebuilt_kinship/gwas.bed
+analysis/gwas/results/gwas/grm_conditioning/rebuilt_kinship/gwas.bim
+analysis/gwas/results/gwas/grm_conditioning/rebuilt_kinship/gwas.fam
+analysis/gwas/results/gwas/grm_conditioning/rebuilt_kinship_culled/gwasc.bed
+analysis/gwas/results/gwas/grm_conditioning/rebuilt_kinship_culled/gwasc.bim
+analysis/gwas/results/gwas/grm_conditioning/rebuilt_kinship_culled/gwasc.fam
+analysis/gwas/results/gwas/tierC_summary/*.param.txt
+analysis/gwas/results/gwas/tierC_summary/*.bv.txt
+analysis/gwas/results/gwas/tierC_summary/superseded_short_chain/*.param.txt
+analysis/gwas/results/gwas/loco/output/
+!analysis/gwas/results/gwas/loco/output/loco_merged_*.csv
+analysis/gwas/data/db_extract.parquet
+
 # Ideation session 2026-08-15: large derived intermediate extract is rebuildable
 # via scripts/build_series.py; only final tables/figures/docs are tracked.
 analysis/ideas/2026-08-15-color-phenotype-space/data/

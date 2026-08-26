@@ -5,20 +5,20 @@
 ## GSL Version      = 1.16
 ## OpenBlas         = OpenBLAS 0.3.12  - OpenBLAS 0.3.25 DYNAMIC_ARCH NO_AFFINITY Piledriver MAX_THREADS=128
 ##   arch           = Piledriver
-##   threads        = 1
+##   threads        = 4
 ##   parallel type  = threaded
 ##
-## Command Line Input = /bigdata/stajichlab/shared/projects/Population_Genomics/Rhodotorula_mucilaginosa_NRRLY2510/GWAS/vc2gwas_env/bin/gemma -bfile /scratch/jstajich/27758883/gwas_tiera/AUC_30/gwas -k analysis/gwas/results/gwas/grm_conditioning/rebuilt_kinship/kins.cXX.txt -lmm 4 -o gwas_AUC_30 -outdir analysis/gwas/results/gwas/tierA_summary/gemma_output 
+## Command Line Input = /bigdata/stajichlab/shared/projects/Population_Genomics/Rhodotorula_mucilaginosa_NRRLY2510/GWAS/vc2gwas_env/bin/gemma -bfile /scratch/jstajich/27759170/gwas_full_rebuild/tiera_gwas_AUC_30/g -k analysis/gwas/results/gwas/grm_conditioning/rebuilt_kinship/kins.cXX.txt -lmm 4 -o gwas_AUC_30 -outdir analysis/gwas/results/gwas/tierA_summary/gemma_output 
 ##
-## Date = Tue Aug 25 19:35:49 2026
+## Date = Tue Aug 25 21:19:30 2026
 ##
 ## Summary Statistics:
 ## number of total individuals = 213
 ## number of analyzed individuals = 213
 ## number of covariates = 1
 ## number of phenotypes = 1
-## number of total SNPs/var = 29453
-## number of analyzed SNPs/var = 29441
+## number of total SNPs/var = 498484
+## number of analyzed SNPs/var = 498459
 ## REMLE log-likelihood in the null model = -3202.49
 ## MLE log-likelihood in the null model = -3216.94
 ## pve estimate in the null model = 0.518166
@@ -29,9 +29,9 @@
 ## se(beta) =   51520.3
 ##
 ## Computation Time:
-## total computation time = 0.813523 min 
+## total computation time = 13.8981 min 
 ## computation time break down: 
-##      time on eigen-decomposition = 0.000228983 min 
-##      time on calculating UtX = 0.0476926 min 
-##      time on optimization = 0.74107 min 
+##      time on eigen-decomposition = 0.00105863 min 
+##      time on calculating UtX = 0.747956 min 
+##      time on optimization = 12.7317 min 
 ##
