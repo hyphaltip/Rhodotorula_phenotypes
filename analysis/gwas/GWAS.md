@@ -603,10 +603,17 @@ exists to catch. **Reported here as an unconfirmed, tantalizing lead worth someo
 revisiting** (e.g. if population 4's phenotype difference itself has a biological
 explanation connected to carotenoid regulation), not as a validated finding.
 
-**Genome-wide KEGG KO annotation (KofamScan) submitted, running in background** — will
-let any future gene-list query check KEGG pathway membership (map00906 carotenoid
-biosynthesis) directly, per the functional-annotation pipeline's design as a durable,
-reusable resource rather than a one-off check for these 8 loci.
+**Genome-wide KEGG KO annotation (KofamScan) complete — independently confirms the
+misannotation.** `OM429_003333` = **K17841** "15-cis-phytoene synthase / lycopene
+beta-cyclase" (E=1.3e-177); `OM429_003336` = **K15745** "phytoene desaturase
+(3,4-didehydrolycopene-forming)" (E=8.9e-236). This is a second, completely independent
+line of evidence (KEGG KO vs. the custom pigment HMM library) for both genes' true
+identity — in particular, confirming `OM429_003336`'s existing GFF3 annotation
+("transcription factor, contains a PHD finger motif") is wrong. Fixed a real HPC
+environment bug along the way: `module load kofamscan` calls `conda activate`
+internally, which fails in a bare `sbatch --wrap` shell (no `~/.bashrc` sourced) with
+`CondaError: Run 'conda init' before 'conda activate'` — fixed by explicitly sourcing
+`conda.sh` first (`algorithms/functional_annotation/scripts/run_kofamscan.sh`).
 
 ## Session summary (2026-08-25/26)
 
