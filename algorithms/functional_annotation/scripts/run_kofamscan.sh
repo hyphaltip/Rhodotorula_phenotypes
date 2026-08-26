@@ -16,6 +16,11 @@ set -euo pipefail
 
 PROTEOME="${1:?need a proteome FASTA}"
 OUT_PREFIX="${2:?need an output prefix}"
+# module load kofamscan internally needs conda's shell function (`conda activate`),
+# which is NOT available in a bare sbatch --wrap shell (only interactive shells source
+# ~/.bashrc, where `conda init` normally puts its hook) -- source it explicitly first,
+# or module load fails with "CondaError: Run 'conda init' before 'conda activate'".
+source /opt/linux/rocky/8.x/x86_64/pkgs/miniconda3/py39_4.12.0/etc/profile.d/conda.sh
 source /etc/profile.d/modules.sh
 module load kofamscan
 module load workspace/scratch
