@@ -6,8 +6,17 @@
 # genotypes directly -- it does not take a `-k` kinship argument.
 #
 # MCMC params reconstructed from PROGRESS.md section 7 ("100k MCMC, 20% burn-in
-# discard") and the prior run's .hyp.txt row count (100,000 recorded samples):
-# -w 20000 (burn-in) -s 100000 (recorded sampling iterations).
+# discard") and the prior run's .hyp.txt row count (100,000 recorded samples,
+# i.e. "100k MCMC" = 100k RETAINED samples, not 100k total iterations). GEMMA's
+# default -rpace (record pace) is 10, so -s 1000000 records exactly 100,000
+# rows (matches the original file's row count precisely, verified directly:
+# `zcat bslmm_chroma.hyp.txt.gz | wc -l` = 100001 in both the original run and
+# this reconstruction). -w 200000 (burn-in, ~20% of the 1,000,000 sampling
+# phase, matching the "20% burn-in" prose) is discarded, not recorded.
+# An earlier attempt at this script used -w 20000 -s 100000 (a literal but
+# wrong reading of "100k MCMC" as total iterations) -- that produced a 10x
+# SHORTER chain (10,000 recorded rows), caught by directly diffing row counts
+# against the original before trusting the posterior estimates.
 #
 # Run from the repo root, inside a SLURM job:
 #   sbatch --wrap="bash analysis/gwas/scripts/run_tierc_bslmm.sh"
@@ -49,7 +58,7 @@ fam['pheno'] = vals.apply(lambda v: 'NA' if pd.isna(v) else v)
 fam.to_csv('$TWORK/g.fam', sep=' ', header=False, index=False)
 print(f'  $trait: {len(fam) - n_missing}/{len(fam)} with phenotype, {n_missing} NA')
 "
-  "$TOOLCHAIN/gemma" -bfile "$TWORK/g" -bslmm 1 -w 20000 -s 100000 \
+  "$TOOLCHAIN/gemma" -bfile "$TWORK/g" -bslmm 1 -w 200000 -s 1000000 \
     -o "bslmm_${trait}" -outdir "$OUTDIR" \
     > "$OUTDIR/bslmm_${trait}.runlog.txt" 2>&1 \
     || { echo "ERROR: BSLMM failed for $trait -- see $OUTDIR/bslmm_${trait}.runlog.txt" >&2; exit 1; }
