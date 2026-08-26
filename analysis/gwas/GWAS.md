@@ -400,6 +400,70 @@ chroma already got flagged for, not a headline claim.
 Full tables: `results/gwas/tierA_summary/{tiera_summary_gwas,tiera_summary_gwasc}.csv`
 (now include lab_L/a/b), `population_confounding_{gwas,gwasc}.csv`.
 
+## 13. Population-vs-locus disambiguation — most flagged hits are likely real
+
+The crude AF-swing population-confounding screen (§10, §12) cannot distinguish a locus
+that is causal *and* happens to be population-differentiated (legitimate — e.g. local
+adaptation) from one that is merely correlated with population membership for unrelated
+reasons (artifact). Designed a disambiguation battery
+(`docs/superpowers/specs/2026-08-26-population-confounding-disambiguation-design.md`),
+independently reviewed by a statistical geneticist/breeder consult before implementation
+(that review caught a real flaw in the draft — the within-population test is exactly as
+vulnerable to near-clone pseudoreplication as the genome-wide scan kinship correction
+exists for — and the fix, per-population clone-collapse on the 182-strain culled panel,
+is built into `scripts/check_population_vs_locus.py`).
+
+**Four tests**: (A) within-population re-test (phenotype ~ genotype, fit separately per
+population, clone-collapse-aware), (B) fixed-effect meta-analysis of A's per-population
+betas, (C) single-locus population-covariate regression (partial R² of genotype beyond
+population), (D) Fst×MAF-matched empirical null. **Test D turned out to be
+uninformative in practice** — caught empirically, not anticipated in the design: it
+returned an "extreme" percentile for literally every flagged locus, including one with
+no nominal within-population significance at all, because these loci are each trait's
+single most significant genome-wide hit by construction (a winner's-curse artifact, not
+evidence). The verdict rule was tightened to require nominal within-population
+significance (raw meta_p<0.05) as a hard gate rather than letting test D's circular
+result substitute for it.
+
+**Result: 8 of 9 flagged (trait, panel) combinations verdict `likely_real`**:
+
+| trait | panel | top SNP | meta_p (within-pop) | n pops (independent) | partial R² beyond pop | verdict |
+|---|---|---|---|---|---|---|
+| cu_dose_slope | gwas | scaffold_3:546065 | 4.8e-13 | 2 | 0.153 | likely_real |
+| lab_L | gwas | scaffold_3:229210 | 4.3e-5 | 2 | 0.034 | likely_real |
+| lab_a | gwas | scaffold_8:38068 | 8.8e-12 | 2 | 0.139 | likely_real |
+| lab_b | gwas | scaffold_11:608491 | 2.9e-4 | 3 | 0.113 | likely_real |
+| sat | gwas | scaffold_1:208569 | 1.5e-8 | 3 | 0.095 | likely_real |
+| lab_L | gwasc | scaffold_3:265939 | 2.2e-3 | 2 | 0.034 | likely_real |
+| lab_a | gwasc | scaffold_5:882396 | 1.1e-10 | 2 | 0.137 | likely_real |
+| lab_b | gwasc | scaffold_3:503756 | 3.8e-4 | 2 | 0.116 | likely_real |
+| **AUC_20** | gwas | scaffold_16:417619 | **0.219** | 2 | 0.021 | **ambiguous_underpowered** |
+
+Concretely, for `lab_a`: only populations 3 and 6 had enough within-population allelic
+variance to test, and **both independently show the same direction of effect**
+(pop3 β=+3.23, p=0.002; pop6 β=+1.65, p=1.1e-5) — this is genuine independent
+replication after removing all between-population variance by construction, not an
+artifact of pooling correlated samples. Same pattern for `cu_dose_slope` (pop3 β=+0.034
+p=0.0016; pop6 β=+0.023 p=6.4e-6).
+
+**Revises the earlier population-confounding conclusion (§10, §12)**: the AF-swing
+heuristic was catching loci that are population-differentiated *and* causally real, not
+pure artifacts — chroma remains a separate, still-open question (§7) since it wasn't
+re-tested here (its top hit changes across panels, unlike the stable loci above, so it
+didn't cleanly enter this battery as a single fixed locus). `AUC_20` remains the one
+locus that should still be treated with caution — its within-population meta-analysis
+isn't even nominally significant (p=0.22).
+
+**Not yet done — explicit MAS-usability gates** (deferred per the design, not part of
+this disambiguation pass): minimum effect-size threshold, held-out replication, LD-decay
+check confirming the flagged SNP isn't a distant tag of a stronger nearby signal, and —
+specific to the color traits — a plate/batch-confound sanity check (color measurement is
+exactly the kind of trait vulnerable to batch effects that could correlate with which
+population was measured on which plate/day).
+
+Full results: `results/gwas/population_vs_locus/population_vs_locus.csv`,
+per-population detail in `within_pop_{trait}_{panel}.csv`.
+
 ## Session summary (2026-08-25/26)
 
 All of Tier A (corrected), Tier B, Tier C, and LOCO are now complete for this port. The
