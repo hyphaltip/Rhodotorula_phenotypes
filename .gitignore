@@ -107,3 +107,11 @@ retry2_*.log
 analysis/gwas/results/gwas/population_vs_locus/work/
 analysis/gwas/results/gwas/mas_gates/work/
 algorithms/functional_annotation/results/kofamscan/*.detail.txt
+
+# Candidate-gene alignment (2026-08-26): keep the per-gene FASTA/CSV/PNG deliverables
+# (small); ignore the region-restricted VCF/snpEff-annotated VCF, which is trivially
+# regenerable from the source SNP VCF + snpEff database per CANDIDATE_GENE_ALIGNMENT.md.
+!analysis/candidate_gene_alignment/results/
+analysis/candidate_gene_alignment/results/snpeff_pilot/*.vcf
+analysis/candidate_gene_alignment/results/snpeff_pilot/*.vcf.gz
+analysis/candidate_gene_alignment/results/snpeff_pilot/*.vcf.gz.tbi

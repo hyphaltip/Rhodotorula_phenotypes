@@ -300,3 +300,27 @@ key_findings:
   - Tier C BSLMM architecture looks substantively more polygenic here than the original run (no locus reaches PIP>=0.5 in any of the 5 traits tested, vs. the original's several near-oligogenic PIP~1.0 loci) -- not yet explained, candidate causes include the larger unpruned marker set diluting PIP and/or the different near-clone structure.
 tags: [gwas, gemma, rhodotorula, mucilaginosa, copper, color, kinship, ploidy, strain-reconciliation, near-clone-culling, tierb, tierc, bslmm, loco, population-structure, ported, in-progress]
 ```
+
+### candidate_gene_alignment
+```yaml
+name: candidate_gene_alignment
+question: For candidate genes identified during the GWAS port (2 confirmed carotenoid pathway genes + 8 GWAS-locus nearest genes), what do the actual per-strain DNA/protein sequence changes look like across the 213-strain panel -- moving from "this SNP is statistically associated" to "here is the specific allelic/amino-acid change"?
+input: data/raw/genotypes/RmucY2510_v2/RmucY2510_v2.All.SNP.combined_selected.vcf.gz, .../genome/Rhodotorula_mucilaginosa_NRRL_Y-2510.{gff3.gz,scaffolds.fa}, pre-built snpEff database RmucNRRLY2510
+scripts:
+  - scripts/extract_gene_sequences.py       # GFF3 + VCF + genome -> per-strain spliced CDS/protein FASTA + polymorphic-positions CSV
+  - scripts/screen_indels.sh                # read-only screen of the separate INDEL VCF against each gene's CDS+/-2kb (never used to build sequence)
+  - scripts/build_variant_table.py          # snpEff ANN parsing + per-strain genotype/population/phenotype/lead-SNP/Tier-A-p-value join
+  - scripts/render_alignment_image.py       # static color-block alignment PNG per gene
+outputs:
+  - results/<gene_id>/{dna.fasta, protein.fasta, dna_polymorphic_positions.csv, indel_screen.csv, variant_table.csv, variant_table_strain_context.csv, alignment.png}
+  - results/snpeff_pilot/ (region-restricted + snpEff-annotated VCF for the pilot)
+  - results/PROVENANCE.json
+reproduce: run scripts in order per CANDIDATE_GENE_ALIGNMENT.md (not yet consolidated into a single run.sh -- pilot was run gene-by-gene)
+status: pilot complete (2/10 genes: OM429_003333, OM429_003336, both confirmed carotenoid pathway genes with no GWAS locus). Remaining 8 GWAS-locus genes not yet run.
+key_findings:
+  - Reference-genome strain NRRL_Y-2510 (present in the 213-strain panel) is homozygous-reference (0/0) at all 139 CDS variant sites across both pilot genes, 0 alt calls -- confirms the substitution pipeline has no systematic REF/ALT-swap or coordinate bug.
+  - 0 indels found in either pilot gene's CDS+/-2kb region in the separate INDEL VCF -- the "SNP-only" simplifying assumption holds for these 2 genes (not yet checked for the remaining 8).
+  - OM429_003333: 1293bp CDS, 49 polymorphic sites in the panel, 0 premature stops, 7 missense + 1 splice_donor_variant (HIGH impact) among CDS-internal consequences.
+  - OM429_003336 (the gene independently found misannotated as "transcription factor" but confirmed phytoene desaturase, D-20): 1929bp CDS, 72 polymorphic sites, 0 premature stops, 23 missense variants.
+tags: [gwas, candidate-gene, sequence-alignment, snpeff, carotenoid, pigment, rhodotorula, mucilaginosa, pilot, in-progress]
+```

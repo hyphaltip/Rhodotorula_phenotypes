@@ -1,0 +1,77 @@
+00:00:00	SnpEff version SnpEff 4.3m (build 2017-05-05 18:41), by Pablo Cingolani
+00:00:00	Command: 'eff'
+00:00:00	Reading configuration file '/bigdata/stajichlab/shared/projects/Population_Genomics/Rhodotorula_mucilaginosa_NRRLY2510/snpEff/snpEff.config'. Genome: 'RmucNRRLY2510'
+00:00:00	Reading config file: /bigdata/stajichlab/shared/projects/Population_Genomics/Rhodotorula_mucilaginosa_NRRLY2510/snpEff/snpEff.config
+00:00:00	done
+00:00:00	Reading database for genome version 'RmucNRRLY2510' from file '/bigdata/stajichlab/shared/projects/Population_Genomics/Rhodotorula_mucilaginosa_NRRLY2510/snpEff/data/RmucNRRLY2510/snpEffectPredictor.bin' (this might take a while)
+00:00:01	done
+00:00:01	Loading Motifs and PWMs
+00:00:01	Building interval forest
+00:00:01	done.
+00:00:01	Genome stats :
+#-----------------------------------------------
+# Genome name                : 'Rhodotorula mucilaginosa NRRL Y-2510'
+# Genome version             : 'RmucNRRLY2510'
+# Genome ID                  : 'RmucNRRLY2510[0]'
+# Has protein coding info    : true
+# Has Tr. Support Level info : true
+# Genes                      : 6984
+# Protein coding genes       : 6984
+#-----------------------------------------------
+# Transcripts                : 6984
+# Avg. transcripts per gene  : 1.00
+# TSL transcripts            : 0
+#-----------------------------------------------
+# Checked transcripts        : 
+#               AA sequences :      0 ( 0.00% )
+#              DNA sequences :      0 ( 0.00% )
+#-----------------------------------------------
+# Protein coding transcripts : 6984
+#              Length errors :    122 ( 1.75% )
+#  STOP codons in CDS errors :     82 ( 1.17% )
+#         START codon errors :    194 ( 2.78% )
+#        STOP codon warnings :     71 ( 1.02% )
+#              UTR sequences :      7 ( 0.10% )
+#               Total Errors :    199 ( 2.85% )
+#-----------------------------------------------
+# Cds                        : 44188
+# Exons                      : 44373
+# Exons with sequence        : 44373
+# Exons without sequence     : 0
+# Avg. exons per transcript  : 6.35
+# WARNING                    : No mitochondrion chromosome found
+#-----------------------------------------------
+# Number of chromosomes      : 23
+# Chromosomes                : Format 'chromo_name size codon_table'
+#		'scaffold_1'	2175785	Standard
+#		'scaffold_2'	1611863	Standard
+#		'scaffold_3'	1471132	Standard
+#		'scaffold_4'	1468900	Standard
+#		'scaffold_5'	1396382	Standard
+#		'scaffold_6'	1286126	Standard
+#		'scaffold_7'	1265705	Standard
+#		'scaffold_8'	1247722	Standard
+#		'scaffold_9'	1034445	Standard
+#		'scaffold_10'	987275	Standard
+#		'scaffold_11'	955579	Standard
+#		'scaffold_12'	827188	Standard
+#		'scaffold_13'	811507	Standard
+#		'scaffold_14'	764887	Standard
+#		'scaffold_15'	699649	Standard
+#		'scaffold_16'	665637	Standard
+#		'scaffold_17'	654850	Standard
+#		'scaffold_18'	642743	Standard
+#		'scaffold_19'	278999	Standard
+#		'scaffold_20'	105456	Standard
+#		'scaffold_21'	87937	Standard
+#		'scaffold_22'	56127	Standard
+#		'scaffold_23'	53108	Standard
+#-----------------------------------------------
+
+00:00:02	Predicting variants
+00:00:03	Creating summary file: snpEff_summary.html
+00:00:03	Creating genes file: snpEff_genes.txt
+00:00:03	done.
+00:00:03	Logging
+00:00:04	Checking for updates...
+00:00:05	Done.

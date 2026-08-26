@@ -18,3 +18,11 @@ Distilled from 11+ recurring gotchas across two GWAS analyses (L-16 through L-26
 8. **Any algorithm described only in a PROGRESS.md prose table (not saved as a script) must be reconstructed AND validated against the original's known output before trusting it on new data** — e.g. the near-clone IBS0-culling algorithm (D-15/D-16): reconstructed, then checked for >90% membership overlap against the prior run's known 173-strain result before applying to a new panel.
 
 Source: L-16, L-17, L-18, L-19, L-20, L-21, L-22, L-23, L-24, L-25, L-26; D-9, D-11, D-15, D-16.
+
+## HPC module-load convention (this cluster, applies to any script/interactive shell)
+
+**Never pipe a `module load ...` invocation through anything** (`| tail`, `| grep`, `2>&1 | ...`). Piping forces a subshell, and `module` is a shell function that mutates the current shell's environment via `eval` — a subshell's mutation vanishes the instant the pipe exits, so the load silently "succeeds" (no error surfaces) while every env var/PATH change it should have made never lands in the calling shell. Always run `module load foo` as a bare statement, in the same shell as the commands depending on it; verify with a separate `env | grep -i foo` if needed, never chained onto the load itself with a pipe.
+
+Recurred 3x in one session (hmmer, kofamscan, snpEff) before being crystallized here — see L-30.
+
+Source: L-30.
