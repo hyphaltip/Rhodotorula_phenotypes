@@ -105,3 +105,4 @@ t.txt.gz
 27499756_envprobe.log
 retry2_*.log
 analysis/gwas/results/gwas/population_vs_locus/work/
+analysis/gwas/results/gwas/mas_gates/work/
