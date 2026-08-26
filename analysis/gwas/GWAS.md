@@ -1,6 +1,6 @@
 # GWAS: Color and Copper-Response Phenotypes in *Rhodotorula mucilaginosa*
 
-**Status**: in progress (port from `analysis/ideas/2026-08-15-color-phenotype-space/`) — Tier A rebuild complete; Tier B/C/LOCO/pixy pending
+**Status**: in progress (port from `analysis/ideas/2026-08-15-color-phenotype-space/`) — Tier A (corrected, full marker set, both panels), Tier C (BSLMM), and LOCO complete; Tier B running; pixy reuse flagged with a caveat (not recomputed)
 **Spec**: `docs/superpowers/specs/2026-08-25-gwas-port-design.md`
 **Plan**: `docs/superpowers/plans/2026-08-25-gwas-port-implementation.md`
 
@@ -115,63 +115,246 @@ GRM: there, 22/201 strains; here, a much smaller 3/213 triplet) — not a new pa
 Per user decision, this was treated as consistent with D-9's precedent (kinship-only LMM
 tolerates it) and the rebuild proceeded.
 
-## 5. Tier A GEMMA rebuild (complete) — Tier B/C/LOCO/pixy (pending)
+## 5. Population structure
 
-**Scope decision (2026-08-25, user):** given the near-clone culling algorithm behind the
-173-strain "informative" subset was never saved as code in the original run (only
-described in prose, PROGRESS.md §6 N2: "IBS0<0.005 greedy"), reconstructing it plus Tier
-B (SKAT/burden), Tier C (BSLMM), and LOCO was scoped **out** of this session. Only the
-mandatory minimum (spec §4: GRM rebuild + Tier A/B single-SNP rescan) was completed, and
-only the Tier A half of that (single-SNP LMM); Tier B set tests, Tier C BSLMM, and LOCO
-are left as an explicit follow-up (see `todo/`).
+Before extending to Tier B/C/LOCO, the user asked whether population structure in this
+panel needs additional correction beyond the existing kinship-only LMM. Checked directly
+by eigen-decomposing the rebuilt 213-strain GRM and cross-referencing
+`Rmuc_PopAssigned.csv`'s 6 population labels (sizes: pop1=77, pop2=28, pop3=30, pop4=39,
+pop5=18, pop6=21):
 
-`scripts/build_gwas_phenotypes.py` (ported from the ideas folder, re-pointed at the
-rebuilt 213-strain `.fam`) derived the same 12 traits as the original run — chroma/sat/
-bright/clone_mean_area (color+size block) and AUC_0/10/20/30, AUC_ratio_10,
-resilience_30, cu_dose_slope, IC50_est (copper-response block) — with **213/213 strains
-aligned** to the rebuilt `.fam` order.
+- **PC1 explains 33.3% of GRM variance, PC2 9.9%** — both cleanly separate the 6
+  populations (per-population PC1/PC2 means are well-resolved, most with tiny within-pop
+  SD; pop2 and pop3 show more within-pop spread, consistent with pop3 containing the
+  DBVPG_5757/5758/5759 near-clone triplet from §4).
+- This confirms real, strong population structure — consistent with pixy's mean Fst
+  ~0.45 from the original run (PROGRESS.md §8) — but **kinship-only LMM (D-9) is already
+  the correct tool for it**, not a gap needing a new fix: D-9 established that adding
+  explicit PC or population-dummy covariates on top of the kinship term collapses the
+  model (GSL solver singular) precisely because top genotype PCs are collinear with the
+  near-clone structure the GRM already encodes. The GRM captures population membership
+  at finer, continuous resolution than 6 discrete labels ever could.
+- **Data-cleaning conclusion**: no additional population-structure correction is
+  warranted beyond what's already in place. The two concrete cleaning steps that *are*
+  warranted and now in place are (a) the near-clone culling in §6 (a large fraction of
+  "structure" in a panel like this is redundant near-identical strains, not distinct
+  ancestry) and (b) the per-hit population-confounding check in §10 below (catches the
+  case where a single locus, not genome-wide relatedness, happens to be a population
+  marker — kinship correction does not protect against that).
 
-`scripts/run_tiera_gemma.sh` ran `gemma -lmm 4 -k` per trait against the rebuilt
-kinship (12 scans, ~8 min total). `scripts/summarize_tiera.py` computed genomic inflation
-(λ) and BH-FDR(q=0.05) per trait:
+## 6. Near-clone culling (reconstructed)
 
-| trait | n SNPs | λ | n FDR05 | top SNP | top p_wald |
-|---|---|---|---|---|---|
-| AUC_0 | 28,885 | 1.276 | 202 | scaffold_1:1221610 | 1.2e-6 |
-| AUC_10 | 28,885 | 0.891 | 465 | scaffold_6:228721 | 2.1e-8 |
-| AUC_20 | 29,441 | 0.865 | 5 | scaffold_16:418561 | 4.0e-7 |
-| AUC_30 | 29,441 | 0.755 | 130 | scaffold_13:810026 | 1.6e-7 |
-| AUC_ratio_10 | 28,885 | 1.056 | 0 | scaffold_7:1065753 | 3.0e-4 |
-| IC50_est | 28,609 | 1.556 | 0 | scaffold_18:12058 | 1.2e-5 |
-| bright | 28,885 | 1.071 | 0 | scaffold_2:1233513 | 1.5e-5 |
-| chroma | 28,885 | 1.010 | 1 | scaffold_8:831789 | 1.3e-6 |
-| clone_mean_area | 28,885 | 1.336 | 0 | scaffold_5:218638 | 1.6e-5 |
-| cu_dose_slope | 28,884 | 0.810 | 243 | scaffold_3:546065 | 1.7e-8 |
-| resilience_30 | 28,885 | 0.900 | 190 | **scaffold_13:810026** | 2.6e-9 |
-| sat | 28,885 | 1.141 | 0 | scaffold_3:368161 | 3.2e-6 |
+The 173-strain "informative subset" culling algorithm from the original run was never
+saved as code — only described in prose (PROGRESS.md §6 N2: "IBS0<0.005 greedy").
+Reconstructed as `scripts/cull_near_clones.py`: pairwise IBS0 (allele-mismatch rate; this
+panel is haploid-encoded genome-wide, so IBS0 reduces to a direct mismatch rate) via
+`plink2 --make-king-table` (this cluster's plink2 build has no `--distance` flag — L-25),
+then greedy removal of one member of the closest sub-threshold pair, repeated until no
+pair remains below 0.005.
 
-**Comparison to the prior 201-strain run (PROGRESS.md §9):**
-- **Replicates cleanly:** `resilience_30`/`AUC_30` both anchor on **scaffold_13:810026**
-  in both runs (this run p=2.6e-9 resilience_30 vs. prior 6.4e-9) — the 12 added strains
-  did not disturb this signal.
-- **Changed substantially:** `chroma`'s prior top hit was `scaffold_10:384905`
-  (p=2.4e-8, 345 FDR-sig SNPs, λ=0.32); this run's top hit is `scaffold_8:831789`
-  (p=1.3e-6, only 1 FDR-sig SNP, λ=1.01). The color signal is markedly weaker in the
-  213-strain panel — flagged here rather than silently treated as a like-for-like
-  replication; worth investigating whether the 12 added strains specifically dilute the
-  chroma association (e.g. via population membership or phenotype range) before citing
-  the original chroma finding as reconfirmed.
-- λ values are generally closer to 1 here than the prior run's 0.357-0.638 range,
-  consistent with less near-clone-driven over-correction on the (slightly) less clonal
-  213-strain panel — expected given the added strains and the small (not large)
-  near-clone triplet found in §4.
+**Validated before trusting it on new data**: restricted to the prior run's known
+201-strain set, the reconstruction kept 171/201 strains (30 removed) vs. the original's
+173/201 (28 removed) — **162/173 (93.6%) membership overlap**. Not exact (the original's
+tie-break rule for *which* clone in a pair to drop was never recorded), but close enough
+in scale and membership to trust on the new panel.
+
+Applied to the full 213-strain panel: **182/213 kept, 31 removed (14.6% culled)** —
+proportionally consistent with the prior run's 13.9%. This "gwasc" (culled) panel got its
+own rebuilt kinship + GRM diagnostic: condition_number=2.0e11 (flagged `singular_risk` by
+the same threshold as §4), but only **1/182 (0.5%) near-zero eigenvalues** — smaller than
+the full panel's 3/213, consistent with the same benign pattern (not re-investigated
+eigenvector-by-eigenvector since the fraction is even lower here).
+
+## 7. Tier A — corrected (full unpruned SNP set, both panels)
+
+**A real bug, caught before Tier B**: the first Tier A rebuild (this doc's earlier
+version) used the LD-pruned SNP set for the association scan itself, not just for
+kinship. The original run used the FULL QC'd unpruned set (~404,706 SNPs) for
+association, pruning only for kinship (PROGRESS.md's S3/S3b rows). An independent
+quant-genetics consult (D-16) confirmed unpruned-for-association is correct — pruning the
+scan silently drops >90% of genotyped positions and can exclude the true signal or its
+best proxy; this panel's population-structure LD (Fst~0.45, PC1=33%) is long-range and
+ancestry-driven, so pruning-by-window would gut resolution for the wrong reason. The
+consult also recommended reporting a Meff proxy + Bonferroni-at-Meff alongside BH-FDR,
+and a per-hit population-confounding check (§10) — both added.
+
+`scripts/rebuild_full_genotypes_and_tiera.sh` regenerated + persisted the full unpruned
+QC'd bfile for both panels (gwas=213: 498,484 variants; gwasc=182-culled: 498,484
+variants pre-filter, same source) and reran Tier A (12 traits × 2 panels = 24 scans,
+~13 min/scan). `scripts/summarize_tiera.py` (now with `--n-pruned-snps` for the Meff
+proxy):
+
+**gwas (213-strain) panel** (Meff proxy = 29,453 pruned SNPs, Bonferroni-at-Meff =
+1.70e-6):
+
+| trait | n SNPs | λ | n FDR05 | n sig (Bonf@Meff) | top SNP | top p_wald |
+|---|---|---|---|---|---|---|
+| AUC_0 | 496,358 | 1.844 | 9 | 12 | scaffold_2:1248484 | 1.0e-7 |
+| AUC_10 | 496,358 | 0.619 | 2,973 | 54 | scaffold_6:228721 | 2.1e-8 |
+| AUC_20 | 498,459 | 1.129 | 27 | 19 | scaffold_16:417619 | 1.9e-9 |
+| AUC_30 | 498,459 | 0.572 | 28 | 25 | scaffold_6:113610 | 1.2e-8 |
+| AUC_ratio_10 | 496,358 | 0.841 | 0 | 0 | scaffold_4:61737 | 2.0e-5 |
+| IC50_est | 496,364 | 0.414 | 1 | 1 | scaffold_16:122361 | 3.7e-11 |
+| bright | 496,358 | 0.544 | 0 | 0 | scaffold_7:784232 | 1.3e-5 |
+| chroma | 496,358 | 0.473 | 0 | 9 | scaffold_8:38068 | 2.5e-7 |
+| clone_mean_area | 496,358 | 1.642 | 0 | 0 | scaffold_3:685221 | 1.4e-5 |
+| cu_dose_slope | 496,347 | 0.374 | 24 | 20 | scaffold_3:546065 | 1.7e-8 |
+| resilience_30 | 496,358 | 0.547 | 665 | 372 | **scaffold_13:810026** | 2.6e-9 |
+| sat | 496,358 | 0.411 | 41 | 30 | scaffold_1:208569 | 1.4e-7 |
+
+**gwasc (182-strain culled) panel** (Meff proxy = 28,707, Bonferroni-at-Meff = 1.74e-6):
+
+| trait | n SNPs | λ | n FDR05 | n sig (Bonf@Meff) | top SNP | top p_wald |
+|---|---|---|---|---|---|---|
+| AUC_0 | 496,068 | 1.764 | 11 | 11 | scaffold_14:153892 | 9.6e-8 |
+| AUC_10 | 496,068 | 0.641 | 3,181 | 54 | scaffold_7:68713 | 2.8e-9 |
+| AUC_20 | 496,605 | 1.012 | 20 | 20 | scaffold_16:417619 | 1.5e-7 |
+| AUC_30 | 496,605 | 0.562 | 158 | 32 | scaffold_6:113610 | 4.5e-9 |
+| AUC_ratio_10 | 496,068 | 1.273 | 0 | 0 | scaffold_1:1436119 | 2.9e-5 |
+| IC50_est | 493,088 | 0.403 | 847 | 616 | scaffold_10:458650 | 1.0e-9 |
+| bright | 496,068 | 0.683 | 0 | 0 | scaffold_2:61063 | 2.6e-5 |
+| chroma | 496,068 | 0.412 | 0 | 0 | scaffold_2:1406833 | 2.7e-6 |
+| clone_mean_area | 496,068 | 1.654 | 0 | 0 | scaffold_4:123170 | 3.5e-6 |
+| cu_dose_slope | 496,068 | 0.356 | 1 | 8 | scaffold_7:897138 | 5.9e-10 |
+| resilience_30 | 496,068 | 0.548 | 2,533 | 17 | **scaffold_13:810026** | 8.7e-10 |
+| sat | 496,068 | 0.484 | 0 | 0 | scaffold_3:368161 | 3.3e-6 |
+
+**resilience_30/AUC_30's scaffold_13:810026 anchor is the standout robust finding**,
+replicating across *every* panel/method variant tested this session: prior 201-strain run
+(p=6.4e-9), this session's first (buggy, pruned-only) rebuild (p=2.6e-9), the corrected
+full-213 rebuild (p=2.6e-9), and the full-182-culled rebuild (p=8.7e-10). See §8 (LOCO)
+and §10 (population confounding) for two more independent lines of evidence this is real.
+
+**chroma is unstable across panel/SNP-set choices** — its top hit moves every time: prior
+run `scaffold_10:384905` (λ=0.32, 345 FDR-sig) → this session's pruned-only rebuild
+`scaffold_8:831789` (λ=1.01, 1 FDR-sig) → corrected full-213 `scaffold_8:38068` (λ=0.47,
+0 FDR-sig but 9 Bonf-sig) → full-182-culled `scaffold_2:1406833` (λ=0.41, 0 FDR-sig).
+**Do not cite any chroma locus as a confirmed/replicated finding without further
+investigation** (todo: `analysis/gwas/results/gwas/tierA_summary/population_confounding_gwas.csv`
+does not flag chroma's hit as population-confounded, so the instability isn't simply that
+— possibly a genuinely weak/diffuse signal that different marker sets and strain
+compositions pick up different marginal SNPs for).
+
+## 8. LOCO (leave-one-chromosome-out sensitivity)
+
+`scripts/run_loco.sh` (reusing the original's `run_loco_shared.sh`/`plink_arch.sh`,
+verified to have been actually saved as code, unlike the culling algorithm) ran LOCO for
+the 3 traits the original run actually covered (chroma, AUC_10, resilience_30 — PROGRESS.md's
+"6 traits" prose turned out to mean 6 (trait,panel) combinations, not 6 distinct traits,
+confirmed by inspecting the real `loco/output/` directory contents) × both panels ×
+~21 chromosomes.
+
+**resilience_30's scaffold_13:810026 anchor reproduces almost exactly when chr13 itself
+is excluded from the kinship**:
+
+| panel | Tier A p (chr13 in kinship) | LOCO p (chr13 excluded) |
+|---|---|---|
+| gwas (213) | 2.62e-9 | 2.51e-9 |
+| gwasc (182-culled) | 8.68e-10 | 8.34e-10 |
+
+This rules out the signal being a kinship-absorption artifact (a spurious association
+that only appears because the causal chromosome's own relatedness structure is baked
+into the correction) — the association survives essentially unchanged even when its own
+chromosome cannot contribute to the GRM.
+
+Genome-wide LOCO λ (median across chr, gwas panel): AUC_10 0.608, chroma 0.458,
+resilience_30 0.538 — tracks the Tier-A-per-chromosome λ (median 0.520) closely, meaning
+the λ<1 deflation is stable near-clonal-structure correction, not a LOCO-specific
+rescue effect (same conclusion as the original run's D-13 finding, now confirmed on the
+213-strain panel too).
+
+## 9. Tier C — BSLMM (5 traits, gwas-213 panel only, matching original scope)
+
+`scripts/run_tierc_bslmm.sh`, `-bslmm 1` on chroma/AUC_10/AUC_30/clone_mean_area/
+resilience_30 (the original run's 5 representative traits — confirmed by inspecting
+`tierC_summary/` contents, no culled-panel BSLMM was ever run originally either).
+
+**MCMC chain length caught and fixed mid-session (L-28)**: a first attempt guessed
+`-w 20000 -s 100000` from PROGRESS.md's "100k MCMC, 20% burn-in" prose read as ~120k
+total iterations — this produced only 10,000 recorded posterior samples (`.hyp.txt` row
+count), 10x shorter than the original's 100,000. GEMMA's default `-rpace` (record pace)
+is 10, so "100k MCMC" in the prose meant 100k *retained* samples, requiring
+`-s 1000000` (not `-s 100000`). Verified directly by diffing `.hyp.txt.gz` row counts
+against the original (100,001 both) before trusting any posterior estimate. The
+short-chain outputs are kept (not deleted) under `tierC_summary/superseded_short_chain/`
+as a convergence sensitivity check, not presented as results.
+
+`scripts/summarize_tierc.py` computes PVE (phenotypic variance explained by all SNPs) and
+PGE (proportion of that from the sparse/large-effect component) posteriors from
+`.hyp.txt.gz`, and per-SNP posterior inclusion probability (PIP) from `.gamma.txt.gz` —
+truncating each MCMC sample's row to its own `n_gamma` before tallying (GEMMA
+zero-pads gamma rows, indistinguishable from a genuine SNP index 0 by value alone; caught
+via a separate bug where `.hyp.txt.gz`'s trailing empty 7th tab-field silently shifted
+`n_gamma` to `NaN` under plain `pd.read_csv` — fixed with `index_col=False`):
+
+| trait | PVE [95% CI] | PGE | n_gamma (med) | top PIP locus |
+|---|---|---|---|---|
+| chroma | 0.213 [0.093, 0.395] | 0.472 | 14.0 | scaffold_9:667240 (PIP=0.018) |
+| AUC_10 | 0.398 [0.254, 0.577] | 0.784 | 3.0 | scaffold_5:458816 (PIP=0.440) |
+| AUC_30 | 0.407 [0.224, 0.652] | 0.537 | 5.0 | scaffold_16:492282 (PIP=0.218) |
+| clone_mean_area | 0.087 [0.013, 0.250] | 0.338 | 7.0 | scaffold_10:274947 (PIP=0.004) |
+| resilience_30 | 0.245 [0.094, 0.462] | 0.506 | 72.0 | scaffold_13:793374 (PIP=0.122) |
+
+**Substantively different architecture from the original run.** The original found
+near-oligogenic PIP≈1.0 loci for several traits (e.g. AUC_10: 2 loci at PIP=1.0,
+"near-oligogenic"; chroma: 4 loci at PIP=1.0 on scaffold_3). This rebuild finds **no locus
+reaching PIP≥0.5 for any trait** — the highest is AUC_10's scaffold_5:458816 at PIP=0.44.
+Not yet explained; candidate reasons include the larger unpruned marker set here (498,484
+vs. the original's 404,706 SNPs, diluting PIP across more candidate tag SNPs) and/or the
+different, smaller near-clone structure (§4/§6) changing which variants the sparse
+component favors. Flagged for investigation, not presented as a contradiction of the
+original's architecture claims.
+
+One reassuring cross-check: **resilience_30's top BSLMM locus (`scaffold_13:793374`,
+PIP=0.122) sits only ~17 kb from the Tier A/LOCO-confirmed anchor `scaffold_13:810026`**
+(§7/§8) — independent (if lower-confidence) corroboration that scaffold_13 harbors real
+signal for this trait, from a completely different modeling approach (sparse Bayesian
+selection vs. single-SNP LMM).
+
+Per-SNP PIP tables: `results/gwas/tierC_summary/pip/{trait}_pip.csv`.
+
+## 10. Population-confounding check (per top hit)
+
+`scripts/check_population_confounding.py`: for each trait's top FDR-significant SNP,
+cross-tabs alt-allele frequency across the 6 populations; flags a >0.8 AF swing (while
+overall AF isn't itself near-fixed) as a population-private-variant pattern kinship
+correction alone would not catch.
+
+- **resilience_30's scaffold_13:810026 is clean in BOTH panels** (AF range 0.000–0.042,
+  overall AF 0.014) — a third independent line of evidence (with cross-panel replication
+  §7 and LOCO §8) that this signal is real, not a population artifact.
+- **AUC_20's scaffold_16:417619 is flagged in BOTH panels** (AF range 0.02–0.995) — this
+  locus is essentially a population marker; treat any AUC_20 finding at this locus with
+  caution.
+- `cu_dose_slope` and `sat` also flagged in the gwas-213 panel only (not in gwasc),
+  suggesting the culled panel's removal of near-clones changes which population
+  drives the apparent signal for those traits.
+
+Full tables: `results/gwas/tierA_summary/population_confounding_{gwas,gwasc}.csv`.
+
+## 11. Tier B (SKAT/burden set tests) — in progress
+
+Running via `scripts/run_tierb.sh` (ported `tierb_set_tests.py`, unmodified logic) against
+both panels' full unpruned bfiles for window LD. **Caveat, documented rather than
+resolved**: `--pixy-dir` points at the original run's pixy output
+(`analysis/ideas/2026-08-15-color-phenotype-space/results/gwas/pixy/`), computed on a
+`cohort.all.vcf.gz` restricted to the prior **201-strain** cohort — confirmed directly
+(`bcftools query -l` returns 201 samples). Pixy was **not** recomputed for the 213-strain
+panel this session (the original pixy run took 6h35m). The high-dxy window *definitions*
+this selects are a population-genetic property of the genome and unlikely to shift
+dramatically from 12 more strains within existing populations, but this is an
+approximation, not a verified-unaffected reuse — results section to be filled in once the
+job completes.
 
 ## Next steps (not done this session)
 
-- Reconstruct the near-clone IBS0-culling algorithm as reusable code (never saved
-  originally) and recompute the culled-173-equivalent set for 213 strains, to properly
-  gate whether pixy/BSLMM/LOCO can be reused as-is or need a rebuild (spec §4).
-- Tier B (SKAT/burden set tests) and Tier C (BSLMM) rescans on the rebuilt kinship.
-- LOCO sensitivity check for the rebuilt panel's top hits (esp. the changed chroma
-  signal).
-- Investigate the chroma signal shift (§5) before citing it in any writeup.
+- Fill in Tier B results once the running job completes.
+- Fill in the Tier C BSLMM architecture summary table (PVE/PGE/n_gamma per trait).
+- Investigate the chroma signal instability (§7) — it is NOT population-confounded per
+  §10, so the cause is still open.
+- Consider whether pixy should be recomputed on the 213-strain panel (currently a
+  documented approximation, §11) if Tier B set-level results turn out to matter for any
+  headline claim.
+- Tier D/E/G (gene annotation, fine-mapping, prior-locus replication) — not started this
+  session; natural next step once Tier A-C are finalized, focused on the
+  resilience_30/AUC_30 scaffold_13:810026 anchor given how robustly it's replicated.
