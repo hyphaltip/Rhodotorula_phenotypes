@@ -1,0 +1,6 @@
+trait,n_mcmc_samples,PVE_med,PVE_lo95,PVE_hi95,PGE_med,n_gamma_med,n_loci_PIP_ge_0.5,top_PIP_loci
+chroma,100000,0.213,0.093,0.395,0.472,14.0,0,none >= threshold
+AUC_10,100000,0.398,0.254,0.577,0.784,3.0,0,none >= threshold
+AUC_30,100000,0.407,0.224,0.652,0.537,5.0,0,none >= threshold
+clone_mean_area,100000,0.087,0.013,0.25,0.338,7.0,0,none >= threshold
+resilience_30,100000,0.245,0.094,0.462,0.506,72.0,0,none >= threshold
