@@ -1,0 +1,9 @@
+{
+  "n": 213,
+  "max_eigenvalue": 21.45767287104431,
+  "min_eigenvalue": -8.937129109159163e-17,
+  "condition_number": 214576728710.44308,
+  "n_near_zero_eigenvalues": 3,
+  "fraction_near_zero": 0.014084507042253521,
+  "verdict": "singular_risk"
+}
