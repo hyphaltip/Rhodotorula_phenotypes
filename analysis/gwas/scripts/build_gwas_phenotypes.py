@@ -51,6 +51,14 @@ def main() -> None:
     d["chroma"] = d["ColorLab_ChromaEstimatedMedian"].astype(float)
     d["sat"] = d["ColorHSV_SaturationMedian"].astype(float)
     d["bright"] = d["ColorHSV_BrightnessMedian"].astype(float)
+    # Raw CIELAB components -- added 2026-08-26 per user request; neither the
+    # original run nor this port's first pass tested these directly, only the
+    # chroma/sat/bright derived metrics (chroma is Lab-derived magnitude of
+    # a*/b*, but L* lightness and the signed a*/b* axes were never their own
+    # GWAS traits).
+    d["lab_L"] = d["ColorLab_L*Median"].astype(float)
+    d["lab_a"] = d["ColorLab_a*Median"].astype(float)
+    d["lab_b"] = d["ColorLab_b*Median"].astype(float)
     d["tp_h"] = d["tp_h"].astype(float)
     d["cu"] = d["copper_mm"].astype(float)
     d["pid"] = (d.run_number.astype(str) + "_" + d.plate_number.astype(str)
@@ -66,18 +74,23 @@ def main() -> None:
     a = d[(d.cu == 0) & (d.tp_h >= WIN_LO) & (d.tp_h <= WIN_HI)].copy()
     plate = (a.groupby(["strain_code", "run_number", "plate_number"])
                .agg(chroma=("chroma", "median"), sat=("sat", "median"),
-                    bright=("bright", "median"), area=("area", "median"))
+                    bright=("bright", "median"), area=("area", "median"),
+                    lab_L=("lab_L", "median"), lab_a=("lab_a", "median"),
+                    lab_b=("lab_b", "median"))
                .reset_index())
     plate = plate[plate.chroma.notna()]
     nplate = plate.groupby("strain_code").size()
     plate_mean = (plate.groupby("strain_code")
                        .agg(chroma=("chroma", "mean"), sat=("sat", "mean"),
-                            bright=("bright", "mean"), area=("area", "mean"))
+                            bright=("bright", "mean"), area=("area", "mean"),
+                            lab_L=("lab_L", "mean"), lab_a=("lab_a", "mean"),
+                            lab_b=("lab_b", "mean"))
                        .reset_index())
     plate_mean["n_plate"] = plate_mean.strain_code.map(nplate)
     plate_mean["clone_mean_area"] = np.log10(plate_mean.area)
     plate_mean["n_rep"] = plate_mean.strain_code.map(nplate)
-    color = plate_mean[["strain_code", "chroma", "sat", "bright", "clone_mean_area", "n_plate"]].copy()
+    color = plate_mean[["strain_code", "chroma", "sat", "bright", "clone_mean_area",
+                         "lab_L", "lab_a", "lab_b", "n_plate"]].copy()
     print("   color traits ready, strains=", len(color))
 
     # ---------------- C. Copper-response block ---------------------------------
