@@ -39,6 +39,12 @@ analysis/growth_rates/results/tables/
 # committed by request -- they are small and directly consumed downstream.
 !analysis/control_late_timepoint_phenotype/results/
 
+# Exception: GWAS-port strain reconciliation audit (small CSV/MD) is a checked-in
+# interface -- strain_match_table.reviewed.csv is consumed by later GWAS-port
+# tasks (diff_strain_state.py, GEMMA rebuild/copy-forward), not rebuilt silently.
+!analysis/gwas/results/
+!analysis/gwas/results/strain_reconciliation/
+
 # Ideation session 2026-08-15: large derived intermediate extract is rebuildable
 # via scripts/build_series.py; only final tables/figures/docs are tracked.
 analysis/ideas/2026-08-15-color-phenotype-space/data/

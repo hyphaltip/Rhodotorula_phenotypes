@@ -1,0 +1,152 @@
+# Strain reconciliation — needs human review
+
+## COLLISIONS (hard error — must resolve before proceeding)
+
+- VCF sample `DBVPG_3383` claimed by 3 phenotype strains: ['DBVPG_10383', 'DBVPG_3383', 'DBVPG_3853']
+- VCF sample `DBVPG_10619` claimed by 2 phenotype strains: ['DBVPG_10619', 'DBVPG_6195']
+- VCF sample `DBVPG_3235` claimed by 2 phenotype strains: ['DBVPG_3235', 'DBVPG_7323']
+- VCF sample `DBVPG_3238` claimed by 2 phenotype strains: ['DBVPG_3238', 'DBVPG_3380']
+- VCF sample `DBVPG_3776` claimed by 3 phenotype strains: ['DBVPG_3768', 'DBVPG_3769', 'DBVPG_3776']
+- VCF sample `DBVPG_3774` claimed by 5 phenotype strains: ['DBVPG_3770', 'DBVPG_3771', 'DBVPG_3772', 'DBVPG_3773', 'DBVPG_3774']
+- VCF sample `DBVPG_3854` claimed by 2 phenotype strains: ['DBVPG_3854', 'DBVPG_3985']
+- VCF sample `DBVPG_3858` claimed by 2 phenotype strains: ['DBVPG_3858', 'DBVPG_8058']
+- VCF sample `DBVPG_4202` claimed by 2 phenotype strains: ['DBVPG_4202', 'DBVPG_6202']
+- VCF sample `DBVPG_4304` claimed by 2 phenotype strains: ['DBVPG_4304', 'DBVPG_4530']
+- VCF sample `DBVPG_4534` claimed by 2 phenotype strains: ['DBVPG_4531', 'DBVPG_4534']
+- VCF sample `DBVPG_4618` claimed by 2 phenotype strains: ['DBVPG_4610', 'DBVPG_4618']
+- VCF sample `DBVPG_4669` claimed by 2 phenotype strains: ['DBVPG_4629', 'DBVPG_4669']
+- VCF sample `DBVPG_4947` claimed by 2 phenotype strains: ['DBVPG_4947', 'DBVPG_7947']
+- VCF sample `DBVPG_5759` claimed by 2 phenotype strains: ['DBVPG_5759', 'DBVPG_7539']
+- VCF sample `DBVPG_6091` claimed by 2 phenotype strains: ['DBVPG_6081', 'DBVPG_6091']
+- VCF sample `DBVPG_6093` claimed by 2 phenotype strains: ['DBVPG_6083', 'DBVPG_6093']
+- VCF sample `DBVPG_6743` claimed by 2 phenotype strains: ['DBVPG_6739', 'DBVPG_6743']
+- VCF sample `DBVPG_6741` claimed by 2 phenotype strains: ['DBVPG_6740', 'DBVPG_6741']
+- VCF sample `DBVPG_7019` claimed by 2 phenotype strains: ['DBVPG_7019', 'DBVPG_7021']
+- VCF sample `NRRL_Y-2510` claimed by 2 phenotype strains: ['NRRL_Y-2504', 'NRRL_Y-2510']
+- VCF sample `TFCN_102C-2` claimed by 2 phenotype strains: ['TFCN_102C-2', 'TFCN_152C-2']
+- VCF sample `TFCN_118C-2` claimed by 2 phenotype strains: ['TFCN_118C-2', 'TFCN_211C_2']
+- VCF sample `TFCN_152A-1` claimed by 4 phenotype strains: ['TFCN_152A-1', 'TFCN_152A-4', 'TFCN_152A-6', 'TFCN_152A_3']
+- VCF sample `TFCN_152A-12` claimed by 2 phenotype strains: ['TFCN_152A-12', 'TFCN_1A-1-2']
+- VCF sample `TFCN_152C-5` claimed by 3 phenotype strains: ['TFCN_152C-3', 'TFCN_152C-5', 'TFCN_152C-6']
+- VCF sample `TFCN_17-0-2E334-4` claimed by 2 phenotype strains: ['TFCN_17-0-2E329-4', 'TFCN_17-0-2E334-4']
+- VCF sample `TFCN_17-325P-1` claimed by 2 phenotype strains: ['TFCN_17-325P-1', 'TFCN_17-328P-3']
+- VCF sample `TFCN_17-332C-1` claimed by 2 phenotype strains: ['TFCN_17-328C-3', 'TFCN_17-332C-1']
+- VCF sample `TFCN_17-334Y-3` claimed by 2 phenotype strains: ['TFCN_17-331Y-3', 'TFCN_17-334Y-3']
+- VCF sample `TFCN_17-332M-1` claimed by 2 phenotype strains: ['TFCN_17-332M-1', 'TFCN_17_332M_1']
+- VCF sample `TFCN_17-334D-6` claimed by 2 phenotype strains: ['TFCN_17-334D-6', 'TFCN_17-334Y-6']
+- VCF sample `TFCN_1A-14` claimed by 3 phenotype strains: ['TFCN_1A-1-3', 'TFCN_1A-14', 'TFCN_1A_1_5']
+- VCF sample `TFCN_25-331D-1` claimed by 3 phenotype strains: ['TFCN_25-331D-1', 'TFCN_25-333D-1', 'TFCN_25-333D-5']
+- VCF sample `TFCN_25-332C-1` claimed by 2 phenotype strains: ['TFCN_25-332C-1', 'TFCN_25-335C-1']
+- VCF sample `TFCN_25-333C-2` claimed by 2 phenotype strains: ['TFCN_25-333C-2', 'TFCN_25-333Y-2']
+- VCF sample `TFCN_25-333P-2` claimed by 2 phenotype strains: ['TFCN_25-333P-2', 'TFCN_25-333P-5']
+- VCF sample `TFCN_25-335Y-1` claimed by 2 phenotype strains: ['TFCN_25-335P-1', 'TFCN_25-335Y-1']
+- VCF sample `TFCN_2M-1-4` claimed by 2 phenotype strains: ['TFCN_2M-1-4', 'TFCN_2M_1_3']
+- VCF sample `TFCN_33A-4` claimed by 2 phenotype strains: ['TFCN_33A-4', 'TFCN_43A-4']
+- VCF sample `TFCN_342-3` claimed by 2 phenotype strains: ['TFCN_342-2', 'TFCN_342-3']
+- VCF sample `TFCN_98A-10` claimed by 3 phenotype strains: ['TFCN_48A-10', 'TFCN_49A-1', 'TFCN_98A-10']
+- VCF sample `TFCN_98A-5` claimed by 2 phenotype strains: ['TFCN_48A-15', 'TFCN_98A-5']
+- VCF sample `TFCN_86A-12` claimed by 2 phenotype strains: ['TFCN_48A-2', 'TFCN_86A-12']
+- VCF sample `TFCN_86A-3` claimed by 6 phenotype strains: ['TFCN_48A-3', 'TFCN_86A-3', 'TFCN_86A-6', 'TFCN_86A-8', 'TFCN_86A_5', 'TF_CN_86C_3']
+- VCF sample `TFCN_98C-3` claimed by 2 phenotype strains: ['TFCN_48C-3', 'TFCN_98C-3']
+- VCF sample `TFCN_54D-1` claimed by 2 phenotype strains: ['TFCN_48D-10', 'TFCN_54D-1']
+- VCF sample `TFCN_98C-7` claimed by 2 phenotype strains: ['TFCN_86C-7', 'TFCN_98C-7']
+
+## Fuzzy matches (62) — verify each by eye
+
+- `DBVPG_10383` -> `DBVPG_3383` (score=0.857)
+- `DBVPG_3380` -> `DBVPG_3238` (score=0.9)
+- `DBVPG_3768` -> `DBVPG_3776` (score=0.9)
+- `DBVPG_3769` -> `DBVPG_3776` (score=0.9)
+- `DBVPG_3770` -> `DBVPG_3774` (score=0.9)
+- `DBVPG_3771` -> `DBVPG_3774` (score=0.9)
+- `DBVPG_3772` -> `DBVPG_3774` (score=0.9)
+- `DBVPG_3773` -> `DBVPG_3774` (score=0.9)
+- `DBVPG_3853` -> `DBVPG_3383` (score=0.9)
+- `DBVPG_3985` -> `DBVPG_3854` (score=0.9)
+- `DBVPG_4530` -> `DBVPG_4304` (score=0.9)
+- `DBVPG_4531` -> `DBVPG_4534` (score=0.9)
+- `DBVPG_4610` -> `DBVPG_4618` (score=0.9)
+- `DBVPG_4629` -> `DBVPG_4669` (score=0.9)
+- `DBVPG_6081` -> `DBVPG_6091` (score=0.9)
+- `DBVPG_6083` -> `DBVPG_6093` (score=0.9)
+- `DBVPG_6195` -> `DBVPG_10619` (score=0.857)
+- `DBVPG_6202` -> `DBVPG_4202` (score=0.9)
+- `DBVPG_6739` -> `DBVPG_6743` (score=0.9)
+- `DBVPG_6740` -> `DBVPG_6741` (score=0.9)
+- `DBVPG_7021` -> `DBVPG_7019` (score=0.9)
+- `DBVPG_7323` -> `DBVPG_3235` (score=0.9)
+- `DBVPG_7539` -> `DBVPG_5759` (score=0.9)
+- `DBVPG_7947` -> `DBVPG_4947` (score=0.9)
+- `DBVPG_8058` -> `DBVPG_3858` (score=0.9)
+- `NRRL_Y-2504` -> `NRRL_Y-2510` (score=0.909)
+- `TFCN_152A-4` -> `TFCN_152A-1` (score=0.909)
+- `TFCN_152A-6` -> `TFCN_152A-1` (score=0.909)
+- `TFCN_152A_3` -> `TFCN_152A-1` (score=0.909)
+- `TFCN_152C-2` -> `TFCN_102C-2` (score=0.909)
+- `TFCN_152C-3` -> `TFCN_152C-5` (score=0.909)
+- `TFCN_152C-6` -> `TFCN_152C-5` (score=0.909)
+- `TFCN_17-0-2E329-4` -> `TFCN_17-0-2E334-4` (score=0.882)
+- `TFCN_17-328C-3` -> `TFCN_17-332C-1` (score=0.857)
+- `TFCN_17-328P-3` -> `TFCN_17-325P-1` (score=0.857)
+- `TFCN_17-331Y-3` -> `TFCN_17-334Y-3` (score=0.929)
+- `TFCN_17-334Y-6` -> `TFCN_17-334D-6` (score=0.929)
+- `TFCN_1A-1-2` -> `TFCN_152A-12` (score=0.87)
+- `TFCN_1A-1-3` -> `TFCN_1A-14` (score=0.857)
+- `TFCN_1A_1_5` -> `TFCN_1A-14` (score=0.857)
+- `TFCN_211C_2` -> `TFCN_118C-2` (score=0.909)
+- `TFCN_25-333D-1` -> `TFCN_25-331D-1` (score=0.929)
+- `TFCN_25-333D-5` -> `TFCN_25-331D-1` (score=0.857)
+- `TFCN_25-333P-5` -> `TFCN_25-333P-2` (score=0.929)
+- `TFCN_25-333Y-2` -> `TFCN_25-333C-2` (score=0.929)
+- `TFCN_25-335C-1` -> `TFCN_25-332C-1` (score=0.929)
+- `TFCN_25-335P-1` -> `TFCN_25-335Y-1` (score=0.929)
+- `TFCN_2M_1_3` -> `TFCN_2M-1-4` (score=0.909)
+- `TFCN_342-2` -> `TFCN_342-3` (score=0.9)
+- `TFCN_43A-4` -> `TFCN_33A-4` (score=0.9)
+- `TFCN_48A-10` -> `TFCN_98A-10` (score=0.909)
+- `TFCN_48A-15` -> `TFCN_98A-5` (score=0.857)
+- `TFCN_48A-2` -> `TFCN_86A-12` (score=0.857)
+- `TFCN_48A-3` -> `TFCN_86A-3` (score=0.9)
+- `TFCN_48C-3` -> `TFCN_98C-3` (score=0.9)
+- `TFCN_48D-10` -> `TFCN_54D-1` (score=0.857)
+- `TFCN_49A-1` -> `TFCN_98A-10` (score=0.857)
+- `TFCN_86A-6` -> `TFCN_86A-3` (score=0.9)
+- `TFCN_86A-8` -> `TFCN_86A-3` (score=0.9)
+- `TFCN_86A_5` -> `TFCN_86A-3` (score=0.9)
+- `TFCN_86C-7` -> `TFCN_98C-7` (score=0.9)
+- `TF_CN_86C_3` -> `TFCN_86A-3` (score=0.857)
+
+## Unmatched (32) — no genotype available
+
+- `DBVPG_10075`
+- `DBVPG_10348`
+- `DBVPG_10753`
+- `DBVPG_6121`
+- `DBVPG_7316`
+- `DBVPG_7922`
+- `JES-025-001`
+- `NRRL_Y-12923`
+- `NRRL_Y-17376`
+- `NRRL_Y-2474`
+- `NRRL_Y-48721`
+- `NRRL_Y-7192`
+- `NRRL_Y-7196`
+- `TFCN_0520-4-2-1`
+- `TFCN_0520-4-2-2`
+- `TFCN_152D-4`
+- `TFCN_152D-6`
+- `TFCN_186DK3-2`
+- `TFCN_1B-1-2`
+- `TFCN_222A-2`
+- `TFCN_357-1`
+- `TFCN_43A-0-22`
+- `TFCN_48D-4`
+- `TFCN_7-9-2`
+- `TFCN_7-9-3`
+- `TFCN_7W-292-3`
+- `TFCN_7_6_3`
+- `TFCN_83C-1`
+- `TFCN_86C-10`
+- `TFCN_86C-9`
+- `TFCN_S22D-1`
+- `TF_CN_186CL4_2`
