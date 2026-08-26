@@ -1,0 +1,22 @@
+{
+  "strain_list_changed": true,
+  "strain_list_added": [
+    "DBVPG_3239",
+    "DBVPG_3445",
+    "DBVPG_3446",
+    "DBVPG_3538",
+    "DBVPG_4379",
+    "DBVPG_4952",
+    "DBVPG_6094",
+    "DBVPG_6649",
+    "TFCN_223A-8",
+    "TFCN_25-332D-2",
+    "TFCN_25-332M-2",
+    "TFCN_270H-1"
+  ],
+  "strain_list_removed": [],
+  "population_assignment_changed": false,
+  "population_changes": [],
+  "near_clone_partition_touched": false,
+  "overall_action": "rebuild"
+}
