@@ -106,3 +106,4 @@ t.txt.gz
 retry2_*.log
 analysis/gwas/results/gwas/population_vs_locus/work/
 analysis/gwas/results/gwas/mas_gates/work/
+algorithms/functional_annotation/results/kofamscan/*.detail.txt
