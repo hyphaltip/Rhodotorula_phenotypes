@@ -69,7 +69,8 @@ echo "=== gwasc panel: culled-182 subset + QC (unpruned) + kinship ==="
 awk '{print "0",$1}' "$CULLED_LIST" > "$WORK/culled.keep.txt"
 "$TOOLCHAIN/plink2" --bfile "$WORK/gwas" --keep "$WORK/culled.keep.txt" \
   --make-bed --out "$WORK/gwasc" --allow-extra-chr
-cp "$WORK/gwasc.bed" "$WORK/gwasc.bim" "$WORK/gwasc.fam" "$OUTDIR_BASE/grm_conditioning/rebuilt_kinship/"
+mkdir -p "$OUTDIR_BASE/grm_conditioning/rebuilt_kinship_culled"
+cp "$WORK/gwasc.bed" "$WORK/gwasc.bim" "$WORK/gwasc.fam" "$OUTDIR_BASE/grm_conditioning/rebuilt_kinship_culled/"
 echo "gwasc: $(wc -l < "$WORK/gwasc.bim") variants x $(wc -l < "$WORK/gwasc.fam") strains"
 
 # LD-prune gwasc for its own kinship (mirrors Task 7's gwas.pruned derivation)
