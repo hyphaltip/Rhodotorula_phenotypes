@@ -1,0 +1,20 @@
+version: RmucY2510_v2
+ingested: 2026-08-25
+source_dir: /bigdata/stajichlab/shared/projects/Rhodotorula/PopGen/Rmuc_popgen_NRRLY2510/vcf
+files:
+  - name: RmucY2510_v2.All.SNP.combined_selected.vcf.gz
+    resolved_path: /bigdata/stajichlab/shared/projects/Population_Genomics/Rhodotorula_mucilaginosa_NRRLY2510/vcf/RmucY2510_v2.All.SNP.combined_selected.vcf.gz
+    size_bytes: 662265633
+    sha256: 12a75fbe5f01498bbb45a74388215059d9a67874fcdf957c2f76afdba671476f
+  - name: RmucY2510_v2.All.SNP.combined_selected.vcf.gz.tbi
+    resolved_path: /bigdata/stajichlab/shared/projects/Population_Genomics/Rhodotorula_mucilaginosa_NRRLY2510/vcf/RmucY2510_v2.All.SNP.combined_selected.vcf.gz.tbi
+    size_bytes: 13908
+    sha256: fb43dd2c333f77576d1a40656c7b436fea0e2ed441e910b8d965d2aa666f22fb
+  - name: RmucY2510_v2.All.INDEL.combined_selected.vcf.gz
+    resolved_path: /bigdata/stajichlab/shared/projects/Population_Genomics/Rhodotorula_mucilaginosa_NRRLY2510/vcf/RmucY2510_v2.All.INDEL.combined_selected.vcf.gz
+    size_bytes: 2133426787
+    sha256: 9081c5e141b873161b5ad74e5fadad22fcec376a5ad158439b016260418bf062
+  - name: RmucY2510_v2.All.INDEL.combined_selected.vcf.gz.tbi
+    resolved_path: /bigdata/stajichlab/shared/projects/Population_Genomics/Rhodotorula_mucilaginosa_NRRLY2510/vcf/RmucY2510_v2.All.INDEL.combined_selected.vcf.gz.tbi
+    size_bytes: 15658
+    sha256: 010de61da315c033d5d3f040fbc8fa699e81f0d633b976bdb9137740ac9efd24

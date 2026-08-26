@@ -59,3 +59,32 @@ temperature token 300). One row per segmented colony object per image; 211,800 r
 Haralick Texture (gray), Bbox, and color (xy / CIELAB / HSV). Strain/plate annotation lives
 in `Copper.Strain_info.csv` and `Copper.Plate_info.csv` (see provenance.md). Fully loaded into
 the DuckDB `colony_measurement` table by `scripts/db/`.
+
+### RmucY2510_v2-genotypes
+```yaml
+name: RmucY2510_v2-genotypes
+type: variant-calls
+source: UCR Population_Genomics Rhodotorula mucilaginosa NRRL Y-2510 GATK hard-filtered VCFs (symlinked, not copied)
+annotation_sources: data/metadata/Copper.Strain_info.csv (strain reconciliation), Rmuc_PopAssigned.csv (population groups, referenced by path)
+date_acquired: 2026-08-25
+format: bgzip VCF + tabix index (SNP + INDEL, biallelic-and-multiallelic mixed, haploid genotype calls)
+rows: 422 samples; SNP VCF ~728,581 sites pre-QC (per prior GWAS run's Stage-0/1 filtering)
+columns: n/a (VCF)
+size: SNP ~662 MB, INDEL ~2.1 GB (symlinked, not duplicated on disk)
+raw_path: data/raw/genotypes/RmucY2510_v2/
+metadata_path: data/raw/genotypes/RmucY2510_v2/MANIFEST.yaml
+status: raw (immutable symlink; source is itself immutable on shared storage)
+known_issues:
+  - 201 of 422 samples correspond to our phenotyped strains (R. mucilaginosa only); see analysis/gwas/results/strain_reconciliation/
+  - scaffold_21 is a collapsed-repeat/aneuploid-like artifact scaffold (mean depth 1411x); excluded downstream, not in this raw copy
+access_restrictions: shared lab storage, not redistributable
+tags: [rhodotorula, mucilaginosa, gwas, vcf, gemma, snp, indel, genotypes, NRRL-Y2510, versioned]
+```
+
+Versioned GATK hard-filtered genotype VCF pair (SNP + INDEL) for 422 R. mucilaginosa strains sequenced
+at the Population Genomics Core (UC Riverside). This version (v2, dated 2025-02-04) incorporates updated
+sample metadata and filtering criteria compared to v1. Files are symlinked (not copied) from the shared
+lab storage at `/bigdata/stajichlab/shared/projects/Population_Genomics/Rhodotorula_mucilaginosa_NRRLY2510/vcf/`
+to preserve storage and maintain a single canonical source. Checksums and resolved paths recorded in
+`MANIFEST.yaml`. A subset (201 of 422 samples) overlaps with our phenotyped strains; strain reconciliation
+conducted in `analysis/gwas/results/strain_reconciliation/`.
