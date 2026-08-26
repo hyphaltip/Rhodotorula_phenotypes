@@ -1,0 +1,49 @@
+=== Tier A: chroma ===
+ WARN cache for Repodata at /rhome/jstajich/.cache/rattler/cache/repodata is on a network/parallel filesystem (NFS/SMB/FUSE/BeeGFS/Lustre/GPFS/CephFS), redirected to /scratch/jstajich/27758883/pixi-cache-jstajich/repodata for this run. Set [cache.repodata] in config.toml or PIXI_CACHE_DIR to override, or [cache.netfs-redirect] = "never" to keep the original path.
+  chroma: 212/213 strains with phenotype, 1 NA
+  wrote analysis/gwas/results/gwas/tierA_summary/gemma_output/gwas_chroma.assoc.txt
+=== Tier A: sat ===
+ WARN cache for Repodata at /rhome/jstajich/.cache/rattler/cache/repodata is on a network/parallel filesystem (NFS/SMB/FUSE/BeeGFS/Lustre/GPFS/CephFS), redirected to /scratch/jstajich/27758883/pixi-cache-jstajich/repodata for this run. Set [cache.repodata] in config.toml or PIXI_CACHE_DIR to override, or [cache.netfs-redirect] = "never" to keep the original path.
+  sat: 212/213 strains with phenotype, 1 NA
+  wrote analysis/gwas/results/gwas/tierA_summary/gemma_output/gwas_sat.assoc.txt
+=== Tier A: bright ===
+ WARN cache for Repodata at /rhome/jstajich/.cache/rattler/cache/repodata is on a network/parallel filesystem (NFS/SMB/FUSE/BeeGFS/Lustre/GPFS/CephFS), redirected to /scratch/jstajich/27758883/pixi-cache-jstajich/repodata for this run. Set [cache.repodata] in config.toml or PIXI_CACHE_DIR to override, or [cache.netfs-redirect] = "never" to keep the original path.
+  bright: 212/213 strains with phenotype, 1 NA
+  wrote analysis/gwas/results/gwas/tierA_summary/gemma_output/gwas_bright.assoc.txt
+=== Tier A: clone_mean_area ===
+ WARN cache for Repodata at /rhome/jstajich/.cache/rattler/cache/repodata is on a network/parallel filesystem (NFS/SMB/FUSE/BeeGFS/Lustre/GPFS/CephFS), redirected to /scratch/jstajich/27758883/pixi-cache-jstajich/repodata for this run. Set [cache.repodata] in config.toml or PIXI_CACHE_DIR to override, or [cache.netfs-redirect] = "never" to keep the original path.
+  clone_mean_area: 212/213 strains with phenotype, 1 NA
+  wrote analysis/gwas/results/gwas/tierA_summary/gemma_output/gwas_clone_mean_area.assoc.txt
+=== Tier A: AUC_0 ===
+ WARN cache for Repodata at /rhome/jstajich/.cache/rattler/cache/repodata is on a network/parallel filesystem (NFS/SMB/FUSE/BeeGFS/Lustre/GPFS/CephFS), redirected to /scratch/jstajich/27758883/pixi-cache-jstajich/repodata for this run. Set [cache.repodata] in config.toml or PIXI_CACHE_DIR to override, or [cache.netfs-redirect] = "never" to keep the original path.
+  AUC_0: 212/213 strains with phenotype, 1 NA
+  wrote analysis/gwas/results/gwas/tierA_summary/gemma_output/gwas_AUC_0.assoc.txt
+=== Tier A: AUC_10 ===
+ WARN cache for Repodata at /rhome/jstajich/.cache/rattler/cache/repodata is on a network/parallel filesystem (NFS/SMB/FUSE/BeeGFS/Lustre/GPFS/CephFS), redirected to /scratch/jstajich/27758883/pixi-cache-jstajich/repodata for this run. Set [cache.repodata] in config.toml or PIXI_CACHE_DIR to override, or [cache.netfs-redirect] = "never" to keep the original path.
+  AUC_10: 212/213 strains with phenotype, 1 NA
+  wrote analysis/gwas/results/gwas/tierA_summary/gemma_output/gwas_AUC_10.assoc.txt
+=== Tier A: AUC_20 ===
+ WARN cache for Repodata at /rhome/jstajich/.cache/rattler/cache/repodata is on a network/parallel filesystem (NFS/SMB/FUSE/BeeGFS/Lustre/GPFS/CephFS), redirected to /scratch/jstajich/27758883/pixi-cache-jstajich/repodata for this run. Set [cache.repodata] in config.toml or PIXI_CACHE_DIR to override, or [cache.netfs-redirect] = "never" to keep the original path.
+  AUC_20: 213/213 strains with phenotype, 0 NA
+  wrote analysis/gwas/results/gwas/tierA_summary/gemma_output/gwas_AUC_20.assoc.txt
+=== Tier A: AUC_30 ===
+ WARN cache for Repodata at /rhome/jstajich/.cache/rattler/cache/repodata is on a network/parallel filesystem (NFS/SMB/FUSE/BeeGFS/Lustre/GPFS/CephFS), redirected to /scratch/jstajich/27758883/pixi-cache-jstajich/repodata for this run. Set [cache.repodata] in config.toml or PIXI_CACHE_DIR to override, or [cache.netfs-redirect] = "never" to keep the original path.
+  AUC_30: 213/213 strains with phenotype, 0 NA
+  wrote analysis/gwas/results/gwas/tierA_summary/gemma_output/gwas_AUC_30.assoc.txt
+=== Tier A: AUC_ratio_10 ===
+ WARN cache for Repodata at /rhome/jstajich/.cache/rattler/cache/repodata is on a network/parallel filesystem (NFS/SMB/FUSE/BeeGFS/Lustre/GPFS/CephFS), redirected to /scratch/jstajich/27758883/pixi-cache-jstajich/repodata for this run. Set [cache.repodata] in config.toml or PIXI_CACHE_DIR to override, or [cache.netfs-redirect] = "never" to keep the original path.
+  AUC_ratio_10: 212/213 strains with phenotype, 1 NA
+  wrote analysis/gwas/results/gwas/tierA_summary/gemma_output/gwas_AUC_ratio_10.assoc.txt
+=== Tier A: resilience_30 ===
+ WARN cache for Repodata at /rhome/jstajich/.cache/rattler/cache/repodata is on a network/parallel filesystem (NFS/SMB/FUSE/BeeGFS/Lustre/GPFS/CephFS), redirected to /scratch/jstajich/27758883/pixi-cache-jstajich/repodata for this run. Set [cache.repodata] in config.toml or PIXI_CACHE_DIR to override, or [cache.netfs-redirect] = "never" to keep the original path.
+  resilience_30: 212/213 strains with phenotype, 1 NA
+  wrote analysis/gwas/results/gwas/tierA_summary/gemma_output/gwas_resilience_30.assoc.txt
+=== Tier A: cu_dose_slope ===
+ WARN cache for Repodata at /rhome/jstajich/.cache/rattler/cache/repodata is on a network/parallel filesystem (NFS/SMB/FUSE/BeeGFS/Lustre/GPFS/CephFS), redirected to /scratch/jstajich/27758883/pixi-cache-jstajich/repodata for this run. Set [cache.repodata] in config.toml or PIXI_CACHE_DIR to override, or [cache.netfs-redirect] = "never" to keep the original path.
+  cu_dose_slope: 211/213 strains with phenotype, 2 NA
+  wrote analysis/gwas/results/gwas/tierA_summary/gemma_output/gwas_cu_dose_slope.assoc.txt
+=== Tier A: IC50_est ===
+ WARN cache for Repodata at /rhome/jstajich/.cache/rattler/cache/repodata is on a network/parallel filesystem (NFS/SMB/FUSE/BeeGFS/Lustre/GPFS/CephFS), redirected to /scratch/jstajich/27758883/pixi-cache-jstajich/repodata for this run. Set [cache.repodata] in config.toml or PIXI_CACHE_DIR to override, or [cache.netfs-redirect] = "never" to keep the original path.
+  IC50_est: 92/213 strains with phenotype, 121 NA
+  wrote analysis/gwas/results/gwas/tierA_summary/gemma_output/gwas_IC50_est.assoc.txt
+Tier A scan complete: 12 traits x 213 strains. Assoc files in analysis/gwas/results/gwas/tierA_summary/gemma_output/.
