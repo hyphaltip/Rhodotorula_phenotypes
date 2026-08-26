@@ -1,0 +1,17 @@
+#                                                                            --- full sequence --- -------------- this domain -------------   hmm coord   ali coord   env coord
+# target name        accession   tlen query name           accession   qlen   E-value  score  bias   #  of  c-Evalue  i-Evalue  score  bias  from    to  from    to  from    to  acc description of target
+#------------------- ---------- ----- -------------------- ---------- ----- --------- ------ ----- --- --- --------- --------- ------ ----- ----- ----- ----- ----- ----- ----- ---- ---------------------
+t3hnr_disc_top20_f4  -             45 DBVPG10075_001334-T1 -            320   6.8e-06   12.3   0.0   1   1   1.4e-05   1.4e-05   11.3   0.0    12    24    16    28    10    44 0.89 -
+t3hnr_disc_top20_f4  -             45 DBVPG10075_005878-T1 -            290   1.3e-09   24.2   1.6   1   1     3e-09     3e-09   23.0   1.6    16    45    21    81    16    81 0.95 -
+t3hnr_disc_top20_f4  -             45 DBVPG10075_007282-T1 -            424   1.6e-06   14.3   0.2   1   2      0.54      0.54   -3.4   0.0     5    18    71    89    67    89 0.61 -
+t3hnr_disc_top20_f4  -             45 DBVPG10075_007282-T1 -            424   1.6e-06   14.3   0.2   2   2   5.4e-06   5.4e-06   12.6   0.0    10    25   157   179   143   195 0.70 -
+#
+# Program:         hmmscan
+# Version:         3.4 (Aug 2023)
+# Pipeline mode:   SCAN
+# Query file:      /bigdata/stajichlab/shared/projects/Rhodotorula/MAT_search/db/Cystobasidium_sp._DVPG_10075.proteins.fa
+# Target file:     algorithms/functional_annotation/results/pigment_scan_Cystobasidium_sp._DVPG_10075/t3hnr_disc_top20_f4.hmm
+# Option settings: hmmscan --domtblout algorithms/functional_annotation/results/pigment_scan_Cystobasidium_sp._DVPG_10075/t3hnr_disc_top20_f4.domtbl -E 1e-5 --cpu 8 algorithms/functional_annotation/results/pigment_scan_Cystobasidium_sp._DVPG_10075/t3hnr_disc_top20_f4.hmm /bigdata/stajichlab/shared/projects/Rhodotorula/MAT_search/db/Cystobasidium_sp._DVPG_10075.proteins.fa 
+# Current dir:     /bigdata/stajichlab/jstajich/projects/Rhodotorula_phenotypes
+# Date:            Wed Aug 26 10:36:01 2026
+# [ok]

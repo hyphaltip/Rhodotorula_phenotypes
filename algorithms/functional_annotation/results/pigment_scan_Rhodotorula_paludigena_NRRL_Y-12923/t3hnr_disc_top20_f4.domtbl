@@ -1,0 +1,20 @@
+#                                                                            --- full sequence --- -------------- this domain -------------   hmm coord   ali coord   env coord
+# target name        accession   tlen query name           accession   qlen   E-value  score  bias   #  of  c-Evalue  i-Evalue  score  bias  from    to  from    to  from    to  acc description of target
+#------------------- ---------- ----- -------------------- ---------- ----- --------- ------ ----- --- --- --------- --------- ------ ----- ----- ----- ----- ----- ----- ----- ---- ---------------------
+t3hnr_disc_top20_f4  -             45 OM448_001524-T1      -            255   5.1e-07   15.9   0.1   1   1   1.8e-06   1.8e-06   14.2   0.1    12    25     3    23     1    53 0.64 -
+t3hnr_disc_top20_f4  -             45 OM448_005311-T1      -            890   1.1e-08   21.3   3.8   1   2   0.00016   0.00016    7.9   0.5    25    41    47    63    34    65 0.90 -
+t3hnr_disc_top20_f4  -             45 OM448_005311-T1      -            890   1.1e-08   21.3   3.8   2   2   3.2e-06   3.2e-06   13.3   0.2    25    42   346   363   302   363 0.80 -
+t3hnr_disc_top20_f4  -             45 OM448_005423-T1      -            377   1.3e-06   14.7   3.6   1   2     0.011     0.011    2.1   0.1     2    22    21    46    19    59 0.86 -
+t3hnr_disc_top20_f4  -             45 OM448_005423-T1      -            377   1.3e-06   14.7   3.6   2   2   1.1e-05   1.1e-05   11.7   1.1    24    45    98   122    94   122 0.73 -
+t3hnr_disc_top20_f4  -             45 OM448_005790-T1      -            295   1.9e-07   17.3   3.4   1   1   4.6e-07   4.6e-07   16.1   3.4     7    45    19    84     9    84 0.90 -
+t3hnr_disc_top20_f4  -             45 OM448_005791-T1      -            296   5.9e-09   22.1   4.3   1   1   1.5e-08   1.5e-08   20.8   4.3     6    45    19    85     9    85 0.93 -
+#
+# Program:         hmmscan
+# Version:         3.4 (Aug 2023)
+# Pipeline mode:   SCAN
+# Query file:      /bigdata/stajichlab/shared/projects/Rhodotorula/MAT_search/db/Rhodotorula_paludigena_NRRL_Y-12923.proteins.fa
+# Target file:     algorithms/functional_annotation/results/pigment_scan_Rhodotorula_paludigena_NRRL_Y-12923/t3hnr_disc_top20_f4.hmm
+# Option settings: hmmscan --domtblout algorithms/functional_annotation/results/pigment_scan_Rhodotorula_paludigena_NRRL_Y-12923/t3hnr_disc_top20_f4.domtbl -E 1e-5 --cpu 8 algorithms/functional_annotation/results/pigment_scan_Rhodotorula_paludigena_NRRL_Y-12923/t3hnr_disc_top20_f4.hmm /bigdata/stajichlab/shared/projects/Rhodotorula/MAT_search/db/Rhodotorula_paludigena_NRRL_Y-12923.proteins.fa 
+# Current dir:     /bigdata/stajichlab/jstajich/projects/Rhodotorula_phenotypes
+# Date:            Wed Aug 26 10:39:56 2026
+# [ok]

@@ -1,0 +1,19 @@
+#                                                                            --- full sequence --- -------------- this domain -------------   hmm coord   ali coord   env coord
+# target name        accession   tlen query name           accession   qlen   E-value  score  bias   #  of  c-Evalue  i-Evalue  score  bias  from    to  from    to  from    to  acc description of target
+#------------------- ---------- ----- -------------------- ---------- ----- --------- ------ ----- --- --- --------- --------- ------ ----- ----- ----- ----- ----- ----- ----- ---- ---------------------
+t3hnr_disc_top20_f4  -             45 OM447_000345-T1      -            376   6.4e-09   22.0   0.0   1   1   7.2e-08   7.2e-08   18.6   0.0     2    45    20   121    19   121 0.94 -
+t3hnr_disc_top20_f4  -             45 OM447_002517-T1      -           1909     1e-08   21.3   2.3   1   1   3.5e-08   3.5e-08   19.6   2.3     5    45  1630  1697  1618  1697 0.92 -
+t3hnr_disc_top20_f4  -             45 OM447_002520-T1      -            296   1.6e-07   17.5   4.1   1   1   3.9e-07   3.9e-07   16.3   4.1     8    45    20    84     9    84 0.93 -
+t3hnr_disc_top20_f4  -             45 OM447_006408-T1      -            861   8.1e-07   15.3   0.5   1   3      0.53      0.53   -3.3   0.0    26    35    46    55    44    56 0.85 -
+t3hnr_disc_top20_f4  -             45 OM447_006408-T1      -            861   8.1e-07   15.3   0.5   2   3   8.1e-07   8.1e-07   15.3   0.5    25    44   319   338   275   339 0.80 -
+t3hnr_disc_top20_f4  -             45 OM447_006408-T1      -            861   8.1e-07   15.3   0.5   3   3      0.33      0.33   -2.7   0.9    18    28   693   703   686   705 0.82 -
+#
+# Program:         hmmscan
+# Version:         3.4 (Aug 2023)
+# Pipeline mode:   SCAN
+# Query file:      /bigdata/stajichlab/shared/projects/Rhodotorula/MAT_search/db/Rhodotorula_dairenensis_NRRL_Y-2504.proteins.fa
+# Target file:     algorithms/functional_annotation/results/pigment_scan_Rhodotorula_dairenensis_NRRL_Y-2504/t3hnr_disc_top20_f4.hmm
+# Option settings: hmmscan --domtblout algorithms/functional_annotation/results/pigment_scan_Rhodotorula_dairenensis_NRRL_Y-2504/t3hnr_disc_top20_f4.domtbl -E 1e-5 --cpu 8 algorithms/functional_annotation/results/pigment_scan_Rhodotorula_dairenensis_NRRL_Y-2504/t3hnr_disc_top20_f4.hmm /bigdata/stajichlab/shared/projects/Rhodotorula/MAT_search/db/Rhodotorula_dairenensis_NRRL_Y-2504.proteins.fa 
+# Current dir:     /bigdata/stajichlab/jstajich/projects/Rhodotorula_phenotypes
+# Date:            Wed Aug 26 10:37:39 2026
+# [ok]

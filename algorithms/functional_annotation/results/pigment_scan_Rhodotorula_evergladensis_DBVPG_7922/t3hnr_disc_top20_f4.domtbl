@@ -1,0 +1,19 @@
+#                                                                            --- full sequence --- -------------- this domain -------------   hmm coord   ali coord   env coord
+# target name        accession   tlen query name           accession   qlen   E-value  score  bias   #  of  c-Evalue  i-Evalue  score  bias  from    to  from    to  from    to  acc description of target
+#------------------- ---------- ----- -------------------- ---------- ----- --------- ------ ----- --- --- --------- --------- ------ ----- ----- ----- ----- ----- ----- ----- ---- ---------------------
+t3hnr_disc_top20_f4  -             45 RP310_004018-T1      -            381   7.2e-09   21.8   1.2   1   2     0.011     0.011    2.0   0.1     2    23    21    47    19    60 0.80 -
+t3hnr_disc_top20_f4  -             45 RP310_004018-T1      -            381   7.2e-09   21.8   1.2   2   2   1.5e-07   1.5e-07   17.7   0.1    21    45    96   123    74   123 0.89 -
+t3hnr_disc_top20_f4  -             45 RP310_004958-T1      -           1470   1.5e-07   17.6   2.7   1   2     0.045     0.045    0.1   0.1    25    35   626   636   589   642 0.69 -
+t3hnr_disc_top20_f4  -             45 RP310_004958-T1      -           1470   1.5e-07   17.6   2.7   2   2   4.7e-07   4.7e-07   16.0   0.6    25    44   924   943   875   944 0.79 -
+t3hnr_disc_top20_f4  -             45 RP310_005934-T1      -            297   2.4e-08   20.2   2.8   1   1   6.2e-08   6.2e-08   18.8   2.8     6    45    20    86     7    86 0.93 -
+t3hnr_disc_top20_f4  -             45 RP310_005951-T1      -            316     3e-08   19.9   0.1   1   1   8.2e-08   8.2e-08   18.5   0.1    16    45    22    82    13    82 0.73 -
+#
+# Program:         hmmscan
+# Version:         3.4 (Aug 2023)
+# Pipeline mode:   SCAN
+# Query file:      /bigdata/stajichlab/shared/projects/Rhodotorula/MAT_search/db/Rhodotorula_evergladensis_DBVPG_7922.proteins.fa
+# Target file:     algorithms/functional_annotation/results/pigment_scan_Rhodotorula_evergladensis_DBVPG_7922/t3hnr_disc_top20_f4.hmm
+# Option settings: hmmscan --domtblout algorithms/functional_annotation/results/pigment_scan_Rhodotorula_evergladensis_DBVPG_7922/t3hnr_disc_top20_f4.domtbl -E 1e-5 --cpu 8 algorithms/functional_annotation/results/pigment_scan_Rhodotorula_evergladensis_DBVPG_7922/t3hnr_disc_top20_f4.hmm /bigdata/stajichlab/shared/projects/Rhodotorula/MAT_search/db/Rhodotorula_evergladensis_DBVPG_7922.proteins.fa 
+# Current dir:     /bigdata/stajichlab/jstajich/projects/Rhodotorula_phenotypes
+# Date:            Wed Aug 26 10:38:29 2026
+# [ok]
