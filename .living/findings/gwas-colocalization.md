@@ -86,3 +86,24 @@ OM429_004009 telomerase RT) is the bottleneck, not GWAS signal.
 The genetic basis of colour/growth/copper tolerance in R. mucilaginosa is a handful of
 moderate-effect, intra-clade variants that are decoupled from population differentiation
 outliers — a "standing-variation, not between-lineage divergence" architecture.
+
+## Candidate-gene coding variants at the misannotated carotenoid pathway genes (2026-08-26)
+
+Sequence-level pilot of `analysis/candidate_gene_alignment/` on the 2 confirmed carotenoid
+pathway genes (`OM429_003333` phytoene synthase/lycopene cyclase, `OM429_003336` phytoene
+desaturase — see D-20's misannotation finding) across all 213 panel strains, snpEff-annotated:
+
+- `OM429_003333`: 49 polymorphic CDS sites in the panel; 7 missense + 1
+  `splice_donor_variant&intron_variant` (HIGH impact, snpEff) — a splice-donor change in a
+  core carotenoid-synthesis gene is a plausible loss/change-of-function candidate worth
+  flagging for whoever picks up functional follow-up, though it has not been tested against
+  any phenotype here (this pipeline is descriptive, not a new association test).
+- `OM429_003336`: 72 polymorphic CDS sites; 23 missense variants, 0 premature stops.
+- Neither gene shows a nonsense (premature stop) variant in any of the 213 strains.
+- Both genes' CDS+/-2kb regions carry 0 indels in the separate INDEL VCF (screened
+  read-only) — the coding-variant picture above is complete at the SNP level for these 2
+  genes specifically (not yet checked for other candidate genes).
+
+This is a lead for follow-up (e.g. does the splice-donor genotype at `OM429_003333`
+correlate with any color/pigment phenotype), not a validated finding — no statistical test
+has been run on it yet.
