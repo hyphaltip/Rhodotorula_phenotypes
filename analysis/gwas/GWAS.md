@@ -464,6 +464,56 @@ population was measured on which plate/day).
 Full results: `results/gwas/population_vs_locus/population_vs_locus.csv`,
 per-population detail in `within_pop_{trait}_{panel}.csv`.
 
+## 14. MAS-usability gates for the `likely_real` loci
+
+Deferred at §13 (D-17), run here per user request: minimum effect size, LD-decay/
+best-candidate-in-block check, plate/batch-confound check, and (color traits only)
+timepoint robustness across early/mid/late growth windows. `scripts/check_mas_gates.py`.
+
+**Effect size**: all 8 loci have large effect sizes by conventional standards (|Cohen's
+d| 0.79–1.58, i.e. the genotype groups differ by 0.74–1.28 phenotype SDs) — none are
+p-value-only, practically negligible hits.
+
+**LD-decay**: this cluster's plink2 build has no windowed `--r2`/`--ld-snp` report either
+(L-25's gotcha recurring) — used `--clump` instead, which directly answers the intended
+question. **All 8 flagged SNPs are the clump LEAD in their own ±100kb LD block** — no
+more-significant candidate was found nearby, so the flagged marker is at least as good as
+any alternative in the region. Caveat: each block has 425–1,640 SNPs at r²≥0.2 with the
+lead, reflecting this panel's substantial background LD (consistent with the population
+structure already characterized) — the causal *region* is well-supported, but this check
+alone does not fine-map to a single gene.
+
+**Batch/plate confounding**: every strain in this panel was measured in exactly ONE of 4
+runs (353–356) — `run_number` is a fixed per-strain label, not a repeated covariate, so
+it's a real confounding risk if genotype clusters by run. No locus shows a
+genotype-vs-run association (all p>0.05), and for 7/8 loci adding run as a covariate
+barely moves the genotype term's partial significance (e.g. cu_dose_slope 8.1e-8→2.2e-7).
+**Exception: `lab_L` (gwasc panel)** — partial p crosses the 0.05 threshold once batch is
+controlled (0.015→0.055) — flagging it as the most batch-sensitive/fragile of the eight;
+its `gwas`-panel counterpart is more robust (0.014→0.031, stays nominally significant).
+
+**Timepoint robustness** (color traits only — `cu_dose_slope`/`AUC_20` are dose-response
+derived, not single-timepoint color reads, out of scope here): recomputed each trait at
+early (18–42h), mid (48–72h), and late (85–110h, the original) growth windows and re-ran
+the within-population test at each. **All four color traits (lab_L, lab_a, lab_b, sat)
+show directionally consistent significance across all three windows, in both panels** —
+most *strengthen* monotonically with developmental time, e.g. `lab_a`: p=7.9e-4 (early) →
+2.0e-8 (mid) → 8.8e-12 (late), a biologically sensible pattern (pigment/color signal
+accumulating as the colony matures), not an artifact of the single late-window choice the
+original phenotype construction used.
+
+**Overall**: 7 of 8 loci (`cu_dose_slope`, `lab_a`, `lab_b`, `sat` in both panels tested)
+pass every gate cleanly. `lab_L` remains directionally consistent and significant in 5/6
+checks but is the weakest and most batch-sensitive of the set — treat its locus with more
+caution than the others pending further work.
+
+**Still not done**: held-out replication (no genuinely disjoint strain subset currently
+exists to test on) and a formal fine-mapping pass to narrow each broad LD block toward
+candidate genes (natural continuation of the deferred Tier D/E/G work, §"Next steps").
+
+Full results: `results/gwas/mas_gates/mas_gates.csv`, per-window detail in
+`timepoint_{trait}_{panel}.csv`.
+
 ## Session summary (2026-08-25/26)
 
 All of Tier A (corrected), Tier B, Tier C, and LOCO are now complete for this port. The
