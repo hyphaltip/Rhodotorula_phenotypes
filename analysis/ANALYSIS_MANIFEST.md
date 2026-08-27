@@ -254,6 +254,28 @@ key_findings:
 tags: [gwas, tierd, annotation, gene-mapping, tierte, finemapping, credible-sets, abf, wakefield, tierg, replication, prior-locus, chr13, AUC_10, DBP3, telomerase, methionine-aminopeptidase, OM429_005439, rare-EF, near-clone, rhodotorula, gemma]
 ```
 
+### candidate_gene_significance_plots_and_homology
+```yaml
+name: candidate_gene_significance_plots_and_homology
+question: For the 10 GWAS candidate genes (analysis/candidate_gene_alignment/), what do the phenotype-association results look like visually (Manhattan-style), and are the significant missense residues conserved in other Rhodotorula species and S. cerevisiae?
+input: analysis/candidate_gene_alignment/results/candidate_{gene,indel}_phenotype_assoc_all10.csv; analysis/gwas/results/gwas/tierA_summary/assoc_csv/gwas_{lab_a,chroma,bright}_assoc.csv.gz; analysis/candidate_gene_alignment/results/<gene>/protein.fasta (reference strain); 11 local Rhodotorula/Cystobasidium proteomes + S. cerevisiae SGD proteome (both external, see script headers for paths)
+scripts:
+  - scripts/make_candidate_gene_manhattan.py   # per-gene variant significance plot + genome-wide Manhattan with candidate loci highlighted
+  - scripts/build_homolog_impact_table.py      # diamond blastp of each gene's significant missense variant against 12 proteomes; maps mutated residue through the local alignment to call conserved/diverged/outside-aligned-region
+outputs:
+  - figures/{candidate_gene_association_manhattan,genome_wide_manhattan_with_candidates}.{png,pdf}
+  - results/candidate_genes/sequences/candidate_genes_{cds,protein}.fa (reference-strain sequences, quick-lookup copy)
+  - results/candidate_genes/homology/{blast/*.tsv, homolog_impact_table.{csv,md}, homolog_impact_summary.csv}
+  - GWAS.md section 17
+reproduce: module load diamond/2.1.7 (NOT piped through `| tail` etc — see .living/conventions.md L-30, re-hit a 4th time building this); python3 scripts/make_candidate_gene_manhattan.py; python3 scripts/build_homolog_impact_table.py (after building diamond dbs, see script/section 17 for db source paths)
+status: complete
+key_findings:
+  - Genome-wide Manhattan overlay confirms the candidate genes are not an arbitrary pick -- several (OM429_000065, OM429_001430/001533, OM429_003729, OM429_005034) sit directly at or beside genome-wide lab_a/chroma/bright peaks.
+  - Cross-species homolog scan: every one of the 5 genes with FDR-sig missense hits has a clear same-genome paralog (distinct gene ID) and 61-97%-identity homologs in all 10 other local Rhodotorula/Cystobasidium genomes; S. cerevisiae homologs found for most but not all. Residue-level conservation calls are noisy (single-best-hit diamond, not a curated MSA) -- many N/M-aligned denominators are small because local alignments don't extend to N/C-terminal variant positions (e.g. OM429_005034's variants at residues 5/12).
+  - OM429_002663 p.Asn4Lys (LYS1, replicated color association) is conserved (Asn) in 3/4 aligned cross-genus homologs, suggesting the phenotype-associated Lys4 allele is the derived state in this panel.
+tags: [gwas, candidate-gene, manhattan, visualization, homology, diamond, blastp, cross-species, conservation, saccharomyces, rhodotorula, orthology, complete]
+```
+
 ### gwas
 ```yaml
 name: gwas
@@ -320,8 +342,8 @@ outputs:
   - results/gene_coding_indel_screen.csv
   - results/candidate_gene_phenotype_assoc_all10.csv (+_within_pop_details.csv), results/candidate_indel_phenotype_assoc_all10.csv (+_within_pop_details.csv)
   - results/snpeff_pilot/, results/PROVENANCE.json
-reproduce: bash scripts/run_extend_to_gwas_genes.sh (8 GWAS-locus genes; pilot run gene-by-gene per CANDIDATE_GENE_ALIGNMENT.md); then run the two associate_* scripts
-status: complete for all 10 target genes (2 carotenoid + 8 GWAS-locus). Phenotype-association step (SNP + indel) complete. Interactive viewer still deferred.
+reproduce: bash scripts/run_extend_to_gwas_genes.sh (8 GWAS-locus genes; pilot run gene-by-gene per CANDIDATE_GENE_ALIGNMENT.md); then run the two associate_* scripts; visualization/homology follow-up lives in ../gwas/scripts/{make_candidate_gene_manhattan.py,build_homolog_impact_table.py} (see gwas manifest entry below)
+status: complete for all 10 target genes (2 carotenoid + 8 GWAS-locus). Phenotype-association step (SNP + indel) complete. Significance plots, reference CDS/protein FASTAs, and cross-species homolog conservation table added under analysis/gwas/results/candidate_genes/ + GWAS.md section 17 (2026-08-26). Interactive viewer still deferred.
 key_findings:
   - CORRECTION (8/26): pilot's screen_indels.sh silently reported 0 indels (bcftools not on PATH; pipe+`|| true` swallowed failure). Real INDEL VCF has 362-821 records in every candidate gene's CDS+/-2kb, and all 10 genes have >=2 segregating indels INSIDE their CDS exons -> the SNP-only sequence premise does NOT hold for any target gene; indel genotypes must be tested separately (now done).
   - Association battery (within-pop replication + meta + covariate + FDR) across 10 genes x 6 color traits: 39 FDR-sig SNP-coding tests / 32 FDR-sig indel tests.

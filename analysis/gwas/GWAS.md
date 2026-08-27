@@ -615,6 +615,107 @@ internally, which fails in a bare `sbatch --wrap` shell (no `~/.bashrc` sourced)
 `CondaError: Run 'conda init' before 'conda activate'` — fixed by explicitly sourcing
 `conda.sh` first (`algorithms/functional_annotation/scripts/run_kofamscan.sh`).
 
+## 17. Candidate-gene significance plots, sequence resources, and cross-species homolog comparison
+
+Follow-up to §13-16 and the separate `analysis/candidate_gene_alignment/` pipeline:
+visual summaries of the fine-mapping association results, plus a cross-species look at
+whether each significant missense variant's residue is conserved outside
+*R. mucilaginosa*. Scripts: `scripts/make_candidate_gene_manhattan.py`,
+`scripts/build_homolog_impact_table.py`.
+
+### Significance plots
+
+**`figures/candidate_gene_association_manhattan.png`** — one panel per candidate gene,
+x = position within the gene, y = -log10(meta p) for every SNP coding variant and
+indel-genotype test against all 6 color traits (faint = not FDR-significant, filled
+diamond = FDR-significant AND `likely_real`). This is the direct visual of the §
+Phenotype-association results table in `CANDIDATE_GENE_ALIGNMENT.md` §"Phenotype-
+association results": `OM429_000065` (sat-locus) stands out with the tightest cluster of
+diamonds reaching -log10(p)≈10; `OM429_001415`/`OM429_001430` show no signal at all
+(matches the "no FDR-sig hits" result for those two genes).
+
+![candidate gene association manhattan](figures/candidate_gene_association_manhattan.png)
+
+**`figures/genome_wide_manhattan_with_candidates.png`** — true genome-wide GEMMA
+Tier A Manhattan plots for `lab_a`, `chroma`, `bright` (the traits with the strongest
+candidate-gene hits), with all 10 candidate-gene loci marked as red dotted lines. Shows
+these genes were not an arbitrary pick: `OM429_000065`, `OM429_001430`/`OM429_001533`
+(same scaffold_3 region), `OM429_003729`, and `OM429_005034` all sit directly under, or
+immediately beside, genome-wide peaks for `lab_a`; `OM429_000065` is the tallest peak on
+its scaffold for all three traits shown.
+
+![genome wide manhattan with candidates](figures/genome_wide_manhattan_with_candidates.png)
+
+### Candidate-gene CDS/protein sequences
+
+Reference-strain (`NRRL_Y-2510`) CDS and protein FASTAs for all 10 candidate genes are
+now also collected here (previously only inside `analysis/candidate_gene_alignment/
+results/{gene}/`, one file per gene, mixed in with the 213-strain alignment inputs) for
+quick lookup without navigating that pipeline's per-gene folders:
+`results/candidate_genes/sequences/candidate_genes_{cds,protein}.fa` (10 records each,
+headers `{gene_id}|reference_NRRLY2510|{strain_id}`). The full 213-strain per-gene FASTAs
+and variant tables remain the authoritative source in
+`analysis/candidate_gene_alignment/results/{gene}/{dna,protein}.fasta`.
+
+### Cross-species homolog comparison
+
+For every FDR-significant + `likely_real` missense variant (11 variants across 5 genes:
+`OM429_000065`, `OM429_001521`, `OM429_001533`, `OM429_002663`, `OM429_005034` — the
+carotenoid pair and the two genes with no significant hits are absent, as expected),
+diamond blastp (best hit, `--max-target-seqs 1`) was run against 10 other local
+Rhodotorula/Cystobasidium proteomes (from the same MAT_search reference collection used
+by `algorithms/functional_annotation/`, `/bigdata/stajichlab/shared/projects/Rhodotorula/
+MAT_search/db/`) plus *Saccharomyces cerevisiae* (SGD R64, `/bigdata/gen220/shared/
+data-examples/examples/`), and the reference genome's own proteome (self-search, to flag
+in-paralogs). The mutated residue's position was mapped through each hit's local
+alignment coordinates to call it `conserved` / `diverged(homolog=X)` /
+`outside_aligned_region` (position fell outside the blastp local-alignment envelope —
+common for N/C-terminal residues in divergent proteins, not itself evidence of anything)
+/ `gap_in_homolog`.
+
+Full per-species detail: `results/candidate_genes/homology/homolog_impact_table.csv`
+(131 rows) and `.md` (pivot table, all 12 comparison genomes). Compact summary:
+
+| gene (product) | variant | conserved in N/M *aligned* homologs | S. cerevisiae call | same-genome paralog | closest cross-species homolog |
+|---|---|---|---|---|---|
+| `OM429_000065` (sat-locus) | p.Ala280Val | 1/3 | outside aligned region | `OM429_000074` | *R. dairenensis* (83.0% id, outside aligned region at this residue) |
+| `OM429_000065` | p.Leu300Val | 0/3 | outside aligned region | `OM429_000074` | *R. dairenensis* (83.0% id, diverged) |
+| `OM429_000065` | p.Ser983Ala | 8/12 | diverged (Gly) | `OM429_000074` | *R. dairenensis* (83.0% id, diverged) |
+| `OM429_001521` (ogg1) | p.Gln245His | 1/12 | diverged (Val) | `OM429_001705` | *R. sphaerocarpa* (71.0% id, diverged) |
+| `OM429_001521` | p.Lys486Glu | 1/5 | outside aligned region | `OM429_001705` | *R. sphaerocarpa* (71.0% id, outside aligned region) |
+| `OM429_001533` (cu_dose) | p.Tyr427Phe | 1/3 | no S. cerevisiae hit | `OM429_001717` | *R. dairenensis* (81.9% id, outside aligned region) |
+| `OM429_002663` (LYS1) | p.Asn4Lys | 3/4 | outside aligned region | `OM429_002983` | *R. dairenensis* (96.7% id, outside aligned region) |
+| `OM429_002663` | p.Lys364Thr | 2/11 | outside aligned region | `OM429_002983` | *R. dairenensis* (96.7% id, outside aligned region) |
+| `OM429_002663` | p.Pro66Ser | 4/12 | diverged (Lys) | `OM429_002983` | *R. dairenensis* (96.7% id, diverged) |
+| `OM429_005034` (GYP1) | p.Gly5Ser | 1/1 | outside aligned region | `OM429_005625` | *R. dairenensis* (61.4% id, only 1 homolog aligned this far N-terminal) |
+| `OM429_005034` | p.Tyr12His | 1/1 | outside aligned region | `OM429_005625` | *R. dairenensis* (61.4% id, only 1 homolog aligned) |
+
+**Read with caution — this is a coarse single-best-hit-per-species scan, not a curated
+orthology call or a real multiple sequence alignment**: "N/M aligned" denominators are
+often small (many species' local alignments don't extend to a given residue, especially
+near protein termini — `OM429_005034`'s two variants sit at residues 5 and 12, right at
+the N-terminus, so only 1/11 cross-species hits even aligns that far), and diamond's
+single best hit may not be the true 1:1 ortholog in every species. **Headline
+observations that do survive this caveat**: every gene has a clear same-species paralog
+(distinct gene ID, not the query itself) and a clear cross-species Rhodotorula homolog
+(61-97% identity) in every one of the 10 other local genomes; `OM429_002663`'s
+`p.Asn4Lys` (the lab_a/chroma/sat-associated LYS1 variant) is conserved in 3/4 homologs
+that align that far N-terminal, suggesting Asn4 is the ancestral/typical state and this
+population's Lys4 allele is the derived, phenotype-associated change; conversely
+`OM429_001521`'s `p.Gln245His` is conserved in only 1/12 homologs (the self-paralog),
+i.e. His itself may already be the more common state across this genus at that position,
+weakening (not ruling out) a simple "derived-allele-changes-function" story for that
+particular substitution. None of this substitutes for an actual gene-tree-based
+orthology call or ancestral-state reconstruction — flagged as a natural follow-up, not
+done this session.
+
+The `OM429_000065` in-frame GAGCGG-repeat indel (the single strongest signal in the whole
+analysis, §"Indel genotypes" above) is not in this table — it is a repeat-length
+polymorphism, not a substitution, so a single-residue conservation call does not apply;
+comparing repeat-unit copy number across the same 10+1 species' homologs is a natural
+next step but requires locating the syntenic repeat region in each homolog, not just its
+top blastp hit, and was out of scope for this pass.
+
 ## Session summary (2026-08-25/26)
 
 All of Tier A (corrected), Tier B, Tier C, and LOCO are now complete for this port. The

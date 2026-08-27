@@ -1,0 +1,12 @@
+gene,product,hgvs_p,conserved_in_N_of_M_aligned_homologs,S_cerevisiae_residue_call,same_genome_paralog,top_cross_species_homolog,top_cross_species_pident_%,top_cross_species_product
+OM429_000065,sat-locus gene (hypothetical),p.Ala280Val,1/3,outside_aligned_region,OM429_000074-T1,Rhodotorula dairenensis NRRL Y-2504,83.0,OM447_004620-T1 OM447_004620
+OM429_000065,sat-locus gene (hypothetical),p.Leu300Val,0/3,outside_aligned_region,OM429_000074-T1,Rhodotorula dairenensis NRRL Y-2504,83.0,OM447_004620-T1 OM447_004620
+OM429_000065,sat-locus gene (hypothetical),p.Ser983Ala,8/12,diverged(homolog=G),OM429_000074-T1,Rhodotorula dairenensis NRRL Y-2504,83.0,OM447_004620-T1 OM447_004620
+OM429_001521,8-oxoguanine glycosylase (ogg1),p.Gln245His,1/12,diverged(homolog=V),OM429_001705-T1,Rhodotorula sphaerocarpa NRRL Y-7192,71.0,OM440_001701-T1 OM440_001701
+OM429_001521,8-oxoguanine glycosylase (ogg1),p.Lys486Glu,1/5,outside_aligned_region,OM429_001705-T1,Rhodotorula sphaerocarpa NRRL Y-7192,71.0,OM440_001701-T1 OM440_001701
+OM429_001533,cu_dose GWAS locus gene,p.Tyr427Phe,1/3,no hit,OM429_001717-T1,Rhodotorula dairenensis NRRL Y-2504,81.9,OM447_000938-T1 OM447_000938
+OM429_002663,saccharopine dehydrogenase (LYS1),p.Asn4Lys,3/4,outside_aligned_region,OM429_002983-T1,Rhodotorula dairenensis NRRL Y-2504,96.7,OM447_001195-T1 OM447_001195
+OM429_002663,saccharopine dehydrogenase (LYS1),p.Lys364Thr,2/11,outside_aligned_region,OM429_002983-T1,Rhodotorula dairenensis NRRL Y-2504,96.7,OM447_001195-T1 OM447_001195
+OM429_002663,saccharopine dehydrogenase (LYS1),p.Pro66Ser,4/12,diverged(homolog=K),OM429_002983-T1,Rhodotorula dairenensis NRRL Y-2504,96.7,OM447_001195-T1 OM447_001195
+OM429_005034,GTPase-activating protein (GYP1),p.Gly5Ser,1/1,outside_aligned_region,OM429_005625-T1,Rhodotorula dairenensis NRRL Y-2504,61.4,OM447_005967-T1 OM447_005967
+OM429_005034,GTPase-activating protein (GYP1),p.Tyr12His,1/1,outside_aligned_region,OM429_005625-T1,Rhodotorula dairenensis NRRL Y-2504,61.4,OM447_005967-T1 OM447_005967

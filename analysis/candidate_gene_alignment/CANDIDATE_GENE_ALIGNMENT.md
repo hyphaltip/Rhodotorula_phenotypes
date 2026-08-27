@@ -118,6 +118,31 @@ the full variant×trait matrix. **Reporting convention: "replicated" means
 FDR-significant + `likely_real` verdict (directionally consistent across ≥2 testable
 populations, meta_p<0.05, partial R²≥0.02).**
 
+**What "N/M pops" means for a given variant (e.g. "3/3").** The 213-strain panel is
+divided into 6 named populations (see D-17). For a coding variant to be tested *within*
+a population at all, that population must be "testable": it needs ≥3 strains carrying
+each allele class (ref and alt) after near-clone collapse — a population that is
+~fixed for one allele (common on this near-clonal panel) contributes no within-population
+variance and is dropped from the denominator entirely, not counted as a failure. So:
+- **M** ("of M") = the number of the panel's populations that were *testable* for this
+  specific variant (`n_pops_tested` in the CSV) — this varies variant-to-variant because
+  allele frequency varies locus-to-locus, not a fixed constant.
+- **N** ("N of") = how many of those M testable populations showed the *same-direction*
+  effect (`n_directionally_consistent`) in the within-population re-test.
+- **"3/3"** therefore means: 3 of the panel's 6 populations had enough allelic variance
+  to test this variant at all, and all 3 agreed on the direction of effect. It is
+  deliberately **not** "3 of 6 populations" — a variant that is fixed in 3 populations
+  isn't wrong in those populations, it's simply uninformative there, so they're excluded
+  rather than counted against replication.
+- This is the same disambiguation logic as the population-vs-locus check for the
+  genome-wide GWAS loci (D-17/D-18): a hit driven by a single near-fixed population is
+  exactly the population-stratification artifact this battery exists to catch (see the
+  `likely_population_artifact` verdict rows in the results tables, e.g.
+  `OM429_003729`'s lab_b variant, `n_pops_tested=2`, `n_directionally_consistent=1`) —
+  a low M (few testable populations) is itself a signal to read the result cautiously
+  even when the direction agrees, because the meta-analysis has less independent
+  replication behind it than a high-M "N/M".
+
 ### SNP coding variants (954 tests across 10 genes × 6 traits)
 
 **39 FDR-significant, 40 `likely_real`.** Standouts:
