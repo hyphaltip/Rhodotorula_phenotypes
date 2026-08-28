@@ -1,0 +1,7 @@
+trait,panel,top_snp,population,n_raw,n_effective,beta,se,p,tested,reason
+resilience_30,gwasc,scaffold_13:810026:C:A,1,75,75,,,,False,n_effective allele classes too small (73/2)
+resilience_30,gwasc,scaffold_13:810026:C:A,2,12,12,,,,False,n_effective allele classes too small (12/0)
+resilience_30,gwasc,scaffold_13:810026:C:A,3,11,11,,,,False,n_effective allele classes too small (11/0)
+resilience_30,gwasc,scaffold_13:810026:C:A,4,37,37,,,,False,n_effective allele classes too small (37/0)
+resilience_30,gwasc,scaffold_13:810026:C:A,5,16,16,,,,False,n_effective allele classes too small (16/0)
+resilience_30,gwasc,scaffold_13:810026:C:A,6,20,20,,,,False,n_effective allele classes too small (19/1)

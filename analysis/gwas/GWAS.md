@@ -805,27 +805,144 @@ Not added to the MAS-usability gate list (§14). Full results:
 detail in `within_pop_cu_doseauc_v0151_locus{1-5}_gwas.csv` (locus order: scaffold_9,
 scaffold_16, scaffold_8, scaffold_2:515984, scaffold_2:1560553).
 
+## 19. scaffold_16 investigation — not an assembly artifact, not one haploblock; several independent, moderately-differentiated loci
+
+Follow-up to §18: `scaffold_16` recurs as a top hit across an unusual number of traits
+(size, `scaffold_16:121473` p=6.2e-11; `IC50_est`, `scaffold_16:122361` p=3.7e-11;
+`resilience_30` BSLMM, `scaffold_16:563722` PIP=0.95; `AUC_30` BSLMM,
+`scaffold_16:492282` PIP=0.218; `AUC_20`, `scaffold_16:417619`; and now
+`cu_doseauc_v0151`'s whole 139718-455499kb region). Tested three hypotheses (D-26):
+
+1. **Assembly/mapping artifact?** No. Computed per-scaffold QC directly from the raw
+   VCF's `INFO/DP` and `INFO/AF` across all 728,581 sites (`scripts/qc_scaffold16_investigation.py`):
+   `scaffold_16`'s mean depth (34,433), SNP density (33.5/kb), and rare-variant fraction
+   (72.3% sites af<0.05) are all unremarkable — squarely within the range of the other 18
+   normal-sized scaffolds (depth 31,401-36,195; density 33.5-38.0/kb; rare-fraction
+   70.9-77.2%). The 4 scaffolds that ARE QC-anomalous in this VCF (`scaffold_20/21/22/23`,
+   all <110kb) look nothing like `scaffold_16` — 100-1000x fewer sites, wildly different
+   depth. `scaffold_16` shows no assembly-artifact signature.
+2. **One giant non-recombining haploblock (supergene/inversion)?** No. Pairwise LD
+   (`plink --r2`) on the full unpruned 213-strain marker set between the recurring hit
+   positions: the 3 SNPs *within* `cu_doseauc_v0151`'s own region (416360/418561/455499,
+   spanning 39kb) are in strong LD with each other (r²=0.83-0.96 — one real local LD
+   block, so its "25 FDR-sig SNPs" are one signal, not 25) but each of the other
+   traits' hit positions (121473, 122361, 492282, 563722) is essentially uncorrelated
+   with that block and with each other (r²<0.06, except 563722 at r²=0.20-0.24 —
+   moderate, not tight). LD decays normally across the scaffold; it is not one block.
+3. **Elevated background population differentiation?** Modestly, not dramatically. Mean
+   Hudson Fst per 100kb window (existing `pixy` genome-wide output,
+   `analysis/ideas/.../results/gwas/pixy/genome_fst.txt`) ranks `scaffold_16` 5th-highest
+   of 23 scaffolds (0.482, genome-wide mean 0.446) — elevated but well within the range of
+   several other unremarkable scaffolds (scaffold_19/1/3/18 all comparably high). Notably,
+   `scaffold_13` — home of the resilience_30/AUC_30 anchor investigated in §20 — has the
+   *lowest* Fst of any normal scaffold (0.366), consistent with that locus sitting in a
+   region of low population differentiation (weaker case for it being a structure
+   artifact) as opposed to `scaffold_16`'s hits.
+
+**Conclusion**: `scaffold_16` is not one unified phenomenon. It is several independent
+loci at different frequencies (some common, some rare) sitting on a scaffold with
+moderately-elevated-but-not-extreme background Fst — a scaffold where population
+structure is somewhat more likely than average to produce a marginal top hit for any
+given trait, not a single causal supergene and not an assembly artifact. This is
+consistent with, not contradictory to, §18's direct disambiguation result (the
+`cu_doseauc_v0151` region specifically *is* population-fixed enough, fst_proxy=0.84 at
+that locus, to fail as `likely_population_artifact`) — it's simply one of several
+scaffold_16 loci, not evidence about the others. The other scaffold_16 hits
+(121473/122361/492282/563722, tied to size/IC50_est/AUC_30/resilience_30) have not been
+individually disambiguated and remain open (some already partly covered by §20 below).
+
+## 20. Tier D/E/G on the resilience_30/AUC_30 scaffold_13:810026 anchor — also rare-driven, also fails population-vs-locus validation
+
+Per the Next Steps carried from earlier sessions, ran the "standout robust finding" (§7)
+through the same battery just used in §18, before fine-mapping it (D-27) — validate
+first, don't fine-map an unvalidated locus twice in one project.
+
+**Population-vs-locus result: `likely_population_artifact` for both traits**, same
+mechanism as most of §18's loci — `scaffold_13:810026` is rare (af=0.014, ~3 alt
+carriers total). Per-population detail: pop 1 has 2/75 alt carriers, pop 6 has 1/20,
+every other population has 0 — 0/6 populations retain enough within-population allelic
+variance to test at all (`results/gwas/population_vs_locus/within_pop_{resilience_30,AUC_30}_gwas.csv`).
+
+**Important methodological caveat, not specific to this locus**: the population-vs-locus
+battery's verdict rule (§13) requires directional replication across ≥2 independent
+populations as a hard gate. A sufficiently rare allele — regardless of whether its
+effect is real — will structurally never reach that bar, because it cannot be present in
+≥2 populations with enough carriers to fit a within-population regression at all. This is
+a genuine blind spot of the method (also flagged independently by
+`finemap_candidate_genes.py`'s own pre-existing `rare_driven = af<0.02` heuristic, which
+fires for this locus too), not proof that the locus is false — but it means **this
+project currently has no way to positively validate a rare-variant single-SNP hit**, only
+to fail to validate it. Revises the earlier "standout robust finding" framing (§7's
+Session Summary) from "the single most robust finding, independently corroborated by 5+
+methods" to "the single most *cross-panel-replicated* finding, whose replication has
+never actually been an independent test of whether it's population-driven, because every
+one of those panel/method variants shares the same underlying rare-carrier strains."
+
+**Fine-mapping done anyway** (`scripts/finemap_candidate_genes.py`, bypassing its
+`likely_real` filter by omitting the `verdict` column — the code and Wakefield-ABF
+credible-set math are unchanged, this is annotation of an *unvalidated* locus, not a
+validated one): tight credible sets (resilience_30: 90/95/99% CS all n=1 SNP, pp=0.618;
+AUC_30: n=3 SNPs, lead pp=0.312), both anchored on `scaffold_13:810026` itself. Nearest
+gene `OM429_005716` (2,104bp away, unannotated hypothetical protein; GO terms suggest
+rRNA processing/ribosome biogenesis — GO:0006364, GO:0042254, GO:0034470 — speculative,
+no direct copper/growth link). 32 genes total in the ±100kb window
+(`results/gwas/tierE/scaffold13_{credible_sets,window_genes}.csv`); nearby
+`OM429_005715` (NEDD8-conjugating enzyme `ubc12`, 4,657bp) is a plausible but unconfirmed
+stress-response-pathway candidate.
+
+**Tier G (prior-locus replication)**: checked whether `scaffold_13:810026` matches any
+locus reported in this project's earlier idea-phase run — it does not; that run's own
+Tier G finding (`chr13:13_30149`→`AUC_10`, causal candidate `OM429_005439`) is a
+*different* position on the same scaffold (~780kb away, opposite end) and a different
+trait. No prior-run replication for this specific locus.
+
+**Not cited as a confirmed finding until the rare-variant validation gap above is
+resolved** (e.g. targeted resequencing/expanded sampling of the 3 carrier strains'
+lineage, or an orthogonal test not gated on within-population replication).
+
+## 21. chroma / lab_L/a/b instability — resolved: lab_* was already answered by §13, chroma has no single-locus signal to be unstable
+
+Per the Next Steps carried from earlier sessions:
+
+**lab_L/a/b (§12's open question): already resolved by §13**, just not cross-referenced
+there at the time. §13's disambiguation battery tested `lab_L`, `lab_a`, and `lab_b` in
+both panels (5 of its 9 tested rows) and found all 5 `likely_real` — directly
+superseding §12's AF-swing-based caution. No new work needed; this is a documentation
+gap, now closed.
+
+**chroma: does not have a single-locus signal to be "unstable."** Re-examined the
+existing evidence rather than running new scans: chroma has **0 FDR-significant SNPs**
+in 3 of its 4 tested panel/marker-set variants (§7) — its reported "top SNP" in each
+table row is simply whichever non-significant SNP happened to have the smallest p-value,
+which is expected to move around between marker sets when there is no true peak to
+anchor on. Tier C BSLMM corroborates directly: chroma's sparse-effect component explains
+only PGE=9.3% of its genetic variance (PVE=0.213 total, matching GEMMA LMM's
+PVE=0.230±0.092) with **0 SNPs above any BSLMM posterior-inclusion threshold**
+(`results/gwas/tierC_summary/tierc_bslmm_summary.csv`) — i.e. Bayesian sparse modeling,
+which does not require genome-wide significance the way single-SNP LMM does, also finds
+no concentrated causal locus. chroma is real and heritable (PVE~0.22, nonzero, matching
+its known partial pigment-related biology) but genuinely polygenic/diffuse — its
+"instability" is single-SNP-scan noise chasing a signal that was never concentrated at
+one locus in the first place, not evidence of a hidden confound or bug. No further
+investigation needed; do not expect a single chroma "hit" to ever replicate.
+
 ## Next steps (not done this session)
 
-- Investigate the chroma signal instability (§7) — it is NOT population-confounded per
-  §10, so the cause is still open.
-- Investigate lab_L/a/b's population-confounding flags (§12) before treating their large
-  FDR-significant hit counts as real color-specific signal — same open question as
-  chroma, now affecting three more traits.
 - Consider whether pixy should be recomputed on the 213-strain panel (currently a
   documented approximation, §11) — Tier B's headline conclusion (no set-level signal;
   resilience_30 anchor not in a high-dxy window) matches the original run closely enough
   that this is lower priority than initially flagged, but still an approximation.
-- Tier B/C/LOCO were not rerun for lab_L/a/b (§12 is Tier A only) — natural follow-up if
-  those traits turn out, after the confounding investigation above, to carry real signal.
-- Tier D/E/G (gene annotation, fine-mapping, prior-locus replication) — not started this
-  session; natural next step, focused on the resilience_30/AUC_30 scaffold_13:810026
-  anchor given how robustly it's replicated across every check run so far.
-- (2026-08-27, done — see §18) Ran `cu_doseauc_v0151`'s 5 FDR-significant loci through
-  the population-vs-locus disambiguation battery: all 5 came back
-  `likely_population_artifact` (4 too rare to test within any population; `scaffold_16`
-  too population-fixed, fst_proxy=0.84). None citeable as real findings. Open follow-up:
-  the underlying cause of `scaffold_16`'s extreme population fixation (local adaptation?
-  a genotyping/reference-panel artifact specific to that region?) is still unexplained —
-  the same open question this locus has carried since its first `ambiguous_underpowered`
-  result via `AUC_20`.
+- The other scaffold_16 loci (121473/122361/492282/563722, tied to size/IC50_est/AUC_30/
+  resilience_30 respectively) have not been individually run through the §13 battery —
+  §19 only characterized the scaffold as a whole, not each locus. Given the rare-variant
+  blind spot found in §20, `121473`/`122361` (both rare, af~0.02-0.09) are likely to hit
+  the same wall; `492282`/`563722` are more common (af~0.09-0.33) and worth testing.
+- **Rare-variant validation gap (new, from §20)**: this project has no positive test for
+  a rare single-SNP hit — only a battery that structurally fails them. Both
+  `scaffold_9:704260` (§18) and `scaffold_13:810026` (§20, the former "standout" finding)
+  are blocked on this. Worth exploring an orthogonal approach not gated on
+  within-population ≥2-population replication (e.g. a haplotype-sharing/IBD test among
+  just the carrier strains, or explicit power calculation showing what effect size would
+  even be detectable at this allele count) before writing off either locus.
+- Tier B/C/LOCO were not rerun for lab_L/a/b — natural follow-up now that §13/§21 confirm
+  their top hits are `likely_real`, not artifacts.

@@ -205,3 +205,41 @@ be cited as real findings. The takeaway is not "this trait found nothing" but "t
 trait's cleaner signal-to-noise made population-private and population-fixed variants
 pop out as GWAS hits more clearly than the noisier existing traits did" -- exactly the
 false-positive pattern the disambiguation battery exists to catch, working as intended.
+
+## 2026-08-27 — Major revision: the project's "standout" scaffold_13:810026 anchor also fails population-vs-locus validation (rare-variant blind spot); scaffold_16 explained; chroma/lab_* instability resolved
+
+Three follow-up investigations (D-26/D-27/D-28), triggered by the cu_doseauc_v0151
+population-vs-locus result above.
+
+1. **scaffold_16 is not one supergene or an assembly artifact** -- it's several
+   independent loci (some rare, some common) on a scaffold with modestly (5th of 23,
+   not extreme) elevated background Fst. Confirmed via per-scaffold VCF QC (depth/
+   density/rare-fraction all unremarkable), pairwise LD (the cu_doseauc_v0151 region
+   IS one real ~40kb LD block, r²=0.83-0.96, but is uncorrelated with the other traits'
+   scaffold_16 hits), and existing genome-wide pixy Fst.
+
+2. **The project's headline "standout robust finding," resilience_30/AUC_30's
+   scaffold_13:810026, ALSO fails population-vs-locus validation** -- verdict
+   `likely_population_artifact`, because it is rare (af=0.014, ~3 alt carriers total)
+   and 0/6 populations have enough carriers to test at all. This is the same failure
+   mode as scaffold_9:704260 above. Its previously-cited "5+ independent replications"
+   (different panels, LOCO, BSLMM proximity) are not independent evidence for a rare
+   variant -- the same handful of carrier strains drive every one of those variants.
+   **This surfaces a structural blind spot in this project's own disambiguation
+   battery**: it can fail a rare single-SNP hit but can never positively validate one,
+   since the verdict rule requires replication across >=2 independent populations, which
+   a sufficiently rare allele can never achieve regardless of true effect. Fine-mapped
+   anyway (credible sets tight, n=1-3 SNPs; nearest gene `OM429_005716`, unannotated
+   hypothetical protein, 2.1kb from the lead SNP) but not cited as confirmed.
+
+3. **chroma and lab_L/a/b's long-open instability/confounding questions are resolved**:
+   lab_L/a/b were already shown `likely_real` by the existing disambiguation battery
+   (D-17/D-18) -- a documentation-linking gap, not open science. chroma genuinely has no
+   single-locus signal (0 FDR-sig SNPs in most variants tested; BSLMM finds 0 SNPs above
+   any posterior-inclusion threshold, PGE=9.3% of a modest total PVE=0.21) -- its
+   "instability" is single-SNP-scan noise chasing a polygenic trait, not a hidden bug.
+
+**Net effect on this project's GWAS narrative**: the strongest previously-cited
+single-locus findings (scaffold_9:704260, scaffold_13:810026) are both now flagged
+unconfirmed for the same reason (rarity), while several previously-uncertain findings
+(lab_L/a/b, and by extension chroma's absence of signal) are now on firmer footing.
