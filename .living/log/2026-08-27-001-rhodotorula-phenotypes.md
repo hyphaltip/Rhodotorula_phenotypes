@@ -76,3 +76,8 @@ files_changed: 26
 - Command: check_scaffold13_carrier_relatedness.py (GEMMA kinship matrix lookup, no new computation)
 - Result: NOT cryptically related -- same-pop pair at 55th percentile of within-pop-1 pairs (ordinary), cross-pop pair has negative kinship (25th pctile genome-wide). Closes the last gap on D-29's permutation test; scaffold_13:810026 is now the best-supported single-locus GWAS finding in the project, no remaining known alternative explanation. Side finding: locus sits 1,481bp from scaffold_13's true end (811,507bp), gene window effectively upstream-only (depth there is normal, not an assembly-quality issue).
 - Output: analysis/gwas/GWAS.md section 23; scripts/check_scaffold13_carrier_relatedness.py (scilintr clean); results/gwas/rare_variant_validation/scaffold13_carrier_relatedness.csv; decisions D-30; findings gwas-scaffold13-relatedness; TODO_REGISTRY item marked done
+
+### 23:35 — SRA scoping of 3 user-supplied BioProjects
+- Command: WebFetch against NCBI bioproject/sra/biosample records for PRJNA628936, PRJNA954140, PRJNA1451956 (every SRX in PRJNA1451956 checked individually to confirm design)
+- Result: PRJNA628936 (n=2/group, chitosan) fails >=3 bar. PRJNA954140 (strain BMU419, n=3/group, 0h vs 24h) and PRJNA1451956 (strain LWJJ06, n=4/group, citrinin dose-response control/10/50) both meet it. None use the NRRL Y-2510 reference strain -- orthology mapping needed before expression comparison.
+- Output: analysis/gwas/RNASEQ_SRA_SCOPING.md; decisions D-31; TODO_REGISTRY orthology-mapping item added
