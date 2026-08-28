@@ -267,3 +267,25 @@ negative result for this locus.
 though still not ruled fully clear of within-population relatedness) while
 `scaffold_9:704260` looks increasingly like a population/lineage artifact (unconfirmed on
 two independent grounds now).
+
+## 2026-08-27 — scaffold_13:810026's carriers confirmed NOT cryptically related; best-supported locus in the GWAS port
+
+Closed the last open gap from the carrier-permutation test above (D-30). Checked
+pairwise relatedness among the 3 carrier strains against the genome-wide GEMMA kinship
+matrix: the 2 same-population (pop1) carriers are at the 55th percentile of all
+within-pop-1 pairs (an ordinary, not elevated, relationship); the cross-population (pop6)
+carrier has *negative* kinship to both (25th percentile genome-wide). No cryptic
+relatedness -- these are 3 genuinely independent lineages sharing the allele, not a
+disguised clonal group.
+
+`scaffold_13:810026` now has no remaining known alternative explanation: fails the
+standard population-vs-locus battery only for the structural reason of extreme rarity
+(not directional inconsistency), passes an orthogonal permutation test decisively for
+both resilience_30 and AUC_30, and its carriers are confirmed unrelated. This is now the
+best-supported single-locus GWAS finding in this project, ahead of any formally
+`likely_real`-verdicted locus in terms of independent corroboration, even though it
+cannot receive that formal verdict (structurally blocked by rarity).
+
+Side finding: the locus sits 1,481bp from the true end of scaffold_13 (811,507bp) --
+depth there is normal, but the candidate-gene window is effectively upstream-only; any
+downstream gene is simply not present in this assembly.

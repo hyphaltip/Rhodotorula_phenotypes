@@ -974,6 +974,50 @@ rare-variant candidates, not equally uncertain.
 
 Full results: `results/gwas/rare_variant_validation/{cu_doseauc_v0151_scaffold_9_704260,resilience_30_scaffold_13_810026,AUC_30_scaffold_13_810026}.csv`.
 
+## 23. scaffold_13:810026 carriers are NOT cryptically related — closes the remaining gap in §22
+
+§22 left one gap open: the carrier-permutation test's significance for `scaffold_13:810026`
+could in principle be driven by the 3 carriers being a tight, closely-related sub-clade
+that happens to share both the allele and unrelated causal variation, rather than 3
+independent lineages sharing a real effect. Checked directly against the existing
+genome-wide kinship matrix (GEMMA's centered GRM, already computed for the Tier A LMM —
+using it keeps this check on the same relatedness measure the rest of the pipeline
+already trusts) via `scripts/check_scaffold13_carrier_relatedness.py`
+(`results/gwas/rare_variant_validation/scaffold13_carrier_relatedness.csv`):
+
+| pair | same population? | kinship | context |
+|---|---|---|---|
+| `TFCN_17-332C-2` vs `TFCN_86A-12` (both pop 1) | yes | 0.099 | **55th percentile of all 2,775 within-pop-1 pairs** — an entirely ordinary pop-1 pair, not elevated |
+| `TFCN_17-332C-2` vs `TFCN_17-337P-5` (pop 1 vs pop 6) | no | -0.074 | 25th percentile genome-wide — *below* average relatedness |
+| `TFCN_17-337P-5` vs `TFCN_86A-12` (pop 6 vs pop 1) | no | -0.073 | 25th percentile genome-wide — *below* average relatedness |
+
+**No cryptic relatedness.** The two same-population carriers are exactly as related as a
+typical random pair from that population (not a close-relative pair); the cross-population
+carrier is, if anything, slightly *less* related to the other two than the genome-wide
+average. This rules out the main alternative explanation for §22's permutation-test
+result and is the strongest evidence yet for this locus: it has now (1) failed the
+standard §13 battery only for the structural reason of rarity, not directional
+inconsistency; (2) passed an orthogonal population-stratified permutation test
+decisively for both traits; and (3) been shown not to be an artifact of the 3 carriers
+being cryptically close relatives. Still short of a formal `likely_real` §13 verdict
+(that specific verdict requires the ≥2-population replication this rare a variant can
+never provide), but there is no remaining known alternative explanation for the signal —
+this is the best-supported single-locus finding in the whole GWAS port.
+
+**Nearby genes** (from §20's fine-mapping window, upstream of the lead SNP only — see
+caveat below): nearest is `OM429_005716` (2,104bp, unannotated hypothetical protein, GO
+terms suggest rRNA processing/ribosome biogenesis), then `OM429_005715` (4,657bp,
+NEDD8-conjugating enzyme `ubc12` — a plausible but unconfirmed stress-pathway candidate),
+`OM429_005709` (17,459bp, t-SNARE VTI1), and further out tRNA dihydrouridine synthase,
+phosphoglycerate kinase, cystathionine beta-synthase, and glutamate synthase genes.
+**Caveat**: `scaffold_13:810026` sits only 1,481bp from the true end of the 811,507bp
+scaffold, so the "gene window" is effectively upstream-only — any gene that would sit
+downstream of the lead SNP is not present in this assembly (unassembled/unscaffolded,
+not necessarily absent from the genome). Checked read depth at the scaffold terminus
+directly (`bcftools query` on the last 6.5kb) and it is unremarkable (~20-33k aggregate
+DP, consistent with the rest of the scaffold) — this is an assembly-*completeness* limit,
+not a depth/assembly-*quality* red flag.
+
 ## Next steps (not done this session)
 
 - Consider whether pixy should be recomputed on the 213-strain panel (currently a
@@ -985,14 +1029,16 @@ Full results: `results/gwas/rare_variant_validation/{cu_doseauc_v0151_scaffold_9
   §19 only characterized the scaffold as a whole, not each locus. Given the rare-variant
   blind spot found in §20, `121473`/`122361` (both rare, af~0.02-0.09) are likely to hit
   the same wall; `492282`/`563722` are more common (af~0.09-0.33) and worth testing.
-- (2026-08-27, done — see §22) Built and ran a population-stratified exact
+- (2026-08-27, done — see §22-23) Built and ran a population-stratified exact
   carrier-permutation test as the orthogonal rare-variant check flagged after §20:
   `scaffold_9:704260` does not pass (p=0.199, still unconfirmed, now on two independent
   grounds), `scaffold_13:810026` passes decisively for both traits (p=0.001-0.003,
-  carriers span 2 real populations). Open follow-up: this test still can't rule out
-  fine-scale within-population relatedness driving `scaffold_13:810026`'s signal — a
-  small local phylogeny/IBD check among just its 3 carrier strains (using the
-  `rhodotorula-phyling-protein-tree` dataset or a local kinship submatrix) would close
-  that remaining gap and is the natural next step for this specific locus.
+  carriers span 2 real populations). Follow-up kinship check (§23) confirms the 3
+  carriers are NOT cryptically related — no remaining known alternative explanation for
+  the `scaffold_13:810026` signal.
 - Tier B/C/LOCO were not rerun for lab_L/a/b — natural follow-up now that §13/§21 confirm
   their top hits are `likely_real`, not artifacts.
+- `scaffold_13:810026`'s candidate genes (§23) are all still unannotated/generic
+  (hypothetical protein, `ubc12`, t-SNARE, metabolic enzymes) — functional evidence
+  (e.g. RNA-seq expression) would be the natural next line of support; a background
+  scoping of public R. mucilaginosa RNA-seq datasets is in progress separately.

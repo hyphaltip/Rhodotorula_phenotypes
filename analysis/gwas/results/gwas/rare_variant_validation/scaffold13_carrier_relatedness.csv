@@ -1,0 +1,4 @@
+strain_a,strain_b,pop_a,pop_b,same_population,kinship,comparison_baseline,percentile_in_baseline
+TFCN_17-332C-2,TFCN_17-337P-5,1.0,6.0,False,-0.07385682092,genome-wide,25.192665426521394
+TFCN_17-332C-2,TFCN_86A-12,1.0,1.0,True,0.09879900089,within-population-1.0,55.4954954954955
+TFCN_17-337P-5,TFCN_86A-12,6.0,1.0,False,-0.07258388855,genome-wide,25.653290814066793
