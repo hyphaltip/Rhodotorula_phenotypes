@@ -1,0 +1,2 @@
+trait,snp,n_carriers,carrier_strata,carrier_strains,observed_carrier_mean,null_mean,null_sd,n_null_enumerated,observed_percentile_in_null,p_two_sided_exact
+cu_doseauc_v0151,scaffold_9:704260,5,{3.0: 5},DBVPG_3090;DBVPG_3235;DBVPG_3983;DBVPG_3984;DBVPG_4377,24.353436443514575,21.47136136534129,2.2470021638357722,53130,92.36589497459062,0.19886695149724268

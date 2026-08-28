@@ -1,0 +1,2 @@
+trait,snp,n_carriers,carrier_strata,carrier_strains,observed_carrier_mean,null_mean,null_sd,n_null_enumerated,observed_percentile_in_null,p_two_sided_exact
+AUC_30,scaffold_13:810026,3,"{1.0: 2, 6.0: 1}",TFCN_17-332C-2;TFCN_17-337P-5;TFCN_86A-12,4339644.25,1496151.3390277775,657036.0620056911,55500,99.74774774774775,0.0025404947658600745

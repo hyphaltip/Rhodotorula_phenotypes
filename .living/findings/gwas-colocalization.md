@@ -243,3 +243,27 @@ population-vs-locus result above.
 single-locus findings (scaffold_9:704260, scaffold_13:810026) are both now flagged
 unconfirmed for the same reason (rarity), while several previously-uncertain findings
 (lab_L/a/b, and by extension chroma's absence of signal) are now on firmer footing.
+
+## 2026-08-27 — Orthogonal rare-variant test discriminates: scaffold_13:810026 gets real support, scaffold_9:704260 does not
+
+Built the rare-variant validation approach flagged as an open gap above (D-29): a
+population-stratified exact carrier-permutation test that asks whether the real carrier
+strains' phenotype extremity exceeds what a population-and-count-matched random draw
+would produce, without requiring the >=2-independent-population replication that a rare
+allele can never achieve.
+
+**scaffold_13:810026 (resilience_30 p=0.0013, AUC_30 p=0.0025) passes decisively** --
+its 3 carriers span two genuinely distinct populations (2 in pop1/n=77, 1 in pop6/n=21),
+and are more extreme than 99.7-99.9% of all possible same-stratified draws for both
+traits. This is the first evidence for this locus not confounded by D-27's critique that
+every prior "replication" (different panels/methods) shared the exact same 3 carrier
+strains. **scaffold_9:704260 (cu_doseauc_v0151) does not pass** (p=0.199) -- its 5
+carriers are confined to a single population (pop3), so the test reduces to "are these 5
+pop-3 members unusual among pop-3 members," and they are not. Second independent
+negative result for this locus.
+
+**Net read**: of the two strongest rare single-SNP hits in this GWAS port,
+`scaffold_13:810026` is now the better-supported candidate (independently corroborated,
+though still not ruled fully clear of within-population relatedness) while
+`scaffold_9:704260` looks increasingly like a population/lineage artifact (unconfirmed on
+two independent grounds now).

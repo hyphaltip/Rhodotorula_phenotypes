@@ -926,6 +926,54 @@ its known partial pigment-related biology) but genuinely polygenic/diffuse — i
 one locus in the first place, not evidence of a hidden confound or bug. No further
 investigation needed; do not expect a single chroma "hit" to ever replicate.
 
+## 22. Orthogonal rare-variant validation: population-stratified exact carrier-permutation test — scaffold_9:704260 stays unconfirmed, scaffold_13:810026 gets real independent support
+
+Closes the rare-variant validation gap flagged after §20. Design
+(`scripts/rare_variant_carrier_permutation_test.py`): take the real carrier strains'
+population-membership counts as a fixed stratum (e.g. "2 from pop1 + 1 from pop6"),
+exactly enumerate every possible same-stratified pseudo-carrier draw (all combinations
+of that many strains from those exact populations — no Monte Carlo needed, carrier
+counts are small enough, up to 61,446 combinations, to enumerate exhaustively), and
+report where the real carriers' mean phenotype falls in that exact null distribution.
+This is not a replacement for §13's battery — it doesn't require ≥2 populations to
+show independent, directionally-consistent replication, so it can't establish the same
+kind of evidence — but it answers a different, valid question that IS answerable from a
+single (or two-population) rare-variant sample: are the real carriers more phenotypically
+extreme than population-and-count-matched chance, given exactly where they sit in the
+population structure. Caveat stated explicitly, not hidden: it cannot resolve
+fine-scale relatedness *within* a population — a tight, closely-related sub-clade that
+happens to share both the allele and unrelated causal variation would still look
+"extreme" here.
+
+| trait | snp | carriers | strata | percentile in exact null | p (two-sided) |
+|---|---|---|---|---|---|
+| `cu_doseauc_v0151` | `scaffold_9:704260` | 5 | all 5 in pop 3 | 92.4th | 0.199 |
+| `resilience_30` | `scaffold_13:810026` | 3 | 2×pop1, 1×pop6 | 99.87th | **0.0013** |
+| `AUC_30` | `scaffold_13:810026` | 3 | 2×pop1, 1×pop6 | 99.75th | **0.0025** |
+
+**scaffold_9:704260 (cu_doseauc_v0151): does not pass.** All 5 carriers sit in a single
+population (pop 3), so this test is really asking "are these 5 pop-3 members unusual
+relative to other pop-3 members" — and the answer is no (p=0.199, well within chance).
+This is a *second*, methodologically independent negative result for this locus (on top
+of §18's `likely_population_artifact`), from a test that does not share the earlier
+battery's structural blind spot — strengthening, not just repeating, the case that this
+locus is unconfirmed.
+
+**scaffold_13:810026 (resilience_30/AUC_30): passes decisively.** Its 3 carriers span
+two distinct populations (pop1, n=77; pop6, n=21) — genuinely different lineages, not
+one sub-clade — and are far more extreme than essentially any population-and-count-matched
+random draw (top 0.13-0.25%, both traits agree). This is the first evidence for this
+locus that isn't confounded with "every check shares the same 3 carrier strains" (D-27's
+critique of the earlier cross-panel/cross-method "replications"): this test's null
+distribution already accounts for exactly which strains and populations they are, and
+the carriers still stand out. **Revises D-27's framing again**: `scaffold_13:810026`
+remains unconfirmed by the standard population-vs-locus battery (structurally can't be
+confirmed by it, being this rare) but now has independent, methodologically distinct
+support that `scaffold_9:704260` conspicuously lacks. Treat as the stronger of the two
+rare-variant candidates, not equally uncertain.
+
+Full results: `results/gwas/rare_variant_validation/{cu_doseauc_v0151_scaffold_9_704260,resilience_30_scaffold_13_810026,AUC_30_scaffold_13_810026}.csv`.
+
 ## Next steps (not done this session)
 
 - Consider whether pixy should be recomputed on the 213-strain panel (currently a
@@ -937,12 +985,14 @@ investigation needed; do not expect a single chroma "hit" to ever replicate.
   §19 only characterized the scaffold as a whole, not each locus. Given the rare-variant
   blind spot found in §20, `121473`/`122361` (both rare, af~0.02-0.09) are likely to hit
   the same wall; `492282`/`563722` are more common (af~0.09-0.33) and worth testing.
-- **Rare-variant validation gap (new, from §20)**: this project has no positive test for
-  a rare single-SNP hit — only a battery that structurally fails them. Both
-  `scaffold_9:704260` (§18) and `scaffold_13:810026` (§20, the former "standout" finding)
-  are blocked on this. Worth exploring an orthogonal approach not gated on
-  within-population ≥2-population replication (e.g. a haplotype-sharing/IBD test among
-  just the carrier strains, or explicit power calculation showing what effect size would
-  even be detectable at this allele count) before writing off either locus.
+- (2026-08-27, done — see §22) Built and ran a population-stratified exact
+  carrier-permutation test as the orthogonal rare-variant check flagged after §20:
+  `scaffold_9:704260` does not pass (p=0.199, still unconfirmed, now on two independent
+  grounds), `scaffold_13:810026` passes decisively for both traits (p=0.001-0.003,
+  carriers span 2 real populations). Open follow-up: this test still can't rule out
+  fine-scale within-population relatedness driving `scaffold_13:810026`'s signal — a
+  small local phylogeny/IBD check among just its 3 carrier strains (using the
+  `rhodotorula-phyling-protein-tree` dataset or a local kinship submatrix) would close
+  that remaining gap and is the natural next step for this specific locus.
 - Tier B/C/LOCO were not rerun for lab_L/a/b — natural follow-up now that §13/§21 confirm
   their top hits are `likely_real`, not artifacts.
