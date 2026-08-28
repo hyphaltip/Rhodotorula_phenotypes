@@ -728,6 +728,55 @@ corroborated at lower confidence by Tier C BSLMM's nearby top locus
 (`scaffold_13:793374`, ~17 kb away). `chroma`'s signal is unstable across every SNP-set
 and panel choice tried and should not be cited without further investigation.
 
+## 18. Integrating `copper-heavy-metal-screen-v0.15.1`'s dose-response AUC (`cu_doseauc_v0151`)
+
+Added 2026-08-27 (D-24) at user request, following D-23's ingestion of the shared lab's
+`0.15.1_Analysis` copper reprocessing. `data/raw/copper-heavy-metal-screen-v0.15.1/
+copper_auc_mean_by_strain.csv`'s `mean_auc_rate` (trapezoidal area under
+linear-radial-growth-rate vs. Cu concentration, 0-30mM, mean over up to 4 plate
+configurations) integrated as a new Tier-A-style trait, `cu_doseauc_v0151`.
+
+**Strain reconciliation** (`scripts/add_copper_v0151_trait.py`): exact-string join, not
+fuzzy — the new dataset's `Strain` column and this project's `strain_code` are the same
+ID space (both trace to `data/metadata/Copper.Strain_info.csv`'s `Strain` column, which
+for the mucilaginosa panel is an identity map onto the accepted VCF sample IDs per
+`strain_match_table.reviewed.csv`). 211/213 fam-order strains matched; 2 unmatched
+(`DBVPG_4952`, `TFCN_223A-8` — present in the 213-panel but absent from the shared
+project's copper screen, cause not investigated). Join report:
+`results/strain_reconciliation/copper_v0151_match_table.csv`.
+
+**Sanity check against existing copper traits** (`scripts/compare_copper_v0151_trait.py`,
+`results/gwas/tierA_summary/cu_doseauc_v0151_correlations.csv`, n=211): Spearman rho vs.
+existing Tier-A traits ranges 0.04 (`AUC_ratio_10`) to 0.46 (`AUC_20`); `cu_dose_slope`
+rho=0.39, `resilience_30` rho=0.32, `IC50_est` rho=0.33 (n=92, most strains have no
+defined IC50). Moderate-not-redundant correlation confirms L-34's read: same underlying
+biology, genuinely different statistic (rate-over-dose vs. area-over-time), worth scanning
+separately rather than as a substitute.
+
+**GEMMA scan** (same kinship-only `-lmm 4` pipeline as `run_tiera_gemma.sh`, rebuilt
+213-strain kinship, 211/213 phenotyped, 28,885 SNPs, PVE=0.291±0.084):
+`results/gwas/tierA_summary/gemma_output/gwas_cu_doseauc_v0151.assoc.txt`. **32 SNPs
+FDR<0.05** (`scripts/summarize_cu_doseauc_v0151_gemma.py`,
+`results/gwas/tierA_summary/cu_doseauc_v0151_top_hits_annotated.csv`):
+
+| locus | p_wald | FDR q | nearest gene | note |
+|---|---|---|---|---|
+| `scaffold_9:704260` | 5.9e-14 | 1.7e-9 | `OM429_004397` (285bp, unnamed) | **strongest hit in the whole scan**; nominally significant (p<0.05) in every one of the 12 existing Tier-A traits but never previously FDR-significant on its own — this trait is the first to resolve it cleanly |
+| `scaffold_16:139718-455499` (25 SNPs) | 1.6e-10 (best) | 2.4e-6 (best) | multiple genes across a ~316kb span, incl. `OM429_006336/6337` near 416-419kb and `rad1` (`OM429_006339`, 421197-423298) | recurring copper-response region across nearly every existing trait too (see per-SNP `minp_*` columns); **already tested once before** (AUC_20's `scaffold_16:417619`) and came back `ambiguous_underpowered` in `results/gwas/population_vs_locus/population_vs_locus.csv` — not yet a confirmed real locus |
+| `scaffold_8:698507` | 3.8e-8 | 2.2e-4 | `OM429_003966` (998bp, `RKI1`) | novel, single SNP |
+| `scaffold_2:515984` & `scaffold_2:1560553` | 2.1-2.7e-6 | 6.6e-3 | none within 2kb (both) | novel; both rare (af 0.029-0.033) — rare-variant/population-tag hits are exactly the pattern D-17/D-18's disambiguation battery exists to screen |
+
+**Not yet done — population-structure validation.** None of these hits (including the
+scaffold_16 region, despite its history) has been run through the
+population-vs-locus disambiguation battery (`scripts/check_population_vs_locus.py`,
+§13) that this project requires before treating a single-SNP hit as real rather than a
+population-stratification artifact. That script's current CLI expects the full upstream
+`check_population_confounding.py` flagged-hit list and per-panel `assoc.csv.gz`/`fdr05.csv`
+layout used by the original 12-trait Tier A run; wiring `cu_doseauc_v0151` into that
+pipeline (rather than re-deriving an ad hoc equivalent) is the natural next step before
+citing any of these loci, especially the two rare scaffold_2 SNPs. Do not add
+`cu_doseauc_v0151` hits to the MAS-usability gate list (§14) until that's done.
+
 ## Next steps (not done this session)
 
 - Investigate the chroma signal instability (§7) — it is NOT population-confounded per
@@ -744,3 +793,7 @@ and panel choice tried and should not be cited without further investigation.
 - Tier D/E/G (gene annotation, fine-mapping, prior-locus replication) — not started this
   session; natural next step, focused on the resilience_30/AUC_30 scaffold_13:810026
   anchor given how robustly it's replicated across every check run so far.
+- (2026-08-27) Run `cu_doseauc_v0151`'s 4 FDR-significant loci (§18) through the
+  population-vs-locus disambiguation battery (§13) before treating any as real —
+  `scaffold_9:704260` is the priority given it's the single strongest hit in the scan and
+  was never previously flagged for testing.

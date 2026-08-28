@@ -297,6 +297,9 @@ scripts:
   - analysis/gwas/scripts/run_tierb.sh + tierb_set_tests.py
   - analysis/gwas/scripts/run_tierc_bslmm.sh + summarize_tierc.py
   - analysis/gwas/scripts/run_loco.sh + run_loco_shared.sh + merge_loco.py
+  - analysis/gwas/scripts/add_copper_v0151_trait.py     # reconciles + merges copper-heavy-metal-screen-v0.15.1's mean_auc_rate into the fam-order phenotype table
+  - analysis/gwas/scripts/compare_copper_v0151_trait.py # correlates cu_doseauc_v0151 vs. existing copper traits
+  - analysis/gwas/scripts/summarize_cu_doseauc_v0151_gemma.py  # FDR + nearest-gene + cross-trait replication table for the new trait's GEMMA scan
 outputs:
   - analysis/gwas/results/strain_reconciliation/strain_match_table.reviewed.csv
   - analysis/gwas/results/ploidy_check/ploidy_flags.csv
@@ -308,8 +311,11 @@ outputs:
   - analysis/gwas/results/gwas/tierB/tierb_settests_{gwas,gwasc}.csv
   - analysis/gwas/results/gwas/tierC_summary/{tierc_bslmm_summary.csv,pip/}
   - analysis/gwas/results/gwas/loco/output/loco_merged_{gwas,gwasc}.csv
-reproduce: bash analysis/gwas/run.sh (human-review gates at reconciliation and ploidy steps; SLURM submission steps for the kinship rebuild, Tier A/B/C, and LOCO documented inline in each script's header)
-status: in-progress (Tier A [corrected, full unpruned SNP set], Tier B, Tier C, and LOCO all complete on both the 213-strain and 182-strain near-clone-culled panels; Tier D/E/G gene annotation/fine-mapping/replication not started; pixy reused from the prior 201-strain run as a documented approximation, not recomputed)
+  - analysis/gwas/results/strain_reconciliation/copper_v0151_match_table.csv
+  - analysis/gwas/results/gwas/tierA_summary/gemma_output/gwas_cu_doseauc_v0151.assoc.txt
+  - analysis/gwas/results/gwas/tierA_summary/cu_doseauc_v0151_{correlations,top_hits_annotated}.csv
+reproduce: bash analysis/gwas/run.sh (human-review gates at reconciliation and ploidy steps; SLURM submission steps for the kinship rebuild, Tier A/B/C, and LOCO documented inline in each script's header). cu_doseauc_v0151 (§18, added 2026-08-27) reproduced separately via add_copper_v0151_trait.py -> compare_copper_v0151_trait.py -> the same run_tiera_gemma.sh GEMMA invocation pattern for one trait -> summarize_cu_doseauc_v0151_gemma.py.
+status: in-progress (Tier A [corrected, full unpruned SNP set], Tier B, Tier C, and LOCO all complete on both the 213-strain and 182-strain near-clone-culled panels; Tier D/E/G gene annotation/fine-mapping/replication not started; pixy reused from the prior 201-strain run as a documented approximation, not recomputed). cu_doseauc_v0151 (new copper-v0.15.1 dose-response-AUC trait) added and GEMMA-scanned 2026-08-27; population-vs-locus validation of its 4 FDR-sig loci NOT yet run -- see GWAS.md §18.
 key_findings:
   - Audited reconciliation accepted 213/308 phenotype strains (12 more than the prior informal our200.txt match), all 62 fuzzy candidates hand-reviewed and rejected as coincidental string similarity, 0 removed vs. prior run.
   - Ploidy check confirms haploid GT encoding genome-wide (0 het in every strain); 46/213 strains flag watch_contamination (depth >2.5x panel median) and 14 watch (1.5-2.5x) -- kept per user decision, informational only for now.
@@ -320,6 +326,7 @@ key_findings:
   - chroma's top hit is unstable across every SNP-set/panel choice tried (5 different top loci across 5 variants) and is NOT population-confounded -- cause still open, flagged not to be cited as a replicated finding.
   - Tier B: no set-level (burden/SKAT) signal survives BH-FDR in either panel, matching the original run's pattern exactly.
   - Tier C BSLMM architecture looks substantively more polygenic here than the original run (no locus reaches PIP>=0.5 in any of the 5 traits tested, vs. the original's several near-oligogenic PIP~1.0 loci) -- not yet explained, candidate causes include the larger unpruned marker set diluting PIP and/or the different near-clone structure.
+  - **cu_doseauc_v0151 (dose-response AUC from copper-heavy-metal-screen-v0.15.1) is only moderately correlated with existing copper traits (Spearman rho 0.04-0.46)** and its GEMMA scan surfaces the single strongest single-SNP signal in the whole GWAS port so far -- scaffold_9:704260 (p=5.9e-14, FDR q=1.7e-9), nominally significant in all 12 existing traits but never before FDR-significant. Also cleanly replicates the recurring scaffold_16 copper-response region (25 FDR-sig SNPs, 139718-455499bp) -- but that region's one prior population-vs-locus test came back `ambiguous_underpowered`, and none of cu_doseauc_v0151's own hits have been population-validated yet. Not to be cited as confirmed loci until that check is run (GWAS.md §18).
 tags: [gwas, gemma, rhodotorula, mucilaginosa, copper, color, kinship, ploidy, strain-reconciliation, near-clone-culling, tierb, tierc, bslmm, loco, population-structure, ported, in-progress]
 ```
 

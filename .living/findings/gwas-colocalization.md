@@ -146,3 +146,38 @@ battery as the disambiguation exercise (within-pop re-test + meta + covariate + 
 Caveat: perfect LD between the sat insertion and lead SNP means insertion-causal vs
 SNP-causal cannot be split without denser or functional data; populations 1/2/4 are
 near-fixed for these alleles, so only 3/6 are testable for the top loci.
+
+## 2026-08-27 — cu_doseauc_v0151 (copper-heavy-metal-screen-v0.15.1 dose-response AUC) resolves a new candidate copper locus, scaffold_9:704260, plus replicates the existing scaffold_16 region
+
+Integrated the shared lab's independently-reprocessed copper dose-response AUC
+(`copper-heavy-metal-screen-v0.15.1`, D-23/D-24) as a new GWAS trait,
+`cu_doseauc_v0151` (area under linear radial-growth-rate vs. Cu concentration
+0-30mM; moderately correlated with existing copper traits, Spearman 0.04-0.46 --
+related but not redundant).
+
+1. **`scaffold_9:704260` is the strongest single-SNP signal found anywhere in this
+   GWAS port so far** (p=5.9e-14, FDR q=1.7e-9, af=0.024, nearest gene
+   `OM429_004397`, 285bp away, currently unannotated/no gene name). This position was
+   nominally significant (p<0.05) in every one of the 12 pre-existing Tier-A traits'
+   scans but never reached FDR significance in any of them individually -- the new
+   trait's cleaner signal (or larger effective sample after reconciliation) is what
+   resolves it. **Not yet population-validated** -- treat as a strong candidate, not a
+   confirmed locus.
+2. **Replicates the recurring scaffold_16 copper-response region** (25 FDR-sig SNPs,
+   139718-455499bp, best p=1.6e-10 at 455499, nearest genes span `OM429_006250` through
+   `OM429_006351` including `rad1`/`OM429_006339` at 421197-423298). This region shows
+   up at nominal significance in nearly every existing copper trait too, but its one
+   prior population-vs-locus test (via `AUC_20`'s `scaffold_16:417619`) came back
+   `ambiguous_underpowered` -- still not a confirmed real locus despite the recurrence.
+3. Two novel, single-SNP, rare-allele hits: `scaffold_8:698507` (p=3.8e-8, nearest gene
+   `RKI1`/`OM429_003966`, 998bp) and `scaffold_2:515984` + `scaffold_2:1560553`
+   (p~2-3e-6, af 0.029-0.033, no gene within 2kb of either) -- rare-variant hits are
+   exactly the pattern this project's population-vs-locus battery exists to screen for
+   artifacts, so these are the lowest-confidence of the four.
+
+Caveat (same shape as the sat-locus caveat above, different mechanism): **none of these
+4 loci have been run through the population-vs-locus disambiguation battery**
+(`check_population_vs_locus.py`) that this project requires before citing a single-SNP
+GWAS hit as real. Wiring `cu_doseauc_v0151` into that pipeline (currently built around
+the original 12-trait run's file layout) is the explicit next step -- see
+`analysis/gwas/GWAS.md` §18.

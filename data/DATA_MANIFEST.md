@@ -142,3 +142,35 @@ Methods report and pathway-diagram reference material documenting how the `pigme
 HMM library was built and validated (285 genomes + 3,275 metagenome MAGs, GNPS2 compound linking),
 imported as background reading for pigmentation pathway biology. Not primary data generated in this
 project — see `PIGMENTATION_PATHWAY_REFERENCE.md` for scope and caveats.
+
+### copper-heavy-metal-screen-v0.15.1
+```yaml
+name: copper-heavy-metal-screen-v0.15.1
+type: other
+source: shared ArrayedHeavyMetalScreen project's 0.15.1_Analysis pipeline (R/tidyverse); same imaging runs as copper-colony-measurements, reprocessed
+date_acquired: 2026-08-27
+format: CSV (16 files copied) + 3 symlinked large sources (large_source/)
+rows: 298 strains (copper_auc_mean_by_strain.csv); 1081 strain x configuration rows (copper_auc_all_strains_by_configuration.csv); 306 strains cross-metal (comparative_tolerance_*)
+columns: see data/metadata/copper-heavy-metal-screen-v0.15.1/schema.yaml
+size: ~925 KB (copied files) + ~1.4 GB symlinked, not duplicated on disk
+raw_path: data/raw/copper-heavy-metal-screen-v0.15.1/
+metadata_path: data/metadata/copper-heavy-metal-screen-v0.15.1/
+status: raw (immutable copies + immutable symlinks)
+known_issues:
+  - AUC here is area-under-(growth-rate-vs-Cu-concentration), NOT area-under-(area-vs-time) like this project's existing AUC_0/AUC_10/AUC_20/AUC_30 GWAS traits -- different phenotype axis, not a drop-in replacement
+  - copper_radial_growth_rates_all_concentrations.csv / _30mM.csv cover only strain 254 (prototype), not all strains
+  - source dir's copper_measurements_combined.csv vs copper_measurements_combined(1).csv are not byte-identical; only the non-(1) file symlinked
+  - strain identity uses shared-project Strain ID/Strain code, not this project's strain_code -- needs reconciliation before merging with GWAS panel
+  - 8/306 strains in the cross-metal comparison lack a copper AUC value
+access_restrictions: shared lab storage, not redistributable
+tags: [copper, heavy-metal, rhodotorula, dose-response, auc, growth-rate, tolerance, comparative, phenotype, update]
+```
+
+Updated copper phenotyping outputs (dose-response AUC, linear radial-growth-rate model, cross-metal
+comparative tolerance, terminal per-colony QC) from the shared lab's `0.15.1_Analysis` pipeline, covering
+the same underlying imaging runs (d000353-d000357) as this project's existing `copper-colony-measurements`
+dataset but adding a new growth-model layer (linear radial extension, superseding earlier logistic/power-law
+fits per source decisions D-015/D-016/D-018) and a strain-level dose-response AUC not previously computed in
+this project. See `COPPER_HEAVY_METAL_SCREEN_V0_15_1.md` for the full file layout, caveats, and suggested
+next step (comparing `mean_auc_rate` against the existing `cu_dose_slope`/`AUC_ratio_10`/`resilience_30`
+GWAS traits before deciding whether to add or replace).

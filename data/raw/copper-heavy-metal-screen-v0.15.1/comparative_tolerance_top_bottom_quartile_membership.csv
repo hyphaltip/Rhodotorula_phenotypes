@@ -1,0 +1,1635 @@
+Strain ID,source,mean_auc_rate,in_top_quartile,in_bottom_quartile,quartile_direction,Strain,Strain Name,Species,Origin,Environment,Library Plate,Incubation Temp (°C)
+1,copper,24.706606901662617,TRUE,FALSE,top,TFCN_17-291Y-1,"17-291Y-1
+ BY126-B8",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+2,copper,24.465316554857857,FALSE,FALSE,NA,TFCN_134A-3,"134A-3
+ BY30-D2",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+3,copper,25.066205256268834,TRUE,FALSE,top,TFCN_98A-5,98A-5,Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+4,copper,22.4773129939826,FALSE,FALSE,NA,TFCN_102C-2,102C-2,Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+5,copper,24.196308314407414,FALSE,FALSE,NA,TFCN_105A-2,105A-2,Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+6,copper,25.344540320116494,TRUE,FALSE,top,TFCN_17-334Y-2,"17-334Y-2
+ BY116-B9",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+7,copper,22.882774791785103,FALSE,FALSE,NA,TFCN_17-329Y-4,"17-329Y-4
+ BY115-H8",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+8,copper,22.545083412404402,FALSE,FALSE,NA,TFCN_107A-6,"107A-6
+ BY31-B6",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+9,copper,24.111976933908064,FALSE,FALSE,NA,TFCN_17-390M-1,"17-390M-1
+ BY126-D7",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+10,copper,22.12691679878391,FALSE,FALSE,NA,TFCN_86C-9,"86C-9
+ BY34-B2",Rhodotorula sphaerocarpa,China,marsh_tidalflat,1,30
+11,copper,24.128033613285787,FALSE,FALSE,NA,TFCN_122C-2,"122C-2 
+ BY31-A2",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+12,copper,23.960679746774204,FALSE,FALSE,NA,TFCN_4M-1-3,4M-1-3,Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+13,copper,25.008701432503536,TRUE,FALSE,top,TFCN_141C-2,"141C-2
+ BY30-H4",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+14,copper,23.345210889037045,FALSE,FALSE,NA,TFCN_130D-4,"130D-4
+ BY30-H7",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+15,copper,23.10906210822475,FALSE,FALSE,NA,TFCN_3M-1-1,"3M-1-1
+ BY8-B4",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+16,copper,23.479636719653154,FALSE,FALSE,NA,TFCN_186DK3-2,"186DK3-2
+ BY39-H9",Rhodotorula sp. clade XI,China,marsh_tidalflat,1,30
+17,copper,16.998044189764748,FALSE,TRUE,bottom,TFCN_7-9-3,7-9-3,Rhodotorula diobovata,China,marsh_tidalflat,1,30
+18,copper,22.335549538657755,FALSE,FALSE,NA,TFCN_25-395P-1,"25-395P-1
+ BY126-F2",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+19,copper,26.463538949435648,TRUE,FALSE,top,TFCN_152A-12,"152A-12
+ BY32-A3",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+20,copper,21.877944406333008,FALSE,FALSE,NA,TFCN_102D-1,102D-1 8130,Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+21,copper,23.432404692217535,FALSE,FALSE,NA,TFCN_4M-1-2,"4M-1-2
+ BY8-D4",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+22,copper,22.715366133570253,FALSE,FALSE,NA,TFCN_209-6-11,"209-6-11
+ BY43-G1",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+23,copper,27.95955143915442,TRUE,FALSE,top,TFCN_110C-1,110C-1,Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+24,copper,25.9420135388411,TRUE,FALSE,top,TFCN_17-337P-5,"17-337P-5
+ BY116-B7",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+25,copper,24.65058664653585,TRUE,FALSE,top,TFCN_137C-3,"137C-3
+ BY30-I4",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+26,copper,24.232087526652503,FALSE,FALSE,NA,TFCN_212C-2,"212C-2
+ BY39-G3",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+27,copper,25.889621361388695,TRUE,FALSE,top,TFCN_25-0-2E390-1,"25-0-2E390-1
+ BY126-F3",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+28,copper,25.031124340623236,TRUE,FALSE,top,TFCN_1A-1-3,1A-1-3 8130,Rhodotorula pacifica,China,marsh_tidalflat,1,30
+29,copper,24.207166958843484,FALSE,FALSE,NA,TFCN_25-332D-2,"25-332D-2
+ BY119-I1 8/30",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+30,copper,22.347945765000166,FALSE,FALSE,NA,TFCN_2M-1-4,"2M-1-4
+ BY8-B3 8/30",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+31,copper,22.67611240701055,FALSE,FALSE,NA,TFCN_340-3,"340-3
+ BY110-F1",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+32,copper,21.815491048092397,FALSE,FALSE,NA,TFCN_100D-1,"100D-1
+ BY31-H3",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+33,copper,23.18669012678975,FALSE,FALSE,NA,TFCN_340-1,"340-1
+ BY110-D1",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+36,copper,25.264730360363494,TRUE,FALSE,top,TFCN_17-267M-1,"17-267M-1
+ BY121-A4",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+37,copper,20.631847157999047,FALSE,TRUE,bottom,TFCN_48A-15,48A-15,Rhodotorula paludigena,China,marsh_tidalflat,1,30
+38,copper,23.62762652710506,FALSE,FALSE,NA,TFCN_25-332C-1,"25-332C-1
+ BY119-C2",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+39,copper,23.218914666306873,FALSE,FALSE,NA,TFCN_17-334Y-3,"17-334Y-3
+ BY116-C9",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+40,copper,24.288777316639464,FALSE,FALSE,NA,TFCN_270H-1,"270H-1
+ BY113-D3",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+41,copper,24.653351408892,TRUE,FALSE,top,TFCN_107C-3,107C-3,Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+42,copper,18.52114955095389,FALSE,TRUE,bottom,TFCN_33A-4,33A-4,Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+43,copper,21.378870693797975,FALSE,FALSE,NA,TFCN_152D-4,"152D-4
+ BY32-B4",Rhodotorula toruloides,China,marsh_tidalflat,1,30
+44,copper,17.87371848122163,FALSE,TRUE,bottom,TFCN_7-9-2,7-9-2,Rhodotorula diobovata,China,marsh_tidalflat,1,30
+45,copper,24.94435914907396,TRUE,FALSE,top,TFCN_17Y-278-1,"17Y-278-1
+ BY126-D5",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+46,copper,23.68053101894728,FALSE,FALSE,NA,TFCN_43A-4,43A-4,Rhodotorula paludigena,China,marsh_tidalflat,1,30
+47,copper,18.43975071470764,FALSE,TRUE,bottom,TFCN_25-331D-1,"25-331D-1
+ BY119-D1",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+48,copper,17.945390922570652,FALSE,TRUE,bottom,TFCN_25-333C-2,"25-333C-2
+ BY120-H5",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+49,copper,21.028438453567514,FALSE,TRUE,bottom,TFCN_270H-2,"270H-2
+ BY113-D4",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+50,copper,22.495590820714135,FALSE,FALSE,NA,TFCN_118C-2,"118C-2
+ BY31-G1",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+51,copper,23.501508475061602,FALSE,FALSE,NA,TFCN_25-334D-3,"25-334D-3
+ BY118-F7",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+52,copper,22.5663719251366,FALSE,FALSE,NA,TFCN_1A-14,1A-14,Rhodotorula mucilaginosa,China,NA,1,30
+53,copper,22.284812364311914,FALSE,FALSE,NA,TFCN_211A-3,"211A-3
+ BY37-B3",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+54,copper,25.20220552947686,TRUE,FALSE,top,TFCN_17-0-2E390-1,"17-0-2E390-1
+ BY126-B7",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+55,copper,24.782039233379592,TRUE,FALSE,top,TFCN_172A-1,"172A-1
+ BY40-A6",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+56,copper,24.284726859797175,FALSE,FALSE,NA,TFCN_22C-4,22C-4,Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+57,copper,25.042803786362466,TRUE,FALSE,top,TFCN_98D-11,98D-11,Rhodotorula mucilaginosa,China,NA,1,30
+58,copper,23.233428201398823,FALSE,FALSE,NA,TFCN_25-332Y-1,"25-332Y-1
+ BY119-F3",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+59,copper,24.495232142213055,FALSE,FALSE,NA,TFCN_25-333Y-9,"25-333Y-9
+ BY120_C8",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+60,copper,25.920150553031483,TRUE,FALSE,top,TFCN_25-325Y-1,"25-325Y-1
+ BY120-D6",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+61,copper,20.986841232701643,FALSE,TRUE,bottom,TFCN_152A-6,"152A-6
+ BY32-D2",Rhodotorula toruloides,China,marsh_tidalflat,1,30
+62,copper,27.431644578818208,TRUE,FALSE,top,TFCN_17-338D-3,"17-338D-3
+ BY116-B5",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+63,copper,23.998956987480003,FALSE,FALSE,NA,TFCN_17-0-2E390-2,"17-0-2E390-2
+ BY126-C7",Rhodotorula mucilaginosa,China,NA,1,30
+64,copper,21.58755111316251,FALSE,FALSE,NA,TFCN_140A-3,"140A-3
+ BY30-G2",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+66,copper,24.266903583255488,FALSE,FALSE,NA,TFCN_209-6-5,"209-6-5
+ BY43-A1",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+67,copper,27.282008165889053,TRUE,FALSE,top,TFCN_17-333P-6,"17-333P-6
+ BY118-E1",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+68,copper,24.086760846788707,FALSE,FALSE,NA,TFCN_17-325D-2,"17-325D-2
+ BY116-B4",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+69,copper,25.78418549232116,TRUE,FALSE,top,TFCN_17-325P-1,"17-325P-1
+ BY117-E2",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+71,copper,23.27111074725339,FALSE,FALSE,NA,TFCN_7W-292-3,"7W-292-3
+ BY53-A7",Rhodotorula dairenensis,China,marsh_tidalflat,1,30
+72,copper,22.640960844319455,FALSE,FALSE,NA,TFCN_89D-3,"89D-3
+ BY32-I5",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+73,copper,26.39697942396578,TRUE,FALSE,top,TFCN_138A-1,"138A-1
+ BY31-C1",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+74,copper,25.5077336211356,TRUE,FALSE,top,TFCN_209-6-17,"209-6-17
+ BY43-D2",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+75,copper,26.233675203782205,TRUE,FALSE,top,TFCN_137D-4,"137D-4
+ BY30-H6",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+76,copper,24.73746177364407,TRUE,FALSE,top,TFCN_25-337Y-1,"25-337Y-1
+ BY118-I8",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+77,copper,24.63154486793305,TRUE,FALSE,top,TFCN_209-6-2,"209-6-2
+ BY42-G9",Rhodotorula mucilaginosa,China,NA,1,30
+78,copper,23.65766434345011,FALSE,FALSE,NA,TFCN_25-332P-2,"25-332P-2
+ BY119-B2",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+79,copper,22.66448245555797,FALSE,FALSE,NA,TFCN_98C-7,98C-7,Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+80,copper,25.44957377770239,TRUE,FALSE,top,TFCN_1B-1-2,1B-1-2,Rhodotorula pacifica,China,marsh_tidalflat,1,30
+81,copper,23.48785268723297,FALSE,FALSE,NA,TFCN_98C-5,98C-5,Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+83,copper,23.477434449053415,FALSE,FALSE,NA,TFCN_152A-2,"152A-2
+ BY32-I1",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+85,copper,26.39747684803524,TRUE,FALSE,top,TFCN_48A-3,48A-3,Rhodotorula paludigena,China,marsh_tidalflat,1,30
+86,copper,22.516631044742137,FALSE,FALSE,NA,TFCN_25-333Y-10,"25-333Y-10
+ BY120-D8",Rhodotorula mucilaginosa,China,NA,1,30
+88,copper,22.997714270784492,FALSE,FALSE,NA,TFCN_152C-3,"152C-3
+ BY32-D3",Rhodotorula toruloides,China,NA,2,30
+89,copper,24.046169181666396,FALSE,FALSE,NA,TFCN_4M-1-5,"4M-1-5
+ BY8-G4",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+91,copper,17.143750798418548,FALSE,TRUE,bottom,TFCN_25-335P-1,"25-335P-1
+ BY120-A5",Rhodotorula diobovata,China,marsh_tidalflat,2,30
+92,copper,15.565652623474936,FALSE,TRUE,bottom,TFCN_S22D-1,"S22D-1 
+ BY38-D8",Rhodotorula taiwanensis,China,marsh_tidalflat,2,30
+93,copper,20.6605665466004,FALSE,TRUE,bottom,TFCN_48D-10,48D-10,Rhodotorula paludigena,China,marsh_tidalflat,2,30
+94,copper,23.41713356161932,FALSE,FALSE,NA,TFCN_48D-4,48D-4,Rhodotorula paludigena,China,marsh_tidalflat,2,30
+95,copper,24.368162626971333,FALSE,FALSE,NA,TFCN_86A-3,"86A-3
+ BY34-G6",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+96,copper,21.726298777068376,FALSE,FALSE,NA,TFCN_152A-4,"152A-4
+ BY32-B2",Rhodotorula toruloides,China,marsh_tidalflat,2,30
+97,copper,22.75990748588852,FALSE,FALSE,NA,TFCN_17-332P-1,"17-332P-1
+ BY115-D6",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+98,copper,22.90995384229788,FALSE,FALSE,NA,TFCN_4M-1-4,"4M-1-4
+ BY8-F4",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+99,copper,26.299443634118127,TRUE,FALSE,top,TFCN_102C-1,102C-1,Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+100,copper,25.665961490905154,TRUE,FALSE,top,TFCN_404D-1,"404D-1
+ BY123-F4",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+101,copper,20.062763988531454,FALSE,TRUE,bottom,TFCN_86C-10,"86C-10
+ BY34-B2",Rhodotorula sphaerocarpa,China,marsh_tidalflat,2,30
+102,copper,21.74218340656357,FALSE,FALSE,NA,TFCN_342-2,"342-2
+ BY110-A2",Rhodotorula paludigena,China,marsh_tidalflat,2,30
+103,copper,23.23729546143403,FALSE,FALSE,NA,TFCN_48A-10,48A-10,Rhodotorula paludigena,China,marsh_tidalflat,2,30
+104,copper,24.186984062670376,FALSE,FALSE,NA,TFCN_213-6-2,"213-6-2
+ BY42-B6",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+105,copper,18.61932604789208,FALSE,TRUE,bottom,TFCN_152C-6,"152C-6
+ BY32-G3",Rhodotorula toruloides,China,marsh_tidalflat,2,30
+106,copper,21.211642281830805,FALSE,TRUE,bottom,TFCN_273H-1,"273H-1
+ BY113-C3",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+107,copper,25.818952257418314,TRUE,FALSE,top,TFCN_209-6-4,"209-6-4
+ BY42-I9",Rhodotorula mucilaginosa,China,NA,2,30
+108,copper,23.062962749521688,FALSE,FALSE,NA,TFCN_25-332M-2,"25-332M-2
+ BY119-E2",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+109,copper,23.01017547762458,FALSE,FALSE,NA,TFCN_98C-8,98C-8,Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+110,copper,14.790608164183471,FALSE,TRUE,bottom,TFCN_25-333D-1,"25-333D-1
+ BY120-B3",Rhodotorula sp. clade I,China,marsh_tidalflat,2,30
+111,copper,19.962276068293168,FALSE,TRUE,bottom,TFCN_25-335C-1,"25-335C-1
+ BY120-B5",Rhodotorula diobovata,China,marsh_tidalflat,2,30
+112,copper,25.0568056641671,TRUE,FALSE,top,TFCN_17-328P-3,"17-328P-3
+ BY116-C2",Rhodotorula sp. clade I,China,marsh_tidalflat,2,30
+113,copper,25.183041202462743,TRUE,FALSE,top,TFCN_54D-2,54D-2,Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+114,copper,18.630388256754664,FALSE,TRUE,bottom,TFCN_152D-6,"152D-6
+ BY32-D4",Rhodotorula toruloides,China,marsh_tidalflat,2,30
+115,copper,23.552625250308893,FALSE,FALSE,NA,TFCN_25-0-2E332-1,"25-0-2E332-1
+ BY119-E3",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+116,copper,19.664526794118373,FALSE,TRUE,bottom,TFCN_25-0-2E333-9,"BY120-C1 (BY120-C7)
+ 25-0-2E333-9",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+117,copper,22.392965740912828,FALSE,FALSE,NA,TFCN_17-0-2E334-10,"17-0-2E334-10
+ BY116-C8",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+118,copper,14.44814911266186,FALSE,TRUE,bottom,TFCN_357-1,"357-1
+ BY110-F4",Rhodotorula taiwanensis,China,marsh_tidalflat,2,30
+119,copper,22.10189573875455,FALSE,FALSE,NA,TFCN_17-328C-3,"17-328C-3
+ BY117-D1",Rhodotorula sp. clade I,China,marsh_tidalflat,2,30
+120,copper,18.91621303249442,FALSE,TRUE,bottom,TFCN_17-334Y-6,"17-334Y-6
+ BY116-F9",Rhodotorula diobovata,China,marsh_tidalflat,2,30
+121,copper,22.920534816619124,FALSE,FALSE,NA,TFCN_25-333P-5,"25-333P-5
+ BY120-H3",Rhodotorula paludigena,China,marsh_tidalflat,2,30
+122,copper,26.556150472843733,TRUE,FALSE,top,TFCN_222A-2,"222A-2
+ BY37-G8",Rhodotorula sp. clade I,China,marsh_tidalflat,2,30
+123,copper,15.793111677688058,FALSE,TRUE,bottom,TFCN_25-333Y-2,"25-333Y-2
+ BY120-G4",Rhodotorula sp. clade I,China,marsh_tidalflat,2,30
+124,copper,21.085141795594506,FALSE,TRUE,bottom,TFCN_98A-10,98A-10,Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+125,copper,23.986745048809535,FALSE,FALSE,NA,TFCN_17-334D-6,"17-334D-6
+ BY115-E2",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+126,copper,24.868364709487274,TRUE,FALSE,top,TFCN_17-0-2E334-4,"17-0-2E334-4
+ BY116-G7",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+127,copper,22.71647793180983,FALSE,FALSE,NA,TFCN_363-1-2,"363-1-2
+ BY110-A6",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+128,copper,25.856104955368565,TRUE,FALSE,top,TFCN_17-0-2E329-4,"17-0-2E329-4
+ BY115-C8",Rhodotorula graminis,China,marsh_tidalflat,2,30
+129,copper,22.82214378944157,FALSE,FALSE,NA,TFCN_25-0-2E333-7,"25-0-2E333-7
+ BY120-A7",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+130,copper,25.19910619763295,TRUE,FALSE,top,TFCN_25-335Y-1,"25-335Y-1
+ BY120-I4",Rhodotorula mucilaginosa,China,NA,2,30
+131,copper,24.518101330827587,FALSE,FALSE,NA,TFCN_213-6-4,"213-6-4
+ BY42-C6",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+133,copper,23.965106378631504,FALSE,FALSE,NA,TFCN_98C-3,98C-3,Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+134,copper,23.59057670199983,FALSE,FALSE,NA,TFCN_17-333D-2,"17-333D-2
+ BY115-E6",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+135,copper,24.184998871480616,FALSE,FALSE,NA,TFCN_17-332C-2,"17-332C-2
+ BY115-H4",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+136,copper,20.11131803430966,FALSE,TRUE,bottom,TFCN_86A-6,"86A-6
+ BY34-A7",Rhodotorula sphaerocarpa,China,marsh_tidalflat,2,30
+137,copper,19.935821831079878,FALSE,TRUE,bottom,TFCN_0520-4-2-2,"0520-4-2-2
+ BY53-D9",Rhodotorula taiwanensis,China,marsh_tidalflat,2,30
+138,copper,23.26903959609732,FALSE,FALSE,NA,TFCN_49A-1,49A-1,Rhodotorula paludigena,China,marsh_tidalflat,2,30
+139,copper,21.281613456358762,FALSE,FALSE,NA,TFCN_25-333D-5,"25-333D-5
+ BY120-H7",Rhodotorula sp. clade I,China,NA,2,30
+140,copper,14.626850694056266,FALSE,TRUE,bottom,TFCN_86C-7,"86C-7
+ BY34-I1",Rhodotorula sp. clade I,China,marsh_tidalflat,2,30
+141,copper,23.779639011239972,FALSE,FALSE,NA,TFCN_152C-2,"152C-2
+ BY32-C3",Rhodotorula toruloides,China,marsh_tidalflat,2,30
+142,copper,24.78578374652847,TRUE,FALSE,top,TFCN_98D-9,"98D-9
+ BY31-F3",Rhodotorula mucilaginosa,China,NA,2,30
+143,copper,25.392570097339398,TRUE,FALSE,top,TFCN_17-325D-4,"17-325D-4
+ BY116-C4",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+144,copper,23.918223407937614,FALSE,FALSE,NA,TFCN_17-332P-2,"17-332P-2
+ BY117-G8",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+145,copper,25.7362170317873,TRUE,FALSE,top,TFCN_54D-1,54D-1,Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+146,copper,24.522677640655928,FALSE,FALSE,NA,TFCN_86A-12,"86A-12
+ BY34-E7",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+147,copper,18.196064334803793,FALSE,TRUE,bottom,TFCN_48C-3,48C-3,Rhodotorula paludigena,China,marsh_tidalflat,2,30
+148,copper,23.46499789129401,FALSE,FALSE,NA,TFCN_342-3,"342-3
+ BY110_B2",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+149,copper,22.700861667793447,FALSE,FALSE,NA,TFCN_86A-8,"86A-8
+ BY35-H3",Rhodotorula sphaerocarpa,China,marsh_tidalflat,2,30
+150,copper,22.676386808331216,FALSE,FALSE,NA,TFCN_152C-5,"152C-5
+ BY32-F3",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+151,copper,25.000209203418546,TRUE,FALSE,top,TFCN_98D-7,"98D-7
+ BY31-E3",Rhodotorula mucilaginosa,China,NA,2,30
+152,copper,23.346202283663636,FALSE,FALSE,NA,TFCN_25-337M-3,"25-337M-3
+ BY119-F9",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+153,copper,23.49843204523267,FALSE,FALSE,NA,TFCN_25-0-2E333-5,"25-0-2E333-5
+ BY120-E4",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+155,copper,18.40074656431433,FALSE,TRUE,bottom,TFCN_0520-4-2-1,"0520-4-2-1
+ BY53-C9",Rhodotorula taiwanensis,China,marsh_tidalflat,2,30
+156,copper,21.817514235408293,FALSE,FALSE,NA,TFCN_48A-2,48A-2,Rhodotorula paludigena,China,marsh_tidalflat,2,30
+157,copper,22.872706058631717,FALSE,FALSE,NA,TFCN_1A-1-2,1A-1-2,Rhodotorula paludigena,China,marsh_tidalflat,2,30
+158,copper,26.919244182227978,TRUE,FALSE,top,TFCN_152A-1,"152A-1
+ BY32-H1",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+159,copper,23.460091547368673,FALSE,FALSE,NA,TFCN_152A-5,"152A-5
+ BY32-C2",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+161,copper,25.302674013342873,TRUE,FALSE,top,TFCN_102D-2,102D-2,Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+162,copper,24.528237525736905,FALSE,FALSE,NA,TFCN_25-327D-1,"25-327D-1
+ BY119-D5",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+163,copper,24.867086162302392,TRUE,FALSE,top,TFCN_17-334Y-5,"17-334Y-5
+ BY116-E9",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+164,copper,24.670666164123144,TRUE,FALSE,top,TFCN_17-334C-1,"17-334C-1
+ BY117-A6",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+166,copper,19.97167451378875,FALSE,TRUE,bottom,DBVPG_3238,3238,Rhodotorula mucilaginosa,Italy,food,2,30
+167,copper,21.315502486726455,FALSE,FALSE,NA,DBVPG_3444,3444,Rhodotorula mucilaginosa,Italy,food,2,30
+168,copper,22.193524321096245,FALSE,FALSE,NA,DBVPG_3775,3775,Rhodotorula mucilaginosa,Italy,soil,2,30
+169,copper,23.203331670191016,FALSE,FALSE,NA,DBVPG_3983,3983,Rhodotorula mucilaginosa,Italy,cave,2,30
+170,copper,22.46932495012867,FALSE,FALSE,NA,DBVPG_4378,4378,Rhodotorula mucilaginosa,Italy,food,2,30
+171,copper,16.50590093137675,FALSE,TRUE,bottom,DBVPG_4618,4618,Rhodotorula mucilaginosa,Italy,soil,2,30
+172,copper,24.04070686617748,FALSE,FALSE,NA,TFCN_106A-1,106A-1,Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+174,copper,24.654637718649404,TRUE,FALSE,top,TFCN_17-0-2E337-3,17-0-2E337-3 BY117-H4,Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+175,copper,16.91168588146004,FALSE,TRUE,bottom,DBVPG_3239,3239,Rhodotorula mucilaginosa,Italy,food,2,30
+176,copper,27.090639949069505,TRUE,FALSE,top,DBVPG_3538,3538,Rhodotorula mucilaginosa,Italy,soil,3,30
+177,copper,27.476568972590137,TRUE,FALSE,top,DBVPG_3776,3776,Rhodotorula mucilaginosa,Italy,soil,3,30
+178,copper,29.254701837553135,TRUE,FALSE,top,DBVPG_3984,3984,Rhodotorula mucilaginosa,Italy,cave,3,30
+179,copper,19.847181422604624,FALSE,TRUE,bottom,DBVPG_4379,4379,Rhodotorula mucilaginosa,Italy,food,3,30
+181,copper,23.057543900148623,FALSE,FALSE,NA,TFCN_25-332D-1,"25-332D-1
+ BY119-H1",Rhodotorula mucilaginosa,China,marsh_tidalflat,3,30
+182,copper,21.75975769761053,FALSE,FALSE,NA,TFCN_25-333P-2,"25-333P-2
+ BY120-E3",Rhodotorula mucilaginosa,China,marsh_tidalflat,3,30
+183,copper,23.60157613777897,FALSE,FALSE,NA,TFCN_181A-1,"181A-1
+ BY39-F5",Rhodotorula mucilaginosa,China,marsh_tidalflat,3,30
+185,copper,17.201352393445447,FALSE,TRUE,bottom,DBVPG_3768,3768,Rhodotorula dairenensis,Italy,soil,3,30
+186,copper,26.03573513704403,TRUE,FALSE,top,DBVPG_3777,3777,Rhodotorula mucilaginosa,Italy,soil,3,30
+187,copper,0.8064175657477599,FALSE,TRUE,bottom,DBVPG_3985,3985,Rhodotorula glutinis,Italy,cave,3,30
+188,copper,20.386548586661142,FALSE,TRUE,bottom,DBVPG_4380,4380,Rhodotorula mucilaginosa,Italy,sand,3,30
+189,copper,24.003529016616618,FALSE,FALSE,NA,DBVPG_4669,4669,Rhodotorula mucilaginosa,Italy,food,3,30
+190,copper,22.483555252785166,FALSE,FALSE,NA,TFCN_17-332M-1,"17-332M-1
+ BY115-F4",Rhodotorula mucilaginosa,China,marsh_tidalflat,3,30
+192,copper,23.724217829426202,FALSE,FALSE,NA,DBVPG_3853,Y3853,Rhodotorula dairenensis,Italy,plant,3,30
+193,copper,29.83526913183314,TRUE,FALSE,top,DBVPG_3381,3381,Rhodotorula mucilaginosa,Italy,plant,3,30
+194,copper,27.753264025953357,TRUE,FALSE,top,DBVPG_3769,3769,Rhodotorula dairenensis,Italy,soil,3,30
+196,copper,26.74685286601681,TRUE,FALSE,top,DBVPG_4201,4201,Rhodotorula mucilaginosa,Italy,plant,3,30
+197,copper,20.261672242318312,FALSE,TRUE,bottom,DBVPG_4408,4408,Rhodotorula mucilaginosa,Italy,marine,3,30
+198,copper,20.932186387621957,FALSE,TRUE,bottom,DBVPG_4920,4920,Rhodotorula mucilaginosa,Italy,food,3,30
+199,copper,22.977057755407493,FALSE,FALSE,NA,TFCN_17-332M-2,"17-332M-2
+ BY115-F4",Rhodotorula mucilaginosa,China,marsh_tidalflat,3,30
+200,copper,24.584253988172048,TRUE,FALSE,top,TFCN_209-6-14,"209-6-14
+ BY43-A2",Rhodotorula mucilaginosa,China,NA,3,30
+201,copper,13.992727297525281,FALSE,TRUE,bottom,DBVPG_3044,DBVPG 3044,Rhodotorula mucilaginosa,Italy,unknown,3,30
+202,copper,26.115119332687925,TRUE,FALSE,top,DBVPG_3382,3382,Rhodotorula mucilaginosa,Italy,plant,3,30
+203,copper,18.218356660494127,FALSE,TRUE,bottom,DBVPG_3770,3770,Rhodotorula dairenensis,Italy,soil,3,30
+204,copper,20.44144312505977,FALSE,TRUE,bottom,DBVPG_3854,3854,Rhodotorula mucilaginosa,Italy,plant,3,30
+205,copper,25.62148453952416,TRUE,FALSE,top,DBVPG_4202,4202,Rhodotorula mucilaginosa,Italy,soil,3,30
+206,copper,24.321805071834692,FALSE,FALSE,NA,DBVPG_4466,4466,Rhodotorula mucilaginosa,Italy,plant,3,30
+207,copper,25.51658547932709,TRUE,FALSE,top,DBVPG_4945,4945,Rhodotorula mucilaginosa,Italy,food,3,30
+208,copper,24.669271706209337,TRUE,FALSE,top,TFCN_25-332M-1,"25-332M-1
+ BY119-D2",Rhodotorula mucilaginosa,China,marsh_tidalflat,3,30
+209,copper,22.978681547929263,FALSE,FALSE,NA,TFCN_17-332C-1,"17-332C-1
+ BY115-G4",Rhodotorula mucilaginosa,China,marsh_tidalflat,3,30
+210,copper,20.614579699388965,FALSE,TRUE,bottom,DBVPG_3045,3045,Rhodotorula mucilaginosa,Italy,food,3,30
+211,copper,25.017417845878374,TRUE,FALSE,top,DBVPG_3383,3383,Rhodotorula mucilaginosa,Italy,plant,3,30
+213,copper,17.563529712448677,FALSE,TRUE,bottom,DBVPG_3855,3855,Rhodotorula mucilaginosa,Italy,plant,3,30
+214,copper,25.433597778740243,TRUE,FALSE,top,DBVPG_4203,4203,Rhodotorula mucilaginosa,Italy,soil,3,30
+215,copper,7.73492911186862,FALSE,TRUE,bottom,DBVPG_4530,4530,Rhodotorula taiwanensis,Italy,plant,3,30
+216,copper,25.106785641398666,TRUE,FALSE,top,DBVPG_4946,4946,Rhodotorula mucilaginosa,Italy,food,3,30
+217,copper,27.241164491708737,TRUE,FALSE,top,TFCN_25-0-2E333-1,"25-0-2E333-1
+ BY120-A4",Rhodotorula mucilaginosa,China,marsh_tidalflat,3,30
+218,copper,23.67678758486075,FALSE,FALSE,NA,TFCN_25-0-2E334-1,"25-0-2E334-1
+ BY118-A8",Rhodotorula mucilaginosa,China,marsh_tidalflat,3,30
+219,copper,25.557866345537978,TRUE,FALSE,top,DBVPG_3090,3090,Rhodotorula mucilaginosa,Italy,food,3,30
+220,copper,23.707085524836028,FALSE,FALSE,NA,DBVPG_3384,3384,Rhodotorula mucilaginosa,Italy,plant,3,30
+221,copper,22.238491168104993,FALSE,FALSE,NA,DBVPG_3772,3772,Rhodotorula dairenensis,Italy,soil,3,30
+222,copper,23.002289896198246,FALSE,FALSE,NA,DBVPG_3856,3856,Rhodotorula mucilaginosa,Italy,plant,3,30
+223,copper,24.97061721624266,TRUE,FALSE,top,DBVPG_4304,4304,Rhodotorula mucilaginosa,Italy,unknown,3,30
+224,copper,9.787060205007192,FALSE,TRUE,bottom,DBVPG_4531,4531,Rhodotorula taiwanensis,Italy,plant,3,30
+225,copper,29.32687081204006,TRUE,FALSE,top,DBVPG_4947,4947,Rhodotorula mucilaginosa,Italy,food,3,30
+227,copper,21.592602771844682,FALSE,FALSE,NA,TFCN_25-334Y-6,"25-334Y-6
+ BY118-F9",Rhodotorula mucilaginosa,China,marsh_tidalflat,3,30
+228,copper,21.319392889060765,FALSE,FALSE,NA,DBVPG_3235,3235,Rhodotorula mucilaginosa,Italy,food,3,30
+229,copper,23.169271495548653,FALSE,FALSE,NA,DBVPG_3442,3442,Rhodotorula mucilaginosa,Italy,food,3,30
+230,copper,22.255027923160345,FALSE,FALSE,NA,DBVPG_3773,3773,Rhodotorula dairenensis,Italy,soil,3,30
+231,copper,19.48660780389597,FALSE,TRUE,bottom,DBVPG_3857,3857,Rhodotorula mucilaginosa,Italy,plant,3,30
+232,copper,21.574037401511646,FALSE,FALSE,NA,DBVPG_4376,4376,Rhodotorula mucilaginosa,Italy,food,3,30
+233,copper,18.280302650193924,FALSE,TRUE,bottom,DBVPG_4534,4534,Rhodotorula mucilaginosa,Italy,sand,3,30
+234,copper,22.359629086002123,FALSE,FALSE,NA,DBVPG_4949,4949,Rhodotorula mucilaginosa,Italy,soil,3,30
+235,copper,22.168218430035452,FALSE,FALSE,NA,TFCN_209-6-1,"209-6-1
+ BY42-F9",Rhodotorula mucilaginosa,China,marsh_tidalflat,3,30
+236,copper,24.46378775707448,FALSE,FALSE,NA,TFCN_209-6-12,"209-6-12
+ BY43-H1",Rhodotorula mucilaginosa,China,NA,3,30
+237,copper,24.78611093756694,TRUE,FALSE,top,DBVPG_3237,3237,Rhodotorula mucilaginosa,Italy,food,3,30
+238,copper,23.912377630727185,FALSE,FALSE,NA,DBVPG_3443,3443,Rhodotorula mucilaginosa,Italy,food,3,30
+239,copper,25.475087484372274,TRUE,FALSE,top,DBVPG_3774,3774,Rhodotorula mucilaginosa,Italy,food,3,30
+240,copper,29.076341305258616,TRUE,FALSE,top,DBVPG_3858,3858,Rhodotorula mucilaginosa,Italy,insect,3,30
+241,copper,22.431889475229976,FALSE,FALSE,NA,DBVPG_4377,4377,Rhodotorula mucilaginosa,Italy,marine,3,30
+243,copper,22.19731575255712,FALSE,FALSE,NA,DBVPG_4950,4950,Rhodotorula mucilaginosa,Italy,soil,3,30
+245,copper,22.56044183302859,FALSE,FALSE,NA,DBVPG_5227,5227,Rhodotorula mucilaginosa,Italy,soil,3,30
+246,copper,24.9190026319195,TRUE,FALSE,top,DBVPG_6091,6091,Rhodotorula mucilaginosa,Italy,insect,3,30
+247,copper,21.01335696907005,FALSE,TRUE,bottom,DBVPG_6739,6739,Rhodotorula toruloides,Italy,soil,3,30
+248,copper,17.52430690494876,FALSE,TRUE,bottom,DBVPG_7947,7947,Rhodotorula sp. clade XIII,Italy,soil,3,30
+249,copper,2.486686985389436,FALSE,TRUE,bottom,DBVPG_3236,3236,Rhodotorula mucilaginosa,Italy,food,3,30
+250,copper,24.35055475443987,FALSE,FALSE,NA,DBVPG_7316,7316,Rhodotorula paludigena,Italy,marsh_tidalflat,3,30
+253,copper,24.309474915054032,FALSE,FALSE,NA,DBVPG_4956,4956,Rhodotorula mucilaginosa,Italy,soil,3,30
+254,copper,23.423943619281783,FALSE,FALSE,NA,DBVPG_5228,5228,Rhodotorula mucilaginosa,Italy,soil,3,30
+255,copper,18.547279400261292,FALSE,TRUE,bottom,DBVPG_6093,6093,Rhodotorula mucilaginosa,Italy,unknown,3,30
+256,copper,25.118411470795174,TRUE,FALSE,top,DBVPG_6742,6742,Rhodotorula mucilaginosa,Italy,unknown,3,30
+257,copper,25.18338189253655,TRUE,FALSE,top,DBVPG_8043,8043,Rhodotorula mucilaginosa,Italy,water,3,30
+258,copper,23.912593323500026,FALSE,FALSE,NA,DBVPG_3445,3445,Rhodotorula mucilaginosa,Italy,food,3,30
+261,copper,22.410005122436335,FALSE,FALSE,NA,TF_CN_86C_3,"86C-3
+ BY33-D3",Rhodotorula sphaerocarpa,China,NA,4,30
+262,copper,23.32944024085012,FALSE,FALSE,NA,DBVPG_4957,4957,Rhodotorula mucilaginosa,Italy,soil,4,30
+263,copper,21.72444256398185,FALSE,FALSE,NA,DBVPG_5229,5229,Rhodotorula mucilaginosa,Italy,soil,4,30
+264,copper,23.34784240679312,FALSE,FALSE,NA,DBVPG_6094,6094,Rhodotorula mucilaginosa,Italy,unknown,4,30
+265,copper,25.04456603226949,TRUE,FALSE,top,DBVPG_6743,6743,Rhodotorula mucilaginosa,Italy,soil,4,30
+266,copper,23.96362787518821,FALSE,FALSE,NA,DBVPG_8058,8058,Rhodotorula sp. clade I,Italy,food,4,30
+267,copper,23.138326026761657,FALSE,FALSE,NA,DBVPG_3446,3446,Rhodotorula mucilaginosa,Italy,food,4,30
+268,copper,25.38747020167149,TRUE,FALSE,top,DBVPG_10842,10842,Rhodotorula mucilaginosa,Italy,snow_ice,4,30
+270,copper,13.23996548972049,FALSE,TRUE,bottom,TF_CN_7_6_3,7-6-2003,Rhodotorula diobovata,China,NA,4,30
+271,copper,19.570034575419413,FALSE,TRUE,bottom,DBVPG_4958,4958,Rhodotorula mucilaginosa,Italy,soil,4,30
+272,copper,24.893621400233478,TRUE,FALSE,top,DBVPG_5235,5235,Rhodotorula mucilaginosa,Italy,soil,4,30
+273,copper,23.438751941907157,FALSE,FALSE,NA,DBVPG_6121,6121,Rhodotorula toruloides,Italy,air_cloud,4,30
+274,copper,22.322527041522896,FALSE,FALSE,NA,DBVPG_6803,6803,Rhodotorula mucilaginosa,Italy,soil,4,30
+275,copper,23.04426156201195,FALSE,FALSE,NA,DBVPG_10075,10075,Cystobasidium sp.,Italy,soil,4,30
+276,copper,22.878162169570217,FALSE,FALSE,NA,DBVPG_3778,3778,Rhodotorula mucilaginosa,Italy,soil,4,30
+277,copper,19.874151629643734,FALSE,TRUE,bottom,DBVPG_10882,10882,Rhodotorula mucilaginosa,Italy,rock,4,30
+278,copper,22.094172470423075,FALSE,FALSE,NA,TFCN_86A_5,"86A-5
+ BY34-I6",Rhodotorula sphaerocarpa,China,NA,4,30
+279,copper,23.507640188241815,FALSE,FALSE,NA,TF_CN_186CL4_2,"186CL④-2
+ BY39-C9",Rhodotorula mucilaginosa,China,NA,4,30
+280,copper,24.835136273069573,TRUE,FALSE,top,DBVPG_4962,4962,Rhodotorula mucilaginosa,Italy,soil,4,30
+281,copper,23.465075390591117,FALSE,FALSE,NA,DBVPG_5236,5236,Rhodotorula mucilaginosa,Italy,soil,4,30
+282,copper,16.42027427688873,FALSE,TRUE,bottom,DBVPG_6195,6195,Rhodotorula diobovata,Italy,marine,4,30
+283,copper,23.425924172907823,FALSE,FALSE,NA,DBVPG_7019,7019,Rhodotorula mucilaginosa,Italy,unknown,4,30
+284,copper,7.930578463480412,FALSE,TRUE,bottom,DBVPG_10753,10753,Rhodotorula kratochvilovae,Italy,built env,4,30
+285,copper,23.772185263709552,FALSE,FALSE,NA,DBVPG_3780,3780,Rhodotorula mucilaginosa,Italy,soil,4,30
+286,copper,17.900025166609787,FALSE,TRUE,bottom,DBVPG_10886,10886,Rhodotorula mucilaginosa,Italy,rock,4,30
+287,copper,21.36856070571479,FALSE,FALSE,NA,TFCN_152A_3,"152A-3
+ BY32-A2",Rhodotorula toruloides,China,NA,4,30
+288,copper,20.34330823351602,FALSE,TRUE,bottom,TFCN_1A_1_5,1A-1-5,Rhodotorula pacifica,China,NA,4,30
+289,copper,23.21289993989964,FALSE,FALSE,NA,DBVPG_4963,4963,Rhodotorula mucilaginosa,Italy,soil,4,30
+290,copper,18.16158768025406,FALSE,TRUE,bottom,DBVPG_5757,5757,Rhodotorula mucilaginosa,Italy,soil,4,30
+291,copper,19.98733447478309,FALSE,TRUE,bottom,DBVPG_6202,6202,Rhodotorula diobovata,Italy,marine,4,30
+292,copper,10.55209410684948,FALSE,TRUE,bottom,DBVPG_7021,7021,Rhodotorula graminis,Italy,plant,4,30
+293,copper,21.506494061943794,FALSE,FALSE,NA,DBVPG_10780,10780,Rhodotorula mucilaginosa,Italy,snow_ice,4,30
+294,copper,17.643775735566688,FALSE,TRUE,bottom,DBVPG_6083,6083,Rhodotorula graminis,Italy,plant,4,30
+295,copper,23.113744151777645,FALSE,FALSE,NA,DBVPG_10937,DBVPG 10937,Rhodotorula mucilaginosa,Italy,food,4,30
+296,copper,22.121948942902552,FALSE,FALSE,NA,TFCN_2M_1_3,"2M-1-3
+ BY8-A3",Rhodotorula mucilaginosa,China,NA,4,30
+297,copper,22.645298436153524,FALSE,FALSE,NA,TFCN_211C_2,"211C-2
+ BY37-F3",Rhodotorula diobovata,China,NA,4,30
+298,copper,16.219488575779614,FALSE,TRUE,bottom,DBVPG_4964,4964,Rhodotorula mucilaginosa,Italy,soil,4,30
+299,copper,21.507616085120752,FALSE,FALSE,NA,DBVPG_5758,5758,Rhodotorula mucilaginosa,Italy,soil,4,30
+300,copper,23.327728586289425,FALSE,FALSE,NA,DBVPG_6593,6593,Rhodotorula mucilaginosa,Italy,unknown,4,30
+301,copper,13.815506499244366,FALSE,TRUE,bottom,DBVPG_7323,7323,Rhodotorula paludigena,Italy,marsh_tidalflat,4,30
+302,copper,20.488697780152883,FALSE,TRUE,bottom,DBVPG_10348,10348,Rhodotorula sp. clade XI,Italy,soil,4,30
+303,copper,21.609166957686647,FALSE,FALSE,NA,DBVPG_6092,6092,Rhodotorula mucilaginosa,Italy,unknown,4,30
+304,copper,23.76071863254605,FALSE,FALSE,NA,TFCN_17_332M_1,17-333M-1,Rhodotorula mucilaginosa,China,NA,4,30
+307,copper,24.13093888541247,FALSE,FALSE,NA,DBVPG_5225,5225,Rhodotorula mucilaginosa,Italy,soil,4,30
+308,copper,19.28480489503713,FALSE,TRUE,bottom,DBVPG_5759,5759,Rhodotorula mucilaginosa,Italy,soil,4,30
+309,copper,21.85610374986836,FALSE,FALSE,NA,DBVPG_6649,6649,Rhodotorula mucilaginosa,Italy,plant,4,30
+310,copper,7.639441236047761,FALSE,TRUE,bottom,DBVPG_7539,7539,Rhodotorula kratochvilovae,Italy,unknown,4,30
+311,copper,6.09080343179971,FALSE,TRUE,bottom,DBVPG_10383,10383,Rhodotorula kratochvilovae,Italy,soil,4,30
+312,copper,21.364067311894434,FALSE,FALSE,NA,DBVPG_6740,6740,Pseudomicrostroma phylloplanum,Italy,plant,4,30
+313,copper,27.482227491713665,TRUE,FALSE,top,DBVPG_5226,5226,Rhodotorula mucilaginosa,Italy,soil,4,30
+314,copper,20.502782796814557,FALSE,TRUE,bottom,DBVPG_6081,6081,Rhodotorula glutinis,Italy,air_cloud,4,30
+315,copper,21.448060174714826,FALSE,FALSE,NA,DBVPG_6660,6660,Rhodotorula mucilaginosa,Italy,food,4,30
+316,copper,11.521042222469402,FALSE,TRUE,bottom,DBVPG_7922,7922,Rhodotorula evergladensis,Italy,soil,4,30
+317,copper,23.119309361151032,FALSE,FALSE,NA,DBVPG_10619,10619,Rhodotorula mucilaginosa,Italy,plant,4,30
+318,copper,24.087417715072817,FALSE,FALSE,NA,DBVPG_6741,6741,Rhodotorula mucilaginosa,Italy,soil,4,30
+320,copper,6.917938399641774,FALSE,TRUE,bottom,NRRL_Y-2474,Y2474,Rhodotorula graminis,America,plant,4,30
+321,copper,18.160612595296573,FALSE,TRUE,bottom,NRRL_Y-2504,Y2504,Rhodotorula dairenensis,America,soil,4,30
+322,copper,11.813484891468864,FALSE,TRUE,bottom,NRRL_Y-2510,Y2510,Rhodotorula mucilaginosa,America,unknown,4,30
+323,copper,22.371511475240673,FALSE,FALSE,NA,NRRL_Y-7192,Y7192,Rhodotorula sphaerocarpa,America,unknown,4,30
+324,copper,12.38975526402711,FALSE,TRUE,bottom,NRRL_Y-7196,Y7196,Rhodotorula diobovata,America,unknown,4,30
+325,copper,17.069946156261935,FALSE,TRUE,bottom,NRRL_Y-12923,Y12923,Rhodotorula paludigena,America,plant,4,30
+326,copper,15.411338115284389,FALSE,TRUE,bottom,NRRL_Y-17376,Y17376,Rhodotorula araucariae,America,plant,4,30
+334,copper,17.60526245271138,FALSE,TRUE,bottom,JES-025-001,JES-025-001,Rhodotorula mucilaginosa,America,NA,4,30
+1,chromium,0.5994583923357876,FALSE,FALSE,NA,TFCN_17-291Y-1,"17-291Y-1
+ BY126-B8",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+2,chromium,0.5632477737170953,FALSE,FALSE,NA,TFCN_134A-3,"134A-3
+ BY30-D2",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+3,chromium,0.5317421894609614,FALSE,FALSE,NA,TFCN_98A-5,98A-5,Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+4,chromium,0.4276909221399256,FALSE,TRUE,bottom,TFCN_102C-2,102C-2,Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+5,chromium,0.43629678918553716,FALSE,TRUE,bottom,TFCN_105A-2,105A-2,Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+6,chromium,0.5742133165867167,FALSE,FALSE,NA,TFCN_17-334Y-2,"17-334Y-2
+ BY116-B9",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+7,chromium,0.588476559199323,FALSE,FALSE,NA,TFCN_17-329Y-4,"17-329Y-4
+ BY115-H8",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+8,chromium,0.34858224229373075,FALSE,TRUE,bottom,TFCN_107A-6,"107A-6
+ BY31-B6",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+9,chromium,0.6409028087346287,TRUE,FALSE,top,TFCN_17-390M-1,"17-390M-1
+ BY126-D7",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+10,chromium,0.5391290848011175,FALSE,FALSE,NA,TFCN_86C-9,"86C-9
+ BY34-B2",Rhodotorula sphaerocarpa,China,marsh_tidalflat,1,30
+11,chromium,0.578779142175436,FALSE,FALSE,NA,TFCN_122C-2,"122C-2 
+ BY31-A2",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+12,chromium,0.5783170703564597,FALSE,FALSE,NA,TFCN_4M-1-3,4M-1-3,Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+13,chromium,0.6065272658083527,FALSE,FALSE,NA,TFCN_141C-2,"141C-2
+ BY30-H4",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+14,chromium,0.4581383094504595,FALSE,TRUE,bottom,TFCN_130D-4,"130D-4
+ BY30-H7",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+15,chromium,0.55485520820205525,FALSE,FALSE,NA,TFCN_3M-1-1,"3M-1-1
+ BY8-B4",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+16,chromium,0.5430692476007937,FALSE,FALSE,NA,TFCN_186DK3-2,"186DK3-2
+ BY39-H9",Rhodotorula sp. clade XI,China,marsh_tidalflat,1,30
+17,chromium,0.4843954960713087,FALSE,TRUE,bottom,TFCN_7-9-3,7-9-3,Rhodotorula diobovata,China,marsh_tidalflat,1,30
+18,chromium,0.5836695435676271,FALSE,FALSE,NA,TFCN_25-395P-1,"25-395P-1
+ BY126-F2",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+19,chromium,0.5733929109771185,FALSE,FALSE,NA,TFCN_152A-12,"152A-12
+ BY32-A3",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+20,chromium,0.6283336543308601,FALSE,FALSE,NA,TFCN_102D-1,102D-1 8130,Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+21,chromium,0.6186074218993332,FALSE,FALSE,NA,TFCN_4M-1-2,"4M-1-2
+ BY8-D4",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+22,chromium,0.5684426852385213,FALSE,FALSE,NA,TFCN_209-6-11,"209-6-11
+ BY43-G1",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+23,chromium,0.7611723404918652,TRUE,FALSE,top,TFCN_110C-1,110C-1,Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+24,chromium,0.5603569974482443,FALSE,FALSE,NA,TFCN_17-337P-5,"17-337P-5
+ BY116-B7",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+25,chromium,0.4986329628786744,FALSE,TRUE,bottom,TFCN_137C-3,"137C-3
+ BY30-I4",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+26,chromium,0.5773771921516584,FALSE,FALSE,NA,TFCN_212C-2,"212C-2
+ BY39-G3",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+27,chromium,0.6362332535952143,FALSE,FALSE,NA,TFCN_25-0-2E390-1,"25-0-2E390-1
+ BY126-F3",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+28,chromium,0.39984400406916343,FALSE,TRUE,bottom,TFCN_1A-1-3,1A-1-3 8130,Rhodotorula pacifica,China,marsh_tidalflat,1,30
+29,chromium,0.4866098377661835,FALSE,TRUE,bottom,TFCN_25-332D-2,"25-332D-2
+ BY119-I1 8/30",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+30,chromium,0.5482500841687369,FALSE,FALSE,NA,TFCN_2M-1-4,"2M-1-4
+ BY8-B3 8/30",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+31,chromium,0.5746886968114567,FALSE,FALSE,NA,TFCN_340-3,"340-3
+ BY110-F1",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+32,chromium,0.36217218432257225,FALSE,TRUE,bottom,TFCN_100D-1,"100D-1
+ BY31-H3",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+33,chromium,0.6090168469378456,FALSE,FALSE,NA,TFCN_340-1,"340-1
+ BY110-D1",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+36,chromium,0.5671382377785913,FALSE,FALSE,NA,TFCN_17-267M-1,"17-267M-1
+ BY121-A4",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+37,chromium,0.5035659807304489,FALSE,TRUE,bottom,TFCN_48A-15,48A-15,Rhodotorula paludigena,China,marsh_tidalflat,1,30
+38,chromium,0.3319573474316876,FALSE,TRUE,bottom,TFCN_25-332C-1,"25-332C-1
+ BY119-C2",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+39,chromium,0.5335788673689847,FALSE,FALSE,NA,TFCN_17-334Y-3,"17-334Y-3
+ BY116-C9",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+40,chromium,0.6530546875507562,TRUE,FALSE,top,TFCN_270H-1,"270H-1
+ BY113-D3",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+41,chromium,0.5507724572603834,FALSE,FALSE,NA,TFCN_107C-3,107C-3,Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+42,chromium,0.6357759708779402,FALSE,FALSE,NA,TFCN_33A-4,33A-4,Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+43,chromium,0.5346368608663207,FALSE,FALSE,NA,TFCN_152D-4,"152D-4
+ BY32-B4",Rhodotorula toruloides,China,marsh_tidalflat,1,30
+44,chromium,0.5724579981927398,FALSE,FALSE,NA,TFCN_7-9-2,7-9-2,Rhodotorula diobovata,China,marsh_tidalflat,1,30
+45,chromium,0.5986309988056342,FALSE,FALSE,NA,TFCN_17Y-278-1,"17Y-278-1
+ BY126-D5",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+46,chromium,0.5383825819449604,FALSE,FALSE,NA,TFCN_43A-4,43A-4,Rhodotorula paludigena,China,marsh_tidalflat,1,30
+47,chromium,0.5744603092527755,FALSE,FALSE,NA,TFCN_25-331D-1,"25-331D-1
+ BY119-D1",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+48,chromium,0.42992889253687133,FALSE,TRUE,bottom,TFCN_25-333C-2,"25-333C-2
+ BY120-H5",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+49,chromium,0.3429907526255427,FALSE,TRUE,bottom,TFCN_270H-2,"270H-2
+ BY113-D4",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+50,chromium,0.43305638007795905,FALSE,TRUE,bottom,TFCN_118C-2,"118C-2
+ BY31-G1",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+51,chromium,0.48889500833164323,FALSE,TRUE,bottom,TFCN_25-334D-3,"25-334D-3
+ BY118-F7",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+52,chromium,0.5106700244476481,FALSE,TRUE,bottom,TFCN_1A-14,1A-14,Rhodotorula mucilaginosa,China,NA,1,30
+53,chromium,0.5017772863793127,FALSE,TRUE,bottom,TFCN_211A-3,"211A-3
+ BY37-B3",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+54,chromium,0.5986112455261937,FALSE,FALSE,NA,TFCN_17-0-2E390-1,"17-0-2E390-1
+ BY126-B7",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+55,chromium,0.5343979376012673,FALSE,FALSE,NA,TFCN_172A-1,"172A-1
+ BY40-A6",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+56,chromium,0.5809777720945627,FALSE,FALSE,NA,TFCN_22C-4,22C-4,Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+57,chromium,0.5344297477544603,FALSE,FALSE,NA,TFCN_98D-11,98D-11,Rhodotorula mucilaginosa,China,NA,1,30
+58,chromium,0.5248580342193618,FALSE,TRUE,bottom,TFCN_25-332Y-1,"25-332Y-1
+ BY119-F3",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+59,chromium,0.5233655298468971,FALSE,TRUE,bottom,TFCN_25-333Y-9,"25-333Y-9
+ BY120_C8",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+60,chromium,0.5812830827237712,FALSE,FALSE,NA,TFCN_25-325Y-1,"25-325Y-1
+ BY120-D6",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+61,chromium,0.42319871460507463,FALSE,TRUE,bottom,TFCN_152A-6,"152A-6
+ BY32-D2",Rhodotorula toruloides,China,marsh_tidalflat,1,30
+62,chromium,0.5358936212390756,FALSE,FALSE,NA,TFCN_17-338D-3,"17-338D-3
+ BY116-B5",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+63,chromium,0.5457597603504668,FALSE,FALSE,NA,TFCN_17-0-2E390-2,"17-0-2E390-2
+ BY126-C7",Rhodotorula mucilaginosa,China,NA,1,30
+64,chromium,0.5676395713230064,FALSE,FALSE,NA,TFCN_140A-3,"140A-3
+ BY30-G2",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+66,chromium,0.3906918404014499,FALSE,TRUE,bottom,TFCN_209-6-5,"209-6-5
+ BY43-A1",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+67,chromium,0.6568641539980734,TRUE,FALSE,top,TFCN_17-333P-6,"17-333P-6
+ BY118-E1",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+68,chromium,0.4906185988573628,FALSE,TRUE,bottom,TFCN_17-325D-2,"17-325D-2
+ BY116-B4",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+69,chromium,0.45546467011934705,FALSE,TRUE,bottom,TFCN_17-325P-1,"17-325P-1
+ BY117-E2",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+71,chromium,0.6607776859958245,TRUE,FALSE,top,TFCN_7W-292-3,"7W-292-3
+ BY53-A7",Rhodotorula dairenensis,China,marsh_tidalflat,1,30
+72,chromium,0.5063820693560389,FALSE,TRUE,bottom,TFCN_89D-3,"89D-3
+ BY32-I5",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+73,chromium,0.5432263029983746,FALSE,FALSE,NA,TFCN_138A-1,"138A-1
+ BY31-C1",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+74,chromium,0.5380583860090773,FALSE,FALSE,NA,TFCN_209-6-17,"209-6-17
+ BY43-D2",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+75,chromium,0.6275865534665231,FALSE,FALSE,NA,TFCN_137D-4,"137D-4
+ BY30-H6",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+76,chromium,0.5713078515927793,FALSE,FALSE,NA,TFCN_25-337Y-1,"25-337Y-1
+ BY118-I8",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+77,chromium,0.5693130698350348,FALSE,FALSE,NA,TFCN_209-6-2,"209-6-2
+ BY42-G9",Rhodotorula mucilaginosa,China,NA,1,30
+78,chromium,0.583249276277057,FALSE,FALSE,NA,TFCN_25-332P-2,"25-332P-2
+ BY119-B2",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+79,chromium,0.715125190780273,TRUE,FALSE,top,TFCN_98C-7,98C-7,Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+80,chromium,0.5361480106400617,FALSE,FALSE,NA,TFCN_1B-1-2,1B-1-2,Rhodotorula pacifica,China,marsh_tidalflat,1,30
+81,chromium,0.4317865265043243,FALSE,TRUE,bottom,TFCN_98C-5,98C-5,Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+83,chromium,0.5382376932739963,FALSE,FALSE,NA,TFCN_152A-2,"152A-2
+ BY32-I1",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+85,chromium,0.6414986456442071,TRUE,FALSE,top,TFCN_48A-3,48A-3,Rhodotorula paludigena,China,marsh_tidalflat,1,30
+86,chromium,0.5712281546476078,FALSE,FALSE,NA,TFCN_25-333Y-10,"25-333Y-10
+ BY120-D8",Rhodotorula mucilaginosa,China,NA,1,30
+88,chromium,0.618142739418221,FALSE,FALSE,NA,TFCN_152C-3,"152C-3
+ BY32-D3",Rhodotorula toruloides,China,NA,2,30
+89,chromium,0.6693261467472817,TRUE,FALSE,top,TFCN_4M-1-5,"4M-1-5
+ BY8-G4",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+91,chromium,0.5741626196026761,FALSE,FALSE,NA,TFCN_25-335P-1,"25-335P-1
+ BY120-A5",Rhodotorula diobovata,China,marsh_tidalflat,2,30
+92,chromium,0.09861426575463468,FALSE,TRUE,bottom,TFCN_S22D-1,"S22D-1 
+ BY38-D8",Rhodotorula taiwanensis,China,marsh_tidalflat,2,30
+93,chromium,0.6560177798637937,TRUE,FALSE,top,TFCN_48D-10,48D-10,Rhodotorula paludigena,China,marsh_tidalflat,2,30
+95,chromium,0.6468098650593835,TRUE,FALSE,top,TFCN_86A-3,"86A-3
+ BY34-G6",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+96,chromium,0.6300589253749816,FALSE,FALSE,NA,TFCN_152A-4,"152A-4
+ BY32-B2",Rhodotorula toruloides,China,marsh_tidalflat,2,30
+97,chromium,0.5695752036851544,FALSE,FALSE,NA,TFCN_17-332P-1,"17-332P-1
+ BY115-D6",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+98,chromium,0.653437935010571,TRUE,FALSE,top,TFCN_4M-1-4,"4M-1-4
+ BY8-F4",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+99,chromium,0.6136007228245922,FALSE,FALSE,NA,TFCN_102C-1,102C-1,Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+100,chromium,0.741722244669285,TRUE,FALSE,top,TFCN_404D-1,"404D-1
+ BY123-F4",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+104,chromium,0.6212682266586702,FALSE,FALSE,NA,TFCN_213-6-2,"213-6-2
+ BY42-B6",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+105,chromium,0.2625823689676693,FALSE,TRUE,bottom,TFCN_152C-6,"152C-6
+ BY32-G3",Rhodotorula toruloides,China,marsh_tidalflat,2,30
+106,chromium,0.6279857274846894,FALSE,FALSE,NA,TFCN_273H-1,"273H-1
+ BY113-C3",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+107,chromium,0.6104827093529637,FALSE,FALSE,NA,TFCN_209-6-4,"209-6-4
+ BY42-I9",Rhodotorula mucilaginosa,China,NA,2,30
+108,chromium,0.5796527267494201,FALSE,FALSE,NA,TFCN_25-332M-2,"25-332M-2
+ BY119-E2",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+109,chromium,0.6677705775608457,TRUE,FALSE,top,TFCN_98C-8,98C-8,Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+110,chromium,0.32323374588908166,FALSE,TRUE,bottom,TFCN_25-333D-1,"25-333D-1
+ BY120-B3",Rhodotorula sp. clade I,China,marsh_tidalflat,2,30
+111,chromium,0.5257992458292896,FALSE,TRUE,bottom,TFCN_25-335C-1,"25-335C-1
+ BY120-B5",Rhodotorula diobovata,China,marsh_tidalflat,2,30
+113,chromium,0.925848645510856,TRUE,FALSE,top,TFCN_54D-2,54D-2,Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+114,chromium,0.632881739706429,FALSE,FALSE,NA,TFCN_152D-6,"152D-6
+ BY32-D4",Rhodotorula toruloides,China,marsh_tidalflat,2,30
+115,chromium,0.5902940315325134,FALSE,FALSE,NA,TFCN_25-0-2E332-1,"25-0-2E332-1
+ BY119-E3",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+116,chromium,0.28436022427395086,FALSE,TRUE,bottom,TFCN_25-0-2E333-9,"BY120-C1 (BY120-C7)
+ 25-0-2E333-9",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+117,chromium,0.6604147692630737,TRUE,FALSE,top,TFCN_17-0-2E334-10,"17-0-2E334-10
+ BY116-C8",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+119,chromium,0.6522910228121906,TRUE,FALSE,top,TFCN_17-328C-3,"17-328C-3
+ BY117-D1",Rhodotorula sp. clade I,China,marsh_tidalflat,2,30
+120,chromium,0.6001140693404217,FALSE,FALSE,NA,TFCN_17-334Y-6,"17-334Y-6
+ BY116-F9",Rhodotorula diobovata,China,marsh_tidalflat,2,30
+121,chromium,0.6288470720801437,FALSE,FALSE,NA,TFCN_25-333P-5,"25-333P-5
+ BY120-H3",Rhodotorula paludigena,China,marsh_tidalflat,2,30
+122,chromium,0.5628834075638106,FALSE,FALSE,NA,TFCN_222A-2,"222A-2
+ BY37-G8",Rhodotorula sp. clade I,China,marsh_tidalflat,2,30
+123,chromium,0.3970919611342886,FALSE,TRUE,bottom,TFCN_25-333Y-2,"25-333Y-2
+ BY120-G4",Rhodotorula sp. clade I,China,marsh_tidalflat,2,30
+124,chromium,0.4474063960461014,FALSE,TRUE,bottom,TFCN_98A-10,98A-10,Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+125,chromium,0.6538461311075532,TRUE,FALSE,top,TFCN_17-334D-6,"17-334D-6
+ BY115-E2",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+126,chromium,0.6970146233933437,TRUE,FALSE,top,TFCN_17-0-2E334-4,"17-0-2E334-4
+ BY116-G7",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+127,chromium,0.5015128003545558,FALSE,TRUE,bottom,TFCN_363-1-2,"363-1-2
+ BY110-A6",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+129,chromium,0.6428460225470203,TRUE,FALSE,top,TFCN_25-0-2E333-7,"25-0-2E333-7
+ BY120-A7",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+130,chromium,0.6001886004977294,FALSE,FALSE,NA,TFCN_25-335Y-1,"25-335Y-1
+ BY120-I4",Rhodotorula mucilaginosa,China,NA,2,30
+131,chromium,0.6429906478030658,TRUE,FALSE,top,TFCN_213-6-4,"213-6-4
+ BY42-C6",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+133,chromium,0.6570489358094478,TRUE,FALSE,top,TFCN_98C-3,98C-3,Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+134,chromium,0.6364281888775464,FALSE,FALSE,NA,TFCN_17-333D-2,"17-333D-2
+ BY115-E6",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+135,chromium,0.4315443984031742,FALSE,TRUE,bottom,TFCN_17-332C-2,"17-332C-2
+ BY115-H4",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+136,chromium,0.39890703265646704,FALSE,TRUE,bottom,TFCN_86A-6,"86A-6
+ BY34-A7",Rhodotorula sphaerocarpa,China,marsh_tidalflat,2,30
+137,chromium,0.6131599116940303,FALSE,FALSE,NA,TFCN_0520-4-2-2,"0520-4-2-2
+ BY53-D9",Rhodotorula taiwanensis,China,marsh_tidalflat,2,30
+139,chromium,0.41708170303190784,FALSE,TRUE,bottom,TFCN_25-333D-5,"25-333D-5
+ BY120-H7",Rhodotorula sp. clade I,China,NA,2,30
+140,chromium,0.1954309236328687,FALSE,TRUE,bottom,TFCN_86C-7,"86C-7
+ BY34-I1",Rhodotorula sp. clade I,China,marsh_tidalflat,2,30
+141,chromium,0.6500353306095974,TRUE,FALSE,top,TFCN_152C-2,"152C-2
+ BY32-C3",Rhodotorula toruloides,China,marsh_tidalflat,2,30
+142,chromium,0.5962139056495549,FALSE,FALSE,NA,TFCN_98D-9,"98D-9
+ BY31-F3",Rhodotorula mucilaginosa,China,NA,2,30
+143,chromium,0.6095120592128522,FALSE,FALSE,NA,TFCN_17-325D-4,"17-325D-4
+ BY116-C4",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+144,chromium,0.5657243047583017,FALSE,FALSE,NA,TFCN_17-332P-2,"17-332P-2
+ BY117-G8",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+145,chromium,0.6837727431905065,TRUE,FALSE,top,TFCN_54D-1,54D-1,Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+146,chromium,0.5903828429607959,FALSE,FALSE,NA,TFCN_86A-12,"86A-12
+ BY34-E7",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+148,chromium,0.633861982280405,FALSE,FALSE,NA,TFCN_342-3,"342-3
+ BY110_B2",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+149,chromium,0.5253423382298742,FALSE,TRUE,bottom,TFCN_86A-8,"86A-8
+ BY35-H3",Rhodotorula sphaerocarpa,China,marsh_tidalflat,2,30
+150,chromium,0.5158212892518146,FALSE,TRUE,bottom,TFCN_152C-5,"152C-5
+ BY32-F3",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+151,chromium,0.609071336030557,FALSE,FALSE,NA,TFCN_98D-7,"98D-7
+ BY31-E3",Rhodotorula mucilaginosa,China,NA,2,30
+152,chromium,0.601739996463007,FALSE,FALSE,NA,TFCN_25-337M-3,"25-337M-3
+ BY119-F9",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+153,chromium,0.21730017628832116,FALSE,TRUE,bottom,TFCN_25-0-2E333-5,"25-0-2E333-5
+ BY120-E4",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+155,chromium,0.11321970792058211,FALSE,TRUE,bottom,TFCN_0520-4-2-1,"0520-4-2-1
+ BY53-C9",Rhodotorula taiwanensis,China,marsh_tidalflat,2,30
+156,chromium,0.6096624773241877,FALSE,FALSE,NA,TFCN_48A-2,48A-2,Rhodotorula paludigena,China,marsh_tidalflat,2,30
+157,chromium,0.11568832451941112,FALSE,TRUE,bottom,TFCN_1A-1-2,1A-1-2,Rhodotorula paludigena,China,marsh_tidalflat,2,30
+158,chromium,0.7091808641084204,TRUE,FALSE,top,TFCN_152A-1,"152A-1
+ BY32-H1",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+159,chromium,0.5983500316297767,FALSE,FALSE,NA,TFCN_152A-5,"152A-5
+ BY32-C2",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+161,chromium,0.6318250850517302,FALSE,FALSE,NA,TFCN_102D-2,102D-2,Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+162,chromium,0.37343074183817904,FALSE,TRUE,bottom,TFCN_25-327D-1,"25-327D-1
+ BY119-D5",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+163,chromium,0.6986459556017668,TRUE,FALSE,top,TFCN_17-334Y-5,"17-334Y-5
+ BY116-E9",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+164,chromium,0.6790694875770531,TRUE,FALSE,top,TFCN_17-334C-1,"17-334C-1
+ BY117-A6",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+166,chromium,0.6900343347760634,TRUE,FALSE,top,DBVPG_3238,3238,Rhodotorula mucilaginosa,Italy,food,2,30
+167,chromium,0.6220177251167667,FALSE,FALSE,NA,DBVPG_3444,3444,Rhodotorula mucilaginosa,Italy,food,2,30
+168,chromium,0.5281756044437382,FALSE,FALSE,NA,DBVPG_3775,3775,Rhodotorula mucilaginosa,Italy,soil,2,30
+169,chromium,0.5681862366926494,FALSE,FALSE,NA,DBVPG_3983,3983,Rhodotorula mucilaginosa,Italy,cave,2,30
+170,chromium,0.5401878521155768,FALSE,FALSE,NA,DBVPG_4378,4378,Rhodotorula mucilaginosa,Italy,food,2,30
+171,chromium,0.3681528243060824,FALSE,TRUE,bottom,DBVPG_4618,4618,Rhodotorula mucilaginosa,Italy,soil,2,30
+172,chromium,0.5976076521171085,FALSE,FALSE,NA,TFCN_106A-1,106A-1,Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+174,chromium,0.6790783318196837,TRUE,FALSE,top,TFCN_17-0-2E337-3,17-0-2E337-3 BY117-H4,Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+175,chromium,0.6280744563477711,FALSE,FALSE,NA,DBVPG_3239,3239,Rhodotorula mucilaginosa,Italy,food,2,30
+176,chromium,0.4088569088546193,FALSE,TRUE,bottom,DBVPG_3538,3538,Rhodotorula mucilaginosa,Italy,soil,3,30
+177,chromium,0.5671444090434662,FALSE,FALSE,NA,DBVPG_3776,3776,Rhodotorula mucilaginosa,Italy,soil,3,30
+178,chromium,0.8245095680884376,TRUE,FALSE,top,DBVPG_3984,3984,Rhodotorula mucilaginosa,Italy,cave,3,30
+179,chromium,0.585671795225819,FALSE,FALSE,NA,DBVPG_4379,4379,Rhodotorula mucilaginosa,Italy,food,3,30
+181,chromium,0.5937973310703926,FALSE,FALSE,NA,TFCN_25-332D-1,"25-332D-1
+ BY119-H1",Rhodotorula mucilaginosa,China,marsh_tidalflat,3,30
+182,chromium,0.5653317276333087,FALSE,FALSE,NA,TFCN_25-333P-2,"25-333P-2
+ BY120-E3",Rhodotorula mucilaginosa,China,marsh_tidalflat,3,30
+183,chromium,0.6285062284543305,FALSE,FALSE,NA,TFCN_181A-1,"181A-1
+ BY39-F5",Rhodotorula mucilaginosa,China,marsh_tidalflat,3,30
+184,chromium,0.06564361173617245,FALSE,TRUE,bottom,DBVPG_3380,3380,Rhodotorula glutinis,Italy,plant,3,30
+185,chromium,0.6391608293313682,FALSE,FALSE,NA,DBVPG_3768,3768,Rhodotorula dairenensis,Italy,soil,3,30
+186,chromium,0.5861237412764101,FALSE,FALSE,NA,DBVPG_3777,3777,Rhodotorula mucilaginosa,Italy,soil,3,30
+187,chromium,0.40994721312226196,FALSE,TRUE,bottom,DBVPG_3985,3985,Rhodotorula glutinis,Italy,cave,3,30
+188,chromium,0.6313822135035043,FALSE,FALSE,NA,DBVPG_4380,4380,Rhodotorula mucilaginosa,Italy,sand,3,30
+189,chromium,0.24659018024829293,FALSE,TRUE,bottom,DBVPG_4669,4669,Rhodotorula mucilaginosa,Italy,food,3,30
+190,chromium,0.6395059003401525,FALSE,FALSE,NA,TFCN_17-332M-1,"17-332M-1
+ BY115-F4",Rhodotorula mucilaginosa,China,marsh_tidalflat,3,30
+192,chromium,0.6065318213252499,FALSE,FALSE,NA,DBVPG_3853,Y3853,Rhodotorula dairenensis,Italy,plant,3,30
+193,chromium,0.5884294130893435,FALSE,FALSE,NA,DBVPG_3381,3381,Rhodotorula mucilaginosa,Italy,plant,3,30
+194,chromium,0.6717982499346844,TRUE,FALSE,top,DBVPG_3769,3769,Rhodotorula dairenensis,Italy,soil,3,30
+196,chromium,0.6145909200921547,FALSE,FALSE,NA,DBVPG_4201,4201,Rhodotorula mucilaginosa,Italy,plant,3,30
+197,chromium,0.586997947694771,FALSE,FALSE,NA,DBVPG_4408,4408,Rhodotorula mucilaginosa,Italy,marine,3,30
+198,chromium,0.4881651660887636,FALSE,TRUE,bottom,DBVPG_4920,4920,Rhodotorula mucilaginosa,Italy,food,3,30
+199,chromium,0.5534314340028206,FALSE,FALSE,NA,TFCN_17-332M-2,"17-332M-2
+ BY115-F4",Rhodotorula mucilaginosa,China,marsh_tidalflat,3,30
+200,chromium,0.6027614497409697,FALSE,FALSE,NA,TFCN_209-6-14,"209-6-14
+ BY43-A2",Rhodotorula mucilaginosa,China,NA,3,30
+201,chromium,0.736522929522456,TRUE,FALSE,top,DBVPG_3044,DBVPG 3044,Rhodotorula mucilaginosa,Italy,unknown,3,30
+202,chromium,0.606700484596423,FALSE,FALSE,NA,DBVPG_3382,3382,Rhodotorula mucilaginosa,Italy,plant,3,30
+203,chromium,0.6989719965384735,TRUE,FALSE,top,DBVPG_3770,3770,Rhodotorula dairenensis,Italy,soil,3,30
+204,chromium,0.5773133979921031,FALSE,FALSE,NA,DBVPG_3854,3854,Rhodotorula mucilaginosa,Italy,plant,3,30
+205,chromium,0.815323849112985,TRUE,FALSE,top,DBVPG_4202,4202,Rhodotorula mucilaginosa,Italy,soil,3,30
+206,chromium,0.7239397046874125,TRUE,FALSE,top,DBVPG_4466,4466,Rhodotorula mucilaginosa,Italy,plant,3,30
+207,chromium,0.608139847859237,FALSE,FALSE,NA,DBVPG_4945,4945,Rhodotorula mucilaginosa,Italy,food,3,30
+208,chromium,0.5869836526402307,FALSE,FALSE,NA,TFCN_25-332M-1,"25-332M-1
+ BY119-D2",Rhodotorula mucilaginosa,China,marsh_tidalflat,3,30
+209,chromium,0.5990397001712149,FALSE,FALSE,NA,TFCN_17-332C-1,"17-332C-1
+ BY115-G4",Rhodotorula mucilaginosa,China,marsh_tidalflat,3,30
+210,chromium,0.6243080333581658,FALSE,FALSE,NA,DBVPG_3045,3045,Rhodotorula mucilaginosa,Italy,food,3,30
+211,chromium,0.5651771550178879,FALSE,FALSE,NA,DBVPG_3383,3383,Rhodotorula mucilaginosa,Italy,plant,3,30
+213,chromium,0.5942451786763365,FALSE,FALSE,NA,DBVPG_3855,3855,Rhodotorula mucilaginosa,Italy,plant,3,30
+214,chromium,0.6152511079195984,FALSE,FALSE,NA,DBVPG_4203,4203,Rhodotorula mucilaginosa,Italy,soil,3,30
+215,chromium,0.41110396902296215,FALSE,TRUE,bottom,DBVPG_4530,4530,Rhodotorula taiwanensis,Italy,plant,3,30
+216,chromium,0.5586989311134254,FALSE,FALSE,NA,DBVPG_4946,4946,Rhodotorula mucilaginosa,Italy,food,3,30
+217,chromium,0.7706548360706074,TRUE,FALSE,top,TFCN_25-0-2E333-1,"25-0-2E333-1
+ BY120-A4",Rhodotorula mucilaginosa,China,marsh_tidalflat,3,30
+218,chromium,0.7256116402245679,TRUE,FALSE,top,TFCN_25-0-2E334-1,"25-0-2E334-1
+ BY118-A8",Rhodotorula mucilaginosa,China,marsh_tidalflat,3,30
+219,chromium,0.657347555705359,TRUE,FALSE,top,DBVPG_3090,3090,Rhodotorula mucilaginosa,Italy,food,3,30
+220,chromium,0.5853020243819835,FALSE,FALSE,NA,DBVPG_3384,3384,Rhodotorula mucilaginosa,Italy,plant,3,30
+221,chromium,0.5334010870647607,FALSE,FALSE,NA,DBVPG_3772,3772,Rhodotorula dairenensis,Italy,soil,3,30
+222,chromium,0.702233682037025,TRUE,FALSE,top,DBVPG_3856,3856,Rhodotorula mucilaginosa,Italy,plant,3,30
+223,chromium,0.6176035365886481,FALSE,FALSE,NA,DBVPG_4304,4304,Rhodotorula mucilaginosa,Italy,unknown,3,30
+224,chromium,0.515808610515962,FALSE,TRUE,bottom,DBVPG_4531,4531,Rhodotorula taiwanensis,Italy,plant,3,30
+225,chromium,0.7074936042575478,TRUE,FALSE,top,DBVPG_4947,4947,Rhodotorula mucilaginosa,Italy,food,3,30
+228,chromium,0.7240992421756607,TRUE,FALSE,top,DBVPG_3235,3235,Rhodotorula mucilaginosa,Italy,food,3,30
+229,chromium,0.607346399735037,FALSE,FALSE,NA,DBVPG_3442,3442,Rhodotorula mucilaginosa,Italy,food,3,30
+230,chromium,0.5842204888169382,FALSE,FALSE,NA,DBVPG_3773,3773,Rhodotorula dairenensis,Italy,soil,3,30
+231,chromium,0.6601761593601754,TRUE,FALSE,top,DBVPG_3857,3857,Rhodotorula mucilaginosa,Italy,plant,3,30
+232,chromium,0.622445409102824,FALSE,FALSE,NA,DBVPG_4376,4376,Rhodotorula mucilaginosa,Italy,food,3,30
+233,chromium,0.6828571881242046,TRUE,FALSE,top,DBVPG_4534,4534,Rhodotorula mucilaginosa,Italy,sand,3,30
+234,chromium,0.6619691467217587,TRUE,FALSE,top,DBVPG_4949,4949,Rhodotorula mucilaginosa,Italy,soil,3,30
+235,chromium,0.5458417368538817,FALSE,FALSE,NA,TFCN_209-6-1,"209-6-1
+ BY42-F9",Rhodotorula mucilaginosa,China,marsh_tidalflat,3,30
+236,chromium,0.6230366444319523,FALSE,FALSE,NA,TFCN_209-6-12,"209-6-12
+ BY43-H1",Rhodotorula mucilaginosa,China,NA,3,30
+237,chromium,0.5553507848694539,FALSE,FALSE,NA,DBVPG_3237,3237,Rhodotorula mucilaginosa,Italy,food,3,30
+239,chromium,0.6513750428665028,TRUE,FALSE,top,DBVPG_3774,3774,Rhodotorula mucilaginosa,Italy,food,3,30
+240,chromium,0.437030621565737,FALSE,TRUE,bottom,DBVPG_3858,3858,Rhodotorula mucilaginosa,Italy,insect,3,30
+241,chromium,0.6705472717303939,TRUE,FALSE,top,DBVPG_4377,4377,Rhodotorula mucilaginosa,Italy,marine,3,30
+243,chromium,0.5953846422356781,FALSE,FALSE,NA,DBVPG_4950,4950,Rhodotorula mucilaginosa,Italy,soil,3,30
+245,chromium,0.5282024157689792,FALSE,FALSE,NA,DBVPG_5227,5227,Rhodotorula mucilaginosa,Italy,soil,3,30
+246,chromium,0.6331267225400616,FALSE,FALSE,NA,DBVPG_6091,6091,Rhodotorula mucilaginosa,Italy,insect,3,30
+247,chromium,0.5214693592390066,FALSE,TRUE,bottom,DBVPG_6739,6739,Rhodotorula toruloides,Italy,soil,3,30
+248,chromium,0.30152686709417553,FALSE,TRUE,bottom,DBVPG_7947,7947,Rhodotorula sp. clade XIII,Italy,soil,3,30
+249,chromium,0.3456166025666561,FALSE,TRUE,bottom,DBVPG_3236,3236,Rhodotorula mucilaginosa,Italy,food,3,30
+250,chromium,0.7502897565122048,TRUE,FALSE,top,DBVPG_7316,7316,Rhodotorula paludigena,Italy,marsh_tidalflat,3,30
+253,chromium,0.5760668067707584,FALSE,FALSE,NA,DBVPG_4956,4956,Rhodotorula mucilaginosa,Italy,soil,3,30
+254,chromium,0.41903788816336035,FALSE,TRUE,bottom,DBVPG_5228,5228,Rhodotorula mucilaginosa,Italy,soil,3,30
+255,chromium,0.6521849111108762,TRUE,FALSE,top,DBVPG_6093,6093,Rhodotorula mucilaginosa,Italy,unknown,3,30
+256,chromium,0.6166017256373103,FALSE,FALSE,NA,DBVPG_6742,6742,Rhodotorula mucilaginosa,Italy,unknown,3,30
+257,chromium,0.6314054334644965,FALSE,FALSE,NA,DBVPG_8043,8043,Rhodotorula mucilaginosa,Italy,water,3,30
+258,chromium,0.5431951113466036,FALSE,FALSE,NA,DBVPG_3445,3445,Rhodotorula mucilaginosa,Italy,food,3,30
+261,chromium,0.45437102212312236,FALSE,TRUE,bottom,TF_CN_86C_3,"86C-3
+ BY33-D3",Rhodotorula sphaerocarpa,China,NA,4,30
+262,chromium,0.6726558749064739,TRUE,FALSE,top,DBVPG_4957,4957,Rhodotorula mucilaginosa,Italy,soil,4,30
+263,chromium,0.6424353523873197,TRUE,FALSE,top,DBVPG_5229,5229,Rhodotorula mucilaginosa,Italy,soil,4,30
+264,chromium,0.67282941064361,TRUE,FALSE,top,DBVPG_6094,6094,Rhodotorula mucilaginosa,Italy,unknown,4,30
+265,chromium,0.6070621351193364,FALSE,FALSE,NA,DBVPG_6743,6743,Rhodotorula mucilaginosa,Italy,soil,4,30
+266,chromium,0.6392344651426486,FALSE,FALSE,NA,DBVPG_8058,8058,Rhodotorula sp. clade I,Italy,food,4,30
+267,chromium,0.734512576718768,TRUE,FALSE,top,DBVPG_3446,3446,Rhodotorula mucilaginosa,Italy,food,4,30
+268,chromium,0.6394017824435929,FALSE,FALSE,NA,DBVPG_10842,10842,Rhodotorula mucilaginosa,Italy,snow_ice,4,30
+270,chromium,0.5132719904175549,FALSE,TRUE,bottom,TF_CN_7_6_3,7-6-2003,Rhodotorula diobovata,China,NA,4,30
+271,chromium,0.8499610799849567,TRUE,FALSE,top,DBVPG_4958,4958,Rhodotorula mucilaginosa,Italy,soil,4,30
+272,chromium,0.6535464072661551,TRUE,FALSE,top,DBVPG_5235,5235,Rhodotorula mucilaginosa,Italy,soil,4,30
+273,chromium,0.6363555433400064,FALSE,FALSE,NA,DBVPG_6121,6121,Rhodotorula toruloides,Italy,air_cloud,4,30
+274,chromium,0.6914650511946838,TRUE,FALSE,top,DBVPG_6803,6803,Rhodotorula mucilaginosa,Italy,soil,4,30
+275,chromium,0.5656510055460567,FALSE,FALSE,NA,DBVPG_10075,10075,Cystobasidium sp.,Italy,soil,4,30
+276,chromium,0.5513075027920441,FALSE,FALSE,NA,DBVPG_3778,3778,Rhodotorula mucilaginosa,Italy,soil,4,30
+277,chromium,0.2743147522085768,FALSE,TRUE,bottom,DBVPG_10882,10882,Rhodotorula mucilaginosa,Italy,rock,4,30
+278,chromium,0.43023959787710153,FALSE,TRUE,bottom,TFCN_86A_5,"86A-5
+ BY34-I6",Rhodotorula sphaerocarpa,China,NA,4,30
+279,chromium,0.5978500581953738,FALSE,FALSE,NA,TF_CN_186CL4_2,"186CL④-2
+ BY39-C9",Rhodotorula mucilaginosa,China,NA,4,30
+280,chromium,0.6116714428728864,FALSE,FALSE,NA,DBVPG_4962,4962,Rhodotorula mucilaginosa,Italy,soil,4,30
+281,chromium,0.7148263118596978,TRUE,FALSE,top,DBVPG_5236,5236,Rhodotorula mucilaginosa,Italy,soil,4,30
+282,chromium,0.5049791063552461,FALSE,TRUE,bottom,DBVPG_6195,6195,Rhodotorula diobovata,Italy,marine,4,30
+283,chromium,0.5949451565018068,FALSE,FALSE,NA,DBVPG_7019,7019,Rhodotorula mucilaginosa,Italy,unknown,4,30
+284,chromium,0.4167729633636308,FALSE,TRUE,bottom,DBVPG_10753,10753,Rhodotorula kratochvilovae,Italy,built env,4,30
+285,chromium,0.5236844884667136,FALSE,TRUE,bottom,DBVPG_3780,3780,Rhodotorula mucilaginosa,Italy,soil,4,30
+286,chromium,0.5400856115590137,FALSE,FALSE,NA,DBVPG_10886,10886,Rhodotorula mucilaginosa,Italy,rock,4,30
+287,chromium,0.6248950690186305,FALSE,FALSE,NA,TFCN_152A_3,"152A-3
+ BY32-A2",Rhodotorula toruloides,China,NA,4,30
+288,chromium,0.5263117974568081,FALSE,FALSE,NA,TFCN_1A_1_5,1A-1-5,Rhodotorula pacifica,China,NA,4,30
+289,chromium,0.5890090426939856,FALSE,FALSE,NA,DBVPG_4963,4963,Rhodotorula mucilaginosa,Italy,soil,4,30
+290,chromium,0.6838842382279067,TRUE,FALSE,top,DBVPG_5757,5757,Rhodotorula mucilaginosa,Italy,soil,4,30
+291,chromium,0.591588505214711,FALSE,FALSE,NA,DBVPG_6202,6202,Rhodotorula diobovata,Italy,marine,4,30
+293,chromium,0.7006189437380486,TRUE,FALSE,top,DBVPG_10780,10780,Rhodotorula mucilaginosa,Italy,snow_ice,4,30
+294,chromium,0.431343808406908,FALSE,TRUE,bottom,DBVPG_6083,6083,Rhodotorula graminis,Italy,plant,4,30
+295,chromium,0.7284747026791928,TRUE,FALSE,top,DBVPG_10937,DBVPG 10937,Rhodotorula mucilaginosa,Italy,food,4,30
+296,chromium,0.5722892508622168,FALSE,FALSE,NA,TFCN_2M_1_3,"2M-1-3
+ BY8-A3",Rhodotorula mucilaginosa,China,NA,4,30
+297,chromium,0.34198201188766697,FALSE,TRUE,bottom,TFCN_211C_2,"211C-2
+ BY37-F3",Rhodotorula diobovata,China,NA,4,30
+298,chromium,0.32702865955166194,FALSE,TRUE,bottom,DBVPG_4964,4964,Rhodotorula mucilaginosa,Italy,soil,4,30
+299,chromium,0.6469304146371344,TRUE,FALSE,top,DBVPG_5758,5758,Rhodotorula mucilaginosa,Italy,soil,4,30
+300,chromium,0.6476202571666669,TRUE,FALSE,top,DBVPG_6593,6593,Rhodotorula mucilaginosa,Italy,unknown,4,30
+301,chromium,0.5692076632444012,FALSE,FALSE,NA,DBVPG_7323,7323,Rhodotorula paludigena,Italy,marsh_tidalflat,4,30
+302,chromium,0.8807336114371518,TRUE,FALSE,top,DBVPG_10348,10348,Rhodotorula sp. clade XI,Italy,soil,4,30
+303,chromium,0.6691636062919812,TRUE,FALSE,top,DBVPG_6092,6092,Rhodotorula mucilaginosa,Italy,unknown,4,30
+304,chromium,0.7084800136816731,TRUE,FALSE,top,TFCN_17_332M_1,17-333M-1,Rhodotorula mucilaginosa,China,NA,4,30
+307,chromium,0.6749145054711715,TRUE,FALSE,top,DBVPG_5225,5225,Rhodotorula mucilaginosa,Italy,soil,4,30
+308,chromium,0.6861847542417829,TRUE,FALSE,top,DBVPG_5759,5759,Rhodotorula mucilaginosa,Italy,soil,4,30
+309,chromium,0.545300625512097,FALSE,FALSE,NA,DBVPG_6649,6649,Rhodotorula mucilaginosa,Italy,plant,4,30
+310,chromium,0.7946353027710179,TRUE,FALSE,top,DBVPG_7539,7539,Rhodotorula kratochvilovae,Italy,unknown,4,30
+311,chromium,0.39014262535005356,FALSE,TRUE,bottom,DBVPG_10383,10383,Rhodotorula kratochvilovae,Italy,soil,4,30
+312,chromium,0.4796869539214322,FALSE,TRUE,bottom,DBVPG_6740,6740,Pseudomicrostroma phylloplanum,Italy,plant,4,30
+313,chromium,0.7338562189889883,TRUE,FALSE,top,DBVPG_5226,5226,Rhodotorula mucilaginosa,Italy,soil,4,30
+314,chromium,0.7098468222947255,TRUE,FALSE,top,DBVPG_6081,6081,Rhodotorula glutinis,Italy,air_cloud,4,30
+315,chromium,0.7375773018381718,TRUE,FALSE,top,DBVPG_6660,6660,Rhodotorula mucilaginosa,Italy,food,4,30
+317,chromium,0.575730688212369,FALSE,FALSE,NA,DBVPG_10619,10619,Rhodotorula mucilaginosa,Italy,plant,4,30
+318,chromium,0.8418127930301205,TRUE,FALSE,top,DBVPG_6741,6741,Rhodotorula mucilaginosa,Italy,soil,4,30
+320,chromium,0.4051322321859958,FALSE,TRUE,bottom,NRRL_Y-2474,Y2474,Rhodotorula graminis,America,plant,4,30
+321,chromium,0.47757285126231425,FALSE,TRUE,bottom,NRRL_Y-2504,Y2504,Rhodotorula dairenensis,America,soil,4,30
+322,chromium,0.8170205504549322,TRUE,FALSE,top,NRRL_Y-2510,Y2510,Rhodotorula mucilaginosa,America,unknown,4,30
+323,chromium,0.3776955711051032,FALSE,TRUE,bottom,NRRL_Y-7192,Y7192,Rhodotorula sphaerocarpa,America,unknown,4,30
+324,chromium,0.44406274949221103,FALSE,TRUE,bottom,NRRL_Y-7196,Y7196,Rhodotorula diobovata,America,unknown,4,30
+325,chromium,0.5492106725550921,FALSE,FALSE,NA,NRRL_Y-12923,Y12923,Rhodotorula paludigena,America,plant,4,30
+326,chromium,0.5407484658907318,FALSE,FALSE,NA,NRRL_Y-17376,Y17376,Rhodotorula araucariae,America,plant,4,30
+334,chromium,0.6605806765347112,TRUE,FALSE,top,JES-025-001,JES-025-001,Rhodotorula mucilaginosa,America,NA,4,30
+1,iron,9.985250247839023,FALSE,FALSE,NA,TFCN_17-291Y-1,"17-291Y-1
+ BY126-B8",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+2,iron,9.24433112570591,FALSE,FALSE,NA,TFCN_134A-3,"134A-3
+ BY30-D2",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+3,iron,12.741982862614902,TRUE,FALSE,top,TFCN_98A-5,98A-5,Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+4,iron,10.705538230791118,FALSE,FALSE,NA,TFCN_102C-2,102C-2,Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+5,iron,5.971749929388152,FALSE,TRUE,bottom,TFCN_105A-2,105A-2,Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+6,iron,11.763829137177932,TRUE,FALSE,top,TFCN_17-334Y-2,"17-334Y-2
+ BY116-B9",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+7,iron,5.127297009507243,FALSE,TRUE,bottom,TFCN_17-329Y-4,"17-329Y-4
+ BY115-H8",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+8,iron,3.0893356158695156,FALSE,TRUE,bottom,TFCN_107A-6,"107A-6
+ BY31-B6",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+9,iron,7.050864004053892,FALSE,FALSE,NA,TFCN_17-390M-1,"17-390M-1
+ BY126-D7",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+10,iron,6.040647143188181,FALSE,FALSE,NA,TFCN_86C-9,"86C-9
+ BY34-B2",Rhodotorula sphaerocarpa,China,marsh_tidalflat,1,30
+11,iron,12.735797885084427,TRUE,FALSE,top,TFCN_122C-2,"122C-2 
+ BY31-A2",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+12,iron,10.025304748098536,FALSE,FALSE,NA,TFCN_4M-1-3,4M-1-3,Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+13,iron,6.856206832818757,FALSE,FALSE,NA,TFCN_141C-2,"141C-2
+ BY30-H4",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+14,iron,10.693829400081249,FALSE,FALSE,NA,TFCN_130D-4,"130D-4
+ BY30-H7",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+15,iron,12.720881052077743,TRUE,FALSE,top,TFCN_3M-1-1,"3M-1-1
+ BY8-B4",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+16,iron,16.67191351855236,TRUE,FALSE,top,TFCN_186DK3-2,"186DK3-2
+ BY39-H9",Rhodotorula sp. clade XI,China,marsh_tidalflat,1,30
+17,iron,7.285507291508095,FALSE,FALSE,NA,TFCN_7-9-3,7-9-3,Rhodotorula diobovata,China,marsh_tidalflat,1,30
+18,iron,11.231318461566586,TRUE,FALSE,top,TFCN_25-395P-1,"25-395P-1
+ BY126-F2",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+19,iron,11.091410160768563,TRUE,FALSE,top,TFCN_152A-12,"152A-12
+ BY32-A3",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+20,iron,6.112323181662781,FALSE,FALSE,NA,TFCN_102D-1,102D-1 8130,Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+21,iron,21.781464596489855,TRUE,FALSE,top,TFCN_4M-1-2,"4M-1-2
+ BY8-D4",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+23,iron,8.746603066468165,FALSE,FALSE,NA,TFCN_110C-1,110C-1,Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+24,iron,11.57436364516445,TRUE,FALSE,top,TFCN_17-337P-5,"17-337P-5
+ BY116-B7",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+25,iron,3.2263705816222945,FALSE,TRUE,bottom,TFCN_137C-3,"137C-3
+ BY30-I4",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+26,iron,10.318150787027172,FALSE,FALSE,NA,TFCN_212C-2,"212C-2
+ BY39-G3",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+27,iron,10.711243284862727,FALSE,FALSE,NA,TFCN_25-0-2E390-1,"25-0-2E390-1
+ BY126-F3",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+28,iron,9.700973441011156,FALSE,FALSE,NA,TFCN_1A-1-3,1A-1-3 8130,Rhodotorula pacifica,China,marsh_tidalflat,1,30
+29,iron,5.567084362316565,FALSE,TRUE,bottom,TFCN_25-332D-2,"25-332D-2
+ BY119-I1 8/30",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+30,iron,10.771915662170288,FALSE,FALSE,NA,TFCN_2M-1-4,"2M-1-4
+ BY8-B3 8/30",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+31,iron,20.324084602935713,TRUE,FALSE,top,TFCN_340-3,"340-3
+ BY110-F1",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+32,iron,12.106453100360493,TRUE,FALSE,top,TFCN_100D-1,"100D-1
+ BY31-H3",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+33,iron,10.650725837841232,FALSE,FALSE,NA,TFCN_340-1,"340-1
+ BY110-D1",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+34,iron,7.741244042828796,FALSE,FALSE,NA,TFCN_83C-1,"83E1
+ BY33-F1",Rhodotorula sphaerocarpa,China,marsh_tidalflat,1,30
+36,iron,11.313381969639217,TRUE,FALSE,top,TFCN_17-267M-1,"17-267M-1
+ BY121-A4",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+37,iron,7.2833763282024915,FALSE,FALSE,NA,TFCN_48A-15,48A-15,Rhodotorula paludigena,China,marsh_tidalflat,1,30
+38,iron,10.646401357272136,FALSE,FALSE,NA,TFCN_25-332C-1,"25-332C-1
+ BY119-C2",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+39,iron,11.147563906326754,TRUE,FALSE,top,TFCN_17-334Y-3,"17-334Y-3
+ BY116-C9",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+40,iron,15.44821263347113,TRUE,FALSE,top,TFCN_270H-1,"270H-1
+ BY113-D3",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+41,iron,22.041831108676774,TRUE,FALSE,top,TFCN_107C-3,107C-3,Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+42,iron,13.271569127902438,TRUE,FALSE,top,TFCN_33A-4,33A-4,Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+43,iron,7.126582861939652,FALSE,FALSE,NA,TFCN_152D-4,"152D-4
+ BY32-B4",Rhodotorula toruloides,China,marsh_tidalflat,1,30
+44,iron,7.742653973273486,FALSE,FALSE,NA,TFCN_7-9-2,7-9-2,Rhodotorula diobovata,China,marsh_tidalflat,1,30
+45,iron,16.714071334611027,TRUE,FALSE,top,TFCN_17Y-278-1,"17Y-278-1
+ BY126-D5",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+46,iron,7.74916885821804,FALSE,FALSE,NA,TFCN_43A-4,43A-4,Rhodotorula paludigena,China,marsh_tidalflat,1,30
+47,iron,23.61221268649235,TRUE,FALSE,top,TFCN_25-331D-1,"25-331D-1
+ BY119-D1",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+48,iron,5.558166812948853,FALSE,TRUE,bottom,TFCN_25-333C-2,"25-333C-2
+ BY120-H5",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+49,iron,10.43513659533892,FALSE,FALSE,NA,TFCN_270H-2,"270H-2
+ BY113-D4",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+50,iron,10.547199933775362,FALSE,FALSE,NA,TFCN_118C-2,"118C-2
+ BY31-G1",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+51,iron,11.83108289665751,TRUE,FALSE,top,TFCN_25-334D-3,"25-334D-3
+ BY118-F7",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+52,iron,21.860038647496317,TRUE,FALSE,top,TFCN_1A-14,1A-14,Rhodotorula mucilaginosa,China,NA,1,30
+53,iron,5.495745868120439,FALSE,TRUE,bottom,TFCN_211A-3,"211A-3
+ BY37-B3",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+54,iron,13.332223982837919,TRUE,FALSE,top,TFCN_17-0-2E390-1,"17-0-2E390-1
+ BY126-B7",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+55,iron,10.697436262455847,FALSE,FALSE,NA,TFCN_172A-1,"172A-1
+ BY40-A6",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+56,iron,10.330264867960834,FALSE,FALSE,NA,TFCN_22C-4,22C-4,Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+57,iron,9.676180044351277,FALSE,FALSE,NA,TFCN_98D-11,98D-11,Rhodotorula mucilaginosa,China,NA,1,30
+58,iron,12.422268832606036,TRUE,FALSE,top,TFCN_25-332Y-1,"25-332Y-1
+ BY119-F3",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+59,iron,21.414109865509033,TRUE,FALSE,top,TFCN_25-333Y-9,"25-333Y-9
+ BY120_C8",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+60,iron,10.357369887511911,FALSE,FALSE,NA,TFCN_25-325Y-1,"25-325Y-1
+ BY120-D6",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+61,iron,6.028865414392318,FALSE,FALSE,NA,TFCN_152A-6,"152A-6
+ BY32-D2",Rhodotorula toruloides,China,marsh_tidalflat,1,30
+62,iron,8.284722312031839,FALSE,FALSE,NA,TFCN_17-338D-3,"17-338D-3
+ BY116-B5",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+63,iron,6.652042382431551,FALSE,FALSE,NA,TFCN_17-0-2E390-2,"17-0-2E390-2
+ BY126-C7",Rhodotorula mucilaginosa,China,NA,1,30
+64,iron,9.903809745655174,FALSE,FALSE,NA,TFCN_140A-3,"140A-3
+ BY30-G2",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+66,iron,10.866168448782446,FALSE,FALSE,NA,TFCN_209-6-5,"209-6-5
+ BY43-A1",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+67,iron,11.636250981910411,TRUE,FALSE,top,TFCN_17-333P-6,"17-333P-6
+ BY118-E1",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+68,iron,14.06766325561742,TRUE,FALSE,top,TFCN_17-325D-2,"17-325D-2
+ BY116-B4",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+69,iron,6.631343207015013,FALSE,FALSE,NA,TFCN_17-325P-1,"17-325P-1
+ BY117-E2",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+71,iron,11.324009505893883,TRUE,FALSE,top,TFCN_7W-292-3,"7W-292-3
+ BY53-A7",Rhodotorula dairenensis,China,marsh_tidalflat,1,30
+72,iron,2.631714361148502,FALSE,TRUE,bottom,TFCN_89D-3,"89D-3
+ BY32-I5",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+73,iron,5.813007241673367,FALSE,TRUE,bottom,TFCN_138A-1,"138A-1
+ BY31-C1",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+74,iron,20.733792182675582,TRUE,FALSE,top,TFCN_209-6-17,"209-6-17
+ BY43-D2",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+75,iron,11.721435092511308,TRUE,FALSE,top,TFCN_137D-4,"137D-4
+ BY30-H6",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+76,iron,6.129129048707378,FALSE,FALSE,NA,TFCN_25-337Y-1,"25-337Y-1
+ BY118-I8",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+77,iron,10.383832146346062,FALSE,FALSE,NA,TFCN_209-6-2,"209-6-2
+ BY42-G9",Rhodotorula mucilaginosa,China,NA,1,30
+78,iron,4.201403694015486,FALSE,TRUE,bottom,TFCN_25-332P-2,"25-332P-2
+ BY119-B2",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+79,iron,5.350393935556146,FALSE,TRUE,bottom,TFCN_98C-7,98C-7,Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+80,iron,8.244880376221662,FALSE,FALSE,NA,TFCN_1B-1-2,1B-1-2,Rhodotorula pacifica,China,marsh_tidalflat,1,30
+81,iron,4.439811566662508,FALSE,TRUE,bottom,TFCN_98C-5,98C-5,Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+83,iron,7.313532073688947,FALSE,FALSE,NA,TFCN_152A-2,"152A-2
+ BY32-I1",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+86,iron,5.160783083442807,FALSE,TRUE,bottom,TFCN_25-333Y-10,"25-333Y-10
+ BY120-D8",Rhodotorula mucilaginosa,China,NA,1,30
+88,iron,9.665552964065554,FALSE,FALSE,NA,TFCN_152C-3,"152C-3
+ BY32-D3",Rhodotorula toruloides,China,NA,2,30
+89,iron,10.958319171699731,TRUE,FALSE,top,TFCN_4M-1-5,"4M-1-5
+ BY8-G4",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+91,iron,8.59258401347274,FALSE,FALSE,NA,TFCN_25-335P-1,"25-335P-1
+ BY120-A5",Rhodotorula diobovata,China,marsh_tidalflat,2,30
+96,iron,9.700861372355224,FALSE,FALSE,NA,TFCN_152A-4,"152A-4
+ BY32-B2",Rhodotorula toruloides,China,marsh_tidalflat,2,30
+97,iron,7.321463260921902,FALSE,FALSE,NA,TFCN_17-332P-1,"17-332P-1
+ BY115-D6",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+98,iron,8.4832263675012,FALSE,FALSE,NA,TFCN_4M-1-4,"4M-1-4
+ BY8-F4",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+100,iron,11.784864111875198,TRUE,FALSE,top,TFCN_404D-1,"404D-1
+ BY123-F4",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+102,iron,8.184667734544796,FALSE,FALSE,NA,TFCN_342-2,"342-2
+ BY110-A2",Rhodotorula paludigena,China,marsh_tidalflat,2,30
+103,iron,8.347429569581891,FALSE,FALSE,NA,TFCN_48A-10,48A-10,Rhodotorula paludigena,China,marsh_tidalflat,2,30
+106,iron,0.45956419893864286,FALSE,TRUE,bottom,TFCN_273H-1,"273H-1
+ BY113-C3",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+107,iron,5.254796488336346,FALSE,TRUE,bottom,TFCN_209-6-4,"209-6-4
+ BY42-I9",Rhodotorula mucilaginosa,China,NA,2,30
+108,iron,8.863762257141847,FALSE,FALSE,NA,TFCN_25-332M-2,"25-332M-2
+ BY119-E2",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+109,iron,8.057373469257325,FALSE,FALSE,NA,TFCN_98C-8,98C-8,Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+110,iron,7.7554790771578,FALSE,FALSE,NA,TFCN_25-333D-1,"25-333D-1
+ BY120-B3",Rhodotorula sp. clade I,China,marsh_tidalflat,2,30
+111,iron,9.287779071254903,FALSE,FALSE,NA,TFCN_25-335C-1,"25-335C-1
+ BY120-B5",Rhodotorula diobovata,China,marsh_tidalflat,2,30
+112,iron,7.40323630805305,FALSE,FALSE,NA,TFCN_17-328P-3,"17-328P-3
+ BY116-C2",Rhodotorula sp. clade I,China,marsh_tidalflat,2,30
+113,iron,7.685172865318818,FALSE,FALSE,NA,TFCN_54D-2,54D-2,Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+114,iron,7.299988978576815,FALSE,FALSE,NA,TFCN_152D-6,"152D-6
+ BY32-D4",Rhodotorula toruloides,China,marsh_tidalflat,2,30
+115,iron,8.222750046776875,FALSE,FALSE,NA,TFCN_25-0-2E332-1,"25-0-2E332-1
+ BY119-E3",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+116,iron,11.336582799450715,TRUE,FALSE,top,TFCN_25-0-2E333-9,"BY120-C1 (BY120-C7)
+ 25-0-2E333-9",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+117,iron,9.199963018901983,FALSE,FALSE,NA,TFCN_17-0-2E334-10,"17-0-2E334-10
+ BY116-C8",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+118,iron,8.852523039496104,FALSE,FALSE,NA,TFCN_357-1,"357-1
+ BY110-F4",Rhodotorula taiwanensis,China,marsh_tidalflat,2,30
+119,iron,8.773303620193365,FALSE,FALSE,NA,TFCN_17-328C-3,"17-328C-3
+ BY117-D1",Rhodotorula sp. clade I,China,marsh_tidalflat,2,30
+120,iron,9.357830683840753,FALSE,FALSE,NA,TFCN_17-334Y-6,"17-334Y-6
+ BY116-F9",Rhodotorula diobovata,China,marsh_tidalflat,2,30
+122,iron,7.590229741298648,FALSE,FALSE,NA,TFCN_222A-2,"222A-2
+ BY37-G8",Rhodotorula sp. clade I,China,marsh_tidalflat,2,30
+124,iron,8.568336063128477,FALSE,FALSE,NA,TFCN_98A-10,98A-10,Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+125,iron,8.604329930263509,FALSE,FALSE,NA,TFCN_17-334D-6,"17-334D-6
+ BY115-E2",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+127,iron,10.429107278712948,FALSE,FALSE,NA,TFCN_363-1-2,"363-1-2
+ BY110-A6",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+128,iron,9.253514936214655,FALSE,FALSE,NA,TFCN_17-0-2E329-4,"17-0-2E329-4
+ BY115-C8",Rhodotorula graminis,China,marsh_tidalflat,2,30
+129,iron,10.303096934861754,FALSE,FALSE,NA,TFCN_25-0-2E333-7,"25-0-2E333-7
+ BY120-A7",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+130,iron,11.010558956726236,TRUE,FALSE,top,TFCN_25-335Y-1,"25-335Y-1
+ BY120-I4",Rhodotorula mucilaginosa,China,NA,2,30
+131,iron,7.66371093504171,FALSE,FALSE,NA,TFCN_213-6-4,"213-6-4
+ BY42-C6",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+133,iron,9.862940016905654,FALSE,FALSE,NA,TFCN_98C-3,98C-3,Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+135,iron,9.065243978840748,FALSE,FALSE,NA,TFCN_17-332C-2,"17-332C-2
+ BY115-H4",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+137,iron,9.821791219880732,FALSE,FALSE,NA,TFCN_0520-4-2-2,"0520-4-2-2
+ BY53-D9",Rhodotorula taiwanensis,China,marsh_tidalflat,2,30
+138,iron,8.103073150289351,FALSE,FALSE,NA,TFCN_49A-1,49A-1,Rhodotorula paludigena,China,marsh_tidalflat,2,30
+139,iron,8.42141374361669,FALSE,FALSE,NA,TFCN_25-333D-5,"25-333D-5
+ BY120-H7",Rhodotorula sp. clade I,China,NA,2,30
+140,iron,9.23421771177791,FALSE,FALSE,NA,TFCN_86C-7,"86C-7
+ BY34-I1",Rhodotorula sp. clade I,China,marsh_tidalflat,2,30
+141,iron,7.1259525166407,FALSE,FALSE,NA,TFCN_152C-2,"152C-2
+ BY32-C3",Rhodotorula toruloides,China,marsh_tidalflat,2,30
+142,iron,9.701855580747214,FALSE,FALSE,NA,TFCN_98D-9,"98D-9
+ BY31-F3",Rhodotorula mucilaginosa,China,NA,2,30
+144,iron,9.18493413848023,FALSE,FALSE,NA,TFCN_17-332P-2,"17-332P-2
+ BY117-G8",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+145,iron,5.824152451791123,FALSE,TRUE,bottom,TFCN_54D-1,54D-1,Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+146,iron,10.367198393599683,FALSE,FALSE,NA,TFCN_86A-12,"86A-12
+ BY34-E7",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+147,iron,6.761083470395163,FALSE,FALSE,NA,TFCN_48C-3,48C-3,Rhodotorula paludigena,China,marsh_tidalflat,2,30
+148,iron,8.87255442048174,FALSE,FALSE,NA,TFCN_342-3,"342-3
+ BY110_B2",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+149,iron,8.955016461411907,FALSE,FALSE,NA,TFCN_86A-8,"86A-8
+ BY35-H3",Rhodotorula sphaerocarpa,China,marsh_tidalflat,2,30
+151,iron,8.212555957864998,FALSE,FALSE,NA,TFCN_98D-7,"98D-7
+ BY31-E3",Rhodotorula mucilaginosa,China,NA,2,30
+152,iron,8.617949749978127,FALSE,FALSE,NA,TFCN_25-337M-3,"25-337M-3
+ BY119-F9",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+153,iron,9.649443122305982,FALSE,FALSE,NA,TFCN_25-0-2E333-5,"25-0-2E333-5
+ BY120-E4",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+156,iron,8.679485326086082,FALSE,FALSE,NA,TFCN_48A-2,48A-2,Rhodotorula paludigena,China,marsh_tidalflat,2,30
+157,iron,4.918183406703351,FALSE,TRUE,bottom,TFCN_1A-1-2,1A-1-2,Rhodotorula paludigena,China,marsh_tidalflat,2,30
+158,iron,10.052687169107891,FALSE,FALSE,NA,TFCN_152A-1,"152A-1
+ BY32-H1",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+159,iron,10.09741731150492,FALSE,FALSE,NA,TFCN_152A-5,"152A-5
+ BY32-C2",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+161,iron,8.476728477615753,FALSE,FALSE,NA,TFCN_102D-2,102D-2,Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+162,iron,8.052027225360124,FALSE,FALSE,NA,TFCN_25-327D-1,"25-327D-1
+ BY119-D5",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+163,iron,6.6711049353161656,FALSE,FALSE,NA,TFCN_17-334Y-5,"17-334Y-5
+ BY116-E9",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+164,iron,8.428261602742861,FALSE,FALSE,NA,TFCN_17-334C-1,"17-334C-1
+ BY117-A6",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+166,iron,7.307669642925814,FALSE,FALSE,NA,DBVPG_3238,3238,Rhodotorula mucilaginosa,Italy,food,2,30
+167,iron,9.615949951181165,FALSE,FALSE,NA,DBVPG_3444,3444,Rhodotorula mucilaginosa,Italy,food,2,30
+169,iron,9.156557956810818,FALSE,FALSE,NA,DBVPG_3983,3983,Rhodotorula mucilaginosa,Italy,cave,2,30
+172,iron,7.891244111461103,FALSE,FALSE,NA,TFCN_106A-1,106A-1,Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+174,iron,9.539811884310648,FALSE,FALSE,NA,TFCN_17-0-2E337-3,17-0-2E337-3 BY117-H4,Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+175,iron,2.7683745848070447,FALSE,TRUE,bottom,DBVPG_3239,3239,Rhodotorula mucilaginosa,Italy,food,2,30
+176,iron,6.407097314261223,FALSE,FALSE,NA,DBVPG_3538,3538,Rhodotorula mucilaginosa,Italy,soil,3,30
+177,iron,8.015888278756808,FALSE,FALSE,NA,DBVPG_3776,3776,Rhodotorula mucilaginosa,Italy,soil,3,30
+178,iron,7.235698715597209,FALSE,FALSE,NA,DBVPG_3984,3984,Rhodotorula mucilaginosa,Italy,cave,3,30
+179,iron,4.328514106324718,FALSE,TRUE,bottom,DBVPG_4379,4379,Rhodotorula mucilaginosa,Italy,food,3,30
+180,iron,3.351304876437796,FALSE,TRUE,bottom,DBVPG_4629,4629,Rhodotorula sp. clade I,Italy,soil,3,30
+181,iron,6.135337622533118,FALSE,FALSE,NA,TFCN_25-332D-1,"25-332D-1
+ BY119-H1",Rhodotorula mucilaginosa,China,marsh_tidalflat,3,30
+182,iron,4.17118115504956,FALSE,TRUE,bottom,TFCN_25-333P-2,"25-333P-2
+ BY120-E3",Rhodotorula mucilaginosa,China,marsh_tidalflat,3,30
+183,iron,4.466207531879963,FALSE,TRUE,bottom,TFCN_181A-1,"181A-1
+ BY39-F5",Rhodotorula mucilaginosa,China,marsh_tidalflat,3,30
+184,iron,5.993763492439458,FALSE,FALSE,NA,DBVPG_3380,3380,Rhodotorula glutinis,Italy,plant,3,30
+185,iron,5.9918473231686535,FALSE,FALSE,NA,DBVPG_3768,3768,Rhodotorula dairenensis,Italy,soil,3,30
+186,iron,5.48673658651784,FALSE,TRUE,bottom,DBVPG_3777,3777,Rhodotorula mucilaginosa,Italy,soil,3,30
+188,iron,8.801583344459715,FALSE,FALSE,NA,DBVPG_4380,4380,Rhodotorula mucilaginosa,Italy,sand,3,30
+189,iron,6.898945101621591,FALSE,FALSE,NA,DBVPG_4669,4669,Rhodotorula mucilaginosa,Italy,food,3,30
+190,iron,4.00327307173502,FALSE,TRUE,bottom,TFCN_17-332M-1,"17-332M-1
+ BY115-F4",Rhodotorula mucilaginosa,China,marsh_tidalflat,3,30
+192,iron,3.659374465965536,FALSE,TRUE,bottom,DBVPG_3853,Y3853,Rhodotorula dairenensis,Italy,plant,3,30
+193,iron,6.084807954209518,FALSE,FALSE,NA,DBVPG_3381,3381,Rhodotorula mucilaginosa,Italy,plant,3,30
+194,iron,3.578129168251782,FALSE,TRUE,bottom,DBVPG_3769,3769,Rhodotorula dairenensis,Italy,soil,3,30
+195,iron,5.91508553978934,FALSE,TRUE,bottom,DBVPG_3853,3853,Rhodotorula dairenensis,Italy,plant,3,30
+196,iron,3.745636084908421,FALSE,TRUE,bottom,DBVPG_4201,4201,Rhodotorula mucilaginosa,Italy,plant,3,30
+197,iron,7.132932465888824,FALSE,FALSE,NA,DBVPG_4408,4408,Rhodotorula mucilaginosa,Italy,marine,3,30
+198,iron,7.708114680789274,FALSE,FALSE,NA,DBVPG_4920,4920,Rhodotorula mucilaginosa,Italy,food,3,30
+199,iron,5.450053605260811,FALSE,TRUE,bottom,TFCN_17-332M-2,"17-332M-2
+ BY115-F4",Rhodotorula mucilaginosa,China,marsh_tidalflat,3,30
+200,iron,6.089793908754604,FALSE,FALSE,NA,TFCN_209-6-14,"209-6-14
+ BY43-A2",Rhodotorula mucilaginosa,China,NA,3,30
+201,iron,3.6822611183008007,FALSE,TRUE,bottom,DBVPG_3044,DBVPG 3044,Rhodotorula mucilaginosa,Italy,unknown,3,30
+202,iron,5.074189633498584,FALSE,TRUE,bottom,DBVPG_3382,3382,Rhodotorula mucilaginosa,Italy,plant,3,30
+203,iron,4.344892923410246,FALSE,TRUE,bottom,DBVPG_3770,3770,Rhodotorula dairenensis,Italy,soil,3,30
+204,iron,3.7682763937800505,FALSE,TRUE,bottom,DBVPG_3854,3854,Rhodotorula mucilaginosa,Italy,plant,3,30
+205,iron,3.8333582419137375,FALSE,TRUE,bottom,DBVPG_4202,4202,Rhodotorula mucilaginosa,Italy,soil,3,30
+206,iron,7.801127373951964,FALSE,FALSE,NA,DBVPG_4466,4466,Rhodotorula mucilaginosa,Italy,plant,3,30
+207,iron,6.657015385396421,FALSE,FALSE,NA,DBVPG_4945,4945,Rhodotorula mucilaginosa,Italy,food,3,30
+208,iron,4.46946087262824,FALSE,TRUE,bottom,TFCN_25-332M-1,"25-332M-1
+ BY119-D2",Rhodotorula mucilaginosa,China,marsh_tidalflat,3,30
+209,iron,6.779747355085851,FALSE,FALSE,NA,TFCN_17-332C-1,"17-332C-1
+ BY115-G4",Rhodotorula mucilaginosa,China,marsh_tidalflat,3,30
+210,iron,4.120536943827009,FALSE,TRUE,bottom,DBVPG_3045,3045,Rhodotorula mucilaginosa,Italy,food,3,30
+211,iron,5.664677698684894,FALSE,TRUE,bottom,DBVPG_3383,3383,Rhodotorula mucilaginosa,Italy,plant,3,30
+212,iron,4.148689714830825,FALSE,TRUE,bottom,DBVPG_3771,3771,Rhodotorula dairenensis,Italy,soil,3,30
+213,iron,7.1323344969254,FALSE,FALSE,NA,DBVPG_3855,3855,Rhodotorula mucilaginosa,Italy,plant,3,30
+214,iron,6.507614138114905,FALSE,FALSE,NA,DBVPG_4203,4203,Rhodotorula mucilaginosa,Italy,soil,3,30
+215,iron,7.193286296452166,FALSE,FALSE,NA,DBVPG_4530,4530,Rhodotorula taiwanensis,Italy,plant,3,30
+216,iron,5.403150074272766,FALSE,TRUE,bottom,DBVPG_4946,4946,Rhodotorula mucilaginosa,Italy,food,3,30
+217,iron,5.269176811081076,FALSE,TRUE,bottom,TFCN_25-0-2E333-1,"25-0-2E333-1
+ BY120-A4",Rhodotorula mucilaginosa,China,marsh_tidalflat,3,30
+218,iron,3.799125682015797,FALSE,TRUE,bottom,TFCN_25-0-2E334-1,"25-0-2E334-1
+ BY118-A8",Rhodotorula mucilaginosa,China,marsh_tidalflat,3,30
+219,iron,8.014288201422808,FALSE,FALSE,NA,DBVPG_3090,3090,Rhodotorula mucilaginosa,Italy,food,3,30
+220,iron,3.428302376656312,FALSE,TRUE,bottom,DBVPG_3384,3384,Rhodotorula mucilaginosa,Italy,plant,3,30
+221,iron,6.171829666865118,FALSE,FALSE,NA,DBVPG_3772,3772,Rhodotorula dairenensis,Italy,soil,3,30
+222,iron,4.143878904952372,FALSE,TRUE,bottom,DBVPG_3856,3856,Rhodotorula mucilaginosa,Italy,plant,3,30
+223,iron,5.800246955324643,FALSE,TRUE,bottom,DBVPG_4304,4304,Rhodotorula mucilaginosa,Italy,unknown,3,30
+224,iron,3.4986619514031823,FALSE,TRUE,bottom,DBVPG_4531,4531,Rhodotorula taiwanensis,Italy,plant,3,30
+227,iron,4.3459073250478575,FALSE,TRUE,bottom,TFCN_25-334Y-6,"25-334Y-6
+ BY118-F9",Rhodotorula mucilaginosa,China,marsh_tidalflat,3,30
+228,iron,7.254897493936848,FALSE,FALSE,NA,DBVPG_3235,3235,Rhodotorula mucilaginosa,Italy,food,3,30
+229,iron,10.682686444365723,FALSE,FALSE,NA,DBVPG_3442,3442,Rhodotorula mucilaginosa,Italy,food,3,30
+230,iron,5.792334765944626,FALSE,TRUE,bottom,DBVPG_3773,3773,Rhodotorula dairenensis,Italy,soil,3,30
+231,iron,5.2516544033431245,FALSE,TRUE,bottom,DBVPG_3857,3857,Rhodotorula mucilaginosa,Italy,plant,3,30
+233,iron,3.7645526844682102,FALSE,TRUE,bottom,DBVPG_4534,4534,Rhodotorula mucilaginosa,Italy,sand,3,30
+234,iron,4.547701526646916,FALSE,TRUE,bottom,DBVPG_4949,4949,Rhodotorula mucilaginosa,Italy,soil,3,30
+236,iron,3.4047766521637826,FALSE,TRUE,bottom,TFCN_209-6-12,"209-6-12
+ BY43-H1",Rhodotorula mucilaginosa,China,NA,3,30
+237,iron,7.715611464357909,FALSE,FALSE,NA,DBVPG_3237,3237,Rhodotorula mucilaginosa,Italy,food,3,30
+238,iron,10.551994340606939,FALSE,FALSE,NA,DBVPG_3443,3443,Rhodotorula mucilaginosa,Italy,food,3,30
+241,iron,6.847698501616289,FALSE,FALSE,NA,DBVPG_4377,4377,Rhodotorula mucilaginosa,Italy,marine,3,30
+242,iron,5.216127463761769,FALSE,TRUE,bottom,DBVPG_4610,4610,Rhodotorula paludigena,Italy,plant,3,30
+243,iron,3.903733407730705,FALSE,TRUE,bottom,DBVPG_4950,4950,Rhodotorula mucilaginosa,Italy,soil,3,30
+244,iron,5.64609907464218,FALSE,TRUE,bottom,DBVPG_4952,4952,Rhodotorula mucilaginosa,Italy,soil,3,30
+245,iron,8.279847232084812,FALSE,FALSE,NA,DBVPG_5227,5227,Rhodotorula mucilaginosa,Italy,soil,3,30
+246,iron,3.458975134701368,FALSE,TRUE,bottom,DBVPG_6091,6091,Rhodotorula mucilaginosa,Italy,insect,3,30
+247,iron,8.012955634651895,FALSE,FALSE,NA,DBVPG_6739,6739,Rhodotorula toruloides,Italy,soil,3,30
+249,iron,10.59624900149272,FALSE,FALSE,NA,DBVPG_3236,3236,Rhodotorula mucilaginosa,Italy,food,3,30
+250,iron,4.961431255271016,FALSE,TRUE,bottom,DBVPG_7316,7316,Rhodotorula paludigena,Italy,marsh_tidalflat,3,30
+253,iron,5.248978720373676,FALSE,TRUE,bottom,DBVPG_4956,4956,Rhodotorula mucilaginosa,Italy,soil,3,30
+254,iron,3.632424496209916,FALSE,TRUE,bottom,DBVPG_5228,5228,Rhodotorula mucilaginosa,Italy,soil,3,30
+255,iron,5.425563508728694,FALSE,TRUE,bottom,DBVPG_6093,6093,Rhodotorula mucilaginosa,Italy,unknown,3,30
+256,iron,4.921043609771133,FALSE,TRUE,bottom,DBVPG_6742,6742,Rhodotorula mucilaginosa,Italy,unknown,3,30
+257,iron,3.7191321628640432,FALSE,TRUE,bottom,DBVPG_8043,8043,Rhodotorula mucilaginosa,Italy,water,3,30
+258,iron,6.164680152971902,FALSE,FALSE,NA,DBVPG_3445,3445,Rhodotorula mucilaginosa,Italy,food,3,30
+261,iron,19.87040267874348,TRUE,FALSE,top,TF_CN_86C_3,"86C-3
+ BY33-D3",Rhodotorula sphaerocarpa,China,NA,4,30
+262,iron,21.294138326911416,TRUE,FALSE,top,DBVPG_4957,4957,Rhodotorula mucilaginosa,Italy,soil,4,30
+263,iron,21.47428418950679,TRUE,FALSE,top,DBVPG_5229,5229,Rhodotorula mucilaginosa,Italy,soil,4,30
+264,iron,21.66246582214769,TRUE,FALSE,top,DBVPG_6094,6094,Rhodotorula mucilaginosa,Italy,unknown,4,30
+272,iron,14.005805944908836,TRUE,FALSE,top,DBVPG_5235,5235,Rhodotorula mucilaginosa,Italy,soil,4,30
+273,iron,16.470538960080546,TRUE,FALSE,top,DBVPG_6121,6121,Rhodotorula toruloides,Italy,air_cloud,4,30
+275,iron,34.96598231012728,TRUE,FALSE,top,DBVPG_10075,10075,Cystobasidium sp.,Italy,soil,4,30
+276,iron,20.98612867714599,TRUE,FALSE,top,DBVPG_3778,3778,Rhodotorula mucilaginosa,Italy,soil,4,30
+279,iron,24.40781035577144,TRUE,FALSE,top,TF_CN_186CL4_2,"186CL④-2
+ BY39-C9",Rhodotorula mucilaginosa,China,NA,4,30
+283,iron,21.686850951921,TRUE,FALSE,top,DBVPG_7019,7019,Rhodotorula mucilaginosa,Italy,unknown,4,30
+285,iron,20.171538237437385,TRUE,FALSE,top,DBVPG_3780,3780,Rhodotorula mucilaginosa,Italy,soil,4,30
+290,iron,23.865016987457004,TRUE,FALSE,top,DBVPG_5757,5757,Rhodotorula mucilaginosa,Italy,soil,4,30
+293,iron,21.989073412557417,TRUE,FALSE,top,DBVPG_10780,10780,Rhodotorula mucilaginosa,Italy,snow_ice,4,30
+294,iron,18.686250844750603,TRUE,FALSE,top,DBVPG_6083,6083,Rhodotorula graminis,Italy,plant,4,30
+295,iron,16.774749063273973,TRUE,FALSE,top,DBVPG_10937,DBVPG 10937,Rhodotorula mucilaginosa,Italy,food,4,30
+296,iron,22.00058239714918,TRUE,FALSE,top,TFCN_2M_1_3,"2M-1-3
+ BY8-A3",Rhodotorula mucilaginosa,China,NA,4,30
+299,iron,18.263372711609588,TRUE,FALSE,top,DBVPG_5758,5758,Rhodotorula mucilaginosa,Italy,soil,4,30
+300,iron,16.127141476257044,TRUE,FALSE,top,DBVPG_6593,6593,Rhodotorula mucilaginosa,Italy,unknown,4,30
+303,iron,21.434564563580853,TRUE,FALSE,top,DBVPG_6092,6092,Rhodotorula mucilaginosa,Italy,unknown,4,30
+305,iron,22.069410065691965,TRUE,FALSE,top,TFCN_17-325P-1,25-325P-1,Rhodotorula mucilaginosa,NA,NA,4,30
+307,iron,17.55928486874495,TRUE,FALSE,top,DBVPG_5225,5225,Rhodotorula mucilaginosa,Italy,soil,4,30
+308,iron,17.040508728471302,TRUE,FALSE,top,DBVPG_5759,5759,Rhodotorula mucilaginosa,Italy,soil,4,30
+309,iron,22.58996627843458,TRUE,FALSE,top,DBVPG_6649,6649,Rhodotorula mucilaginosa,Italy,plant,4,30
+310,iron,21.57566922680214,TRUE,FALSE,top,DBVPG_7539,7539,Rhodotorula kratochvilovae,Italy,unknown,4,30
+311,iron,21.46312059608381,TRUE,FALSE,top,DBVPG_10383,10383,Rhodotorula kratochvilovae,Italy,soil,4,30
+312,iron,18.563818534007815,TRUE,FALSE,top,DBVPG_6740,6740,Pseudomicrostroma phylloplanum,Italy,plant,4,30
+314,iron,24.31478262731156,TRUE,FALSE,top,DBVPG_6081,6081,Rhodotorula glutinis,Italy,air_cloud,4,30
+318,iron,16.262547307120368,TRUE,FALSE,top,DBVPG_6741,6741,Rhodotorula mucilaginosa,Italy,soil,4,30
+334,iron,20.323104812930225,TRUE,FALSE,top,JES-025-001,JES-025-001,Rhodotorula mucilaginosa,America,NA,4,30
+1,ph,3.2957319967288434,TRUE,FALSE,top,TFCN_17-291Y-1,"17-291Y-1
+ BY126-B8",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+2,ph,3.4126913917509314,TRUE,FALSE,top,TFCN_134A-3,"134A-3
+ BY30-D2",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+3,ph,3.307237714246216,TRUE,FALSE,top,TFCN_98A-5,98A-5,Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+4,ph,2.8722264557530615,FALSE,FALSE,NA,TFCN_102C-2,102C-2,Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+5,ph,3.131502604947876,FALSE,FALSE,NA,TFCN_105A-2,105A-2,Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+6,ph,3.393370276226076,TRUE,FALSE,top,TFCN_17-334Y-2,"17-334Y-2
+ BY116-B9",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+7,ph,3.1132426537955693,FALSE,FALSE,NA,TFCN_17-329Y-4,"17-329Y-4
+ BY115-H8",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+8,ph,3.1545114436462955,FALSE,FALSE,NA,TFCN_107A-6,"107A-6
+ BY31-B6",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+9,ph,3.419393245876547,TRUE,FALSE,top,TFCN_17-390M-1,"17-390M-1
+ BY126-D7",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+11,ph,2.9784080412190646,FALSE,FALSE,NA,TFCN_122C-2,"122C-2 
+ BY31-A2",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+12,ph,2.2914859989574774,FALSE,TRUE,bottom,TFCN_4M-1-3,4M-1-3,Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+13,ph,3.021534125081858,FALSE,FALSE,NA,TFCN_141C-2,"141C-2
+ BY30-H4",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+14,ph,3.0621940976341047,FALSE,FALSE,NA,TFCN_130D-4,"130D-4
+ BY30-H7",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+15,ph,3.733026074433741,TRUE,FALSE,top,TFCN_3M-1-1,"3M-1-1
+ BY8-B4",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+16,ph,4.014840322652471,TRUE,FALSE,top,TFCN_186DK3-2,"186DK3-2
+ BY39-H9",Rhodotorula sp. clade XI,China,marsh_tidalflat,1,30
+17,ph,2.9901266247610767,FALSE,FALSE,NA,TFCN_7-9-3,7-9-3,Rhodotorula diobovata,China,marsh_tidalflat,1,30
+18,ph,3.5446347764190125,TRUE,FALSE,top,TFCN_25-395P-1,"25-395P-1
+ BY126-F2",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+19,ph,3.045119168864268,FALSE,FALSE,NA,TFCN_152A-12,"152A-12
+ BY32-A3",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+20,ph,2.9733366558079384,FALSE,FALSE,NA,TFCN_102D-1,102D-1 8130,Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+21,ph,2.6055145027830013,FALSE,TRUE,bottom,TFCN_4M-1-2,"4M-1-2
+ BY8-D4",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+22,ph,3.126586995355512,FALSE,FALSE,NA,TFCN_209-6-11,"209-6-11
+ BY43-G1",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+24,ph,3.2738614110953232,FALSE,FALSE,NA,TFCN_17-337P-5,"17-337P-5
+ BY116-B7",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+25,ph,3.0380780277690063,FALSE,FALSE,NA,TFCN_137C-3,"137C-3
+ BY30-I4",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+26,ph,2.8227567740631208,FALSE,TRUE,bottom,TFCN_212C-2,"212C-2
+ BY39-G3",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+27,ph,3.5247695538263484,TRUE,FALSE,top,TFCN_25-0-2E390-1,"25-0-2E390-1
+ BY126-F3",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+28,ph,3.0721107557230254,FALSE,FALSE,NA,TFCN_1A-1-3,1A-1-3 8130,Rhodotorula pacifica,China,marsh_tidalflat,1,30
+29,ph,2.9732043025071615,FALSE,FALSE,NA,TFCN_25-332D-2,"25-332D-2
+ BY119-I1 8/30",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+30,ph,3.2173709482037416,FALSE,FALSE,NA,TFCN_2M-1-4,"2M-1-4
+ BY8-B3 8/30",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+31,ph,2.9235185530123573,FALSE,FALSE,NA,TFCN_340-3,"340-3
+ BY110-F1",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+32,ph,2.9001123873505157,FALSE,FALSE,NA,TFCN_100D-1,"100D-1
+ BY31-H3",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+33,ph,2.9417896551142295,FALSE,FALSE,NA,TFCN_340-1,"340-1
+ BY110-D1",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+36,ph,3.492682496961303,TRUE,FALSE,top,TFCN_17-267M-1,"17-267M-1
+ BY121-A4",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+37,ph,2.9501981169171154,FALSE,FALSE,NA,TFCN_48A-15,48A-15,Rhodotorula paludigena,China,marsh_tidalflat,1,30
+38,ph,2.9942430912335776,FALSE,FALSE,NA,TFCN_25-332C-1,"25-332C-1
+ BY119-C2",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+39,ph,3.1704873345207605,FALSE,FALSE,NA,TFCN_17-334Y-3,"17-334Y-3
+ BY116-C9",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+40,ph,3.3652117119939065,TRUE,FALSE,top,TFCN_270H-1,"270H-1
+ BY113-D3",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+41,ph,3.0717515030498475,FALSE,FALSE,NA,TFCN_107C-3,107C-3,Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+42,ph,3.246295811352779,FALSE,FALSE,NA,TFCN_33A-4,33A-4,Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+44,ph,2.5601737845248627,FALSE,TRUE,bottom,TFCN_7-9-2,7-9-2,Rhodotorula diobovata,China,marsh_tidalflat,1,30
+45,ph,3.5342775555471597,TRUE,FALSE,top,TFCN_17Y-278-1,"17Y-278-1
+ BY126-D5",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+47,ph,3.5594234403787857,TRUE,FALSE,top,TFCN_25-331D-1,"25-331D-1
+ BY119-D1",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+48,ph,2.6102679047672095,FALSE,TRUE,bottom,TFCN_25-333C-2,"25-333C-2
+ BY120-H5",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+49,ph,2.2315418057028538,FALSE,TRUE,bottom,TFCN_270H-2,"270H-2
+ BY113-D4",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+50,ph,3.052643545054935,FALSE,FALSE,NA,TFCN_118C-2,"118C-2
+ BY31-G1",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+51,ph,3.505252452965932,TRUE,FALSE,top,TFCN_25-334D-3,"25-334D-3
+ BY118-F7",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+52,ph,3.5436453392859364,TRUE,FALSE,top,TFCN_1A-14,1A-14,Rhodotorula mucilaginosa,China,NA,1,30
+53,ph,2.97127781281593,FALSE,FALSE,NA,TFCN_211A-3,"211A-3
+ BY37-B3",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+54,ph,3.651761143327485,TRUE,FALSE,top,TFCN_17-0-2E390-1,"17-0-2E390-1
+ BY126-B7",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+55,ph,3.199196044292778,FALSE,FALSE,NA,TFCN_172A-1,"172A-1
+ BY40-A6",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+56,ph,3.6705629279661127,TRUE,FALSE,top,TFCN_22C-4,22C-4,Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+57,ph,3.1011547035976887,FALSE,FALSE,NA,TFCN_98D-11,98D-11,Rhodotorula mucilaginosa,China,NA,1,30
+58,ph,3.4138385743954234,TRUE,FALSE,top,TFCN_25-332Y-1,"25-332Y-1
+ BY119-F3",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+59,ph,3.447217646789962,TRUE,FALSE,top,TFCN_25-333Y-9,"25-333Y-9
+ BY120_C8",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+60,ph,3.086971387754826,FALSE,FALSE,NA,TFCN_25-325Y-1,"25-325Y-1
+ BY120-D6",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+61,ph,3.115758308324496,FALSE,FALSE,NA,TFCN_152A-6,"152A-6
+ BY32-D2",Rhodotorula toruloides,China,marsh_tidalflat,1,30
+62,ph,3.3329146188364716,TRUE,FALSE,top,TFCN_17-338D-3,"17-338D-3
+ BY116-B5",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+63,ph,3.429371412680384,TRUE,FALSE,top,TFCN_17-0-2E390-2,"17-0-2E390-2
+ BY126-C7",Rhodotorula mucilaginosa,China,NA,1,30
+64,ph,3.0024916973103513,FALSE,FALSE,NA,TFCN_140A-3,"140A-3
+ BY30-G2",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+66,ph,3.233674062339965,FALSE,FALSE,NA,TFCN_209-6-5,"209-6-5
+ BY43-A1",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+67,ph,3.5837576450916155,TRUE,FALSE,top,TFCN_17-333P-6,"17-333P-6
+ BY118-E1",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+68,ph,3.092238685987066,FALSE,FALSE,NA,TFCN_17-325D-2,"17-325D-2
+ BY116-B4",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+69,ph,3.1198494707234135,FALSE,FALSE,NA,TFCN_17-325P-1,"17-325P-1
+ BY117-E2",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+71,ph,3.542309255370777,TRUE,FALSE,top,TFCN_7W-292-3,"7W-292-3
+ BY53-A7",Rhodotorula dairenensis,China,marsh_tidalflat,1,30
+72,ph,3.079119838218949,FALSE,FALSE,NA,TFCN_89D-3,"89D-3
+ BY32-I5",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+73,ph,3.405865185947877,TRUE,FALSE,top,TFCN_138A-1,"138A-1
+ BY31-C1",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+74,ph,2.4067824362402908,FALSE,TRUE,bottom,TFCN_209-6-17,"209-6-17
+ BY43-D2",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+75,ph,3.1161491311554674,FALSE,FALSE,NA,TFCN_137D-4,"137D-4
+ BY30-H6",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+76,ph,3.1605816530302904,FALSE,FALSE,NA,TFCN_25-337Y-1,"25-337Y-1
+ BY118-I8",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+77,ph,3.07776109723315,FALSE,FALSE,NA,TFCN_209-6-2,"209-6-2
+ BY42-G9",Rhodotorula mucilaginosa,China,NA,1,30
+78,ph,2.6786902344783936,FALSE,TRUE,bottom,TFCN_25-332P-2,"25-332P-2
+ BY119-B2",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+79,ph,2.9764845253893983,FALSE,FALSE,NA,TFCN_98C-7,98C-7,Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+80,ph,3.1282146885772555,FALSE,FALSE,NA,TFCN_1B-1-2,1B-1-2,Rhodotorula pacifica,China,marsh_tidalflat,1,30
+81,ph,2.995245620125375,FALSE,FALSE,NA,TFCN_98C-5,98C-5,Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+83,ph,3.0114959558044005,FALSE,FALSE,NA,TFCN_152A-2,"152A-2
+ BY32-I1",Rhodotorula mucilaginosa,China,marsh_tidalflat,1,30
+86,ph,2.2015485700940522,FALSE,TRUE,bottom,TFCN_25-333Y-10,"25-333Y-10
+ BY120-D8",Rhodotorula mucilaginosa,China,NA,1,30
+88,ph,3.2354150243606377,FALSE,FALSE,NA,TFCN_152C-3,"152C-3
+ BY32-D3",Rhodotorula toruloides,China,NA,2,30
+89,ph,2.2502956162318464,FALSE,TRUE,bottom,TFCN_4M-1-5,"4M-1-5
+ BY8-G4",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+91,ph,2.2823638506028248,FALSE,TRUE,bottom,TFCN_25-335P-1,"25-335P-1
+ BY120-A5",Rhodotorula diobovata,China,marsh_tidalflat,2,30
+92,ph,3.0206072235324117,FALSE,FALSE,NA,TFCN_S22D-1,"S22D-1 
+ BY38-D8",Rhodotorula taiwanensis,China,marsh_tidalflat,2,30
+95,ph,3.142354695579311,FALSE,FALSE,NA,TFCN_86A-3,"86A-3
+ BY34-G6",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+96,ph,2.811270133582311,FALSE,TRUE,bottom,TFCN_152A-4,"152A-4
+ BY32-B2",Rhodotorula toruloides,China,marsh_tidalflat,2,30
+97,ph,3.4268146722416755,TRUE,FALSE,top,TFCN_17-332P-1,"17-332P-1
+ BY115-D6",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+98,ph,3.219809697246764,FALSE,FALSE,NA,TFCN_4M-1-4,"4M-1-4
+ BY8-F4",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+99,ph,3.1992646319976012,FALSE,FALSE,NA,TFCN_102C-1,102C-1,Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+100,ph,3.555057383967131,TRUE,FALSE,top,TFCN_404D-1,"404D-1
+ BY123-F4",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+103,ph,-0.07146099777872977,FALSE,TRUE,bottom,TFCN_48A-10,48A-10,Rhodotorula paludigena,China,marsh_tidalflat,2,30
+104,ph,3.1817549054288827,FALSE,FALSE,NA,TFCN_213-6-2,"213-6-2
+ BY42-B6",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+105,ph,3.0209318108635994,FALSE,FALSE,NA,TFCN_152C-6,"152C-6
+ BY32-G3",Rhodotorula toruloides,China,marsh_tidalflat,2,30
+106,ph,3.154185332563066,FALSE,FALSE,NA,TFCN_273H-1,"273H-1
+ BY113-C3",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+107,ph,3.1718627026556665,FALSE,FALSE,NA,TFCN_209-6-4,"209-6-4
+ BY42-I9",Rhodotorula mucilaginosa,China,NA,2,30
+108,ph,3.129377734350294,FALSE,FALSE,NA,TFCN_25-332M-2,"25-332M-2
+ BY119-E2",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+109,ph,3.137039048214035,FALSE,FALSE,NA,TFCN_98C-8,98C-8,Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+110,ph,2.6456342465477043,FALSE,TRUE,bottom,TFCN_25-333D-1,"25-333D-1
+ BY120-B3",Rhodotorula sp. clade I,China,marsh_tidalflat,2,30
+111,ph,1.3334391917134782,FALSE,TRUE,bottom,TFCN_25-335C-1,"25-335C-1
+ BY120-B5",Rhodotorula diobovata,China,marsh_tidalflat,2,30
+113,ph,3.1299293463150812,FALSE,FALSE,NA,TFCN_54D-2,54D-2,Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+114,ph,3.146166063081973,FALSE,FALSE,NA,TFCN_152D-6,"152D-6
+ BY32-D4",Rhodotorula toruloides,China,marsh_tidalflat,2,30
+115,ph,3.1382317941890907,FALSE,FALSE,NA,TFCN_25-0-2E332-1,"25-0-2E332-1
+ BY119-E3",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+116,ph,2.9821883968840295,FALSE,FALSE,NA,TFCN_25-0-2E333-9,"BY120-C1 (BY120-C7)
+ 25-0-2E333-9",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+117,ph,3.160367274990456,FALSE,FALSE,NA,TFCN_17-0-2E334-10,"17-0-2E334-10
+ BY116-C8",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+118,ph,2.6259748676157617,FALSE,TRUE,bottom,TFCN_357-1,"357-1
+ BY110-F4",Rhodotorula taiwanensis,China,marsh_tidalflat,2,30
+119,ph,3.160217289998827,FALSE,FALSE,NA,TFCN_17-328C-3,"17-328C-3
+ BY117-D1",Rhodotorula sp. clade I,China,marsh_tidalflat,2,30
+120,ph,1.1420166381255976,FALSE,TRUE,bottom,TFCN_17-334Y-6,"17-334Y-6
+ BY116-F9",Rhodotorula diobovata,China,marsh_tidalflat,2,30
+122,ph,3.150828116457042,FALSE,FALSE,NA,TFCN_222A-2,"222A-2
+ BY37-G8",Rhodotorula sp. clade I,China,marsh_tidalflat,2,30
+124,ph,3.0337315086731493,FALSE,FALSE,NA,TFCN_98A-10,98A-10,Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+125,ph,3.4691420123759658,TRUE,FALSE,top,TFCN_17-334D-6,"17-334D-6
+ BY115-E2",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+126,ph,3.252899454936161,FALSE,FALSE,NA,TFCN_17-0-2E334-4,"17-0-2E334-4
+ BY116-G7",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+127,ph,3.153228696576622,FALSE,FALSE,NA,TFCN_363-1-2,"363-1-2
+ BY110-A6",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+129,ph,3.187214299314367,FALSE,FALSE,NA,TFCN_25-0-2E333-7,"25-0-2E333-7
+ BY120-A7",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+130,ph,3.0747934966973807,FALSE,FALSE,NA,TFCN_25-335Y-1,"25-335Y-1
+ BY120-I4",Rhodotorula mucilaginosa,China,NA,2,30
+131,ph,3.0701567717327536,FALSE,FALSE,NA,TFCN_213-6-4,"213-6-4
+ BY42-C6",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+133,ph,3.140749833371583,FALSE,FALSE,NA,TFCN_98C-3,98C-3,Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+134,ph,3.203758864888808,FALSE,FALSE,NA,TFCN_17-333D-2,"17-333D-2
+ BY115-E6",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+135,ph,3.019514126359552,FALSE,FALSE,NA,TFCN_17-332C-2,"17-332C-2
+ BY115-H4",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+136,ph,-0.2177182360741381,FALSE,TRUE,bottom,TFCN_86A-6,"86A-6
+ BY34-A7",Rhodotorula sphaerocarpa,China,marsh_tidalflat,2,30
+137,ph,2.996790636353605,FALSE,FALSE,NA,TFCN_0520-4-2-2,"0520-4-2-2
+ BY53-D9",Rhodotorula taiwanensis,China,marsh_tidalflat,2,30
+139,ph,3.4734452829034135,TRUE,FALSE,top,TFCN_25-333D-5,"25-333D-5
+ BY120-H7",Rhodotorula sp. clade I,China,NA,2,30
+141,ph,3.34362114027561,TRUE,FALSE,top,TFCN_152C-2,"152C-2
+ BY32-C3",Rhodotorula toruloides,China,marsh_tidalflat,2,30
+142,ph,3.1530798006144356,FALSE,FALSE,NA,TFCN_98D-9,"98D-9
+ BY31-F3",Rhodotorula mucilaginosa,China,NA,2,30
+143,ph,3.071136376464965,FALSE,FALSE,NA,TFCN_17-325D-4,"17-325D-4
+ BY116-C4",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+144,ph,2.9394026135137117,FALSE,FALSE,NA,TFCN_17-332P-2,"17-332P-2
+ BY117-G8",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+145,ph,3.554495442086918,TRUE,FALSE,top,TFCN_54D-1,54D-1,Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+146,ph,3.1353660756571076,FALSE,FALSE,NA,TFCN_86A-12,"86A-12
+ BY34-E7",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+148,ph,3.28007894443629,FALSE,FALSE,NA,TFCN_342-3,"342-3
+ BY110_B2",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+150,ph,3.0323146086735444,FALSE,FALSE,NA,TFCN_152C-5,"152C-5
+ BY32-F3",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+151,ph,3.1417875734828327,FALSE,FALSE,NA,TFCN_98D-7,"98D-7
+ BY31-E3",Rhodotorula mucilaginosa,China,NA,2,30
+152,ph,3.285251645805019,FALSE,FALSE,NA,TFCN_25-337M-3,"25-337M-3
+ BY119-F9",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+153,ph,3.3227237532310068,TRUE,FALSE,top,TFCN_25-0-2E333-5,"25-0-2E333-5
+ BY120-E4",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+155,ph,3.277809130701688,FALSE,FALSE,NA,TFCN_0520-4-2-1,"0520-4-2-1
+ BY53-C9",Rhodotorula taiwanensis,China,marsh_tidalflat,2,30
+156,ph,3.0364643031270244,FALSE,FALSE,NA,TFCN_48A-2,48A-2,Rhodotorula paludigena,China,marsh_tidalflat,2,30
+157,ph,3.052236624347393,FALSE,FALSE,NA,TFCN_1A-1-2,1A-1-2,Rhodotorula paludigena,China,marsh_tidalflat,2,30
+158,ph,3.6092902325660194,TRUE,FALSE,top,TFCN_152A-1,"152A-1
+ BY32-H1",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+159,ph,2.9376853342936395,FALSE,FALSE,NA,TFCN_152A-5,"152A-5
+ BY32-C2",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+161,ph,3.1732016484999015,FALSE,FALSE,NA,TFCN_102D-2,102D-2,Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+162,ph,3.3482260697357886,TRUE,FALSE,top,TFCN_25-327D-1,"25-327D-1
+ BY119-D5",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+163,ph,3.5508929918265815,TRUE,FALSE,top,TFCN_17-334Y-5,"17-334Y-5
+ BY116-E9",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+164,ph,3.1066229747831047,FALSE,FALSE,NA,TFCN_17-334C-1,"17-334C-1
+ BY117-A6",Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+166,ph,3.495641731294045,TRUE,FALSE,top,DBVPG_3238,3238,Rhodotorula mucilaginosa,Italy,food,2,30
+167,ph,3.2716794836947134,FALSE,FALSE,NA,DBVPG_3444,3444,Rhodotorula mucilaginosa,Italy,food,2,30
+168,ph,2.8689517054275555,FALSE,FALSE,NA,DBVPG_3775,3775,Rhodotorula mucilaginosa,Italy,soil,2,30
+169,ph,2.9885142302445993,FALSE,FALSE,NA,DBVPG_3983,3983,Rhodotorula mucilaginosa,Italy,cave,2,30
+170,ph,3.0019221201102773,FALSE,FALSE,NA,DBVPG_4378,4378,Rhodotorula mucilaginosa,Italy,food,2,30
+171,ph,2.651532135471907,FALSE,TRUE,bottom,DBVPG_4618,4618,Rhodotorula mucilaginosa,Italy,soil,2,30
+172,ph,3.1479682974690757,FALSE,FALSE,NA,TFCN_106A-1,106A-1,Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+174,ph,3.5578586654587383,TRUE,FALSE,top,TFCN_17-0-2E337-3,17-0-2E337-3 BY117-H4,Rhodotorula mucilaginosa,China,marsh_tidalflat,2,30
+175,ph,3.3516983176069175,TRUE,FALSE,top,DBVPG_3239,3239,Rhodotorula mucilaginosa,Italy,food,2,30
+176,ph,3.518188618594077,TRUE,FALSE,top,DBVPG_3538,3538,Rhodotorula mucilaginosa,Italy,soil,3,30
+177,ph,3.2939388585203173,TRUE,FALSE,top,DBVPG_3776,3776,Rhodotorula mucilaginosa,Italy,soil,3,30
+178,ph,3.417171385247834,TRUE,FALSE,top,DBVPG_3984,3984,Rhodotorula mucilaginosa,Italy,cave,3,30
+179,ph,3.2853789509652667,FALSE,FALSE,NA,DBVPG_4379,4379,Rhodotorula mucilaginosa,Italy,food,3,30
+180,ph,3.405749044169273,TRUE,FALSE,top,DBVPG_4629,4629,Rhodotorula sp. clade I,Italy,soil,3,30
+181,ph,3.1151715972038945,FALSE,FALSE,NA,TFCN_25-332D-1,"25-332D-1
+ BY119-H1",Rhodotorula mucilaginosa,China,marsh_tidalflat,3,30
+182,ph,3.1852731765887627,FALSE,FALSE,NA,TFCN_25-333P-2,"25-333P-2
+ BY120-E3",Rhodotorula mucilaginosa,China,marsh_tidalflat,3,30
+183,ph,3.3625378447050185,TRUE,FALSE,top,TFCN_181A-1,"181A-1
+ BY39-F5",Rhodotorula mucilaginosa,China,marsh_tidalflat,3,30
+184,ph,3.296779769770989,TRUE,FALSE,top,DBVPG_3380,3380,Rhodotorula glutinis,Italy,plant,3,30
+185,ph,3.313176261062777,TRUE,FALSE,top,DBVPG_3768,3768,Rhodotorula dairenensis,Italy,soil,3,30
+186,ph,3.2663966164564657,FALSE,FALSE,NA,DBVPG_3777,3777,Rhodotorula mucilaginosa,Italy,soil,3,30
+187,ph,3.2511814977228792,FALSE,FALSE,NA,DBVPG_3985,3985,Rhodotorula glutinis,Italy,cave,3,30
+188,ph,3.210455440489428,FALSE,FALSE,NA,DBVPG_4380,4380,Rhodotorula mucilaginosa,Italy,sand,3,30
+189,ph,3.3281063561419497,TRUE,FALSE,top,DBVPG_4669,4669,Rhodotorula mucilaginosa,Italy,food,3,30
+190,ph,3.3876697547919927,TRUE,FALSE,top,TFCN_17-332M-1,"17-332M-1
+ BY115-F4",Rhodotorula mucilaginosa,China,marsh_tidalflat,3,30
+192,ph,3.1800697564583458,FALSE,FALSE,NA,DBVPG_3853,Y3853,Rhodotorula dairenensis,Italy,plant,3,30
+193,ph,3.3664780855571075,TRUE,FALSE,top,DBVPG_3381,3381,Rhodotorula mucilaginosa,Italy,plant,3,30
+194,ph,3.083572203048235,FALSE,FALSE,NA,DBVPG_3769,3769,Rhodotorula dairenensis,Italy,soil,3,30
+195,ph,3.06597411925351,FALSE,FALSE,NA,DBVPG_3853,3853,Rhodotorula dairenensis,Italy,plant,3,30
+196,ph,2.276599482225481,FALSE,TRUE,bottom,DBVPG_4201,4201,Rhodotorula mucilaginosa,Italy,plant,3,30
+197,ph,3.381575440184212,TRUE,FALSE,top,DBVPG_4408,4408,Rhodotorula mucilaginosa,Italy,marine,3,30
+198,ph,2.961048737281014,FALSE,FALSE,NA,DBVPG_4920,4920,Rhodotorula mucilaginosa,Italy,food,3,30
+199,ph,3.1033385699361506,FALSE,FALSE,NA,TFCN_17-332M-2,"17-332M-2
+ BY115-F4",Rhodotorula mucilaginosa,China,marsh_tidalflat,3,30
+200,ph,3.2886642384656817,FALSE,FALSE,NA,TFCN_209-6-14,"209-6-14
+ BY43-A2",Rhodotorula mucilaginosa,China,NA,3,30
+201,ph,3.1899328839844685,FALSE,FALSE,NA,DBVPG_3044,DBVPG 3044,Rhodotorula mucilaginosa,Italy,unknown,3,30
+202,ph,1.438797479094368,FALSE,TRUE,bottom,DBVPG_3382,3382,Rhodotorula mucilaginosa,Italy,plant,3,30
+203,ph,3.1303422478250145,FALSE,FALSE,NA,DBVPG_3770,3770,Rhodotorula dairenensis,Italy,soil,3,30
+204,ph,3.421833753517829,TRUE,FALSE,top,DBVPG_3854,3854,Rhodotorula mucilaginosa,Italy,plant,3,30
+205,ph,3.2825660897987015,FALSE,FALSE,NA,DBVPG_4202,4202,Rhodotorula mucilaginosa,Italy,soil,3,30
+206,ph,3.202290137841838,FALSE,FALSE,NA,DBVPG_4466,4466,Rhodotorula mucilaginosa,Italy,plant,3,30
+207,ph,3.40626011071288,TRUE,FALSE,top,DBVPG_4945,4945,Rhodotorula mucilaginosa,Italy,food,3,30
+208,ph,2.9118957799165184,FALSE,FALSE,NA,TFCN_25-332M-1,"25-332M-1
+ BY119-D2",Rhodotorula mucilaginosa,China,marsh_tidalflat,3,30
+209,ph,3.1856723284644226,FALSE,FALSE,NA,TFCN_17-332C-1,"17-332C-1
+ BY115-G4",Rhodotorula mucilaginosa,China,marsh_tidalflat,3,30
+210,ph,3.26505403149784,FALSE,FALSE,NA,DBVPG_3045,3045,Rhodotorula mucilaginosa,Italy,food,3,30
+211,ph,3.0943650928475415,FALSE,FALSE,NA,DBVPG_3383,3383,Rhodotorula mucilaginosa,Italy,plant,3,30
+212,ph,4.1434658642317155,TRUE,FALSE,top,DBVPG_3771,3771,Rhodotorula dairenensis,Italy,soil,3,30
+213,ph,3.2064388354067304,FALSE,FALSE,NA,DBVPG_3855,3855,Rhodotorula mucilaginosa,Italy,plant,3,30
+214,ph,3.276705798737491,FALSE,FALSE,NA,DBVPG_4203,4203,Rhodotorula mucilaginosa,Italy,soil,3,30
+215,ph,3.3901607904703233,TRUE,FALSE,top,DBVPG_4530,4530,Rhodotorula taiwanensis,Italy,plant,3,30
+216,ph,3.1921969849511727,FALSE,FALSE,NA,DBVPG_4946,4946,Rhodotorula mucilaginosa,Italy,food,3,30
+217,ph,3.3351348310873115,TRUE,FALSE,top,TFCN_25-0-2E333-1,"25-0-2E333-1
+ BY120-A4",Rhodotorula mucilaginosa,China,marsh_tidalflat,3,30
+218,ph,3.4982795783075784,TRUE,FALSE,top,TFCN_25-0-2E334-1,"25-0-2E334-1
+ BY118-A8",Rhodotorula mucilaginosa,China,marsh_tidalflat,3,30
+219,ph,3.320946357917798,TRUE,FALSE,top,DBVPG_3090,3090,Rhodotorula mucilaginosa,Italy,food,3,30
+220,ph,3.1201413014589305,FALSE,FALSE,NA,DBVPG_3384,3384,Rhodotorula mucilaginosa,Italy,plant,3,30
+221,ph,3.4245003636611098,TRUE,FALSE,top,DBVPG_3772,3772,Rhodotorula dairenensis,Italy,soil,3,30
+222,ph,3.469813173480082,TRUE,FALSE,top,DBVPG_3856,3856,Rhodotorula mucilaginosa,Italy,plant,3,30
+223,ph,3.4734465841709534,TRUE,FALSE,top,DBVPG_4304,4304,Rhodotorula mucilaginosa,Italy,unknown,3,30
+224,ph,3.4535960647292803,TRUE,FALSE,top,DBVPG_4531,4531,Rhodotorula taiwanensis,Italy,plant,3,30
+225,ph,3.455466343063629,TRUE,FALSE,top,DBVPG_4947,4947,Rhodotorula mucilaginosa,Italy,food,3,30
+227,ph,3.277214572246574,FALSE,FALSE,NA,TFCN_25-334Y-6,"25-334Y-6
+ BY118-F9",Rhodotorula mucilaginosa,China,marsh_tidalflat,3,30
+228,ph,2.925395898776218,FALSE,FALSE,NA,DBVPG_3235,3235,Rhodotorula mucilaginosa,Italy,food,3,30
+229,ph,2.998475067822863,FALSE,FALSE,NA,DBVPG_3442,3442,Rhodotorula mucilaginosa,Italy,food,3,30
+230,ph,3.321751329835726,TRUE,FALSE,top,DBVPG_3773,3773,Rhodotorula dairenensis,Italy,soil,3,30
+231,ph,3.1236845369738386,FALSE,FALSE,NA,DBVPG_3857,3857,Rhodotorula mucilaginosa,Italy,plant,3,30
+232,ph,3.3433960484042125,TRUE,FALSE,top,DBVPG_4376,4376,Rhodotorula mucilaginosa,Italy,food,3,30
+233,ph,3.1439277256218556,FALSE,FALSE,NA,DBVPG_4534,4534,Rhodotorula mucilaginosa,Italy,sand,3,30
+234,ph,3.2691174755727297,FALSE,FALSE,NA,DBVPG_4949,4949,Rhodotorula mucilaginosa,Italy,soil,3,30
+235,ph,3.329716766200141,TRUE,FALSE,top,TFCN_209-6-1,"209-6-1
+ BY42-F9",Rhodotorula mucilaginosa,China,marsh_tidalflat,3,30
+236,ph,3.1566824185498983,FALSE,FALSE,NA,TFCN_209-6-12,"209-6-12
+ BY43-H1",Rhodotorula mucilaginosa,China,NA,3,30
+237,ph,3.1183354907754772,FALSE,FALSE,NA,DBVPG_3237,3237,Rhodotorula mucilaginosa,Italy,food,3,30
+238,ph,2.8407305254133615,FALSE,FALSE,NA,DBVPG_3443,3443,Rhodotorula mucilaginosa,Italy,food,3,30
+239,ph,3.7173149913453156,TRUE,FALSE,top,DBVPG_3774,3774,Rhodotorula mucilaginosa,Italy,food,3,30
+240,ph,2.515420466266336,FALSE,TRUE,bottom,DBVPG_3858,3858,Rhodotorula mucilaginosa,Italy,insect,3,30
+241,ph,3.469656052595619,TRUE,FALSE,top,DBVPG_4377,4377,Rhodotorula mucilaginosa,Italy,marine,3,30
+242,ph,2.9431572190698825,FALSE,FALSE,NA,DBVPG_4610,4610,Rhodotorula paludigena,Italy,plant,3,30
+243,ph,3.5074934654055063,TRUE,FALSE,top,DBVPG_4950,4950,Rhodotorula mucilaginosa,Italy,soil,3,30
+244,ph,3.70461724551436,TRUE,FALSE,top,DBVPG_4952,4952,Rhodotorula mucilaginosa,Italy,soil,3,30
+245,ph,3.6156366172608,TRUE,FALSE,top,DBVPG_5227,5227,Rhodotorula mucilaginosa,Italy,soil,3,30
+246,ph,3.162855671701603,FALSE,FALSE,NA,DBVPG_6091,6091,Rhodotorula mucilaginosa,Italy,insect,3,30
+247,ph,3.2613539470775166,FALSE,FALSE,NA,DBVPG_6739,6739,Rhodotorula toruloides,Italy,soil,3,30
+248,ph,3.456894227115316,TRUE,FALSE,top,DBVPG_7947,7947,Rhodotorula sp. clade XIII,Italy,soil,3,30
+249,ph,3.230333499951671,FALSE,FALSE,NA,DBVPG_3236,3236,Rhodotorula mucilaginosa,Italy,food,3,30
+250,ph,3.0729350947293024,FALSE,FALSE,NA,DBVPG_7316,7316,Rhodotorula paludigena,Italy,marsh_tidalflat,3,30
+253,ph,3.1088378656805706,FALSE,FALSE,NA,DBVPG_4956,4956,Rhodotorula mucilaginosa,Italy,soil,3,30
+254,ph,2.9652400754698487,FALSE,FALSE,NA,DBVPG_5228,5228,Rhodotorula mucilaginosa,Italy,soil,3,30
+255,ph,3.037865780212949,FALSE,FALSE,NA,DBVPG_6093,6093,Rhodotorula mucilaginosa,Italy,unknown,3,30
+256,ph,3.1159040053949734,FALSE,FALSE,NA,DBVPG_6742,6742,Rhodotorula mucilaginosa,Italy,unknown,3,30
+257,ph,3.3710005988764715,TRUE,FALSE,top,DBVPG_8043,8043,Rhodotorula mucilaginosa,Italy,water,3,30
+258,ph,3.2441417793096403,FALSE,FALSE,NA,DBVPG_3445,3445,Rhodotorula mucilaginosa,Italy,food,3,30
+261,ph,3.0236483682114956,FALSE,FALSE,NA,TF_CN_86C_3,"86C-3
+ BY33-D3",Rhodotorula sphaerocarpa,China,NA,4,30
+262,ph,2.938753062144752,FALSE,FALSE,NA,DBVPG_4957,4957,Rhodotorula mucilaginosa,Italy,soil,4,30
+263,ph,2.5270217275256988,FALSE,TRUE,bottom,DBVPG_5229,5229,Rhodotorula mucilaginosa,Italy,soil,4,30
+264,ph,2.7291258428062686,FALSE,TRUE,bottom,DBVPG_6094,6094,Rhodotorula mucilaginosa,Italy,unknown,4,30
+265,ph,2.658200728977098,FALSE,TRUE,bottom,DBVPG_6743,6743,Rhodotorula mucilaginosa,Italy,soil,4,30
+266,ph,2.9864087348314845,FALSE,FALSE,NA,DBVPG_8058,8058,Rhodotorula sp. clade I,Italy,food,4,30
+267,ph,3.0815849189326183,FALSE,FALSE,NA,DBVPG_3446,3446,Rhodotorula mucilaginosa,Italy,food,4,30
+268,ph,2.7579889802956483,FALSE,TRUE,bottom,DBVPG_10842,10842,Rhodotorula mucilaginosa,Italy,snow_ice,4,30
+270,ph,1.1924584718346425,FALSE,TRUE,bottom,TF_CN_7_6_3,7-6-2003,Rhodotorula diobovata,China,NA,4,30
+271,ph,3.0041383250203637,FALSE,FALSE,NA,DBVPG_4958,4958,Rhodotorula mucilaginosa,Italy,soil,4,30
+272,ph,2.7997887472445404,FALSE,TRUE,bottom,DBVPG_5235,5235,Rhodotorula mucilaginosa,Italy,soil,4,30
+273,ph,2.4941134648260297,FALSE,TRUE,bottom,DBVPG_6121,6121,Rhodotorula toruloides,Italy,air_cloud,4,30
+274,ph,2.7099944873807686,FALSE,TRUE,bottom,DBVPG_6803,6803,Rhodotorula mucilaginosa,Italy,soil,4,30
+275,ph,2.4541291591188106,FALSE,TRUE,bottom,DBVPG_10075,10075,Cystobasidium sp.,Italy,soil,4,30
+276,ph,2.63081087145612,FALSE,TRUE,bottom,DBVPG_3778,3778,Rhodotorula mucilaginosa,Italy,soil,4,30
+277,ph,1.4571453386345552,FALSE,TRUE,bottom,DBVPG_10882,10882,Rhodotorula mucilaginosa,Italy,rock,4,30
+278,ph,2.497673799588414,FALSE,TRUE,bottom,TFCN_86A_5,"86A-5
+ BY34-I6",Rhodotorula sphaerocarpa,China,NA,4,30
+279,ph,3.5843992898662265,TRUE,FALSE,top,TF_CN_186CL4_2,"186CL④-2
+ BY39-C9",Rhodotorula mucilaginosa,China,NA,4,30
+280,ph,2.698999686053889,FALSE,TRUE,bottom,DBVPG_4962,4962,Rhodotorula mucilaginosa,Italy,soil,4,30
+281,ph,2.3547170925734395,FALSE,TRUE,bottom,DBVPG_5236,5236,Rhodotorula mucilaginosa,Italy,soil,4,30
+282,ph,1.595706991580733,FALSE,TRUE,bottom,DBVPG_6195,6195,Rhodotorula diobovata,Italy,marine,4,30
+283,ph,2.430360637202907,FALSE,TRUE,bottom,DBVPG_7019,7019,Rhodotorula mucilaginosa,Italy,unknown,4,30
+284,ph,2.0754773386571124,FALSE,TRUE,bottom,DBVPG_10753,10753,Rhodotorula kratochvilovae,Italy,built env,4,30
+285,ph,2.458669494670863,FALSE,TRUE,bottom,DBVPG_3780,3780,Rhodotorula mucilaginosa,Italy,soil,4,30
+286,ph,1.916198666478472,FALSE,TRUE,bottom,DBVPG_10886,10886,Rhodotorula mucilaginosa,Italy,rock,4,30
+287,ph,0.9969638288902376,FALSE,TRUE,bottom,TFCN_152A_3,"152A-3
+ BY32-A2",Rhodotorula toruloides,China,NA,4,30
+288,ph,1.8800481363101937,FALSE,TRUE,bottom,TFCN_1A_1_5,1A-1-5,Rhodotorula pacifica,China,NA,4,30
+289,ph,3.043568635177115,FALSE,FALSE,NA,DBVPG_4963,4963,Rhodotorula mucilaginosa,Italy,soil,4,30
+290,ph,2.6848537756221136,FALSE,TRUE,bottom,DBVPG_5757,5757,Rhodotorula mucilaginosa,Italy,soil,4,30
+291,ph,0.8566089564869124,FALSE,TRUE,bottom,DBVPG_6202,6202,Rhodotorula diobovata,Italy,marine,4,30
+292,ph,2.5392680487998405,FALSE,TRUE,bottom,DBVPG_7021,7021,Rhodotorula graminis,Italy,plant,4,30
+293,ph,2.714982798658997,FALSE,TRUE,bottom,DBVPG_10780,10780,Rhodotorula mucilaginosa,Italy,snow_ice,4,30
+294,ph,1.116102498018511,FALSE,TRUE,bottom,DBVPG_6083,6083,Rhodotorula graminis,Italy,plant,4,30
+295,ph,2.6843488349897404,FALSE,TRUE,bottom,DBVPG_10937,DBVPG 10937,Rhodotorula mucilaginosa,Italy,food,4,30
+296,ph,2.4514964706921543,FALSE,TRUE,bottom,TFCN_2M_1_3,"2M-1-3
+ BY8-A3",Rhodotorula mucilaginosa,China,NA,4,30
+297,ph,-0.44010058487227566,FALSE,TRUE,bottom,TFCN_211C_2,"211C-2
+ BY37-F3",Rhodotorula diobovata,China,NA,4,30
+298,ph,2.872801346213302,FALSE,FALSE,NA,DBVPG_4964,4964,Rhodotorula mucilaginosa,Italy,soil,4,30
+299,ph,2.813475796779787,FALSE,TRUE,bottom,DBVPG_5758,5758,Rhodotorula mucilaginosa,Italy,soil,4,30
+300,ph,2.7567262659274325,FALSE,TRUE,bottom,DBVPG_6593,6593,Rhodotorula mucilaginosa,Italy,unknown,4,30
+301,ph,1.6222436162254283,FALSE,TRUE,bottom,DBVPG_7323,7323,Rhodotorula paludigena,Italy,marsh_tidalflat,4,30
+302,ph,3.4264749691817613,TRUE,FALSE,top,DBVPG_10348,10348,Rhodotorula sp. clade XI,Italy,soil,4,30
+303,ph,2.3238316493113254,FALSE,TRUE,bottom,DBVPG_6092,6092,Rhodotorula mucilaginosa,Italy,unknown,4,30
+304,ph,3.2413317348953434,FALSE,FALSE,NA,TFCN_17_332M_1,17-333M-1,Rhodotorula mucilaginosa,China,NA,4,30
+305,ph,1.541537515787173,FALSE,TRUE,bottom,TFCN_17-325P-1,25-325P-1,Rhodotorula mucilaginosa,NA,NA,4,30
+307,ph,2.8348605240292724,FALSE,TRUE,bottom,DBVPG_5225,5225,Rhodotorula mucilaginosa,Italy,soil,4,30
+308,ph,2.7772678551438625,FALSE,TRUE,bottom,DBVPG_5759,5759,Rhodotorula mucilaginosa,Italy,soil,4,30
+309,ph,2.812343204598311,FALSE,TRUE,bottom,DBVPG_6649,6649,Rhodotorula mucilaginosa,Italy,plant,4,30
+310,ph,2.2021302345040583,FALSE,TRUE,bottom,DBVPG_7539,7539,Rhodotorula kratochvilovae,Italy,unknown,4,30
+311,ph,2.013866209855968,FALSE,TRUE,bottom,DBVPG_10383,10383,Rhodotorula kratochvilovae,Italy,soil,4,30
+312,ph,2.570560349541111,FALSE,TRUE,bottom,DBVPG_6740,6740,Pseudomicrostroma phylloplanum,Italy,plant,4,30
+313,ph,2.8107317633539317,FALSE,TRUE,bottom,DBVPG_5226,5226,Rhodotorula mucilaginosa,Italy,soil,4,30
+314,ph,1.5933289526281043,FALSE,TRUE,bottom,DBVPG_6081,6081,Rhodotorula glutinis,Italy,air_cloud,4,30
+315,ph,2.8788855998130694,FALSE,FALSE,NA,DBVPG_6660,6660,Rhodotorula mucilaginosa,Italy,food,4,30
+316,ph,0.05634618135933977,FALSE,TRUE,bottom,DBVPG_7922,7922,Rhodotorula evergladensis,Italy,soil,4,30
+317,ph,2.9557187346211746,FALSE,FALSE,NA,DBVPG_10619,10619,Rhodotorula mucilaginosa,Italy,plant,4,30
+318,ph,2.6378449649319164,FALSE,TRUE,bottom,DBVPG_6741,6741,Rhodotorula mucilaginosa,Italy,soil,4,30
+320,ph,-0.4218057607680046,FALSE,TRUE,bottom,NRRL_Y-2474,Y2474,Rhodotorula graminis,America,plant,4,30
+321,ph,2.743842371736262,FALSE,TRUE,bottom,NRRL_Y-2504,Y2504,Rhodotorula dairenensis,America,soil,4,30
+322,ph,1.9593270400093614,FALSE,TRUE,bottom,NRRL_Y-2510,Y2510,Rhodotorula mucilaginosa,America,unknown,4,30
+323,ph,1.514554505900489,FALSE,TRUE,bottom,NRRL_Y-7192,Y7192,Rhodotorula sphaerocarpa,America,unknown,4,30
+324,ph,0.05754906957263978,FALSE,TRUE,bottom,NRRL_Y-7196,Y7196,Rhodotorula diobovata,America,unknown,4,30
+325,ph,3.210582267355827,FALSE,FALSE,NA,NRRL_Y-12923,Y12923,Rhodotorula paludigena,America,plant,4,30
+326,ph,1.6639476419712151,FALSE,TRUE,bottom,NRRL_Y-17376,Y17376,Rhodotorula araucariae,America,plant,4,30
+334,ph,2.9313565462692948,FALSE,FALSE,NA,JES-025-001,JES-025-001,Rhodotorula mucilaginosa,America,NA,4,30
