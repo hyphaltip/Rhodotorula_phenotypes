@@ -1,0 +1,7 @@
+trait,panel,top_snp,population,n_raw,n_effective,beta,se,p,tested,reason
+cu_doseauc_v0151,gwas,scaffold_8:698507:T:C,1,75,75,,,,False,n_effective allele classes too small (75/0)
+cu_doseauc_v0151,gwas,scaffold_8:698507:T:C,2,12,12,,,,False,n_effective allele classes too small (12/0)
+cu_doseauc_v0151,gwas,scaffold_8:698507:T:C,3,11,11,,,,False,n_effective allele classes too small (11/0)
+cu_doseauc_v0151,gwas,scaffold_8:698507:T:C,4,37,37,,,,False,n_effective allele classes too small (37/0)
+cu_doseauc_v0151,gwas,scaffold_8:698507:T:C,5,16,16,,,,False,n_effective allele classes too small (16/0)
+cu_doseauc_v0151,gwas,scaffold_8:698507:T:C,6,20,20,,,,False,n_effective allele classes too small (20/0)

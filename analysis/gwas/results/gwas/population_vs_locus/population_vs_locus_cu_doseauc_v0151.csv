@@ -1,0 +1,6 @@
+trait,panel,top_snp,meta_beta,meta_se,meta_p,n_pops_tested,n_directionally_consistent,cochran_q,i_squared,partial_r2,partial_p,cov_n,fst_proxy,maf,null_n_matched,null_percentile,meta_p_fdr,meta_fdr_sig,verdict
+cu_doseauc_v0151,gwas,scaffold_9:704260:C:T,,,,0,0,,,0.0001263090104741,0.8857284833103034,171,0.2290306122448979,0.0248756218905472,1863,0.0,,False,likely_population_artifact
+cu_doseauc_v0151,gwas,scaffold_16:455499:C:T,,,,1,0,,,0.0710855340331706,0.0005161081343658,171,0.8386363579854159,0.3681592039800995,1894,0.0,,False,likely_population_artifact
+cu_doseauc_v0151,gwas,scaffold_8:698507:T:C,,,,0,0,,,1.6096287037705168e-16,,171,0.136030303030303,0.0149253731343283,1420,0.0007042253521126,,False,likely_population_artifact
+cu_doseauc_v0151,gwas,scaffold_2:515984:G:A,,,,1,0,,,0.0023335207751278,0.5365462694118542,171,0.2724094017094016,0.0298507462686567,1868,0.0005353319057815,,False,likely_population_artifact
+cu_doseauc_v0151,gwas,scaffold_2:1560553:T:A,,,,0,0,,,0.1207194713130617,4.509052202278946e-06,171,0.1235877874785899,0.0251256281407035,1873,0.0005339028296849,,False,likely_population_artifact

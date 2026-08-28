@@ -181,3 +181,27 @@ Caveat (same shape as the sat-locus caveat above, different mechanism): **none o
 GWAS hit as real. Wiring `cu_doseauc_v0151` into that pipeline (currently built around
 the original 12-trait run's file layout) is the explicit next step -- see
 `analysis/gwas/GWAS.md` §18.
+
+## 2026-08-27 — UPDATE: cu_doseauc_v0151's 5 candidate loci all fail population-vs-locus validation (likely_population_artifact)
+
+Follow-up to the entry above. Ran all 5 FDR-sig loci through the population-vs-locus
+disambiguation battery (D-25). **All 5 verdict `likely_population_artifact`** — including
+the headline `scaffold_9:704260` hit (p=5.9e-14). Two distinct, verified (not
+script-bug) mechanisms:
+
+1. `scaffold_9:704260`, `scaffold_8:698507`, `scaffold_2:515984`, `scaffold_2:1560553`
+   (all rare, af 0.015-0.030) are essentially private to 0-1 of the 6 populations --
+   structurally too rare to ever reach the required ≥2-independent-populations bar,
+   regardless of true effect size.
+2. `scaffold_16:455499` (common, af=0.611) fails for the opposite reason: fst_proxy=0.84,
+   near-complete population fixation (5 of 6 populations are >90% one allele) leaves
+   only 1 testable population. This is the same recurring scaffold_16 copper-response
+   region flagged throughout this project's copper traits -- now tested twice
+   (`AUC_20` -> `ambiguous_underpowered`; `cu_doseauc_v0151` -> `likely_population_artifact`)
+   and still not confirmed as a real locus independent of population structure.
+
+**Revises the interpretation above**: none of cu_doseauc_v0151's candidate loci should
+be cited as real findings. The takeaway is not "this trait found nothing" but "this
+trait's cleaner signal-to-noise made population-private and population-fixed variants
+pop out as GWAS hits more clearly than the noisier existing traits did" -- exactly the
+false-positive pattern the disambiguation battery exists to catch, working as intended.

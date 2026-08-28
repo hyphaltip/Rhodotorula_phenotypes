@@ -1,0 +1,2 @@
+trait,panel,top_snp,meta_beta,meta_se,meta_p,n_pops_tested,n_directionally_consistent,cochran_q,i_squared,partial_r2,partial_p,cov_n,fst_proxy,maf,null_n_matched,null_percentile,meta_p_fdr,meta_fdr_sig,verdict
+cu_doseauc_v0151,gwas,scaffold_9:704260:C:T,,,,0,0,,,0.00012630901047417316,0.8857284833103034,171,0.22903061224489799,0.024875621890547265,1863,0.0,,False,likely_population_artifact

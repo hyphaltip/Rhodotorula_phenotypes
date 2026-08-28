@@ -766,16 +766,44 @@ FDR<0.05** (`scripts/summarize_cu_doseauc_v0151_gemma.py`,
 | `scaffold_8:698507` | 3.8e-8 | 2.2e-4 | `OM429_003966` (998bp, `RKI1`) | novel, single SNP |
 | `scaffold_2:515984` & `scaffold_2:1560553` | 2.1-2.7e-6 | 6.6e-3 | none within 2kb (both) | novel; both rare (af 0.029-0.033) — rare-variant/population-tag hits are exactly the pattern D-17/D-18's disambiguation battery exists to screen |
 
-**Not yet done — population-structure validation.** None of these hits (including the
-scaffold_16 region, despite its history) has been run through the
-population-vs-locus disambiguation battery (`scripts/check_population_vs_locus.py`,
-§13) that this project requires before treating a single-SNP hit as real rather than a
-population-stratification artifact. That script's current CLI expects the full upstream
-`check_population_confounding.py` flagged-hit list and per-panel `assoc.csv.gz`/`fdr05.csv`
-layout used by the original 12-trait Tier A run; wiring `cu_doseauc_v0151` into that
-pipeline (rather than re-deriving an ad hoc equivalent) is the natural next step before
-citing any of these loci, especially the two rare scaffold_2 SNPs. Do not add
-`cu_doseauc_v0151` hits to the MAS-usability gate list (§14) until that's done.
+**Population-structure validation (added 2026-08-27, D-25): all 5 loci come back
+`likely_population_artifact`.** Wired `cu_doseauc_v0151` into the population-vs-locus
+disambiguation battery (§13) via a new driver, `scripts/run_population_vs_locus_cu_v0151.sh`
+(the existing `check_population_vs_locus.py` expects one top SNP per trait and writes a
+fixed-name per-population detail file, so the driver runs it once per locus — 5 SNPs,
+since `scaffold_2` has two independent hits ~1Mb apart — and merges the results). Built
+the matching `assoc_csv/gwas_cu_doseauc_v0151_assoc.csv.gz` and `fdr/gwas_cu_doseauc_v0151_fdr05.csv`
+inputs the battery expects.
+
+| locus | n populations testable | verdict | why |
+|---|---|---|---|
+| `scaffold_9:704260` (af=0.025) | 0/6 | `likely_population_artifact` | alt allele carried by essentially no strains within any single population (max 1 alt carrier, in pop 3) — too rare to test within any population |
+| `scaffold_16:455499` (af=0.611, fst_proxy=0.84) | 1/6 (pop 3 only, p=0.042) | `likely_population_artifact` | **near-complete population fixation**: pop 1 is 0/75 alt, pop 4 is 37/0 alt, pop 5 is 16/0 alt, pops 2/6 are >90% one allele — only pop 3 (11 strains) retains enough within-population variance to test at all, so directional replication (requires ≥2 independent populations) is structurally impossible here |
+| `scaffold_8:698507` (af=0.015) | 0/6 | `likely_population_artifact` | same too-rare-to-test pattern as scaffold_9 |
+| `scaffold_2:515984` (af=0.030) | 1/6 (pop 5, p=0.74, n.s.) | `likely_population_artifact` | rare, only 1 testable population and not even nominally significant there |
+| `scaffold_2:1560553` (af=0.025) | 0/6 | `likely_population_artifact` | same too-rare-to-test pattern |
+
+**Interpretation**: this is a genuine, informative negative result, not a tooling
+failure — verified via each locus's `within_pop_cu_doseauc_v0151_locus*_gwas.csv` detail
+file that the `likely_population_artifact` calls trace to real allele-count patterns
+(e.g. `scaffold_16:455499`'s extreme per-population fixation, `scaffold_9:704260`'s
+near-total rarity), not a script bug. Two distinct failure modes, both fatal under this
+project's strict verdict rule (§13: directional consistency across ≥2 independent
+populations is a hard requirement for `likely_real`): the 4 rare SNPs (af 0.015-0.030)
+are essentially private to 0-1 populations, so within-population replication is
+structurally impossible regardless of true effect; `scaffold_16:455499` is common
+overall but so population-differentiated (fst_proxy=0.84, vs. 0.14-0.27 for the rare
+hits) that it fails for the opposite reason — it *is* population membership, for
+practical purposes, in 5 of 6 populations. Combined with the region's earlier
+`ambiguous_underpowered` result via `AUC_20`, the recurring scaffold_16 copper signal
+across nearly every trait in this project is now twice-tested and still not confirmed
+as a real single-locus effect independent of population structure.
+
+**None of `cu_doseauc_v0151`'s 5 candidate loci should be cited as validated findings.**
+Not added to the MAS-usability gate list (§14). Full results:
+`results/gwas/population_vs_locus/population_vs_locus_cu_doseauc_v0151.csv`, per-locus
+detail in `within_pop_cu_doseauc_v0151_locus{1-5}_gwas.csv` (locus order: scaffold_9,
+scaffold_16, scaffold_8, scaffold_2:515984, scaffold_2:1560553).
 
 ## Next steps (not done this session)
 
@@ -793,7 +821,11 @@ citing any of these loci, especially the two rare scaffold_2 SNPs. Do not add
 - Tier D/E/G (gene annotation, fine-mapping, prior-locus replication) — not started this
   session; natural next step, focused on the resilience_30/AUC_30 scaffold_13:810026
   anchor given how robustly it's replicated across every check run so far.
-- (2026-08-27) Run `cu_doseauc_v0151`'s 4 FDR-significant loci (§18) through the
-  population-vs-locus disambiguation battery (§13) before treating any as real —
-  `scaffold_9:704260` is the priority given it's the single strongest hit in the scan and
-  was never previously flagged for testing.
+- (2026-08-27, done — see §18) Ran `cu_doseauc_v0151`'s 5 FDR-significant loci through
+  the population-vs-locus disambiguation battery: all 5 came back
+  `likely_population_artifact` (4 too rare to test within any population; `scaffold_16`
+  too population-fixed, fst_proxy=0.84). None citeable as real findings. Open follow-up:
+  the underlying cause of `scaffold_16`'s extreme population fixation (local adaptation?
+  a genotyping/reference-panel artifact specific to that region?) is still unexplained —
+  the same open question this locus has carried since its first `ambiguous_underpowered`
+  result via `AUC_20`.
