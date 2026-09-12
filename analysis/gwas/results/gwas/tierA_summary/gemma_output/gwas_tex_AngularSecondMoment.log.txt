@@ -1,0 +1,37 @@
+##
+## GEMMA Version    = 0.98.3 (2020-11-28)
+## Build profile    = 
+## GCC version      = 7.5.0
+## GSL Version      = 1.16
+## OpenBlas         = OpenBLAS 0.3.12  - OpenBLAS 0.3.25 DYNAMIC_ARCH NO_AFFINITY Zen MAX_THREADS=128
+##   arch           = Zen
+##   threads        = 2
+##   parallel type  = threaded
+##
+## Command Line Input = /bigdata/stajichlab/shared/projects/Population_Genomics/Rhodotorula_mucilaginosa_NRRLY2510/GWAS/vc2gwas_env/bin/gemma -bfile /scratch/jstajich/28311124/gwas_tiera_texture/gwas_tex_AngularSecondMoment/g -k analysis/gwas/results/gwas/grm_conditioning/rebuilt_kinship/kins.cXX.txt -lmm 4 -o gwas_tex_AngularSecondMoment -outdir analysis/gwas/results/gwas/tierA_summary/gemma_output 
+##
+## Date = Sat Sep 12 00:28:25 2026
+##
+## Summary Statistics:
+## number of total individuals = 213
+## number of analyzed individuals = 212
+## number of covariates = 1
+## number of phenotypes = 1
+## number of total SNPs/var = 498484
+## number of analyzed SNPs/var = 496358
+## REMLE log-likelihood in the null model = 508.169
+## MLE log-likelihood in the null model = 511.079
+## pve estimate in the null model = 3.0029e-06
+## se(pve) in the null model = 0.0457479
+## vg estimate in the null model = 4.73836e-09
+## ve estimate in the null model = 0.000473836
+## beta estimate in the null model =   0.144245
+## se(beta) =   0.00149502
+##
+## Computation Time:
+## total computation time = 2.72138 min 
+## computation time break down: 
+##      time on eigen-decomposition = 0.00025165 min 
+##      time on calculating UtX = 0.169818 min 
+##      time on optimization = 2.35412 min 
+##

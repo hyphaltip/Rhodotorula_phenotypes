@@ -1,0 +1,53 @@
+=== Tier A [gwas]: tex_AngularSecondMoment ===
+  [gwas] tex_AngularSecondMoment: 212/213 with phenotype, 1 NA
+=== Tier A [gwas]: tex_Contrast ===
+  [gwas] tex_Contrast: 212/213 with phenotype, 1 NA
+=== Tier A [gwas]: tex_Correlation ===
+  [gwas] tex_Correlation: 212/213 with phenotype, 1 NA
+=== Tier A [gwas]: tex_HaralickVariance ===
+  [gwas] tex_HaralickVariance: 212/213 with phenotype, 1 NA
+=== Tier A [gwas]: tex_InverseDifferenceMoment ===
+  [gwas] tex_InverseDifferenceMoment: 212/213 with phenotype, 1 NA
+=== Tier A [gwas]: tex_SumAverage ===
+  [gwas] tex_SumAverage: 212/213 with phenotype, 1 NA
+=== Tier A [gwas]: tex_SumVariance ===
+  [gwas] tex_SumVariance: 212/213 with phenotype, 1 NA
+=== Tier A [gwas]: tex_SumEntropy ===
+  [gwas] tex_SumEntropy: 212/213 with phenotype, 1 NA
+=== Tier A [gwas]: tex_Entropy ===
+  [gwas] tex_Entropy: 212/213 with phenotype, 1 NA
+=== Tier A [gwas]: tex_DiffVariance ===
+  [gwas] tex_DiffVariance: 212/213 with phenotype, 1 NA
+=== Tier A [gwas]: tex_DiffEntropy ===
+  [gwas] tex_DiffEntropy: 212/213 with phenotype, 1 NA
+=== Tier A [gwas]: tex_InfoCorrelation1 ===
+  [gwas] tex_InfoCorrelation1: 212/213 with phenotype, 1 NA
+=== Tier A [gwas]: tex_InfoCorrelation2 ===
+  [gwas] tex_InfoCorrelation2: 212/213 with phenotype, 1 NA
+=== Tier A [gwasc]: tex_AngularSecondMoment ===
+  [gwasc] tex_AngularSecondMoment: 181/182 with phenotype, 1 NA
+=== Tier A [gwasc]: tex_Contrast ===
+  [gwasc] tex_Contrast: 181/182 with phenotype, 1 NA
+=== Tier A [gwasc]: tex_Correlation ===
+  [gwasc] tex_Correlation: 181/182 with phenotype, 1 NA
+=== Tier A [gwasc]: tex_HaralickVariance ===
+  [gwasc] tex_HaralickVariance: 181/182 with phenotype, 1 NA
+=== Tier A [gwasc]: tex_InverseDifferenceMoment ===
+  [gwasc] tex_InverseDifferenceMoment: 181/182 with phenotype, 1 NA
+=== Tier A [gwasc]: tex_SumAverage ===
+  [gwasc] tex_SumAverage: 181/182 with phenotype, 1 NA
+=== Tier A [gwasc]: tex_SumVariance ===
+  [gwasc] tex_SumVariance: 181/182 with phenotype, 1 NA
+=== Tier A [gwasc]: tex_SumEntropy ===
+  [gwasc] tex_SumEntropy: 181/182 with phenotype, 1 NA
+=== Tier A [gwasc]: tex_Entropy ===
+  [gwasc] tex_Entropy: 181/182 with phenotype, 1 NA
+=== Tier A [gwasc]: tex_DiffVariance ===
+  [gwasc] tex_DiffVariance: 181/182 with phenotype, 1 NA
+=== Tier A [gwasc]: tex_DiffEntropy ===
+  [gwasc] tex_DiffEntropy: 181/182 with phenotype, 1 NA
+=== Tier A [gwasc]: tex_InfoCorrelation1 ===
+  [gwasc] tex_InfoCorrelation1: 181/182 with phenotype, 1 NA
+=== Tier A [gwasc]: tex_InfoCorrelation2 ===
+  [gwasc] tex_InfoCorrelation2: 181/182 with phenotype, 1 NA
+Texture Tier A scan complete: 13 traits x 2 panels.

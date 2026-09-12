@@ -14,6 +14,18 @@ Produced (per 09-NEXT-GWAS-DESIGN.md S6):
   B. Colony size growth rate    : late-window median area (clone-mean over plates)
   C. Copper-response block      : AUC per dose, dose-slope, IC50_est, AUC_ratio,
                                   AUC(30)/AUC(0) resilience  (multi-trait Fisher/TATES target)
+  D. Control colony texture     : 13 raw TextureGray_*-avg-scale05 Haralick metrics
+                                  (control Cu=0, same late window, clone-mean over
+                                  plates) -- added 2026-09-11 to test a PI hypothesis
+                                  from the sibling Rhodotorula_Metabolites project
+                                  (AHL autoinducer production vs. colony morphology,
+                                  smooth/rough as a likely proxy for capsule
+                                  production). Same TextureGray columns already exist
+                                  in this project's own db_extract (from the Copper
+                                  screen's own imaging pipeline) -- no new data
+                                  ingestion needed; tested as 13 separate raw traits
+                                  rather than a composite so a real signal on one
+                                  metric isn't diluted by summing in others with none.
 
 Expected use: `pixi run python analysis/gwas/scripts/build_gwas_phenotypes.py`.
 """
@@ -59,6 +71,16 @@ def main() -> None:
     d["lab_L"] = d["ColorLab_L*Median"].astype(float)
     d["lab_a"] = d["ColorLab_a*Median"].astype(float)
     d["lab_b"] = d["ColorLab_b*Median"].astype(float)
+    # Raw Haralick/GLCM texture metrics (control condition) -- added 2026-09-11,
+    # see module docstring Part D.
+    TEXTURE_METRICS = [
+        "AngularSecondMoment", "Contrast", "Correlation", "HaralickVariance",
+        "InverseDifferenceMoment", "SumAverage", "SumVariance", "SumEntropy",
+        "Entropy", "DiffVariance", "DiffEntropy", "InfoCorrelation1", "InfoCorrelation2",
+    ]
+    TEXTURE_COLS = {m: f"tex_{m}" for m in TEXTURE_METRICS}
+    for m, col in TEXTURE_COLS.items():
+        d[col] = d[f"TextureGray_{m}-avg-scale05"].astype(float)
     d["tp_h"] = d["tp_h"].astype(float)
     d["cu"] = d["copper_mm"].astype(float)
     d["pid"] = (d.run_number.astype(str) + "_" + d.plate_number.astype(str)
@@ -92,6 +114,20 @@ def main() -> None:
     color = plate_mean[["strain_code", "chroma", "sat", "bright", "clone_mean_area",
                          "lab_L", "lab_a", "lab_b", "n_plate"]].copy()
     print("   color traits ready, strains=", len(color))
+
+    # ---------------- D. Control colony texture (clone-mean over plates) -------
+    print("[gwas_pheno] D. control colony texture (Cu=0, late window, clone-mean over plates) ...")
+    tex_cols = list(TEXTURE_COLS.values())
+    plate_t = (a.groupby(["strain_code", "run_number", "plate_number"])
+                 .agg(**{c: (c, "median") for c in tex_cols})
+                 .reset_index())
+    plate_t = plate_t[plate_t[tex_cols[0]].notna()]
+    nplate_t = plate_t.groupby("strain_code").size()
+    texture = (plate_t.groupby("strain_code")
+                       .agg(**{c: (c, "mean") for c in tex_cols})
+                       .reset_index())
+    texture["n_plate_tex"] = texture.strain_code.map(nplate_t)
+    print("   texture traits ready, strains=", len(texture))
 
     # ---------------- C. Copper-response block ---------------------------------
     print("[gwas_pheno] C. copper-response block (dose-response per strain) ...")
@@ -158,6 +194,7 @@ def main() -> None:
 
     # ---------------- Merge all and emit ---------------------------------------
     out = color.merge(cu_resp, on="strain_code", how="outer")
+    out = out.merge(texture, on="strain_code", how="outer")
     out.to_csv(CM.RESULTS / "gwas_next_phenotypes.csv", index=False)
 
     # ---------------- Align to GEMMA .fam order --------------------------------

@@ -1,0 +1,2 @@
+chr,rs,ps,n_miss,allele1,allele0,af,beta,se,logl_H1,l_remle,l_mle,p_wald,p_lrt,p_score
+2,scaffold_2:1560596:T:C,1560596,0,C,T,0.014,-0.002077382,0.0003647888,1137.761,0.4669372,0.4605404,4.132009e-08,3.695829e-08,2.880817e-07

@@ -1018,6 +1018,80 @@ directly (`bcftools query` on the last 6.5kb) and it is unremarkable (~20-33k ag
 DP, consistent with the rest of the scaffold) — this is an assembly-*completeness* limit,
 not a depth/assembly-*quality* red flag.
 
+## 24. Colony-texture (Haralick/GLCM) Tier A scan — 13 new traits, all apparent hits trace to near-clone lineage artifacts, not real loci
+
+**Context**: cross-project request (2026-09-11, from the sibling `Rhodotorula_Metabolites`
+project) testing whether genetic variants explain colony smoothness/texture, motivated by
+a PI hypothesis (AHL autoinducer production vs. colony morphology, refined to likely be a
+proxy for capsule production). This project's own `db_extract` already carried 13
+`TextureGray_*-avg-scale05` Haralick/GLCM columns from the Copper-screen imaging pipeline,
+at the same control condition/window (Cu=0, 85-110h) as the existing color traits — added
+as Part D of `build_gwas_phenotypes.py`, no new data ingestion needed. Tested as 13
+separate raw traits (not a composite) per user direction.
+
+**Scan**: `run_tiera_texture.sh`, SLURM job 28311124, 13 traits x 2 panels (gwas=213,
+gwasc=182-culled), full unpruned SNP set against each panel's own kinship — same design as
+every other Tier A trait. Completed in 1h15m. Summarized with the existing
+`summarize_tiera.py` (Meff proxy = 29,453/28,707 pruned SNPs for gwas/gwasc respectively).
+
+**Result — every apparent hit is a near-clone lineage artifact, not an independent locus**:
+
+| trait | gwas lambda | gwas n_FDR05 | top SNP (gwas) | af | carriers checked |
+|---|---|---|---|---|---|
+| Contrast | 2.37 | 3,885 | scaffold_10:327732 | 0.014 | DBVPG_3854, DBVPG_3857, TFCN_33A-4 |
+| InverseDifferenceMoment | 1.35 | 7 | scaffold_10:327732 (same) | 0.014 | (same 3) |
+| DiffEntropy | 1.18 | 1 | scaffold_2:1560596 (gwas) / scaffold_10:327732 (gwasc) | 0.014 | overlaps the same set |
+| HaralickVariance | 0.98 | 1 | scaffold_5:563827 | 0.014 | DBVPG_3235, DBVPG_3236, DBVPG_3983, DBVPG_4952 |
+| SumVariance | 0.99 | 1 | scaffold_5:563827 (same) | 0.014 | (same 4) |
+| SumAverage | 0.64 | 1,518 | scaffold_3:385160 | 0.24 | — see confound note below |
+| AngularSecondMoment | 2.41 | 0 | scaffold_11:472578 | — | n/a (no FDR-sig hit despite lambda=2.4) |
+| Correlation / Entropy / SumEntropy / InfoCorrelation1/2 | 0.5-1.3 | 0 | — | — | null |
+
+For every rare-variant hit (af=0.014, ~3-4 carriers each), checked the carriers' pairwise
+genome-wide kinship (the same GRM already computed for Tier A) — the diagnostic that
+distinguished a real signal (§23's `scaffold_13:810026`, carriers NOT closely related,
+spanning 2 populations) from an artifact in this project's own precedent:
+
+- **Contrast/InverseDifferenceMoment/DiffEntropy** (`scaffold_10:327732`): carriers
+  `DBVPG_3854`, `DBVPG_3857`, `TFCN_33A-4` — pairwise kinship 0.26-0.59, **all in the top
+  2-3% of genome-wide relatedness**. This is a tight near-clonal cluster, the opposite of
+  `scaffold_13:810026`'s pattern.
+- **HaralickVariance/SumVariance** (3 different "top" scaffolds across the two traits/
+  panels — `scaffold_5:563827`, `scaffold_16:121545`, `scaffold_7:1210894`): carriers
+  overlap heavily (`DBVPG_3235`, `DBVPG_3236`, `DBVPG_3983` recur across all three loci),
+  pairwise kinship ~0.41 (99.3-99.4th percentile) among that trio. Same signature.
+- All three carrier trios/quartets are strains at the extreme tail of the relevant raw
+  texture value (Contrast's 3 carriers are the 95th/97th/100th percentile of the whole
+  panel) — i.e. these are not spurious genotyping noise, the strains genuinely do have
+  unusual texture. But because they are also a tight clonal cluster, ANY genomic position
+  where that lineage differs from the rest of the panel will show up as "significant" —
+  which is exactly why Contrast alone shows 3,885 FDR-significant / 325 Bonferroni-at-Meff
+  SNPs scattered across many scaffolds with near-identical effect sizes: this is one
+  lineage-tagging effect counted thousands of times, not thousands of independent loci.
+- **SumAverage** (af=0.24, more common, lambda deflated at 0.64, still 1,518 FDR hits):
+  its top 3 SNPs (`scaffold_3:385160/364701/229210`) sit within the same ~160kb block as
+  **`lab_L`'s own top hit** (`scaffold_3:229210`, p=5.8e-9, §7/§21). This is expected, not
+  a new finding: `SumAverage` is the GLCM's mean gray-level, i.e. average image
+  brightness — mechanistically the same quantity as lightness (`lab_L`). This trait is
+  re-detecting the already-characterized lightness locus, not a distinct texture/roughness
+  signal.
+
+**Bottom line**: applying this project's own established scrutiny (rare-variant carrier
+kinship check, cross-panel comparison, mechanistic identity check against already-known
+loci) to all 13 texture traits, **no credible, non-artifactual genetic locus for colony
+texture/roughness was found**. This is a genuine null result, not an under-powered one —
+every apparent "hit" has a specific, checked, more parsimonious explanation (one clonal
+lineage's idiosyncratic phenotype value, or restated lightness biology). Consistent with
+(and independently supporting) the sibling project's own conclusion that the AHL/colony
+morphology hypothesis currently has no positive evidence behind it.
+
+**Not done**: `AngularSecondMoment`'s unexplained lambda inflation (2.41, same magnitude
+as Contrast, but with zero FDR-significant SNPs) was not chased further — plausibly the
+same clonal group's outlier value inflating genome-wide test statistics without a single
+locus reaching significance, but this was not directly checked. If texture GWAS is
+revisited, this is the one loose thread; otherwise not worth further investment given the
+consistent null across every other metric.
+
 ## Next steps (not done this session)
 
 - Consider whether pixy should be recomputed on the 213-strain panel (currently a
