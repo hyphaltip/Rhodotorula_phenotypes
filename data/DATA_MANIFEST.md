@@ -44,7 +44,8 @@ size: 428 MB (preprocessed parquets)
 raw_path: data/preprocessed/
 metadata_path: data/metadata/copper-colony-measurements/
 db_table: colony_measurement
-status: processed
+status: removed
+last_present_in: data-v1-pre-metal-replace
 known_issues:
   - Variable object count per image (wells not always fully detected)
   - Metadata_Dataset / Metadata_ImageName source columns dropped on import
@@ -155,7 +156,9 @@ columns: see data/metadata/copper-heavy-metal-screen-v0.15.1/schema.yaml
 size: ~925 KB (copied files) + ~1.4 GB symlinked, not duplicated on disk
 raw_path: data/raw/copper-heavy-metal-screen-v0.15.1/
 metadata_path: data/metadata/copper-heavy-metal-screen-v0.15.1/
-status: raw (immutable copies + immutable symlinks)
+status: removed
+last_present_in: data-v1-pre-metal-replace
+
 known_issues:
   - AUC here is area-under-(growth-rate-vs-Cu-concentration), NOT area-under-(area-vs-time) like this project's existing AUC_0/AUC_10/AUC_20/AUC_30 GWAS traits -- different phenotype axis, not a drop-in replacement
   - copper_radial_growth_rates_all_concentrations.csv / _30mM.csv cover only strain 254 (prototype), not all strains
