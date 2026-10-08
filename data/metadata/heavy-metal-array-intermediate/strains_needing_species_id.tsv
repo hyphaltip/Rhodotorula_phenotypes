@@ -1,0 +1,20 @@
+strain_id	sample_name	strain	metals_tested	category	candidate_species_from_old_table	note
+65	TFCN_223D-8	223D-8 BY35-B9	Chromium,Copper,Iron,Lead,Zinc	B_name_conflict	Rhodotorula mucilaginosa	new TFCN_223D-8 vs old TFCN_223A-8; one letter differs, confirm which is correct
+165	TFCN_17-332Y-1	17-332Y-1 BY115-H5	Chromium,Copper,Iron,Lead	C_no_genomic_or_old_record		not in old table, VCF or tree; ALSO shares sample_name TFCN_17-332Y-1 with strain_id 269
+173	TFCN_17-334P-4	17-334P-4 BY115-A2	Chromium,Copper,Iron,Lead	C_no_genomic_or_old_record		not in the old strain table, not in the 422-sample VCF, not in the 278-tip tree
+191	TFCN_17-332D-2	17-332D-2 BY115-B6	Chromium,Copper,Iron,Lead,Zinc	C_no_genomic_or_old_record		not in the old strain table, not in the 422-sample VCF, not in the 278-tip tree
+192	DBVPG_Y3853	Y3853	Chromium,Copper,Iron,Lead,Zinc	A2_candidate_name_differs_by_Y_prefix	Rhodotorula dairenensis	new name DBVPG_Y3853, old/tree name DBVPG_3853 (tree tip Rhodotorula_dairenensis_DBVPG_3853); likely the same strain, needs confirmation
+251	TFCN_17-333P-8	17-333P-8	Chromium,Copper,Iron,Lead,Zinc	C_no_genomic_or_old_record		not in the old strain table, not in the 422-sample VCF, not in the 278-tip tree
+252	TFCN_48D-1	48D-1	Chromium,Copper,Iron,Lead	B_name_conflict		new TFCN_48D-1 vs old/tree TFCN_48D-10 (tree: Rhodotorula paludigena); confirm
+260	TFCN_152D-2	152D-2	Chromium,Copper,Lead	C_no_genomic_or_old_record		not in the old strain table, not in the 422-sample VCF, not in the 278-tip tree
+261	TFCN_86C-3	86C-3 BY33-D3	Chromium,Copper,Lead	A_old_table_species_name_matches	Rhodotorula sphaerocarpa	old strain_metadata.tsv has this strain_id with the same name (after normalizing - and _); species taken from that table, provenance of that species call not checked
+269	TFCN_17-332Y-1	17-332Y-1 BY115-H5	Chromium,Copper,Lead	C_no_genomic_or_old_record		not in old table, VCF or tree; ALSO shares sample_name TFCN_17-332Y-1 with strain_id 165
+270	TFCN_7-6-3	7-6-3	Chromium,Copper,Lead	A_old_table_species_name_matches	Rhodotorula diobovata	old strain_metadata.tsv has this strain_id with the same name (after normalizing - and _); species taken from that table, provenance of that species call not checked
+288	TFCN_1A-1-5	1A-1-5	Chromium,Copper,Lead	A_old_table_species_name_matches	Rhodotorula pacifica	old strain_metadata.tsv has this strain_id with the same name (after normalizing - and _); species taken from that table, provenance of that species call not checked
+296	TFCN_2M-1-3	2M-1-3 BY8-A3	Chromium,Copper,Lead	A_old_table_species_name_matches	Rhodotorula mucilaginosa	old strain_metadata.tsv has this strain_id with the same name (after normalizing - and _); species taken from that table, provenance of that species call not checked
+297	TFCN_211C-2	211C-2 BY37-F3	Chromium,Copper,Lead	A_old_table_species_name_matches	Rhodotorula diobovata	old strain_metadata.tsv has this strain_id with the same name (after normalizing - and _); species taken from that table, provenance of that species call not checked
+304	TFCN_17-333M-1	17-333M-1	Chromium,Copper,Lead	B_name_conflict	Rhodotorula mucilaginosa	new TFCN_17-333M-1 vs old TFCN_17_332M_1; confirm
+305	TFCN_25-325P-1	25-325P-1	Chromium,Copper,Lead	C_no_genomic_or_old_record		not in the old strain table, not in the 422-sample VCF, not in the 278-tip tree
+306	TFCN_25-327C-3	25-327C-3	Chromium,Copper,Lead	C_no_genomic_or_old_record		not in the old strain table, not in the 422-sample VCF, not in the 278-tip tree
+319	TFCN_51A-3	51A-3	Chromium,Copper,Lead	C_no_genomic_or_old_record		not in the old strain table, not in the 422-sample VCF, not in the 278-tip tree
+328	JPUB_009663	JBEI-13807	Chromium,Copper,Lead	C_no_genomic_or_old_record		not in the old strain table, not in the 422-sample VCF, not in the 278-tip tree

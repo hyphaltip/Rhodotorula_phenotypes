@@ -268,3 +268,14 @@ Append-only log of gotchas, surprises, and insights.
 - **What happened**: A Bash call ran `pkill -u $USER -f "25_import_heavy_metal"` followed by a heredoc that also contained that string. The shell matched itself and exited with code 144 before the later commands ran.
 - **mitigation_type**: procedural — kill by PID from `ps`, or use a pattern that is not in the calling command line. Also: run heavy data steps through srun/sbatch, since head nodes (skylark, bluejay) are shared and memory-limited.
 - **Tags**: hpcc, shell, gotcha, slurm
+
+### [2026-10-08] L-36 — Inside a SLURM allocation, `srun` can fail with "Memory required by task is not available"; use `sbatch --wait` for fresh jobs
+- **What happened**: The Claude session itself ran inside a 16 GB job (`SLURM_JOB_ID` set). `srun -p short --mem=8G` then failed to create a step. `sbatch --wait -p short ... --wrap="..."` ran as an independent job and worked.
+- **mitigation_type**: procedural — check `env | grep SLURM_JOB_ID` first. If set, use `sbatch --wait` with `-o <log>` and read the log.
+- **Tags**: hpcc, slurm, gotcha
+
+
+### [2026-10-08] L-37 — Never convert pandas datetimes with astype("int64")/1e9: the unit depends on the pandas/DuckDB version
+- **What happened**: `capture_datetime.astype("int64")/1e9` gave hours 1000x too small (microsecond data), so a "last 24 h" window selected every row. Found only because the logged window row count equalled the total. Fix: use `.dt.total_seconds()` and assert on the max hours and on the window fraction.
+- **mitigation_type**: procedural — log subset sizes at each filter, assert the filter removes something, and have an independent reviewer read analysis code before reporting numbers.
+- **Tags**: pandas, datetime, gotcha, validation

@@ -48,6 +48,9 @@ def main() -> int:
             con.execute(f"DROP VIEW IF EXISTS {v}")
         con.execute("DROP TABLE IF EXISTS colony_measurement")
     con.execute("COMMIT")
+    ovr = Path(__file__).resolve().parents[2] / "data/metadata/heavy-metal-array-intermediate/strain_species_overrides.tsv"
+    con.execute(f"CREATE OR REPLACE TABLE strain_species_override AS SELECT strain_id::VARCHAR AS strain_id, species, source "
+                f"FROM read_csv('{ovr}', delim='\\t', header=true, all_varchar=true)")
     con.execute((Path(__file__).resolve().parent / "35_create_strain_view.sql").read_text())
     ncol = len(con.execute("DESCRIBE heavy_metal_measurement").fetchall())
     print(f"heavy_metal_measurement: {n:,} rows, {ncol} columns from {len(files)} files")

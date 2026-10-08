@@ -378,3 +378,23 @@ key_findings:
   - Neither carotenoid gene (OM429_003333/003336) shows an FDR-sig + replicated color association (SNP or indel), consistent with no co-localization with validated color loci.
 tags: [gwas, candidate-gene, sequence-alignment, snpeff, carotenoid, pigment, rhodotorula, mucilaginosa, indels, association, population-structure, complete]
 ```
+
+
+### carotenoid_stress_vs_baseline
+- **Path**: `analysis/carotenoid_stress_vs_baseline/` (doc: `CAROTENOID_STRESS_VS_BASELINE.md`, run: `run.sh`)
+- **Purpose**: test whether metal stress raises a* (carotenoid proxy) or strains differ inherently, with replicate wells and colony size modelled (lme4).
+- **Inputs**: `heavy_metal_measurement` (DuckDB). **Outputs**: `results/` wells table, mixed-model summary, strain BLUPs, 4 figures (gitignored).
+- **Status**: first run complete 2026-10-08; Zinc descriptive only; all-objects sensitivity built but not modelled.
+
+
+### heavy_metal_overview
+- **Path**: `analysis/heavy_metal_overview/` (doc: `HEAVY_METAL_OVERVIEW.md`, run: `run.sh`, script: `scripts/make_overview.py`)
+- **Purpose**: coverage, dose-response (area, colour), cross-metal tolerance and species comparison of the 5-metal array at a matched 90 h timepoint.
+- **Inputs**: Parquet `data/preprocessed/heavy_metal_array/`, DuckDB `strain_info` (read-only). **Outputs**: `results/figures/*.png`, `results/*.csv`, logs.
+- **Status**: first run complete 2026-10-08.
+
+### gwas-duckdb-retool
+- **Path**: `analysis/gwas/` (plan: `DUCKDB_RETOOL_PLAN.md`; new: `scripts/duckdb_inputs.py`, `check_duckdb_strain_coverage.py`, `build_gwas_phenotypes_duckdb.py`, `check_old_new_object_match.py`; changed: `run.sh`)
+- **Purpose**: replace `Copper.Strain_info.csv` / `v_phenotype` / `db_extract.parquet` inputs with DuckDB; document trait re-derivation.
+- **Outputs**: `results/strain_reconciliation_duckdb/`, `results/duckdb_retool/` (new dirs; existing results untouched).
+- **Status**: strain export and reconcile retooled. Trait re-derivation built but old-vs-new agreement is poor (r 0.1-0.6); not a drop-in. `common.py`, `build_gwas_phenotypes.py`, `check_mas_gates.py`, `analysis/ideas`, `analysis/control_late_timepoint_phenotype` still read removed inputs.
