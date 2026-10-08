@@ -263,3 +263,8 @@ Append-only log of gotchas, surprises, and insights.
 - **Resolution**: Ingested as an additive, separately-named dataset (`copper-heavy-metal-screen-v0.15.1`, D-23) rather than replacing the existing trait; documented the definitional difference explicitly in the dataset's `COPPER_HEAVY_METAL_SCREEN_V0_15_1.md` and `provenance.md`. Before using it in GWAS, reconcile strain IDs and correlate against the existing traits first.
 - **mitigation_type**: procedural — when ingesting a reprocessing of already-used raw data from an external/collaborator pipeline, diff the *definition* (read their source script, not just the column header) of any metric whose name matches an existing project trait before treating it as comparable or a replacement.
 - **Tags**: data-ingestion, copper, auc, phenotype-definition, reprocessing, external-data, gotcha
+
+### [2026-10-07] L-35 — `pkill -f <pattern>` kills your own shell when the pattern appears in the same command line
+- **What happened**: A Bash call ran `pkill -u $USER -f "25_import_heavy_metal"` followed by a heredoc that also contained that string. The shell matched itself and exited with code 144 before the later commands ran.
+- **mitigation_type**: procedural — kill by PID from `ps`, or use a pattern that is not in the calling command line. Also: run heavy data steps through srun/sbatch, since head nodes (skylark, bluejay) are shared and memory-limited.
+- **Tags**: hpcc, shell, gotcha, slurm

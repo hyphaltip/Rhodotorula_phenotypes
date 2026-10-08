@@ -177,3 +177,32 @@ fits per source decisions D-015/D-016/D-018) and a strain-level dose-response AU
 this project. See `COPPER_HEAVY_METAL_SCREEN_V0_15_1.md` for the full file layout, caveats, and suggested
 next step (comparing `mean_auc_rate` against the existing `cu_dose_slope`/`AUC_ratio_10`/`resilience_30`
 GWAS traits before deciding whether to add or replace).
+
+### heavy-metal-array-intermediate
+```yaml
+name: heavy-metal-array-intermediate
+type: other
+source: shared ArrayedHeavyMetalScreen project, Data/Interm/ (per-metal "measurementmeta" CSVs, compiled from primary tool output before summary statistics)
+date_acquired: 2026-10-07
+format: CSV (5 symlinked sources) + Parquet/zstd (5 files, one per metal, in data/preprocessed/heavy_metal_array/)
+rows: 517371 colony objects (Cr 168793; Cu 155470; Fe 66506; Pb 113386; Zn 13216)
+columns: 147 shared + 32 Pb/Zn-only = 179 in union; see data/metadata/heavy-metal-array-intermediate/schema.yaml
+size: ~1.2 GB CSV (symlinked, not duplicated); ~429 MB Parquet (gitignored)
+raw_path: data/raw/heavy-metal-array-intermediate/
+metadata_path: data/metadata/heavy-metal-array-intermediate/
+status: raw (immutable symlinks, SHA256 recorded) + preprocessed (Parquet)
+known_issues:
+  - Concentration has no unit in the source; Cr spans 0-1.2, the others 0-30 -- do not pool Cr until confirmed
+  - strain_id is VARCHAR with 'Control-N' labels and 10,921 NULLs (Cr 5923, Cu 3489, Pb 1509)
+  - Pb and Zn carry 32 extra columns (Size_*, GridLinReg_*, SymZones_*, OrientZones_*, index) absent from Cr/Cu/Fe -- later pipeline version
+  - Cu runs d000353-357 match copper-colony-measurements; values not compared at ingest
+  - source files can change on the shared drive; verify SHA256SUMS.txt
+access_restrictions: shared lab storage, not redistributable
+tags: [heavy-metal, copper, chromium, iron, lead, zinc, colony-measurements, intermediate, parquet, phenotype]
+```
+
+Per-colony shape, intensity, color and texture measurements for five arrayed heavy-metal screens
+(Cr, Cu, Fe, Pb, Zn; 7 concentrations each, 20 imaging runs). Converted to one Parquet file per metal.
+All five read as one DuckDB table with `read_parquet(..., union_by_name=true)`; `Metal` is already a column.
+See `HEAVY_METAL_ARRAY_INTERMEDIATE.md` for layout, rebuild commands and caveats.
+
