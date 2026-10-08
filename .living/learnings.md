@@ -263,3 +263,25 @@ Append-only log of gotchas, surprises, and insights.
 - **Resolution**: Ingested as an additive, separately-named dataset (`copper-heavy-metal-screen-v0.15.1`, D-23) rather than replacing the existing trait; documented the definitional difference explicitly in the dataset's `COPPER_HEAVY_METAL_SCREEN_V0_15_1.md` and `provenance.md`. Before using it in GWAS, reconcile strain IDs and correlate against the existing traits first.
 - **mitigation_type**: procedural — when ingesting a reprocessing of already-used raw data from an external/collaborator pipeline, diff the *definition* (read their source script, not just the column header) of any metric whose name matches an existing project trait before treating it as comparable or a replacement.
 - **Tags**: data-ingestion, copper, auc, phenotype-definition, reprocessing, external-data, gotcha
+
+### [2026-10-07] L-35 — `pkill -f <pattern>` kills your own shell when the pattern appears in the same command line
+- **What happened**: A Bash call ran `pkill -u $USER -f "25_import_heavy_metal"` followed by a heredoc that also contained that string. The shell matched itself and exited with code 144 before the later commands ran.
+- **mitigation_type**: procedural — kill by PID from `ps`, or use a pattern that is not in the calling command line. Also: run heavy data steps through srun/sbatch, since head nodes (skylark, bluejay) are shared and memory-limited.
+- **Tags**: hpcc, shell, gotcha, slurm
+
+### [2026-10-08] L-36 — Inside a SLURM allocation, `srun` can fail with "Memory required by task is not available"; use `sbatch --wait` for fresh jobs
+- **What happened**: The Claude session itself ran inside a 16 GB job (`SLURM_JOB_ID` set). `srun -p short --mem=8G` then failed to create a step. `sbatch --wait -p short ... --wrap="..."` ran as an independent job and worked.
+- **mitigation_type**: procedural — check `env | grep SLURM_JOB_ID` first. If set, use `sbatch --wait` with `-o <log>` and read the log.
+- **Tags**: hpcc, slurm, gotcha
+
+
+### [2026-10-08] L-37 — Never convert pandas datetimes with astype("int64")/1e9: the unit depends on the pandas/DuckDB version
+- **What happened**: `capture_datetime.astype("int64")/1e9` gave hours 1000x too small (microsecond data), so a "last 24 h" window selected every row. Found only because the logged window row count equalled the total. Fix: use `.dt.total_seconds()` and assert on the max hours and on the window fraction.
+- **mitigation_type**: procedural — log subset sizes at each filter, assert the filter removes something, and have an independent reviewer read analysis code before reporting numbers.
+- **Tags**: pandas, datetime, gotcha, validation
+
+
+### [2026-10-08] L-38 — pandoc to PDF on this cluster needs the texlive module, its bin first on PATH, and TEXMFHOME pointed away from ~/texmf
+- **What happened**: `pandoc --pdf-engine=pdflatex` failed in turn with `unicode-math.sty` / `xcolor.sty` not found (partial TeX Live 2019 in `~/bin` shadowed the module), then `\preparecolorset` undefined (an old `~/texmf/.../xcolor.sty` shadowed the 2022 package). `module load texlive` alone is not enough.
+- **mitigation_type**: procedural — in the build script: `module load texlive`, prepend `/opt/linux/rocky/8.x/x86_64/pkgs/texlive/20220403/bin/x86_64-linux` to PATH, set `TEXMFHOME=/nonexistent`. Use empty image alt text when a caption is written separately, or pandoc adds a second caption. Escape `*` in captions.
+- **Tags**: pandoc, latex, hpcc, gotcha

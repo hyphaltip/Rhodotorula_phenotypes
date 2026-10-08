@@ -1,0 +1,577 @@
+# Schema for heavy-metal-array-intermediate
+# One row per segmented colony per image. 5 Parquet files (one per metal), unioned by column name.
+dataset: heavy-metal-array-intermediate
+row_unit: one colony object (MetadataImage_ImageName + Object_Label is unique within each metal)
+units_note: Concentration unit is NOT stated in the source. Cu/Fe/Pb/Zn span 0-30; Cr spans 0-1.2. Do not pool Cr with the others without confirming units.
+strain_id_note: VARCHAR. Numeric strain IDs, 'Control-N' labels, and NULL (Cr 5923, Cu 3489, Pb 1509 rows).
+columns:
+  - name: "MetadataExperiment_Dataset"
+    type: VARCHAR
+    group: image/dataset metadata (MetadataExperiment_Dataset is a per-run temp ID, absent from Zinc)
+    present_in: [Chromium, Copper, Iron, Lead]
+  - name: "Shape_Area"
+    type: DOUBLE
+    group: colony shape (CellProfiler-style morphology)
+  - name: "Shape_Perimeter"
+    type: DOUBLE
+    group: colony shape (CellProfiler-style morphology)
+  - name: "Shape_Circularity"
+    type: DOUBLE
+    group: colony shape (CellProfiler-style morphology)
+  - name: "Shape_ConvexArea"
+    type: DOUBLE
+    group: colony shape (CellProfiler-style morphology)
+  - name: "Shape_MedianRadius"
+    type: DOUBLE
+    group: colony shape (CellProfiler-style morphology)
+  - name: "Shape_MeanRadius"
+    type: DOUBLE
+    group: colony shape (CellProfiler-style morphology)
+  - name: "Shape_MaxRadius"
+    type: DOUBLE
+    group: colony shape (CellProfiler-style morphology)
+  - name: "Shape_MinFeretDiameter"
+    type: DOUBLE
+    group: colony shape (CellProfiler-style morphology)
+  - name: "Shape_MaxFeretDiameter"
+    type: DOUBLE
+    group: colony shape (CellProfiler-style morphology)
+  - name: "Shape_Eccentricity"
+    type: DOUBLE
+    group: colony shape (CellProfiler-style morphology)
+  - name: "Shape_Solidity"
+    type: DOUBLE
+    group: colony shape (CellProfiler-style morphology)
+  - name: "Shape_Extent"
+    type: DOUBLE
+    group: colony shape (CellProfiler-style morphology)
+  - name: "Shape_BboxArea"
+    type: DOUBLE
+    group: colony shape (CellProfiler-style morphology)
+  - name: "Shape_MajorAxisLength"
+    type: DOUBLE
+    group: colony shape (CellProfiler-style morphology)
+  - name: "Shape_MinorAxisLength"
+    type: DOUBLE
+    group: colony shape (CellProfiler-style morphology)
+  - name: "Shape_Compactness"
+    type: DOUBLE
+    group: colony shape (CellProfiler-style morphology)
+  - name: "Shape_Orientation"
+    type: DOUBLE
+    group: colony shape (CellProfiler-style morphology)
+  - name: "Intensity_IntegratedIntensity"
+    type: DOUBLE
+    group: grayscale intensity statistics
+  - name: "Intensity_MinimumIntensity"
+    type: DOUBLE
+    group: grayscale intensity statistics
+  - name: "Intensity_MaximumIntensity"
+    type: DOUBLE
+    group: grayscale intensity statistics
+  - name: "Intensity_MeanIntensity"
+    type: DOUBLE
+    group: grayscale intensity statistics
+  - name: "Intensity_MedianIntensity"
+    type: DOUBLE
+    group: grayscale intensity statistics
+  - name: "Intensity_StandardDeviationIntensity"
+    type: DOUBLE
+    group: grayscale intensity statistics
+  - name: "Intensity_CoefficientVarianceIntensity"
+    type: DOUBLE
+    group: grayscale intensity statistics
+  - name: "Intensity_LowerQuartileIntensity"
+    type: DOUBLE
+    group: grayscale intensity statistics
+  - name: "Intensity_UpperQuartileIntensity"
+    type: DOUBLE
+    group: grayscale intensity statistics
+  - name: "Intensity_InterquartileRangeIntensity"
+    type: DOUBLE
+    group: grayscale intensity statistics
+  - name: "Intensity_Density"
+    type: DOUBLE
+    group: grayscale intensity statistics
+  - name: "Intensity_ConvexDensity"
+    type: DOUBLE
+    group: grayscale intensity statistics
+  - name: "Texture_AngularSecondMoment-deg000-scale05"
+    type: DOUBLE
+    group: Haralick texture, 4 angles at scale 05
+  - name: "Texture_AngularSecondMoment-deg045-scale05"
+    type: DOUBLE
+    group: Haralick texture, 4 angles at scale 05
+  - name: "Texture_AngularSecondMoment-deg090-scale05"
+    type: DOUBLE
+    group: Haralick texture, 4 angles at scale 05
+  - name: "Texture_AngularSecondMoment-deg135-scale05"
+    type: DOUBLE
+    group: Haralick texture, 4 angles at scale 05
+  - name: "Texture_Contrast-deg000-scale05"
+    type: DOUBLE
+    group: Haralick texture, 4 angles at scale 05
+  - name: "Texture_Contrast-deg045-scale05"
+    type: DOUBLE
+    group: Haralick texture, 4 angles at scale 05
+  - name: "Texture_Contrast-deg090-scale05"
+    type: DOUBLE
+    group: Haralick texture, 4 angles at scale 05
+  - name: "Texture_Contrast-deg135-scale05"
+    type: DOUBLE
+    group: Haralick texture, 4 angles at scale 05
+  - name: "Texture_Correlation-deg000-scale05"
+    type: DOUBLE
+    group: Haralick texture, 4 angles at scale 05
+  - name: "Texture_Correlation-deg045-scale05"
+    type: DOUBLE
+    group: Haralick texture, 4 angles at scale 05
+  - name: "Texture_Correlation-deg090-scale05"
+    type: DOUBLE
+    group: Haralick texture, 4 angles at scale 05
+  - name: "Texture_Correlation-deg135-scale05"
+    type: DOUBLE
+    group: Haralick texture, 4 angles at scale 05
+  - name: "Texture_HaralickVariance-deg000-scale05"
+    type: DOUBLE
+    group: Haralick texture, 4 angles at scale 05
+  - name: "Texture_HaralickVariance-deg045-scale05"
+    type: DOUBLE
+    group: Haralick texture, 4 angles at scale 05
+  - name: "Texture_HaralickVariance-deg090-scale05"
+    type: DOUBLE
+    group: Haralick texture, 4 angles at scale 05
+  - name: "Texture_HaralickVariance-deg135-scale05"
+    type: DOUBLE
+    group: Haralick texture, 4 angles at scale 05
+  - name: "Texture_InverseDifferenceMoment-deg000-scale05"
+    type: DOUBLE
+    group: Haralick texture, 4 angles at scale 05
+  - name: "Texture_InverseDifferenceMoment-deg045-scale05"
+    type: DOUBLE
+    group: Haralick texture, 4 angles at scale 05
+  - name: "Texture_InverseDifferenceMoment-deg090-scale05"
+    type: DOUBLE
+    group: Haralick texture, 4 angles at scale 05
+  - name: "Texture_InverseDifferenceMoment-deg135-scale05"
+    type: DOUBLE
+    group: Haralick texture, 4 angles at scale 05
+  - name: "Texture_SumAverage-deg000-scale05"
+    type: DOUBLE
+    group: Haralick texture, 4 angles at scale 05
+  - name: "Texture_SumAverage-deg045-scale05"
+    type: DOUBLE
+    group: Haralick texture, 4 angles at scale 05
+  - name: "Texture_SumAverage-deg090-scale05"
+    type: DOUBLE
+    group: Haralick texture, 4 angles at scale 05
+  - name: "Texture_SumAverage-deg135-scale05"
+    type: DOUBLE
+    group: Haralick texture, 4 angles at scale 05
+  - name: "Texture_SumVariance-deg000-scale05"
+    type: DOUBLE
+    group: Haralick texture, 4 angles at scale 05
+  - name: "Texture_SumVariance-deg045-scale05"
+    type: DOUBLE
+    group: Haralick texture, 4 angles at scale 05
+  - name: "Texture_SumVariance-deg090-scale05"
+    type: DOUBLE
+    group: Haralick texture, 4 angles at scale 05
+  - name: "Texture_SumVariance-deg135-scale05"
+    type: DOUBLE
+    group: Haralick texture, 4 angles at scale 05
+  - name: "Texture_SumEntropy-deg000-scale05"
+    type: DOUBLE
+    group: Haralick texture, 4 angles at scale 05
+  - name: "Texture_SumEntropy-deg045-scale05"
+    type: DOUBLE
+    group: Haralick texture, 4 angles at scale 05
+  - name: "Texture_SumEntropy-deg090-scale05"
+    type: DOUBLE
+    group: Haralick texture, 4 angles at scale 05
+  - name: "Texture_SumEntropy-deg135-scale05"
+    type: DOUBLE
+    group: Haralick texture, 4 angles at scale 05
+  - name: "Texture_Entropy-deg000-scale05"
+    type: DOUBLE
+    group: Haralick texture, 4 angles at scale 05
+  - name: "Texture_Entropy-deg045-scale05"
+    type: DOUBLE
+    group: Haralick texture, 4 angles at scale 05
+  - name: "Texture_Entropy-deg090-scale05"
+    type: DOUBLE
+    group: Haralick texture, 4 angles at scale 05
+  - name: "Texture_Entropy-deg135-scale05"
+    type: DOUBLE
+    group: Haralick texture, 4 angles at scale 05
+  - name: "Texture_DiffVariance-deg000-scale05"
+    type: DOUBLE
+    group: Haralick texture, 4 angles at scale 05
+  - name: "Texture_DiffVariance-deg045-scale05"
+    type: DOUBLE
+    group: Haralick texture, 4 angles at scale 05
+  - name: "Texture_DiffVariance-deg090-scale05"
+    type: DOUBLE
+    group: Haralick texture, 4 angles at scale 05
+  - name: "Texture_DiffVariance-deg135-scale05"
+    type: DOUBLE
+    group: Haralick texture, 4 angles at scale 05
+  - name: "Texture_DiffEntropy-deg000-scale05"
+    type: DOUBLE
+    group: Haralick texture, 4 angles at scale 05
+  - name: "Texture_DiffEntropy-deg045-scale05"
+    type: DOUBLE
+    group: Haralick texture, 4 angles at scale 05
+  - name: "Texture_DiffEntropy-deg090-scale05"
+    type: DOUBLE
+    group: Haralick texture, 4 angles at scale 05
+  - name: "Texture_DiffEntropy-deg135-scale05"
+    type: DOUBLE
+    group: Haralick texture, 4 angles at scale 05
+  - name: "Texture_InfoCorrelation1-deg000-scale05"
+    type: DOUBLE
+    group: Haralick texture, 4 angles at scale 05
+  - name: "Texture_InfoCorrelation1-deg045-scale05"
+    type: DOUBLE
+    group: Haralick texture, 4 angles at scale 05
+  - name: "Texture_InfoCorrelation1-deg090-scale05"
+    type: DOUBLE
+    group: Haralick texture, 4 angles at scale 05
+  - name: "Texture_InfoCorrelation1-deg135-scale05"
+    type: DOUBLE
+    group: Haralick texture, 4 angles at scale 05
+  - name: "Texture_InfoCorrelation2-deg000-scale05"
+    type: DOUBLE
+    group: Haralick texture, 4 angles at scale 05
+  - name: "Texture_InfoCorrelation2-deg045-scale05"
+    type: DOUBLE
+    group: Haralick texture, 4 angles at scale 05
+  - name: "Texture_InfoCorrelation2-deg090-scale05"
+    type: DOUBLE
+    group: Haralick texture, 4 angles at scale 05
+  - name: "Texture_InfoCorrelation2-deg135-scale05"
+    type: DOUBLE
+    group: Haralick texture, 4 angles at scale 05
+  - name: "Texture_AngularSecondMoment-avg-scale05"
+    type: DOUBLE
+    group: Haralick texture, 4 angles at scale 05
+  - name: "Texture_Contrast-avg-scale05"
+    type: DOUBLE
+    group: Haralick texture, 4 angles at scale 05
+  - name: "Texture_Correlation-avg-scale05"
+    type: DOUBLE
+    group: Haralick texture, 4 angles at scale 05
+  - name: "Texture_HaralickVariance-avg-scale05"
+    type: DOUBLE
+    group: Haralick texture, 4 angles at scale 05
+  - name: "Texture_InverseDifferenceMoment-avg-scale05"
+    type: DOUBLE
+    group: Haralick texture, 4 angles at scale 05
+  - name: "Texture_SumAverage-avg-scale05"
+    type: DOUBLE
+    group: Haralick texture, 4 angles at scale 05
+  - name: "Texture_SumVariance-avg-scale05"
+    type: DOUBLE
+    group: Haralick texture, 4 angles at scale 05
+  - name: "Texture_SumEntropy-avg-scale05"
+    type: DOUBLE
+    group: Haralick texture, 4 angles at scale 05
+  - name: "Texture_Entropy-avg-scale05"
+    type: DOUBLE
+    group: Haralick texture, 4 angles at scale 05
+  - name: "Texture_DiffVariance-avg-scale05"
+    type: DOUBLE
+    group: Haralick texture, 4 angles at scale 05
+  - name: "Texture_DiffEntropy-avg-scale05"
+    type: DOUBLE
+    group: Haralick texture, 4 angles at scale 05
+  - name: "Texture_InfoCorrelation1-avg-scale05"
+    type: DOUBLE
+    group: Haralick texture, 4 angles at scale 05
+  - name: "Texture_InfoCorrelation2-avg-scale05"
+    type: DOUBLE
+    group: Haralick texture, 4 angles at scale 05
+  - name: "ColorLab_L*GeoMedian"
+    type: DOUBLE
+    group: CIE Lab color, medoid/geo-median, DeltaE2000 spread
+  - name: "ColorLab_a*GeoMedian"
+    type: DOUBLE
+    group: CIE Lab color, medoid/geo-median, DeltaE2000 spread
+  - name: "ColorLab_b*GeoMedian"
+    type: DOUBLE
+    group: CIE Lab color, medoid/geo-median, DeltaE2000 spread
+  - name: "ColorLab_L*Medoid"
+    type: DOUBLE
+    group: CIE Lab color, medoid/geo-median, DeltaE2000 spread
+  - name: "ColorLab_a*Medoid"
+    type: DOUBLE
+    group: CIE Lab color, medoid/geo-median, DeltaE2000 spread
+  - name: "ColorLab_b*Medoid"
+    type: DOUBLE
+    group: CIE Lab color, medoid/geo-median, DeltaE2000 spread
+  - name: "ColorLab_DeltaE2000MedianFromMedoid"
+    type: DOUBLE
+    group: CIE Lab color, medoid/geo-median, DeltaE2000 spread
+  - name: "ColorLab_DeltaE2000MeanFromMedoid"
+    type: DOUBLE
+    group: CIE Lab color, medoid/geo-median, DeltaE2000 spread
+  - name: "ColorLab_DeltaE2000P95FromMedoid"
+    type: DOUBLE
+    group: CIE Lab color, medoid/geo-median, DeltaE2000 spread
+  - name: "ColorLab_LabTotalVariance"
+    type: DOUBLE
+    group: CIE Lab color, medoid/geo-median, DeltaE2000 spread
+  - name: "ColorLab_MedoidColorHex"
+    type: VARCHAR
+    group: CIE Lab color, medoid/geo-median, DeltaE2000 spread
+  - name: "ColorHSV_HueRobustMean"
+    type: DOUBLE
+    group: HSV color, robust mean
+  - name: "ColorHSV_SaturationRobustMean"
+    type: DOUBLE
+    group: HSV color, robust mean
+  - name: "ColorHSV_ValueRobustMean"
+    type: DOUBLE
+    group: HSV color, robust mean
+  - name: "ColorHSV_HSVConeVariance"
+    type: DOUBLE
+    group: HSV color, robust mean
+  - name: "MetadataImage_ImageName"
+    type: VARCHAR
+    group: image/dataset metadata (MetadataExperiment_Dataset is a per-run temp ID, absent from Zinc)
+  - name: "run_number"
+    type: VARCHAR
+    group: experiment design / identity
+  - name: "temperature"
+    type: BIGINT
+    group: experiment design / identity
+  - name: "plate_position"
+    type: BIGINT
+    group: experiment design / identity
+  - name: "date"
+    type: DATE
+    group: experiment design / identity
+  - name: "time"
+    type: VARCHAR
+    group: experiment design / identity
+  - name: "capture_datetime"
+    type: TIMESTAMP
+    group: experiment design / identity
+  - name: "MetadataImage_ImageType"
+    type: VARCHAR
+    group: image/dataset metadata (MetadataExperiment_Dataset is a per-run temp ID, absent from Zinc)
+  - name: "MetadataImage_BitDepth"
+    type: BIGINT
+    group: image/dataset metadata (MetadataExperiment_Dataset is a per-run temp ID, absent from Zinc)
+  - name: "MetadataImage_FileSuffix"
+    type: VARCHAR
+    group: image/dataset metadata (MetadataExperiment_Dataset is a per-run temp ID, absent from Zinc)
+  - name: "Object_Label"
+    type: BIGINT
+    group: experiment design / identity
+  - name: "Bbox_CenterRR"
+    type: DOUBLE
+    group: bounding box / weighted centres, pixel coordinates
+  - name: "Bbox_CenterCC"
+    type: DOUBLE
+    group: bounding box / weighted centres, pixel coordinates
+  - name: "Bbox_MinRR"
+    type: BIGINT
+    group: bounding box / weighted centres, pixel coordinates
+  - name: "Bbox_MinCC"
+    type: BIGINT
+    group: bounding box / weighted centres, pixel coordinates
+  - name: "Bbox_MaxRR"
+    type: BIGINT
+    group: bounding box / weighted centres, pixel coordinates
+  - name: "Bbox_MaxCC"
+    type: BIGINT
+    group: bounding box / weighted centres, pixel coordinates
+  - name: "Bbox_IntensityWeightedCenterRR"
+    type: DOUBLE
+    group: bounding box / weighted centres, pixel coordinates
+  - name: "Bbox_IntensityWeightedCenterCC"
+    type: DOUBLE
+    group: bounding box / weighted centres, pixel coordinates
+  - name: "Bbox_DistWeightedCenterRR"
+    type: DOUBLE
+    group: bounding box / weighted centres, pixel coordinates
+  - name: "Bbox_DistWeightedCenterCC"
+    type: DOUBLE
+    group: bounding box / weighted centres, pixel coordinates
+  - name: "Grid_RowNum"
+    type: BIGINT
+    group: plate grid position of the colony
+  - name: "Grid_ColNum"
+    type: BIGINT
+    group: plate grid position of the colony
+  - name: "Grid_RowMajorIdx"
+    type: BIGINT
+    group: plate grid position of the colony
+  - name: "Grid_ColMajorIdx"
+    type: BIGINT
+    group: plate grid position of the colony
+  - name: "GridColIdx"
+    type: BIGINT
+    group: plate grid position of the colony
+  - name: "sample_plate"
+    type: BIGINT
+    group: experiment design / identity
+  - name: "sample_plate_arrangement"
+    type: BIGINT
+    group: experiment design / identity
+  - name: "Metal"
+    type: VARCHAR
+    group: experiment design / identity
+  - name: "Concentration"
+    type: DOUBLE
+    group: experiment design / identity
+  - name: "strain_id"
+    type: VARCHAR
+    group: experiment design / identity
+  - name: "SAMPLE_NAME"
+    type: VARCHAR
+    group: experiment design / identity
+  - name: "STRAIN"
+    type: VARCHAR
+    group: experiment design / identity
+  - name: "SPECIES"
+    type: VARCHAR
+    group: experiment design / identity
+  - name: "MS2_SAMPLE_Cell"
+    type: VARCHAR
+    group: experiment design / identity
+  - name: "MS2_SAMPLE_Supernatant"
+    type: VARCHAR
+    group: experiment design / identity
+  - name: "Location"
+    type: VARCHAR
+    group: experiment design / identity
+  - name: "Size_Area"
+    type: DOUBLE
+    group: object size (Pb/Zn only)
+    present_in: [Lead, Zinc]
+  - name: "Size_IntegratedIntensity"
+    type: DOUBLE
+    group: object size (Pb/Zn only)
+    present_in: [Lead, Zinc]
+  - name: "OrientZones_OutwardRotationSustainedPeak-Mask-Overall"
+    type: DOUBLE
+    group: outward-rotation orientation metrics by zone (Pb/Zn only)
+    present_in: [Lead, Zinc]
+  - name: "OrientZones_OutwardRotationSustainedPeak-Mask-Dense"
+    type: DOUBLE
+    group: outward-rotation orientation metrics by zone (Pb/Zn only)
+    present_in: [Lead, Zinc]
+  - name: "OrientZones_OutwardRotationSustainedPeak-Mask-Sparse"
+    type: DOUBLE
+    group: outward-rotation orientation metrics by zone (Pb/Zn only)
+    present_in: [Lead, Zinc]
+  - name: "OrientZones_OutwardRotationNet-Mask-Overall"
+    type: DOUBLE
+    group: outward-rotation orientation metrics by zone (Pb/Zn only)
+    present_in: [Lead, Zinc]
+  - name: "OrientZones_OutwardRotationNet-Mask-Dense"
+    type: DOUBLE
+    group: outward-rotation orientation metrics by zone (Pb/Zn only)
+    present_in: [Lead, Zinc]
+  - name: "OrientZones_OutwardRotationNet-Mask-Sparse"
+    type: DOUBLE
+    group: outward-rotation orientation metrics by zone (Pb/Zn only)
+    present_in: [Lead, Zinc]
+  - name: "OrientZones_OutwardRotationRate-Mask-Overall"
+    type: DOUBLE
+    group: outward-rotation orientation metrics by zone (Pb/Zn only)
+    present_in: [Lead, Zinc]
+  - name: "OrientZones_OutwardRotationRate-Mask-Dense"
+    type: DOUBLE
+    group: outward-rotation orientation metrics by zone (Pb/Zn only)
+    present_in: [Lead, Zinc]
+  - name: "OrientZones_OutwardRotationRate-Mask-Sparse"
+    type: DOUBLE
+    group: outward-rotation orientation metrics by zone (Pb/Zn only)
+    present_in: [Lead, Zinc]
+  - name: "OrientZones_OutwardRotationConsistency-Mask-Overall"
+    type: DOUBLE
+    group: outward-rotation orientation metrics by zone (Pb/Zn only)
+    present_in: [Lead, Zinc]
+  - name: "OrientZones_OutwardRotationConsistency-Mask-Dense"
+    type: DOUBLE
+    group: outward-rotation orientation metrics by zone (Pb/Zn only)
+    present_in: [Lead, Zinc]
+  - name: "OrientZones_OutwardRotationConsistency-Mask-Sparse"
+    type: DOUBLE
+    group: outward-rotation orientation metrics by zone (Pb/Zn only)
+    present_in: [Lead, Zinc]
+  - name: "SymZones_CoreRadius"
+    type: DOUBLE
+    group: symmetry zones: core/dense/sparse radii and areas (Pb/Zn only)
+    present_in: [Lead, Zinc]
+  - name: "SymZones_SymmetricRadius"
+    type: DOUBLE
+    group: symmetry zones: core/dense/sparse radii and areas (Pb/Zn only)
+    present_in: [Lead, Zinc]
+  - name: "SymZones_MeanExpansion"
+    type: DOUBLE
+    group: symmetry zones: core/dense/sparse radii and areas (Pb/Zn only)
+    present_in: [Lead, Zinc]
+  - name: "SymZones_MaxExpansion"
+    type: DOUBLE
+    group: symmetry zones: core/dense/sparse radii and areas (Pb/Zn only)
+    present_in: [Lead, Zinc]
+  - name: "SymZones_CoreEndRadius"
+    type: DOUBLE
+    group: symmetry zones: core/dense/sparse radii and areas (Pb/Zn only)
+    present_in: [Lead, Zinc]
+  - name: "SymZones_DenseEndRadius"
+    type: DOUBLE
+    group: symmetry zones: core/dense/sparse radii and areas (Pb/Zn only)
+    present_in: [Lead, Zinc]
+  - name: "SymZones_SparseEndRadius"
+    type: DOUBLE
+    group: symmetry zones: core/dense/sparse radii and areas (Pb/Zn only)
+    present_in: [Lead, Zinc]
+  - name: "SymZones_CoreArea"
+    type: DOUBLE
+    group: symmetry zones: core/dense/sparse radii and areas (Pb/Zn only)
+    present_in: [Lead, Zinc]
+  - name: "SymZones_DenseArea"
+    type: DOUBLE
+    group: symmetry zones: core/dense/sparse radii and areas (Pb/Zn only)
+    present_in: [Lead, Zinc]
+  - name: "SymZones_SparseArea"
+    type: DOUBLE
+    group: symmetry zones: core/dense/sparse radii and areas (Pb/Zn only)
+    present_in: [Lead, Zinc]
+  - name: "index"
+    type: BIGINT
+    group: experiment design / identity
+    present_in: [Lead, Zinc]
+  - name: "GridLinReg_RowM"
+    type: DOUBLE
+    group: linear-regression grid fit (Pb/Zn only)
+    present_in: [Lead, Zinc]
+  - name: "GridLinReg_RowB"
+    type: DOUBLE
+    group: linear-regression grid fit (Pb/Zn only)
+    present_in: [Lead, Zinc]
+  - name: "GridLinReg_PredRR"
+    type: DOUBLE
+    group: linear-regression grid fit (Pb/Zn only)
+    present_in: [Lead, Zinc]
+  - name: "GridLinReg_ColM"
+    type: DOUBLE
+    group: linear-regression grid fit (Pb/Zn only)
+    present_in: [Lead, Zinc]
+  - name: "GridLinReg_ColB"
+    type: DOUBLE
+    group: linear-regression grid fit (Pb/Zn only)
+    present_in: [Lead, Zinc]
+  - name: "GridLinReg_PredCC"
+    type: DOUBLE
+    group: linear-regression grid fit (Pb/Zn only)
+    present_in: [Lead, Zinc]
+  - name: "GridLinReg_ResidualError"
+    type: DOUBLE
+    group: linear-regression grid fit (Pb/Zn only)
+    present_in: [Lead, Zinc]

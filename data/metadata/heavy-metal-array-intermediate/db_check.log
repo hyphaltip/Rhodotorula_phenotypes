@@ -1,0 +1,10 @@
+[33m WARN[0m cache for Repodata at /rhome/jstajich/.cache/rattler/cache/repodata is on a network/parallel filesystem (NFS/SMB/FUSE/BeeGFS/Lustre/GPFS/CephFS), redirected to /scratch/jstajich/29605917/pixi-cache-jstajich/repodata for this run. Set [cache.repodata] in config.toml or PIXI_CACHE_DIR to override, or [cache.netfs-redirect] = "never" to keep the original path.
+tables/views: [('heavy_metal_measurement', 'BASE TABLE'), ('strain_info', 'VIEW')]
+heavy_metal_measurement rows, cols: 517371 179
+rows per metal: [('Chromium', 168793), ('Copper', 155470), ('Iron', 66506), ('Lead', 113386), ('Zinc', 13216)]
+strain_info (strains, controls, non-control w/o species, non-control w/o sample_name): (334, 13, 0, 0)
+strain_info sample: [('1', False, 'TFCN_17-291Y-1', '17-291Y-1 BY126-B8', 'Rhodotorula mucilaginosa', 'C_1', 'SUP_1', 'China: Shijitant road, Pudong New Area, Shanghai', ['Chromium', 'Copper', 'Iron', 'Lead', 'Zinc'], 2113), ('2', False, 'TFCN_134A-3', '134A-3 BY30-D2', 'Rhodotorula mucilaginosa', 'C_2', 'SUP_2', 'China: Dongjiao town, Wenchang City, Hainan Province', ['Chromium', 'Copper', 'Iron', 'Lead', 'Zinc'], 2158), ('3', False, 'TFCN_98A-5', '98A-5', 'Rhodotorula mucilaginosa', 'C_3', 'SUP_3', 'China: Jiangping County, Dongxing City, Fangchenggang, Guangxi Province', ['Chromium', 'Copper', 'Iron', 'Lead', 'Zinc'], 1947)]
+species counts: [('Rhodotorula mucilaginosa', 215), ('Species Not Found', 19), ('Rhodotorula paludigena', 17), ('Rhodotorula toruloides', 10), ('Rhodotorula sp_clade_I', 9), ('Rhodotorula dairenensis', 9), ('Rhodotorula diobovata', 8), ('Rhodotorula sphaerocarpa', 7)]
+n metals tested per strain: [(2, 1), (3, 77), (4, 99), (5, 157)]
+duplicate strain_id rows: 0
+raw MB in the 6 redundant strain text columns of the fact table: 41.237828

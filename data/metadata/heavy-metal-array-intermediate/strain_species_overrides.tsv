@@ -1,0 +1,4 @@
+strain_id	species	source	note
+192	Rhodotorula dairenensis	user confirmation 2026-10-08	DBVPG_Y3853 is the same strain as DBVPG_3853 (tree tip Rhodotorula_dairenensis_DBVPG_3853)
+252	Rhodotorula paludigena	user confirmation 2026-10-08	TFCN_48D-1 treated as TFCN_48D-10 (tree tip Rhodotorula_paludigena_TFCN_48D-10)
+304	Rhodotorula mucilaginosa	user confirmation 2026-10-08	TFCN_17-333M-1 equals TFCN_17_332M_1 in the old table; species from the old strain_metadata.tsv
