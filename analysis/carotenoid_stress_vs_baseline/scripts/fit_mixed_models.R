@@ -1,5 +1,5 @@
 #!/usr/bin/env Rscript
-# Mixed models per metal (Zinc excluded, see below) on the well table (replicates = wells on different plates within a run).
+# Mixed models per metal (Zinc included; treated as ONE experiment, see below) on the well table (replicates = wells on different plates within a run).
 #  M0: a ~ dose_s                 + (1 + dose_s | strain) + (1 | plate)   total dose effect on a*
 #  M1: a ~ dose_s + lnA_c         + (1 + dose_s | strain) + (1 | plate)   dose effect at the same colony size
 # dose_s = conc / max conc (0..1) so slopes are "change in a* from no metal to the top dose".
@@ -9,10 +9,12 @@ args <- commandArgs(trailingOnly = TRUE)
 inp <- if (length(args) >= 1) args[1] else "analysis/carotenoid_stress_vs_baseline/results/wells.csv"
 out <- if (length(args) >= 2) args[2] else "analysis/carotenoid_stress_vs_baseline/results"
 w <- read.csv(inp, stringsAsFactors = FALSE)
+if (Sys.getenv("SKIP_ZINC") == "1") w <- w[w$Metal != "Zinc", ]   # Zinc random-slope fits are slow and uninformative (1 plate per dose)
 w$strain_id <- factor(w$strain_id); w$plate_id <- factor(w$plate_id)
 res <- list(); blups <- list()
-# Zinc is descriptive only: 9 plates, 1 well per strain x dose, dose confounded with run (run d000388 = 0-15, d000390 = 10-30).
-for (m in setdiff(unique(w$Metal), "Zinc")) {
+# Zinc: user states runs d000388 and d000390 are one experiment. No run term. Two disjoint strain sets cover doses 0-15 and 10-30
+# (1 well per strain x dose, 9 plates), so the dose slope is learned across strain sets and per-strain slopes are weakly identified.
+for (m in unique(w$Metal)) {
   d <- w[w$Metal == m, ]
   cat(sprintf("== %s: %d wells, %d strains, %d plates\n", m, nrow(d), nlevels(droplevels(d$strain_id)), nlevels(droplevels(d$plate_id))))
   for (mod in c("M0", "M1")) {
@@ -46,7 +48,7 @@ for (m in setdiff(unique(w$Metal), "Zinc")) {
 }
 # M2: dose as a factor (no linearity assumption); per-dose effects at fixed size
 fx <- list()
-for (m in setdiff(unique(w$Metal), "Zinc")) {
+for (m in unique(w$Metal)) {
   d <- w[w$Metal == m, ]; d$cf <- relevel(factor(d$conc), ref = "0")
   f2 <- tryCatch(lmer(a ~ cf + lnA_c + (1 | strain_id) + (1 | plate_id), data = d, REML = TRUE), error = function(e) NULL)
   if (!is.null(f2)) { co <- summary(f2)$coefficients; i <- grep("^cf", rownames(co))

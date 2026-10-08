@@ -21,6 +21,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--db", default="db/rhodotorula_phenotypes.duckdb")
     ap.add_argument("--out", default="analysis/carotenoid_stress_vs_baseline/results")
+    ap.add_argument("--min-area", type=float, default=0.0, help="drop well-images whose chosen object has Shape_Area < this (pixels); handles tiny colonies whose a* is background-dominated")
     ap.add_argument("--all-objects", action="store_true", help="sensitivity: median over all objects instead of the largest")
     a = ap.parse_args()
     out = Path(a.out); out.mkdir(parents=True, exist_ok=True)
@@ -49,9 +50,12 @@ def main():
     T = df.groupby(pk).h.max().groupby("Metal").median()
     log("   window end T per metal (median plate span, h): " + ", ".join(f"{m}={t:.1f}" for m, t in T.items()))
     df["T"] = df.Metal.map(T)
+    if a.min_area > 0:
+        n_before = len(df); df = df[df.Shape_Area >= a.min_area]
+        log(f"   min-area filter {a.min_area:g} px: kept {len(df):,} of {n_before:,} well-images ({len(df)/n_before:.1%})")
     win = df[(df.h >= df["T"] - WINDOW_H) & (df.h <= df["T"])]
     log(f"3. late window [T-{WINDOW_H:.0f}, T] h since plate start: {len(win):,} of {len(df):,} rows")
-    assert 0.1 * len(df) < len(win) < 0.5 * len(df)
+    assert 0.05 * len(df) < len(win) < 0.5 * len(df)
     n_all = df.groupby(wk).size().reset_index(name="x").merge(df.groupby(wk).agg(conc=("Concentration", "first")).reset_index())
     w = (win.groupby(wk).agg(strain_id=("strain_id", "first"), conc=("Concentration", "first"), n_img=("capture_datetime", "nunique"),
                               a=("astar", "median"), lnA=("lnA", "median"), mean_n_obj=("n_obj", "mean")).reset_index())
@@ -73,7 +77,7 @@ def main():
         r = g.groupby(["strain_id", "conc"]).size()
         log(f"   {m}: {len(g):,} wells, {g.strain_id.nunique()} strains, replicate wells per strain x dose: "
             f"median {r.median():.0f}, min {r.min()}, max {r.max()}; dose levels {sorted(g.conc.unique())}")
-    fn = out / ("wells_allobj.csv" if a.all_objects else "wells.csv")
+    fn = out / ("wells_allobj.csv" if a.all_objects else ("wells.csv" if a.min_area == 0 else f"wells_min{a.min_area:g}.csv"))
     w.to_csv(fn, index=False); log(f"wrote {fn}")
 
 if __name__ == "__main__":

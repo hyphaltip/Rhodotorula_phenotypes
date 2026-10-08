@@ -279,3 +279,9 @@ Append-only log of gotchas, surprises, and insights.
 - **What happened**: `capture_datetime.astype("int64")/1e9` gave hours 1000x too small (microsecond data), so a "last 24 h" window selected every row. Found only because the logged window row count equalled the total. Fix: use `.dt.total_seconds()` and assert on the max hours and on the window fraction.
 - **mitigation_type**: procedural — log subset sizes at each filter, assert the filter removes something, and have an independent reviewer read analysis code before reporting numbers.
 - **Tags**: pandas, datetime, gotcha, validation
+
+
+### [2026-10-08] L-38 — pandoc to PDF on this cluster needs the texlive module, its bin first on PATH, and TEXMFHOME pointed away from ~/texmf
+- **What happened**: `pandoc --pdf-engine=pdflatex` failed in turn with `unicode-math.sty` / `xcolor.sty` not found (partial TeX Live 2019 in `~/bin` shadowed the module), then `\preparecolorset` undefined (an old `~/texmf/.../xcolor.sty` shadowed the 2022 package). `module load texlive` alone is not enough.
+- **mitigation_type**: procedural — in the build script: `module load texlive`, prepend `/opt/linux/rocky/8.x/x86_64/pkgs/texlive/20220403/bin/x86_64-linux` to PATH, set `TEXMFHOME=/nonexistent`. Use empty image alt text when a caption is written separately, or pandoc adds a second caption. Escape `*` in captions.
+- **Tags**: pandoc, latex, hpcc, gotcha

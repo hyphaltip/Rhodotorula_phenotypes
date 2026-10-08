@@ -398,3 +398,15 @@ tags: [gwas, candidate-gene, sequence-alignment, snpeff, carotenoid, pigment, rh
 - **Purpose**: replace `Copper.Strain_info.csv` / `v_phenotype` / `db_extract.parquet` inputs with DuckDB; document trait re-derivation.
 - **Outputs**: `results/strain_reconciliation_duckdb/`, `results/duckdb_retool/` (new dirs; existing results untouched).
 - **Status**: strain export and reconcile retooled. Trait re-derivation built but old-vs-new agreement is poor (r 0.1-0.6); not a drop-in. `common.py`, `build_gwas_phenotypes.py`, `check_mas_gates.py`, `analysis/ideas`, `analysis/control_late_timepoint_phenotype` still read removed inputs.
+
+
+### heavy_metal_data_problems
+- **Path**: `analysis/heavy_metal_data_problems/HEAVY_METAL_DATA_PROBLEMS.md`
+- **Purpose**: single list of known data-design, strain-identity, analysis and pipeline problems for the five-metal data (Zinc layout, unnamed rows, old-vs-new strain assignment, a* caveats).
+- **Status**: written 2026-10-08; no scripts.
+
+
+### carotenoid_stress_vs_baseline / report (stratified analyses)
+- **Path**: `analysis/carotenoid_stress_vs_baseline/report/` (`REPORT.md` with embedded PNGs, `REPORT.pdf`, `figures/`, `tables/`; build: `scripts/strat/make_report.py`, `report/build_pdf.sh`)
+- **Purpose**: stratified a* analyses requested 2026-10-08: species and population mixed models, phylogenetic signal, dose regimes, size-matched comparison, split-half selection, batch (run) heterogeneity, trait correlations, minimum-colony-area sensitivity.
+- **Status**: complete; key results in D-41. Run order: `run.sh`, `scripts/strat/s0_inputs.py`, `s1_species_models.R`, `s2_phylo.py`, `s346_models.R`, `s5_split_half.py`, `traits_species.py`, `run_minarea.sh`, `s8_minarea_summary.py`, `s_plots.py`, `make_report.py`, `report/build_pdf.sh`.
