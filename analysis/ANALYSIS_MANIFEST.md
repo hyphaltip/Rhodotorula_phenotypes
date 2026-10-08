@@ -410,3 +410,9 @@ tags: [gwas, candidate-gene, sequence-alignment, snpeff, carotenoid, pigment, rh
 - **Path**: `analysis/carotenoid_stress_vs_baseline/report/` (`REPORT.md` with embedded PNGs, `REPORT.pdf`, `figures/`, `tables/`; build: `scripts/strat/make_report.py`, `report/build_pdf.sh`)
 - **Purpose**: stratified a* analyses requested 2026-10-08: species and population mixed models, phylogenetic signal, dose regimes, size-matched comparison, split-half selection, batch (run) heterogeneity, trait correlations, minimum-colony-area sensitivity.
 - **Status**: complete; key results in D-41. Run order: `run.sh`, `scripts/strat/s0_inputs.py`, `s1_species_models.R`, `s2_phylo.py`, `s346_models.R`, `s5_split_half.py`, `traits_species.py`, `run_minarea.sh`, `s8_minarea_summary.py`, `s_plots.py`, `make_report.py`, `report/build_pdf.sh`.
+
+
+### carotenoid_stress_vs_baseline / report update (2026-10-08, second pass)
+- **Main dataset changed**: area >= 2,000 px and Zinc window ending at 80 h (D-42). Original unfiltered outputs: `results/unfiltered/`, `report/sensitivity_unfiltered/`.
+- **New analyses in the report**: colony area cutoff evidence (`scripts/strat/s12_area_floor.py`), per-species strata (`s9_species_strata.R`, `s9_species_plots.py`), b* and morphology (`s10_build_traits.py`, `s10_trait_models.R`, `s10_b_morphology_plots.py`), Zinc rescue (`s11_zinc_rescue.py`).
+- **Run order**: `run.sh` (builds `wells.csv` from `wells_min2000.csv`), `scripts/strat/` s0, s1, s2, s346, s5, s9, s10, s11, s12, `traits_species.py`, `run_minarea.sh`, `s_plots.py`, `s8_minarea_summary.py`, `make_report.py`, `report/build_pdf.sh`.

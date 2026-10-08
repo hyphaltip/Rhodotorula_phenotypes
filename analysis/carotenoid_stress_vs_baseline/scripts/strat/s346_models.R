@@ -1,6 +1,6 @@
 #!/usr/bin/env Rscript
 # s3: dose regimes (sub-inhibitory vs inhibitory by colony-size ratio) ; s4: size-matched dose effect ; s6: batch (run) heterogeneity + variance components.
-# All models: strain, run, plate random intercepts unless stated. Zinc skipped (one plate per dose, runs differ in strain set and dose range).
+# Models: strain intercept AND strain dose slope (uncorrelated), plus run and plate intercepts (per-run models: strain, strain slope, plate). The dose-factor model has no strain slope. Zinc skipped (one plate per dose, runs differ in strain set and dose range).
 suppressMessages({library(lme4); library(lmerTest)})
 R <- "analysis/carotenoid_stress_vs_baseline/results"; T <- "analysis/carotenoid_stress_vs_baseline/report/tables"
 w <- read.csv(file.path(R, "wells.csv"), stringsAsFactors = FALSE)
@@ -20,7 +20,7 @@ for (m in c("Chromium", "Copper", "Iron", "Lead")) {
     doses <- c(0, rr$conc[rr$regime == reg]); x <- d[d$conc %in% doses, ]
     if (length(unique(x$conc)) < 3) { cat("   skip", reg, "(fewer than 3 doses)\n"); next }
     for (adj in c(FALSE, TRUE)) {
-      f <- if (adj) a ~ dose_s + lnA_c + (1|strain_id) + (1|run_number) + (1|plate_id) else a ~ dose_s + (1|strain_id) + (1|run_number) + (1|plate_id)
+      f <- if (adj) a ~ dose_s + lnA_c + (1|strain_id) + (0 + dose_s|strain_id) + (1|run_number) + (1|plate_id) else a ~ dose_s + (1|strain_id) + (0 + dose_s|strain_id) + (1|run_number) + (1|plate_id)
       fit <- lmer(f, x, REML = TRUE, control = ctl); co <- summary(fit)$coefficients["dose_s", ]
       res3[[length(res3) + 1]] <- data.frame(Metal = m, regime = reg, doses = paste(doses, collapse = ","), n_wells = nrow(x), size_adjusted = adj,
         slope_per_0.1_of_max_dose = co["Estimate"] / 10, se = co["Std. Error"] / 10, p = co["Pr(>|t|)"])
@@ -38,10 +38,10 @@ for (m in c("Chromium", "Copper", "Iron", "Lead")) {
   for (b in levels(d$sbin)) {
     x <- d[d$sbin == b, ]; nd <- length(unique(x$conc))
     row <- data.frame(Metal = m, size_bin = b, ln_area_lo = unname(q[as.integer(sub("S", "", b))]), ln_area_hi = unname(q[as.integer(sub("S", "", b)) + 1]),
-      n_wells = nrow(x), n_doses = nd, doses = paste(sort(unique(x$conc)), collapse = ","), mean_a = mean(x$a), sd_a = sd(x$a), slope_full_range = NA, se = NA, p = NA)
+      n_wells = nrow(x), n_doses = nd, doses = paste(sort(unique(x$conc)), collapse = ","), mean_a = mean(x$a), sd_a = sd(x$a), slope_full_range = NA, se = NA, p = NA, max_dose_s_in_bin = NA, change_over_observed_range = NA)
     if (nd >= 3 && nrow(x) >= 150) {
-      fit <- lmer(a ~ dose_s + (1|strain_id) + (1|run_number) + (1|plate_id), x, REML = TRUE, control = ctl); co <- summary(fit)$coefficients["dose_s", ]
-      row$slope_full_range <- co["Estimate"]; row$se <- co["Std. Error"]; row$p <- co["Pr(>|t|)"]
+      fit <- lmer(a ~ dose_s + (1|strain_id) + (0 + dose_s|strain_id) + (1|run_number) + (1|plate_id), x, REML = TRUE, control = ctl); co <- summary(fit)$coefficients["dose_s", ]
+      row$slope_full_range <- co["Estimate"]; row$se <- co["Std. Error"]; row$p <- co["Pr(>|t|)"]; row$max_dose_s_in_bin <- max(x$dose_s); row$change_over_observed_range <- co["Estimate"] * max(x$dose_s)
     }
     res4[[length(res4) + 1]] <- row
   }
@@ -49,7 +49,7 @@ for (m in c("Chromium", "Copper", "Iron", "Lead")) {
   for (r in levels(d$run_number)) {
     x <- d[d$run_number == r, ]
     if (length(unique(x$conc)) < 5) next
-    fit <- lmer(a ~ dose_s + lnA_c + (1|strain_id) + (1|plate_id), x, REML = TRUE, control = ctl); co <- summary(fit)$coefficients["dose_s", ]
+    fit <- lmer(a ~ dose_s + lnA_c + (1|strain_id) + (0 + dose_s|strain_id) + (1|plate_id), x, REML = TRUE, control = ctl); co <- summary(fit)$coefficients["dose_s", ]
     res6[[length(res6) + 1]] <- data.frame(Metal = m, run = r, n_wells = nrow(x), n_strains = length(unique(x$strain_id)), n_doses = length(unique(x$conc)),
       dose_effect = co["Estimate"], se = co["Std. Error"], p = co["Pr(>|t|)"])
   }
