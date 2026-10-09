@@ -22,3 +22,4 @@
 | 2026-10-07 | 2026-10-07-002 | rhodotorula-phenotypes | main | 3m | 5 | decisions.md, learnings.md, db_check.log (+2 more) | | complete | | [log](2026-10-07-002-rhodotorula-phenotypes.md) |
 | 2026-10-08 | 2026-10-08-003 | rhodotorula-phenotypes | main | 4m | 22 | Ingest heavy-metal array intermediate data; load as heavy_metal_measurement | | complete | | [log](2026-10-08-003-rhodotorula-phenotypes.md) |
 | 2026-10-08 | 2026-10-08-008 | rhodotorula-phenotypes | main | 5m | 4 | decisions.md, learnings.md, strains_needing_species_id.tsv (+1 more) | | complete | | [log](2026-10-08-008-rhodotorula-phenotypes.md) |
+| 2026-10-08 | 2026-10-08-009 | rhodotorula-phenotypes | curation/strain-curation-table | 3m | 45 | Log learnings L-40, L-41 and curation finding; Step 1: popgen metadata snapshot and strain curation table (species, ploidy, GWAS panel) | | complete | | [log](2026-10-08-009-rhodotorula-phenotypes.md) |

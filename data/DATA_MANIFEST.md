@@ -212,3 +212,6 @@ Checksummed snapshot of popgen QC, ploidy, hybrid, identity, de-clone and specie
 
 ### strain-curation
 Generated strain table with corrected species, ploidy status, GWAS eligibility and de-clone groups, plus a change log. `data/metadata/strain-curation/` (see `STRAIN_CURATION.md`). Built by `scripts/curation/build_strain_curation.py`.
+
+### DuckDB tables from the curation (step 2)
+`strain_curation` (321 rows, from `data/metadata/strain-curation/`), `metal_source_status` (5 rows), views `strain_info` (adds `species_screen`, `clade_marker`, `ploidy_status`, `hybrid_subgroup`, `in_callset`, `gwas_panel`, `gwas_exclude_reason`, `curation_notes`) and `strain_metal_status`. Built by `scripts/db/25_import_heavy_metal.py`. Table `strain_species_override` is retired.

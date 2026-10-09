@@ -48,9 +48,17 @@ def main() -> int:
             con.execute(f"DROP VIEW IF EXISTS {v}")
         con.execute("DROP TABLE IF EXISTS colony_measurement")
     con.execute("COMMIT")
-    ovr = Path(__file__).resolve().parents[2] / "data/metadata/heavy-metal-array-intermediate/strain_species_overrides.tsv"
-    con.execute(f"CREATE OR REPLACE TABLE strain_species_override AS SELECT strain_id::VARCHAR AS strain_id, species, source "
-                f"FROM read_csv('{ovr}', delim='\\t', header=true, all_varchar=true)")
+    root = Path(__file__).resolve().parents[2]
+    cur = root / "data/metadata/strain-curation/strain_curation.csv"
+    # D-55/D-58: species, ploidy and GWAS flags come from the generated curation table, not from the screen files.
+    con.execute(f"CREATE OR REPLACE TABLE strain_curation AS SELECT * FROM read_csv('{cur}', header=true, all_varchar=true)")
+    con.execute("DROP TABLE IF EXISTS strain_species_override")  # retired: folded into strain_curation (D-37)
+    # D-56: per-metal source status. Fe and Zn Parquet files hold only part of the 0.15.1 plates (see HEAVY_METAL_DATA_PROBLEMS.md).
+    con.execute("""CREATE OR REPLACE TABLE metal_source_status AS SELECT * FROM (VALUES
+        ('Chromium', 'ok', ''), ('Copper', 'ok', ''), ('Lead', 'ok', ''),
+        ('Iron', 'incomplete_source', 'ingested 62 of 120 plates (runs 406-408 partial); 0.15.1 has runs 406-410'),
+        ('Zinc', 'incomplete_source', 'ingested 9 of 119 plates (runs 388, 390 partial); 0.15.1 has runs 388-391, 393')
+    ) t(metal, source_status, note)""")
     con.execute((Path(__file__).resolve().parent / "35_create_strain_view.sql").read_text())
     ncol = len(con.execute("DESCRIBE heavy_metal_measurement").fetchall())
     print(f"heavy_metal_measurement: {n:,} rows, {ncol} columns from {len(files)} files")
