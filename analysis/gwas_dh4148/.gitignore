@@ -1,0 +1,7 @@
+# large and rebuildable (scripts/02, 06 regenerate them)
+results/geno/panel.vcf.gz*
+results/geno/panel_sites_ann.tsv.gz
+results/geno/panel.bimbam.gz
+results/gwas/output*/
+results/gwas/K_eig_vals.npy
+results/*.log

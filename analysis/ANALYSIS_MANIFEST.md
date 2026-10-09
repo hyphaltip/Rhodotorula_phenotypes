@@ -424,3 +424,6 @@ tags: [gwas, candidate-gene, sequence-alignment, snpeff, carotenoid, pigment, rh
 
 ### carotenoid_stress_vs_baseline (rerun 2026-10-09)
 Rerun on the curated strain table (Cr, Cu, Pb; groups from `strain_curation`; no populations; Fe and Zn withdrawn). Driver: `run_all.sh`. Report: `report/REPORT.md`, `report/REPORT.pdf`. See D-60.
+
+### gwas_dh4148 (2026-10-09)
+GWAS (GEMMA), lineage analysis, dose-0 consistency, growth rate, IC50 and non-additive tests for the 126-strain panel on the DH4148 reference. See `analysis/gwas_dh4148/GWAS_DH4148.md` and D-61.
