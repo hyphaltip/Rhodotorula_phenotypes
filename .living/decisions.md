@@ -436,3 +436,11 @@ Append-only log of non-obvious decisions and their rationale.
 - **Alternatives considered**: build the clusters first and rerun once; rerun now with the old Y-2510-era labels (rejected: against the user's instruction).
 - **Revisit if**: the user prefers one combined rerun after the clusters exist.
 - **Tags**: rerun, population, sequencing, decision
+
+### [2026-10-08] D-58 — The database takes species, ploidy and GWAS flags from `strain_curation`; `strain_species_override` is retired (status: applied, step 2)
+- **Decision**: `25_import_heavy_metal.py` loads `data/metadata/strain-curation/strain_curation.csv` as table `strain_curation` and a small table `metal_source_status` (Fe and Zn = `incomplete_source`, D-56). The `strain_info` view reads species, `ploidy_status`, `hybrid_subgroup`, `clade_marker`, `gwas_panel`, `gwas_exclude_reason` from it and keeps the original value as `species_screen`. View `strain_metal_status` joins strains to the per-metal status. The old overrides TSV stays as an input of the generator (D-37).
+- **Result (2026-10-08 rebuild)**: 334 strains (13 controls); 13 species differ from the screen value; ploidy 185 haploid, 33 diploid_hybrid, 5 diploid_other, 98 unknown; 126 panel strains. Panel strains with Fe data: 93; with Zn data: 74 (both metals incomplete).
+- **Alternatives considered**: keep overrides in the DB and add ploidy there (rejected: two sources of truth).
+- **Revisit if**: Fe and Zn complete tables arrive (change `metal_source_status`); the panel cutoff changes (regenerate the CSV).
+- **Backup**: `db/rhodotorula_phenotypes.pre-curation-20261008.duckdb`.
+- **Tags**: duckdb, curation, strain_info, decision
