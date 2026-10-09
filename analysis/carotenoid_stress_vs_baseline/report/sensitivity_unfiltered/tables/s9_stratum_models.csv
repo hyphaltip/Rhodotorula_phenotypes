@@ -1,0 +1,73 @@
+"Metal","stratum","model","n_strains","n_wells","dose_effect","se","p","singular"
+"Chromium","Rhodotorula mucilaginosa","total",216,5774,-13.8185907614821,1.07067567441474,9.53329226013256e-24,FALSE
+"Chromium","Rhodotorula mucilaginosa","at fixed size",216,5774,-8.54376489722247,0.914904228040902,5.67502345482692e-16,FALSE
+"Chromium","Rhodotorula dairenensis","total",9,220,-9.10600332050775,1.31075569404835,1.23949913665407e-09,FALSE
+"Chromium","Rhodotorula dairenensis","at fixed size",9,220,-3.95290483146707,1.39127339665418,0.00527687250439965,FALSE
+"Chromium","Rhodotorula diobovata","total",8,211,-11.0556221594776,1.35913154057188,5.30332095609744e-12,FALSE
+"Chromium","Rhodotorula diobovata","at fixed size",8,211,-3.58197752308293,1.34206250863646,0.00854635133617103,FALSE
+"Chromium","Rhodotorula graminis","total",5,55,-9.23712073537649,2.66458450362038,0.00166995168266916,FALSE
+"Chromium","Rhodotorula graminis","at fixed size",5,55,-0.311353249521325,2.22436492775018,0.889519599416028,FALSE
+"Chromium","Rhodotorula paludigena","total",15,279,-11.6242535834512,1.19332822012639,2.0575899881927e-16,FALSE
+"Chromium","Rhodotorula paludigena","at fixed size",15,279,-2.9055265617671,1.23680361624928,0.0198378562483791,FALSE
+"Chromium","Rhodotorula sp_clade_I","total",9,201,-18.1752677823047,1.66987956320872,2.78368053357218e-17,FALSE
+"Chromium","Rhodotorula sp_clade_I","at fixed size",9,201,-11.349330177439,1.94397252243692,3.53514806412796e-08,FALSE
+"Chromium","Rhodotorula sphaerocarpa","total",6,154,-13.0388688617304,1.37820584049361,2.03105872113045e-14,FALSE
+"Chromium","Rhodotorula sphaerocarpa","at fixed size",6,154,-4.49142368010084,1.4946790333224,0.00319648367398829,FALSE
+"Chromium","Rhodotorula taiwanensis","total",6,163,-16.8246933756744,1.95403907458818,1.07365585729413e-11,FALSE
+"Chromium","Rhodotorula taiwanensis","at fixed size",6,163,-3.82196222405659,2.08048902831433,0.0688138116217953,FALSE
+"Chromium","Rhodotorula toruloides","total",10,275,-11.7414514173998,1.128371635211,1.00904814753416e-17,FALSE
+"Chromium","Rhodotorula toruloides","at fixed size",10,275,-2.60783074655523,1.39772533172495,0.063480976510504,FALSE
+"Chromium","Other species (>= 5 strains, pooled)","total",68,1558,-12.9254903357462,1.02709674444942,1.39376817440859e-22,FALSE
+"Chromium","Other species (>= 5 strains, pooled)","at fixed size",68,1558,-5.64673371035728,0.881273791896738,1.61456879651131e-09,FALSE
+"Copper","Rhodotorula mucilaginosa","total",215,5280,-16.0292164011589,0.391673480185054,3.3568861960111e-69,FALSE
+"Copper","Rhodotorula mucilaginosa","at fixed size",215,5280,-13.7713000839195,0.28884626557152,1.13041013630982e-76,FALSE
+"Copper","Rhodotorula dairenensis","total",10,251,-16.8932980446345,1.12633477192922,1.70948409807086e-19,FALSE
+"Copper","Rhodotorula dairenensis","at fixed size",10,251,-13.7655994869452,0.852504155231245,2.85597920962249e-20,FALSE
+"Copper","Rhodotorula diobovata","total",8,205,-16.252622304367,0.992525574087353,1.16603201789267e-24,FALSE
+"Copper","Rhodotorula diobovata","at fixed size",8,205,-13.7065765219027,0.7860848727487,9.54889312000743e-27,FALSE
+"Copper","Rhodotorula paludigena","total",18,364,-17.2127432604944,0.896713346228887,1.06873222040238e-28,FALSE
+"Copper","Rhodotorula paludigena","at fixed size",18,364,-14.3008284385051,0.836776968714946,9.07702566288784e-28,FALSE
+"Copper","Rhodotorula sp_clade_I","total",9,189,-15.2747044627088,1.04894364016247,2.16101021003377e-23,FALSE
+"Copper","Rhodotorula sp_clade_I","at fixed size",9,189,-13.3767427640817,0.87019125552249,1.48841092462159e-25,FALSE
+"Copper","Rhodotorula sphaerocarpa","total",7,149,-15.2352839046153,1.59601369547098,7.54212533093312e-14,FALSE
+"Copper","Rhodotorula sphaerocarpa","at fixed size",7,149,-12.8638159220979,1.05293349073411,1.38809339067914e-19,FALSE
+"Copper","Rhodotorula taiwanensis","total",6,141,-14.874458919355,1.21168246226389,7.03896150385156e-10,FALSE
+"Copper","Rhodotorula taiwanensis","at fixed size",6,141,-13.7158758274105,1.15742553133249,4.0115613171407e-13,FALSE
+"Copper","Rhodotorula toruloides","total",10,223,-15.0967385621596,0.951637607717024,2.21680019331215e-28,FALSE
+"Copper","Rhodotorula toruloides","at fixed size",10,223,-12.8460211844452,0.835195338742668,3.21448071902561e-27,FALSE
+"Copper","Other species (>= 5 strains, pooled)","total",68,1522,-15.9208348582582,0.538206939500647,1.62272875049757e-42,FALSE
+"Copper","Other species (>= 5 strains, pooled)","at fixed size",68,1522,-13.3850336278617,0.374705243335551,1.06175901264917e-51,FALSE
+"Iron","Rhodotorula mucilaginosa","total",174,3427,2.41120266167632,0.319211981969826,4.0405546071319e-10,FALSE
+"Iron","Rhodotorula mucilaginosa","at fixed size",174,3427,3.69873395575411,0.298283081479607,5.26817530189633e-18,FALSE
+"Iron","Rhodotorula dairenensis","total",8,63,4.35581155774634,0.926053967267022,1.80912936863245e-05,TRUE
+"Iron","Rhodotorula dairenensis","at fixed size",8,63,5.15016569675954,1.1857819279109,5.90571399338167e-05,TRUE
+"Iron","Rhodotorula diobovata","total",5,84,-0.143779597769286,0.675551876276329,0.83274206000816,FALSE
+"Iron","Rhodotorula diobovata","at fixed size",5,84,1.45941988741902,0.614069465362266,0.0222153414831829,FALSE
+"Iron","Rhodotorula paludigena","total",5,73,5.35869230994819,1.01204902772587,6.07082597079041e-06,FALSE
+"Iron","Rhodotorula paludigena","at fixed size",5,73,9.32989445478571,0.830512597470963,4.11632356427207e-17,TRUE
+"Iron","Rhodotorula sp_clade_I","total",5,76,2.18594706251719,0.793334055883026,0.0110466965446514,FALSE
+"Iron","Rhodotorula sp_clade_I","at fixed size",5,76,5.66547921228384,0.880986141839906,1.01107508630616e-07,FALSE
+"Iron","Rhodotorula taiwanensis","total",6,87,4.04324141648147,0.731479248159197,1.29436489520261e-05,FALSE
+"Iron","Rhodotorula taiwanensis","at fixed size",6,87,6.2160635366915,0.763238920536583,7.47264895226787e-10,FALSE
+"Iron","Rhodotorula toruloides","total",6,98,4.64497402622937,0.783057704607369,5.32594664284285e-08,TRUE
+"Iron","Rhodotorula toruloides","at fixed size",6,98,5.60184615464334,0.831726725333498,7.27817119841926e-08,FALSE
+"Iron","Other species (>= 5 strains, pooled)","total",35,481,3.25778611188144,0.413074956984843,4.19942491804569e-10,FALSE
+"Iron","Other species (>= 5 strains, pooled)","at fixed size",35,481,5.35837830189011,0.422482033983478,6.34588168381057e-20,FALSE
+"Lead","Rhodotorula mucilaginosa","total",214,4936,-19.111187190334,1.55972946608481,2.68485492613217e-22,FALSE
+"Lead","Rhodotorula mucilaginosa","at fixed size",214,4936,-9.9533357194733,1.2737990119934,1.71609595377565e-12,FALSE
+"Lead","Rhodotorula dairenensis","total",10,179,-9.89921000792134,2.28093864762174,5.01263302994107e-05,FALSE
+"Lead","Rhodotorula dairenensis","at fixed size",10,179,0.062316298494868,2.51054855546237,0.980236352552701,FALSE
+"Lead","Rhodotorula diobovata","total",8,178,-8.21449699721329,1.20140030180967,3.11741880552667e-09,FALSE
+"Lead","Rhodotorula diobovata","at fixed size",8,178,-2.86990164246785,1.1613122479114,0.0151428293052512,FALSE
+"Lead","Rhodotorula paludigena","total",12,155,-15.4305937314463,2.22137171613104,7.15373839520295e-10,FALSE
+"Lead","Rhodotorula paludigena","at fixed size",12,155,3.59791650417724,2.01327670247587,0.0763103303311479,FALSE
+"Lead","Rhodotorula sp_clade_I","total",9,130,-13.3451545208229,2.2719013929326,1.59470232113513e-07,FALSE
+"Lead","Rhodotorula sp_clade_I","at fixed size",9,130,4.04991390272339,2.27213443681425,0.0775825361378011,FALSE
+"Lead","Rhodotorula sphaerocarpa","total",7,113,-2.30393061005799,2.46546409519412,0.353254456740551,TRUE
+"Lead","Rhodotorula sphaerocarpa","at fixed size",7,113,3.31208842891308,1.37558129868738,0.01946999085677,FALSE
+"Lead","Rhodotorula taiwanensis","total",6,145,-14.8360153175661,2.98872799443633,7.59256148986991e-06,FALSE
+"Lead","Rhodotorula taiwanensis","at fixed size",6,145,1.89371423472388,2.78689790433404,0.498712398942839,FALSE
+"Lead","Rhodotorula toruloides","total",10,193,-13.5915396174323,1.8693925946519,1.49984785992582e-10,FALSE
+"Lead","Rhodotorula toruloides","at fixed size",10,193,-0.882757720572437,1.69092689968974,0.602566808818335,FALSE
+"Lead","Other species (>= 5 strains, pooled)","total",62,1093,-11.0369778487263,1.44068585827899,9.16818956401345e-12,FALSE
+"Lead","Other species (>= 5 strains, pooled)","at fixed size",62,1093,0.196488507098105,1.07219984422047,0.854842539298778,FALSE

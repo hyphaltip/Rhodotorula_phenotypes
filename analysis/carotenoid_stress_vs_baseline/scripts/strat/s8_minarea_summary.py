@@ -8,7 +8,7 @@ from strat_common import *
 TH = [0, 1000, 2000, 3000, 5000]; M4 = ["Chromium", "Copper", "Iron", "Lead"]
 mm, m2, wl, topd = [], [], [], []
 for A in TH:
-    d = R if A == 0 else R / f"minarea_{A}"; wf = R / ("wells.csv" if A == 0 else f"wells_min{A}.csv")
+    d = R / "unfiltered" if A == 0 else R / f"minarea_{A}"; wf = R / "unfiltered" / "wells.csv" if A == 0 else R / f"wells_min{A}.csv"   # 0 = original unfiltered run (median-span window for Zinc)
     x = pd.read_csv(d / "mixed_model_summary.csv"); x["min_area"] = A; mm.append(x[x.Metal.isin(M4)])
     y = pd.read_csv(d / "dose_factor_effects_M2.csv"); y["min_area"] = A; m2.append(y[y.Metal.isin(M4)])
     w = pd.read_csv(wf); w = w[w.Metal.isin(M4)]

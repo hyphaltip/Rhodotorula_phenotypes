@@ -27,7 +27,8 @@ pk = ["Metal", "run_number", "plate_position"]; wk = pk + ["Grid_RowNum", "Grid_
 df["h"] = (df.capture_datetime - df.groupby(pk).capture_datetime.transform("min")).dt.total_seconds() / 3600
 assert 90 < df.h.max() < 130
 df = df.sort_values("Shape_Area", ascending=False).drop_duplicates(wk + ["capture_datetime"])
-T = df.groupby(pk).h.max().groupby("Metal").median(); df["T"] = df.Metal.map(T)
+T = df.groupby(pk).h.max().groupby("Metal").median(); T["Zinc"] = 80.0; df["T"] = df.Metal.map(T)   # Zinc plates stop at 83.7-89.7 h
+df = df[df.Shape_Area >= 2000]   # main dataset: largest object >= 2000 px
 win = df[(df.h >= df["T"] - WINDOW_H) & (df.h <= df["T"])]
 log(f"window rows: {len(win):,}")
 agg = {c: "median" for c in cols}; agg.update(strain_id=("strain_id", "first"), conc=("Concentration", "first"), n_img=("capture_datetime", "nunique"))
@@ -62,7 +63,7 @@ for sc in ("all_doses", "dose0", "within_strain_dose"):
 top = cor[cor.scope == "all_doses"].assign(ar=lambda d: d.rho.abs()).groupby("trait").ar.mean().sort_values(ascending=False).head(18).index
 piv = cor[(cor.scope == "all_doses") & cor.trait.isin(top)].pivot(index="trait", columns="Metal", values="rho").reindex(top)
 fig, ax = plt.subplots(figsize=(7.5, 7)); im = ax.imshow(piv[METALS].values, cmap="RdBu_r", vmin=-1, vmax=1)
-ax.set_xticks(range(5)); ax.set_xticklabels(METALS); ax.set_yticks(range(len(piv))); ax.set_yticklabels(piv.index, fontsize=7)
+ax.set_xticks(range(5)); ax.set_xticklabels(METALS, rotation=45, ha="right"); ax.set_yticks(range(len(piv))); ax.set_yticklabels(piv.index, fontsize=7)
 for i in range(piv.shape[0]):
     for j in range(5):
         v = piv[METALS].values[i, j]
