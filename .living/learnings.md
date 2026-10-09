@@ -285,3 +285,8 @@ Append-only log of gotchas, surprises, and insights.
 - **What happened**: `pandoc --pdf-engine=pdflatex` failed in turn with `unicode-math.sty` / `xcolor.sty` not found (partial TeX Live 2019 in `~/bin` shadowed the module), then `\preparecolorset` undefined (an old `~/texmf/.../xcolor.sty` shadowed the 2022 package). `module load texlive` alone is not enough.
 - **mitigation_type**: procedural — in the build script: `module load texlive`, prepend `/opt/linux/rocky/8.x/x86_64/pkgs/texlive/20220403/bin/x86_64-linux` to PATH, set `TEXMFHOME=/nonexistent`. Use empty image alt text when a caption is written separately, or pandoc adds a second caption. Escape `*` in captions.
 - **Tags**: pandoc, latex, hpcc, gotcha
+
+### [2026-10-08] L-39 — Two figure bugs hid for several runs: a breadth-first leaf order scrambled the tree, and the tree's arbitrary root drove lambda
+- **What happened**: The tree figure used a breadth-first leaf order, so relatives were scattered and branches crossed. It was never opened until the user asked about it. Separately, the tree file's arbitrary root changed Pagel's lambda from 0.15 to 0.96 (Zn) and 0.95 to 0.49 (Cu) once the tree was rooted on the outgroup.
+- **mitigation_type**: procedural — draw trees with a depth-first leaf order; open every generated figure once before it goes in a report; root trees on the outgroup before computing covariance-based statistics and state the root in the report.
+- **Tags**: phylogeny, figures, validation, gotcha

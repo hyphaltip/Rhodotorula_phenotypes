@@ -46,17 +46,17 @@ fig.suptitle("Colour-plane trajectory under stress (colour = dose, labels = conc
 MC = MORPH + ["lnA"]; CC = ["a", "b", "L", "chroma", "hue_deg"]
 def cormat(df, rowt, colt):
     return pd.DataFrame({c: {r: stats.spearmanr(df[r], df[c], nan_policy="omit")[0] for r in rowt} for c in colt})
-fig, ax = plt.subplots(2, 4, figsize=(17, 8.5)); rows = []
+fig, ax = plt.subplots(2, 4, figsize=(18, 11.5), gridspec_kw=dict(hspace=0.55, wspace=0.4)); rows = []   # room for rotated x labels between the rows
 for k, m in enumerate(M4):
     g = w[w.Metal == m]; dm = g.conc.max(); s0 = g[g.conc == 0].groupby("strain_id")[MC + CC].mean(); st_ = g[g.conc == dm].groupby("strain_id")[MC + CC].mean()
     dl = (st_ - s0).dropna()
     for r_, (df, ttl) in enumerate(((s0.dropna(), "baseline (0 dose), strain means"), (dl, f"change (dose {dm:g} minus 0)"))):
         cm = cormat(df, MC, CC); im = ax[r_, k].imshow(cm.values, cmap="RdBu_r", vmin=-1, vmax=1); ax[r_, k].set_xticks(range(len(CC))); ax[r_, k].set_xticklabels(CC, rotation=45, ha="right", fontsize=8)
-        ax[r_, k].set_yticks(range(len(MC))); ax[r_, k].set_yticklabels(MC, fontsize=8); ax[r_, k].set_title(f"{m}: {ttl}; n={len(df)}", fontsize=8)
+        ax[r_, k].set_yticks(range(len(MC))); ax[r_, k].set_yticklabels(MC, fontsize=8); ax[r_, k].set_title(f"{m}\n{ttl}; n={len(df)}", fontsize=8)
         for i in range(cm.shape[0]):
             for j in range(cm.shape[1]): ax[r_, k].text(j, i, f"{cm.values[i, j]:.2f}", ha="center", va="center", fontsize=6)
         cm["metal"] = m; cm["scope"] = "baseline" if r_ == 0 else "change"; cm["morph"] = cm.index; rows.append(cm)
-fig.colorbar(im, ax=ax, shrink=.6, label="Spearman rho"); fig.suptitle("Strain-level correlation of morphology (rows) with colour (columns)", fontsize=10); fig.savefig(F / "bm_morph_colour_corr.png", dpi=150); plt.close(fig)
+fig.suptitle("Strain-level correlation of morphology (rows) with colour (columns)", fontsize=10); fig.subplots_adjust(top=0.9, bottom=0.08, left=0.06, right=0.9); fig.colorbar(im, cax=fig.add_axes([0.925, 0.3, 0.012, 0.4]), label="Spearman rho"); fig.savefig(F / "bm_morph_colour_corr.png", dpi=150); plt.close(fig)
 pd.concat(rows).to_csv(T / "s10_morph_colour_corr.csv", index=False)
 # baseline b* and circularity by species
 sp = w[(w.grp != "no species") & w.species.notna()]; cn = sp.groupby(["Metal", "species"]).strain_id.nunique().unstack(0).fillna(0)
@@ -72,17 +72,17 @@ fig.suptitle("Baseline b* and circularity by species (strain means at 0 dose; sp
 # model-based dose effects heatmap (needs s10_trait_dose_effects.csv)
 try:
     e = pd.read_csv(T / "s10_trait_dose_effects.csv")
-    fig, ax = plt.subplots(2, 2, figsize=(14, 10)); star = lambda p: "***" if p < .001 else "**" if p < .01 else "*" if p < .05 else ""
+    fig, ax = plt.subplots(2, 2, figsize=(17, 14), gridspec_kw=dict(hspace=0.4, wspace=0.18)); star = lambda p: "***" if p < .001 else "**" if p < .01 else "*" if p < .05 else ""
     for r_, ds in enumerate(("main: largest object >= 2000 px", "no area filter")):
         for c_, mod in enumerate(("total", "at fixed size")):
             z = e[(e.dataset == ds) & (e.model == mod)]; pv = z.pivot(index="trait", columns="Metal", values="effect_sd").reindex(COLT + ["sat", "val"] + MORPH)[M4]; pp = z.pivot(index="trait", columns="Metal", values="p").reindex(pv.index)[M4]
-            im = ax[r_, c_].imshow(pv.values, cmap="RdBu_r", vmin=-3, vmax=3); ax[r_, c_].set_xticks(range(4)); ax[r_, c_].set_xticklabels(M4); ax[r_, c_].set_yticks(range(len(pv))); ax[r_, c_].set_yticklabels(pv.index)
+            im = ax[r_, c_].imshow(pv.values, cmap="RdBu_r", vmin=-3, vmax=3, aspect="auto"); ax[r_, c_].set_xticks(range(4)); ax[r_, c_].set_xticklabels(M4, rotation=45, ha="right"); ax[r_, c_].set_yticks(range(len(pv))); ax[r_, c_].set_yticklabels(pv.index)
             for i in range(pv.shape[0]):
                 for j in range(4):
                     v = pv.values[i, j]
-                    if not np.isnan(v): ax[r_, c_].text(j, i, f"{v:.1f}{star(pp.values[i, j])}", ha="center", va="center", fontsize=7)
+                    if not np.isnan(v): ax[r_, c_].text(j, i, f"{v:.1f}{star(pp.values[i, j])}", ha="center", va="center", fontsize=9)
             ax[r_, c_].set_title(f"{ds}; {mod}", fontsize=9)
-    fig.colorbar(im, ax=ax, shrink=.5, label="dose effect (SD of 0-dose wells)"); fig.suptitle("Mixed-model dose effect (0 to max dose) on colour and morphology traits, in SD units. Stars: p < .05, .01, .001 (unadjusted)", fontsize=10)
+    fig.subplots_adjust(top=0.93, bottom=0.08, left=0.07, right=0.9); fig.colorbar(im, cax=fig.add_axes([0.92, 0.3, 0.014, 0.4]), label="dose effect (SD of 0-dose wells)"); fig.suptitle("Mixed-model dose effect (0 to max dose) on colour and morphology traits, in SD units. Stars: p < .05, .01, .001 (unadjusted)", fontsize=10)
     fig.savefig(F / "bm_dose_effect_heatmap.png", dpi=150); plt.close(fig)
 except FileNotFoundError: print("no dose-effect table yet")
 print("done")

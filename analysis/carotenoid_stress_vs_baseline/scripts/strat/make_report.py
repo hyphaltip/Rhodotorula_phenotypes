@@ -103,9 +103,6 @@ h_u = pd.read_csv(U / "s6_run_heterogeneity.csv"); h_m = pd.read_csv(T / "s6_run
 for mt in ("Chromium", "Copper", "Iron", "Lead"):
     a = om_u[(om_u.Metal == mt) & (om_u.model == "dose_response_size_adjusted")].F.iloc[0]; b = om_m[(om_m.Metal == mt) & (om_m.model == "dose_response_size_adjusted")].F.iloc[0]; rows.append(dict(quantity=f"{mt}: omnibus F, species by dose", unfiltered=a, main=b))
     a = s5u[(s5u.Metal == mt) & (s5u.measure == "a_adj")].n_strains.iloc[0]; b = s5m[(s5m.Metal == mt) & (s5m.measure == "a_adj")].n_strains.iloc[0]; rows.append(dict(quantity=f"{mt}: strains in the split-half analysis", unfiltered=a, main=b))
-p_u = pd.read_csv(U / "s2_phylo_signal.csv"); p_m = pd.read_csv(T / "s2_phylo_signal.csv")
-for mt in ("Chromium", "Copper", "Iron", "Lead"):
-    f_ = lambda d: d[(d.Metal == mt) & (d.scope == "all_strains_with_tip") & (d.trait == "baseline a*")].pagel_lambda.iloc[0]; rows.append(dict(quantity=f"{mt}: Pagel lambda, baseline a*", unfiltered=f_(p_u), main=f_(p_m)))
 RS["T_SENS_OTHER"] = md(pd.DataFrame(rows))
 body = open("analysis/carotenoid_stress_vs_baseline/scripts/strat/report_text.md").read()
 subs = dict(T_MM=t_mm, T_M2=t_m2, T_COR_ALL=topcor("all_doses"), T_COR_0=topcor("dose0"), T_COR_WITHIN=topcor("within_strain_dose"), T_OM=t_om, T_SB=t_sb, T_SS=t_ss, T_PO=t_po, T_PB=t_pb, T_PP=t_pp,

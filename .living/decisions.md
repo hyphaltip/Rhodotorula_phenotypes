@@ -326,3 +326,10 @@ Append-only log of non-obvious decisions and their rationale.
 - **Result**: Cu (-13.4) and Fe (+4.4) unchanged; Cr -8.5 (was -8.4); Pb -4.3 (was -6.1, unstable across cutoffs, singular fits); Zn -3.5 (p 0.43). Population effects, lambda and run heterogeneity keep their conclusions. The Pb species effect on baseline a* shrinks (F 15.8 to 6.0).
 - **Consequences**: Pb doses 20-30 keep too few wells to test. Zinc dose-effect standard errors are not valid (one plate per dose). Report: `analysis/carotenoid_stress_vs_baseline/report/REPORT.md` (sections 10, 11, 12, 13 are new).
 - **Tags**: area-cutoff, zinc, window, sensitivity, decision
+
+### [2026-10-08] D-43 — Phylogenetic analyses use the tree rooted on the Cystobasidium + Pseudomicrostroma outgroup clade; lambda values changed
+- **Context**: User asked for the tree figure to be readable and for the tree to be rerooted on the outgroup. First instruction named Cystobasidium only; user then corrected that both non-Rhodotorula tips (Cystobasidium sp. DBVPG_10075 and Pseudomicrostroma phylloplanum DBVPG_6740) are in the tree and should both be used (the older `idea_09_phylogeny.R` does this).
+- **Decision**: `s2_phylo.py` reroots with `reroot_on_clade` (root in the middle of the branch separating the outgroup clade from the rest, as `ape::root(resolve.root = TRUE)`). Figure redrawn with depth-first leaf order, a species strip, one a* colour scale and readable column headings. Rule saved in `.living/conventions.md`.
+- **Result**: Pagel's lambda for baseline a* changed a lot. Arbitrary root: Cr 0.97, Cu 0.95, Fe 0.51, Pb 0.90, Zn 0.15. Outgroup root: Cr 0.79, Cu 0.49, Fe 0.84, Pb 0.74, Zn 0.96 (inside R. mucilaginosa: 0.89, 0.48, 0.91, 0.80, 0.97). Patristic distances (distance-decay figure) do not depend on the root.
+- **Consequences**: the Summary and section 5 of the report were rewritten; lambda is no longer compared between the unfiltered and main runs (root changed, not the cutoff). Statements in the first report version (PR #1) that signal was strongest in Cr, Cu, Pb and weakest in Fe and Zn were artifacts of the root.
+- **Tags**: phylogeny, lambda, rooting, outgroup, decision
