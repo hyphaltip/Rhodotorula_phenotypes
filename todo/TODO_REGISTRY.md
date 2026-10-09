@@ -74,3 +74,4 @@ All future work items, ideas, and planned improvements for this project are trac
 - [ ] Resolve old-vs-new Copper strain/well assignment (41% object-level agreement, trait r 0.1-0.6) before regenerating GWAS traits from DuckDB; accept/reject 74 fuzzy, 33 unmatched, 54 collision strains (2026-10-08).
 - [ ] Check whether a* of very small high-dose colonies reflects background pixels (`analysis/carotenoid_stress_vs_baseline`); model the `--all-objects` sensitivity table.
 - [ ] Strain curation, ploidy status, and removal of old Y-2510 / old-Copper work: decisions D-45 to D-47 agreed, rest in progress (`todo/strain_curation_and_old_data_removal.md`) (2026-10-08).
+- Revisit the de-clone cutoff (D-49/D-61): the panel is 14 lineages; GWAS needs a recombining or larger panel. See analysis/gwas_dh4148/report/REPORT.md section 7.

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-"""Shared inputs for the stratified analyses: strain table (species), population labels, tree-tip mapping.
-Writes results/strat/strain_table.csv (strain_id, sample_name, species, pop, tip) and checks the join."""
+"""Shared inputs for the stratified analyses: strain table (analysis group from the curated database), tree-tip mapping.
+Writes results/strat/strain_table.csv (strain_id, sample_name, species = analysis group, species_db, ploidy_status, tip) and checks the join."""
 import re, sys
 from pathlib import Path
 import pandas as pd, duckdb
@@ -8,13 +8,19 @@ import pandas as pd, duckdb
 R = Path("analysis/carotenoid_stress_vs_baseline/results/strat"); R.mkdir(parents=True, exist_ok=True)
 norm = lambda s: re.sub(r"[^A-Z0-9]", "", str(s).upper().replace("TF_CN", "TFCN"))
 con = duckdb.connect("db/rhodotorula_phenotypes.duckdb", read_only=True)
-st = con.execute("select strain_id, sample_name, species, species_source from strain_info where not is_control").df()
-print(f"strains: {len(st)}; species counts:\n{st.species.value_counts().to_string()}")
-pop = pd.read_csv("analysis/gwas/data/prior_run_state/pop_assignment_at_run.csv")
-pop["k"] = pop.Strain.map(norm); st["k"] = st.sample_name.map(norm)
-assert pop.k.is_unique and st.k.is_unique is False or True
-st = st.merge(pop[["k", "Pop"]].rename(columns={"Pop": "pop"}), on="k", how="left")
-print(f"population labels matched: {st['pop'].notna().sum()} of {len(pop)} in file; by species:\n{st[st['pop'].notna()].species.value_counts().to_string()}")
+st = con.execute("""select strain_id, sample_name, species as species_db, ploidy_status, hybrid_subgroup, clade_marker, gwas_panel
+                    from strain_info where not is_control""").df()
+# D-53: the analysis group `species` splits R. mucilaginosa by ploidy and clade marker. "Rhodotorula mucilaginosa" = pure haploid only.
+MUC = "Rhodotorula mucilaginosa"
+def grp(r):
+    if r.species_db != MUC: return r.species_db
+    if r.clade_marker == "aff_mucilaginosa": return "Rhodotorula aff. mucilaginosa"
+    if r.ploidy_status == "diploid_hybrid": return "Rhodotorula mucilaginosa hybrid diploid"
+    assert r.ploidy_status == "haploid", f"unexpected ploidy for {r.sample_name}: {r.ploidy_status}"
+    return MUC
+st["species"] = st.apply(grp, axis=1)
+st["k"] = st.sample_name.map(norm)
+print(f"strains: {len(st)}; analysis groups:\n{st.species.value_counts().to_string()}")
 tips = [l.strip().replace(".proteins.fa", "").replace(".proteins", "") for l in open("ignore/tree_tips.txt")]
 tipmap = {}
 for t in tips:

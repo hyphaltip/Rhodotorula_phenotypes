@@ -421,3 +421,9 @@ tags: [gwas, candidate-gene, sequence-alignment, snpeff, carotenoid, pigment, rh
 - **Path**: `analysis/popgen_vcf_check/` (note: `POPGEN_VCF_CHECK.md`; script `scripts/compare_strains.py`; tables in `results/`)
 - **Purpose**: match phenotype strains to the latest DH4148-reference R. mucilaginosa callset and its groups, and list lingering identity and species issues (D-44).
 - **Status**: complete 2026-10-08; inputs read only.
+
+### carotenoid_stress_vs_baseline (rerun 2026-10-09)
+Rerun on the curated strain table (Cr, Cu, Pb; groups from `strain_curation`; no populations; Fe and Zn withdrawn). Driver: `run_all.sh`. Report: `report/REPORT.md`, `report/REPORT.pdf`. See D-60.
+
+### gwas_dh4148 (2026-10-09)
+GWAS (GEMMA), lineage analysis, dose-0 consistency, growth rate, IC50 and non-additive tests for the 126-strain panel on the DH4148 reference. See `analysis/gwas_dh4148/GWAS_DH4148.md` and D-61.

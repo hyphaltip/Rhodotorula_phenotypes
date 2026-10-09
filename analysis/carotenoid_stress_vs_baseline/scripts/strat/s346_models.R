@@ -7,7 +7,7 @@ w <- read.csv(file.path(R, "wells.csv"), stringsAsFactors = FALSE)
 ctl <- lmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e5), check.conv.singular = "ignore")
 RATIO_CUT <- 0.5   # regime threshold: median over strains of (colony area at dose / area at dose 0)
 res3 <- list(); res3b <- list(); ratio <- list(); res4 <- list(); res6 <- list(); res6b <- list()
-for (m in c("Chromium", "Copper", "Iron", "Lead")) {
+for (m in c("Chromium", "Copper", "Lead")) {
   d <- w[w$Metal == m, ]; d$strain_id <- factor(d$strain_id); d$run_number <- factor(d$run_number); d$plate_id <- factor(d$plate_id)
   # ---- s3 size ratio per dose
   sa <- aggregate(lnA ~ strain_id + conc, d, mean); s0 <- sa[sa$conc == 0, c("strain_id", "lnA")]; names(s0)[2] <- "lnA0"

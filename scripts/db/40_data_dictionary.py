@@ -4,7 +4,7 @@
 Never hand-edit SCHEMA.md -- it's a snapshot of duckdb_tables()/
 duckdb_columns()/duckdb_constraints(), regenerated on demand so it can't
 drift from the real schema. Run after any migration. See
-DATABASE_DESIGN.md §7.
+DATABASE_DESIGN.md.
 """
 
 import argparse

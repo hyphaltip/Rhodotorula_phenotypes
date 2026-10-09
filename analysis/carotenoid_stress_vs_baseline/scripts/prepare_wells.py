@@ -14,6 +14,7 @@ from pathlib import Path
 import numpy as np, pandas as pd, duckdb
 
 A = "ColorLab_a*GeoMedian"
+METALS_USED = ["Chromium", "Copper", "Lead"]   # D-56: Iron and Zinc are held out (incomplete_source in metal_source_status)
 WINDOW_H, MIN_IMG = 24.0, 2
 log = lambda m: print(m, flush=True)
 
@@ -30,6 +31,7 @@ def main():
     df = con.execute(f'''select Metal, run_number, plate_position, Grid_RowNum, Grid_ColNum, Concentration, strain_id,
                          capture_datetime, Shape_Area, "{A}" as astar from heavy_metal_measurement''').df()
     log(f"1. loaded rows: {len(df):,}"); assert len(df) == 517371
+    df = df[df.Metal.isin(METALS_USED)].copy(); log(f"   metals kept {METALS_USED}: {len(df):,} rows")
     assert df[["Grid_RowNum", "Grid_ColNum", "plate_position", "run_number"]].notna().all().all(), "NULL well keys"
     df = df[df.strain_id.notna() & ~df.strain_id.str.startswith("Control")].copy()
     log(f"   after dropping NULL strain_id and Control-N: {len(df):,}")

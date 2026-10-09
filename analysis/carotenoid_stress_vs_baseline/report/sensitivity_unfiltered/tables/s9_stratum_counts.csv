@@ -1,37 +1,36 @@
 "Metal","stratum","n_strains","n_wells","n_doses","mean_a_dose0","mean_lnA_dose0"
-"Chromium","Rhodotorula mucilaginosa",216,5774,7,19.5124479835689,10.6300666194445
-"Chromium","Rhodotorula dairenensis",9,220,7,16.5327640844836,10.6768057818072
-"Chromium","Rhodotorula diobovata",8,211,7,16.911312494346,10.5122058771252
-"Chromium","Rhodotorula graminis",5,55,7,11.9002510000978,8.40239847902446
-"Chromium","Rhodotorula paludigena",15,279,7,17.3578957997142,10.6331901261399
-"Chromium","Rhodotorula sp_clade_I",9,201,7,23.4103847989757,10.2945101441641
-"Chromium","Rhodotorula sphaerocarpa",6,154,7,18.815323771193,10.2457942104163
-"Chromium","Rhodotorula taiwanensis",6,163,7,23.3348507392989,10.5988270123775
-"Chromium","Rhodotorula toruloides",10,275,7,15.0505678367668,10.6359436598993
-"Chromium","Other species (>= 5 strains, pooled)",68,1558,7,18.0515392431248,10.4312578074331
-"Copper","Rhodotorula mucilaginosa",215,5280,7,18.9992554425312,10.2378636723611
-"Copper","Rhodotorula dairenensis",10,251,7,17.7401318730724,10.1387508661475
-"Copper","Rhodotorula diobovata",8,205,7,17.372201423692,10.2507830900809
-"Copper","Rhodotorula paludigena",18,364,7,18.243908871141,10.282877540669
-"Copper","Rhodotorula sp_clade_I",9,189,7,17.7077620262781,10.0144518755246
-"Copper","Rhodotorula sphaerocarpa",7,149,7,17.5126805498505,10.1517619688585
+"Chromium","Rhodotorula mucilaginosa",215,5247,7,19.5384509213636,10.6412670670986
+"Chromium","Rhodotorula dairenensis",8,198,7,16.5327640844836,10.6768057818072
+"Chromium","Rhodotorula diobovata",8,192,7,16.911312494346,10.5122058771252
+"Chromium","Rhodotorula paludigena",12,237,7,17.3578957997142,10.6331901261399
+"Chromium","Rhodotorula sp_clade_I",8,175,7,23.4103847989757,10.2945101441641
+"Chromium","Rhodotorula sphaerocarpa",6,138,7,19.5995141797599,10.4986193152673
+"Chromium","Rhodotorula taiwanensis",6,132,7,23.3348507392989,10.5988270123775
+"Chromium","Rhodotorula toruloides",10,238,7,15.0505678367668,10.6359436598993
+"Chromium","Other species (>= 5 strains, pooled)",58,1310,7,18.4376154501351,10.5599755057108
+"Copper","Rhodotorula mucilaginosa",215,5196,7,19.2987867644449,10.33702940644
+"Copper","Rhodotorula dairenensis",10,239,7,18.0825206356028,10.2835456739115
+"Copper","Rhodotorula diobovata",8,198,7,17.372201423692,10.2507830900809
+"Copper","Rhodotorula paludigena",18,359,7,18.243908871141,10.282877540669
+"Copper","Rhodotorula sp_clade_I",9,185,7,18.9078156216278,10.3949754615176
+"Copper","Rhodotorula sphaerocarpa",7,142,7,18.1655621669519,10.3390128546331
 "Copper","Rhodotorula taiwanensis",6,141,7,19.5834484674847,10.3905038040362
-"Copper","Rhodotorula toruloides",10,223,7,15.8551318010003,10.0888147687005
-"Copper","Other species (>= 5 strains, pooled)",68,1522,7,17.681410364047,10.1888464836773
-"Iron","Rhodotorula mucilaginosa",174,3427,7,18.1335506626912,10.2652976116152
+"Copper","Rhodotorula toruloides",10,217,7,16.7578594282718,10.3810411572853
+"Copper","Other species (>= 5 strains, pooled)",68,1481,7,18.0928288624053,10.3216513044411
+"Iron","Rhodotorula mucilaginosa",174,3421,7,18.2200312266952,10.2902711388254
 "Iron","Rhodotorula dairenensis",8,63,7,13.1191213071143,10.2364734827162
 "Iron","Rhodotorula diobovata",5,84,7,18.0816243791406,10.2448233607164
 "Iron","Rhodotorula paludigena",5,73,7,19.9661944190341,10.1506147759982
-"Iron","Rhodotorula sp_clade_I",5,76,7,15.5086215451527,9.97853444397463
+"Iron","Rhodotorula sp_clade_I",5,76,7,15.6276215942222,10.0092361328165
 "Iron","Rhodotorula taiwanensis",6,87,7,21.5960395144376,10.307224929104
 "Iron","Rhodotorula toruloides",6,98,7,16.6529195140115,10.3731775965516
-"Iron","Other species (>= 5 strains, pooled)",35,481,7,17.5750304085812,10.2246963956702
-"Lead","Rhodotorula mucilaginosa",214,4936,7,19.1572719183839,10.3745514734065
-"Lead","Rhodotorula dairenensis",10,179,7,15.0552900947899,10.295907938345
-"Lead","Rhodotorula diobovata",8,178,7,12.3290537013504,9.47611208853497
-"Lead","Rhodotorula paludigena",12,155,7,18.1709856174338,9.95825847882124
-"Lead","Rhodotorula sp_clade_I",9,130,7,14.7210835475298,9.75727502348627
-"Lead","Rhodotorula sphaerocarpa",7,113,7,7.61618224368153,8.43906587999518
-"Lead","Rhodotorula taiwanensis",6,145,7,17.333274044722,9.96366021313881
-"Lead","Rhodotorula toruloides",10,193,7,14.9474749894007,9.51460687457192
-"Lead","Other species (>= 5 strains, pooled)",62,1093,7,14.4883013642857,9.68391105584404
+"Iron","Other species (>= 5 strains, pooled)",35,481,7,17.5932109716335,10.2293869314654
+"Lead","Rhodotorula mucilaginosa",214,3505,7,19.3848335807904,10.4176783611666
+"Lead","Rhodotorula dairenensis",10,124,7,15.6148140660301,10.4095735650062
+"Lead","Rhodotorula diobovata",8,108,7,14.5384878973233,10.1512549480289
+"Lead","Rhodotorula paludigena",9,92,7,21.265839842557,10.4213722507916
+"Lead","Rhodotorula sp_clade_I",9,79,7,17.0686009845527,10.2881055482475
+"Lead","Rhodotorula sphaerocarpa",7,39,7,14.4167916954978,9.80043162600855
+"Lead","Rhodotorula taiwanensis",6,84,7,19.0849866869289,10.2464768974044
+"Lead","Rhodotorula toruloides",10,103,7,18.6805483983415,10.2267181294858
+"Lead","Other species (>= 5 strains, pooled)",59,629,7,17.2792631044695,10.2615900532706

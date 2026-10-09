@@ -1,0 +1,4 @@
+scan,loci_suggestive,loci_bonferroni,bonferroni_lineage_markers,contigs_with_bonferroni_loci,median_lineages_carrying_alt
+unadjusted,174,64,64,15,8.0
+runadj,165,44,44,9,7.0
+runadj_lineage,12,0,0,0,
