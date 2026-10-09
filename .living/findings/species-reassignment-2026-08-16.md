@@ -35,3 +35,5 @@ re-run where species grouping feeds the result):
 - The phyling protein tree itself (Rhodotorula_Rodeo) was built from the OLD
   labels; tips are keyed by strain not species, so tip identity is fine, but
   any species-colored render should be rebuilt.
+## Update 2026-10-08: curation table (step 1)
+- 13 species changes and 7 `aff_mucilaginosa` markers applied in `data/metadata/strain-curation/strain_curation.csv`. Ploidy: 185 haploid, 33 diploid_hybrid, 5 diploid_other, 98 unknown. GWAS panel at the 5-SNP de-clone cutoff: 126 strains (137 / 117 / 104 / 93 at 2 / 10 / 20 / 50 SNPs). Source: PR #4.

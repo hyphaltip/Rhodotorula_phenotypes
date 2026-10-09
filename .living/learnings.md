@@ -290,3 +290,13 @@ Append-only log of gotchas, surprises, and insights.
 - **What happened**: The tree figure used a breadth-first leaf order, so relatives were scattered and branches crossed. It was never opened until the user asked about it. Separately, the tree file's arbitrary root changed Pagel's lambda from 0.15 to 0.96 (Zn) and 0.95 to 0.49 (Cu) once the tree was rooted on the outgroup.
 - **mitigation_type**: procedural — draw trees with a depth-first leaf order; open every generated figure once before it goes in a report; root trees on the outgroup before computing covariance-based statistics and state the root in the report.
 - **Tags**: phylogeny, figures, validation, gotcha
+
+### [2026-10-08] L-40 — VCF sample ids in the popgen callset are written NAME_NAME; a first join silently matched 0 of 56 strains
+- **What happened**: `bcftools query -l` on the rmuc_core VCF returns ids such as `DBVPG_10619_DBVPG_10619`. The missing-fraction table keyed on these ids matched none of the strains in `groups_le5.tsv`. The check against popgen's own `missing_frac` caught it. The script now strips the doubled name.
+- **mitigation_type**: procedural — validate every derived table against a published value before use; the script asserts the 56-strain agreement in the notes.
+- **Tags**: popgen, vcf, validation, gotcha
+
+### [2026-10-08] L-41 — `git add data` stages large unrelated tracked-pending files; add explicit paths
+- **What happened**: `git add data` staged `data/processed/*` and `data/raw/genotypes/*` (retired Y-2510 data). I unstaged them before the commit.
+- **mitigation_type**: procedural — stage by explicit path and check `git diff --cached --name-only` before committing.
+- **Tags**: git, hygiene, gotcha
