@@ -5,3 +5,5 @@ results/geno/panel.bimbam.gz
 results/gwas/output*/
 results/gwas/K_eig_vals.npy
 results/*.log
+results/recomb/*.gt.tsv.gz
+results/recomb/*.ann.tsv.gz

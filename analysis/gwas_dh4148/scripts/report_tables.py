@@ -24,3 +24,13 @@ v = r("gwas_variance_components_additive_epistatic.csv"); TAB["T_VC_EPI"] = md(v
 e = r("gwas_epistasis_summary.csv"); TAB["T_EPI"] = md(e[["trait", "n_pairs_tested", "bonferroni_threshold", "min_p", "lambda_gc", "n_bonferroni", "n_expected_at_1e_5", "n_at_1e_5"]], "{:.3g}")
 u = r("gwas_loci_unadjusted.csv"); b = u[u.bonferroni_sig].copy(); b["product"] = b["product"].fillna("").str.slice(0, 40)
 TAB["T_LOCI_UNADJ_TOP"] = md(b.sort_values("p_wald").head(12)[["trait", "chr", "pos", "af", "beta", "p_wald", "n_suggestive_snps_in_locus", "lineages_carrying_alt", "lineage_level_marker", "gene_id", "product"]].assign(pos=lambda x: x.pos.astype(int)), "{:.3g}")
+
+TAB["T_RECOMB"] = md(r("recombination_pair_classes.csv"), "{:.3f}")
+TAB["T_RECOMB_WIN"] = md(r("recombination_window_distance_correlation.csv"), "{:.2f}")
+TAB["T_CR_TREE"] = md(r("cr_tree_signal_run_adjusted.csv"), "{:.3f}")
+TAB["T_RUNLIN"] = md(r("baseline_a_variance_by_run_and_lineage.csv"), "{:.3f}")
+a = r("cr_lineage_partition_panels.csv"); TAB["T_PART"] = md(a.drop(columns=["keyword_genes_high_moderate"]))
+bb = r("cr_candidate_snp_panel.csv").head(15); bb["products"] = bb.products.fillna("").str.slice(0, 70); bb["genes_within_5kb"] = bb.genes_within_5kb.fillna("").str.slice(0, 40)
+TAB["T_PANEL_B"] = md(bb[["source", "trait", "chr", "pos", "p", "p_family_wise", "effect", "genes_within_5kb", "products"]].assign(pos=lambda x: x.pos.astype(int), source=lambda x: x.source.str.slice(0, 22)), "{:.3g}")
+sw = r("within_lineage_scan_summary.csv"); TAB["T_WL_CR"] = md(sw[sw.trait.str.startswith("Cr")][["lineage", "trait", "n_strains", "n_snps", "distinct_patterns", "min_p", "min_p_family_wise"]], "{:.3g}")
+TAB["T_ENRICH"] = md(r("cr_keyword_gene_enrichment.csv"), "{:.3g}")

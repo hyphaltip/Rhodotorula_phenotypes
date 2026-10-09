@@ -1,0 +1,7 @@
+Metal,trait,n_strains,n_runs,pagel_lambda,p_lambda_gt_0
+Chromium,baseline a*,163,4,0.9125000000000001,0.007568051331744232
+Chromium,"baseline a*, run effect removed",163,4,0.88625,0.11718266379565605
+Copper,baseline a*,163,4,0.0,1.0
+Copper,"baseline a*, run effect removed",163,4,0.0,1.0
+Lead,baseline a*,161,4,0.0,1.0
+Lead,"baseline a*, run effect removed",161,4,0.0,1.0

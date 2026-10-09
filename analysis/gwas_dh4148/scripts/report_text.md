@@ -12,6 +12,10 @@ Generated 2026-10-09. Phenotypes: Chromium, Copper and Lead screens (Iron and Zi
 6. **Dose-0 (YPD) controls are consistent for a\*, less so for size and not for growth rate.** Strain explains 38% of dose-0 a\* variance across the three screens, and the screen itself explains about 0%. For ln area, strain explains 18% and the screen 17%. For the maximum growth rate, strain explains 3%.
 7. **Growth rate and IC50.** Relative growth rate falls with dose in Cr (0.41 of control at dose 1.2) and Pb (0.12 at dose 30). Cu barely changes it (0.93 at dose 30). IC50 of relative area could be fitted for almost all strains in Cr and Pb. In Cu 138 of 317 strains are right-censored, because relative area stays at or above 0.5 at the top dose.
 
+8. **No recombination inside the large lineages.** In the three largest lineages (42, 34 and 16 strains) the fraction of SNP pairs showing all four gametes does not change with distance: it is the same for pairs less than 1 kb apart, 500 kb apart and on different contigs (0.0% in L01, 1.7% to 3.0% in L02, 2.9% to 5.0% in L03). Recombination would make close pairs compatible and unlinked pairs incompatible. The pattern fits strict clonality (section 7).
+9. **The Cr tree signal is partly a run effect.** Pagel's lambda of baseline a\* in pure haploid *R. mucilaginosa* is 0.91 (p = 0.008, 163 strains). After removing run effects it is 0.89 (p = 0.12). The lineages with the lowest Cr a\* (L05, L07) were assayed mostly in the two later runs, and the later runs have lower a\* (section 8).
+10. **Within lineages there is not enough signal to link Cr traits to loci.** In per-lineage permutation scans, 1 of 18 Cr tests (3 lineages, 6 traits) has a family-wise p below 0.05, which is what chance gives (0.9 expected). No candidate survives correction for the 60 lineage-by-trait tests. Candidate SNP and gene panels with window plots are in section 9. The metal and stress genes in the panels are not enriched (permutation p = 0.78).
+
 ## 1. Data
 
 - **Phenotypes** come from the DuckDB `heavy_metal_measurement` table with strain, species and ploidy from the `strain_info` view (D-58). a\* is `ColorLab_a*GeoMedian`. The largest object per well and image is used. The late window and the 2,000 px colony cutoff follow the a\* report (`analysis/carotenoid_stress_vs_baseline`).
@@ -185,8 +189,88 @@ Strains are haploid, so there is no dominance. Non-additive variance here means 
 - The pairwise scan has no hit and no excess (lambda 0.5 to 1.7; median 1.02).
 - With 14 lineages, no analysis can tell an additive lineage effect from an epistatic one. Both are a difference between whole genotypes.
 
-## 7. Limits and next steps
+## 7. Recombination inside the large lineages
 
+Informative SNPs are those with minor allele count of at least 2 inside the lineage (all SNPs of the QC VCF, not only common ones): 1,691 in L01 (42 strains), 2,756 in L02 (34) and 1,661 in L03 (16). Two tests:
+- **Four-gamete test and r² by distance.** Under strict clonality every pair of sites is equally linked, so the fraction of pairs with all four two-locus classes does not depend on distance. Under recombination close pairs stay compatible and unlinked pairs (other contigs) become incompatible.
+- **Windowed distance matrices.** For 300 kb windows the strain-by-strain SNP distance matrix is compared between windows. With recombination, distant windows would show different relationships between strains than adjacent windows.
+
+{{IMG:recombination_four_gamete|Figure 19. Fraction of SNP pairs with all four gametes, by physical distance (and pairs on different contigs), for the three largest lineages.}}
+
+{{T_RECOMB}}
+
+*Table 16. Pair classes: mean r², fraction of pairs with all four gametes (each gamete in at least 1 strain, and in at least 2 strains).*
+
+{{T_RECOMB_WIN}}
+
+*Table 17. Spearman correlation of strain-by-strain distance matrices between 300 kb windows.*
+
+**Reading.**
+- **L01 has no incompatible pair at any distance** (0 of about 190,000 sampled pairs). Its r² is 0.27 below 1 kb and 0.14 to 0.15 at every other distance, including other contigs.
+- **L02 and L03 have a few percent incompatible pairs, with no trend with distance** (L02: 3.0% below 1 kb, 1.7% to 2.3% beyond; 2.0% on other contigs). Requiring each gamete in at least 2 strains lowers this to 0.1% to 0.3% beyond 1 kb in L02 (1.5% below 1 kb) and 0.5% to 0.8% in L03 (0% below 1 kb). The rate on other contigs equals the rate within contigs. This is the signature of recurrent mutation or genotype errors, not of recombination.
+- **The distance-matrix correlation does not depend on window distance** (L01 0.64 adjacent, 0.58 distant, 0.68 other contigs; L02 0.58, 0.59, 0.60; L03 0.83, 0.86, 0.81). The strains have the same relationships at every position.
+- **A small excess of r² below 1 kb** (0.27 in L01, 0.29 in L02) is visible. This may come from clustered mutations or mapping errors. It does not extend beyond 1 kb.
+- **Conclusion.** There is no evidence of recombination in these lineages. They behave as clones that accumulated mutations. Rare events (for example gene conversion tracts shorter than 1 kb or a few recombinants among many strains) cannot be excluded with these tests.
+
+## 8. The Cr tree signal
+
+{{T_CR_TREE}}
+
+*Table 18. Pagel's lambda of baseline a\* in pure haploid *R. mucilaginosa* (outgroup-rooted PHYling tree), before and after removing run effects (run mean subtracted).*
+
+{{T_RUNLIN}}
+
+*Table 19. Share of variance in strain-mean baseline a\* explained by run and by lineage (adjusted R²). Lineage needs a lineage label, so n differs.*
+
+- **Cr:** lambda is 0.91 (p = 0.008, n = 163). After removing run means it is 0.89 (p = 0.12). The point estimate hardly changes, but the evidence for lambda above 0 weakens, so the signal is not robust. **Cu and Pb:** lambda is 0 in both versions.
+- **Run matters for Cr.** Mean baseline a\* by run: d000320 20.9, d000321 21.2, d000322 19.6 (SD 3.9), d000323 18.1. Run explains 14% of the variance in strain means (Cu 2%, Pb 1%). Lineage explains 15% (Cu 13%, Pb 12%).
+- **Low-a\* lineages sit in late runs.** In Cr, L05 (mean a\* 15.6) has 5 of 6 strains in run d000322, and L07 (16.0) has 6 of 6 in d000322 or d000323. The large lineages L01 (20.1) and L02 (20.7) are spread over all four runs. So a few lineages with low a\* coincide with the runs with low a\*. Two explanations fit: a genetic difference of those lineages, or a run effect. The data cannot separate them.
+- **Cr lineage structure on the tree.** The tree signal comes mostly from the separation between a small number of lineages and clades, consistent with section 4. It does not show a continuous relationship between relatedness and trait inside the species.
+
+## 9. Candidate SNP and gene panels, with window context (Cr)
+
+**Panel A: lineage-level partitions.** The Cr Bonferroni loci of the unadjusted scan (the run-adjusted scan has none for Cr) fall into a few genotype partitions, each carried by a set of whole lineages. For each partition the table counts the SNPs that share its genotype pattern and the genes with high or moderate snpEff effects among them.
+
+{{T_PART}}
+
+*Table 20. Cr lineage partitions (lead trait and scan in brackets). `n_perfectly_linked_snps` counts SNPs with the same genotype pattern.*
+
+**Panel B: within-lineage candidates.** SNPs with p < 1e-3 in scan (c) for the six Cr traits, and SNPs with p < 0.01 in the per-lineage permutation scans (L01, L02, L03). The full table is `report/tables/cr_candidate_snp_panel.csv` (91 rows, 74 SNPs, 175 genes within 5 kb).
+
+{{T_PANEL_B}}
+
+*Table 21. The 15 strongest rows of panel B. Genes within 5 kb of the SNP are listed with their products.*
+
+{{T_WL_CR}}
+
+*Table 22. Per-lineage permutation scans for Cr traits (family-wise p from 2,000 permutations of the trait across strains).*
+
+{{T_ENRICH}}
+
+*Table 23. Are genes with a metal, stress or pigment-related product keyword enriched among the Cr scan (c) signal? Mean -log10 p of the best SNP in or within 2 kb of each gene, keyword genes against all genes with SNPs; p from 10,000 random gene sets of the same size.*
+
+{{IMG:zoom_cr_locus1|Figure 20. Locus 1: Cr relative growth-rate AUC near CM179490.1:904,292. Top: scan (c). Middle: scan (b). Bottom: gene models in the window (orange: product matches the keyword list).}}
+
+{{IMG:zoom_cr_locus3|Figure 21. Locus 3: Cr a\* AUC near CM179487.1:957,384 (missense variant in ACY3AU_005580, Nuclear control of ATPase 2).}}
+
+{{IMG:zoom_cr_locus4|Figure 22. Locus 4: Cr a\* AUC near CM179497.1:588,056 (splice-region variants in ACY3AU_003010).}}
+
+{{IMG:zoom_cr_locus5|Figure 23. Locus 5: Cr relative area at the top dose near CM179491.1:380,349.}}
+
+{{IMG:zoom_cr_locus7|Figure 24. Locus 7: the only family-wise hit of the Cr within-lineage scans, in L02 (Cr relative area at the top dose, CM179495.1:102,060; 15 of 33 strains carry the alternate allele).}}
+
+{{IMG:zoom_cr_locus8|Figure 25. Locus 8: best Cr SNP of the L03 scan (16 strains).}}
+
+**Reading.**
+- **Lineage level.** The Cr traits differ among lineages (ICC 0.28 for relative area). The partitions that track the difference are carried by 16 to 50 strains from 5 to 8 lineages. Each has 7 to 619 perfectly linked SNPs and up to 12 genes with high or moderate effects (partition P8: 3 high, 92 moderate). The data cannot say which SNP matters, and cannot tell a genetic effect from a run effect (section 8).
+- **Within lineages.** Only one Cr test reaches a family-wise p below 0.05: L02, relative area at the top dose, 2 SNPs 5 bp apart (p = 4.6e-4, family-wise 0.0085) upstream of ACY3AU_002196 (sister chromatid cohesion protein 2). Over the 60 lineage-by-trait tests, 3 have a family-wise p below 0.05 (the other two are Cu and Pb traits in L02), which equals the 3 expected by chance. With Bonferroni over 60 tests the best p is 0.51. L01 and L03 have none for Cr.
+- **Window context.** In the zoom plots the SNPs at the top of each locus are single SNPs or a small cluster with no supporting neighbours. A true causal locus would show a peak of SNPs in linkage with the lead SNP. Here the lead SNPs are mostly isolated points, which is the pattern of noise.
+- **Keyword genes.** 107 of 3,605 genes with SNPs have a metal, stress or pigment-related product. Their mean signal is not higher than for other genes (1.17 against 1.21; permutation p = 0.78).
+- **Is there enough signal?** No, not in this panel: Cr traits clearly differ among lineages, but no locus can be assigned, and clone-corrected analysis inside Rmuc shows no result that survives correction.
+
+## 10. Limits and next steps
+
+- **Panels in section 9 are hypotheses.** None survives correction.
 - **The panel cannot support gene mapping.** Every genome-wide signal tracks lineage. A usable panel needs many more independent lineages or recombinant strains (crosses, or populations with sexual recombination). D-49 (5-SNP cutoff) should be revisited: at 2,000 SNPs only 14 strains remain.
 - **Run is confounded with lineage** (all screens). Run adjustment is therefore partial. A design with lineage spread over runs, or repeated runs, would separate them.
 - **Replicate noise.** The strain share of the dose-0 variance is 38% for a\* and lower for size and growth. Strain-level traits from 1 to 4 wells per dose are noisy, which lowers power further.
