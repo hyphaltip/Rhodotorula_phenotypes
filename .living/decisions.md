@@ -455,3 +455,11 @@ Append-only log of non-obvious decisions and their rationale.
 - **Result**: pure haploid group 172-173 strains; hybrids 33; aff. 7. Fixed-size dose effects Cr -8.5, Cu -13.4, Pb -4.3 (singular). Hybrids have lower baseline a* and weaker dose response than pure haploids in all three metals.
 - **Revisit if**: Fe and Zn complete tables arrive (extend `METALS_USED` and the lists in the scripts); DH4148 clusters exist (add a population section).
 - **Tags**: report, rerun, decision
+
+### [2026-10-09] D-61 — The 126-strain panel is 14 clonal lineages; GWAS results are reported with lineage adjustment and run adjustment (status: applied; D-49 cutoff needs revisiting)
+- **Finding**: single-linkage groups of panel strains at <= 2,000 SNP differences give 14 lineages (sizes 42, 34, 16, 6, 6, 6, 6, 3, 2 and five singletons). The count is 14 for any cut from 2,000 to 20,000 differences. Within lineages the median difference is 557 SNPs (max 2,010). Between lineages the minimum is 48,641. The relatedness matrix has two principal components with 40% and 20% of the variance. The <= 5 SNP cutoff of D-49 therefore does not remove clones for a genome-wide scan: the effective sample is about 14, not 126.
+- **Confounding**: lineage and run are associated in all three metals (chi-square p < 0.001), so run adjustment removes part of the lineage signal.
+- **Decision**: the GWAS report shows (a) the LMM with relatedness only, (b) the same on run-adjusted phenotypes, (c) run-adjusted with lineage covariates (within-lineage test). Effective number of tests = number of distinct genotype patterns. Lineage-level associations are reported as lineage differences, not as mapped loci.
+- **Alternatives considered**: de-clone harder at 2,000 SNP (14 strains; no power); use the whole callset (also clonal, CG001 = 120 strains).
+- **Revisit if**: a panel with recombination (more lineages, or crosses) becomes available; a new de-clone cutoff is chosen for any future panel.
+- **Tags**: gwas, lineage, clones, decision
