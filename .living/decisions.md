@@ -333,3 +333,106 @@ Append-only log of non-obvious decisions and their rationale.
 - **Result**: Pagel's lambda for baseline a* changed a lot. Arbitrary root: Cr 0.97, Cu 0.95, Fe 0.51, Pb 0.90, Zn 0.15. Outgroup root: Cr 0.79, Cu 0.49, Fe 0.84, Pb 0.74, Zn 0.96 (inside R. mucilaginosa: 0.89, 0.48, 0.91, 0.80, 0.97). Patristic distances (distance-decay figure) do not depend on the root.
 - **Consequences**: the Summary and section 5 of the report were rewritten; lambda is no longer compared between the unfiltered and main runs (root changed, not the cutoff). Statements in the first report version (PR #1) that signal was strongest in Cr, Cu, Pb and weakest in Fe and Zn were artifacts of the root.
 - **Tags**: phylogeny, lambda, rooting, outgroup, decision
+
+### [2026-10-08] D-44 — R. mucilaginosa phenotype strains checked against the DH4148-reference callset: 170 usable in rmuc_core, species of 3 'Species Not Found' strains contradicted
+- **Context**: User asked how many R. mucilaginosa phenotype strains remain usable against the latest popgen callset and whether they integrate.
+- **Result**: Of 216 labelled R. mucilaginosa, 215 match the callset by name. 170 are in `rmuc_core` (133 in `rmuc_core_declone`), 33 are hybrid diploids, 12 were dropped as "other species" by popgen metadata (5 R. frigidialcoholis, 7 R. aff. mucilaginosa), 1 is the reference DH4148. The 170 were all in the old GWAS panel, so the new callset adds no phenotyped strains. TFCN_86C-3, TFCN_1A-1-5 and TFCN_2M-1-3 are in `rmuc_core` (R. mucilaginosa by genotype), which contradicts the old-table species (sphaerocarpa, pacifica) proposed earlier for the first two.
+- **Consequences**: species labels for the 12 strains and the 16 conflict strains need a decision; the GWAS needs the DH4148 gene/position mapping or a rerun; kinship matters (all 170 are in clone groups, 77 in CG001). Details: `analysis/popgen_vcf_check/POPGEN_VCF_CHECK.md`.
+- **Tags**: popgen, vcf, strain-matching, species-labels, decision
+
+### [2026-10-08] D-45 — Species for the 5 'Species Not Found' strains that have genomes: use the sourmash call (status: agreed; not yet applied to the DB)
+- **Context**: User asked to fix the Species Not Found strains "given they are R. mucilaginosa now". Sourmash calls from the 9003-batch libraries (`Species_ID_db/results/calls_reads.tsv`) show only 3 of the 5 are R. mucilaginosa.
+- **Decision**: use the sourmash call for all 5. TFCN_1A-1-5, TFCN_2M-1-3, TFCN_86C-3 = Rhodotorula mucilaginosa (ANI 1.000); TFCN_7-6-3 = Rhodotorula diobovata (0.9998); TFCN_211C-2 = Rhodotorula aff. babjevae (0.994). The notes column records for each: single 9003 library (unverified batch: 5 of 11 cross-checkable libraries carried another organism), and for TFCN_86C-3 also "identical to DBVPG_6742 / DBVPG_4304, likely mix-up".
+- **Alternatives considered**: only the 3 R. mucilaginosa calls (7-6-3 and 211C-2 stay Species Not Found); only 1A-1-5 and 2M-1-3 (86C-3 waits for the lab check).
+- **Supersedes**: the old-table species proposed in D-36 for 261 (sphaerocarpa) and 288 (pacifica).
+- **Revisit if**: the 9003 tube check (popgen issues #3, #4) or an ITS check contradicts a call; popgen adds species calls from assemblies. To reverse a strain, set its row in the curation table back to 'Species Not Found' and rebuild the DB.
+- **The other 11 Species Not Found strains have no genome**: unresolved (see `todo/strain_curation_and_old_data_removal.md`).
+- **Tags**: species, curation, sourmash, popgen, decision
+
+### [2026-10-08] D-46 — Species for the 12 strains popgen QC drops as 'other species': follow popgen's decisions (status: agreed; not yet applied)
+- **Context**: Our data label 12 strains R. mucilaginosa. Popgen metadata: 5 genotype as R. frigidialcoholis (user decision in popgen, 2026-10-04; fix proposed, not applied in StrainDB); 7 genotype as R. aff. mucilaginosa (popgen keeps them R. mucilaginosa "for now").
+- **Decision**: the 5 become Rhodotorula frigidialcoholis (DBVPG_6660, TFCN_134A-3, TFCN_17-332M-1, TFCN_1A-14, TFCN_3M-1-1). The 7 stay Rhodotorula mucilaginosa (TFCN_25-395P-1, TFCN_33A-4, TFCN_25-333Y-10, DBVPG_4380, TFCN_25-334Y-6, DBVPG_4534, DBVPG_8043) with a clade/notes marker 'aff_mucilaginosa' so they can be excluded from pure R. mucilaginosa analyses and from the GWAS.
+- **Alternatives considered**: keep all 12 as R. mucilaginosa; give the 7 their own species label 'Rhodotorula aff. mucilaginosa'.
+- **Revisit if**: popgen renames or reclassifies R. aff. mucilaginosa (StrainDB fixes, `docs/straindb_fixes_proposal_2026-10-04.md`); the user wants the 7 as their own group in species figures (then change the species value and rebuild).
+- **Tags**: species, curation, popgen, aff-mucilaginosa, decision
+
+### [2026-10-08] D-47 — Ploidy coding in the strain table: `ploidy_status` with 4 values plus `hybrid_subgroup` (status: agreed; not yet applied)
+- **Context**: User wants a ploidy column so hybrid strains are noted, and wants GWAS to use haploid strains only. Source: popgen `ploidy_overrides.csv` (273 haploid, 43 diploid for the 316 callset strains) and `results/variant_qc/hybrid_diploids.tsv`. Of our 321 strains, 38 are called diploid: 33 are in popgen's hybrid group (23 affmuc-like, 10 other) and 5 are diploid calls outside it (TFCN_3M-1-1, DBVPG_4380, TFCN_7-6-3, TFCN_152A-3, TFCN_211C-2). About 100 strains are not in the callset.
+- **Decision**: `ploidy_status` = haploid / diploid_hybrid (the 33) / diploid_other (the 5) / unknown (not in the callset). `hybrid_subgroup` keeps popgen's affmuc-like / other split. GWAS rule: `ploidy_status = 'haploid'`.
+- **Alternatives considered**: `ploidy` (haploid/diploid/unknown) plus an `is_hybrid` flag; three values only (the 5 non-hybrid diploid calls recorded as unknown).
+- **Revisit if**: popgen reclassifies strains or renames the hybrids (popgen open decision 6); strains outside the callset get genomes; any of the 5 diploid_other calls is shown to be a low-coverage artifact.
+- **Tags**: ploidy, hybrid, curation, gwas, decision
+
+### [2026-10-08] D-48 — GWAS panel excludes every strain with an identity flag (status: agreed; not yet applied)
+- **Context**: 12 of the 133 de-cloned panel strains carry identity records: 7 conflict with the old phenotype table's species (genotype and our label say R. mucilaginosa), DBVPG_6094 is unverified, and 4 had records fixed (DBVPG_3538, DBVPG_4379 rebuilt from the original library; DBVPG_5227 and TFCN_25-0-2E333-9 merged IDs). TFCN_86C-3 (likely mix-up) is not in the de-cloned panel because another strain represents its near-identical group NI006.
+- **Decision**: drop all 12 from the GWAS panel (133 to 121 before any change to the de-clone method). They stay in the phenotype analyses, flagged in the curation table.
+- **Alternatives considered**: drop only the 8 unresolved and keep the 4 fixed (panel 125); keep all 133 and flag them.
+- **Revisit if**: popgen issues #2 (ITS on the phenotyped cultures) or #3 (9003 tube check) resolve a strain; the panel proves too small. To restore a strain, clear its `gwas_exclude_reason` in the curation table.
+- **Tags**: gwas, panel, identity, decision
+
+### [2026-10-08] D-49 — GWAS panel de-clone method: re-pick one strain per group of at most 5 SNPs from unflagged strains, giving 126 strains (status: agreed; not yet applied)
+- **Context**: Starting from our rmuc_core strains after the species fix (173) minus all 22 identity-flagged strains (21 flagged in rmuc_core plus TFCN_86C-3) = 151. Single-linkage groups from popgen's pairwise SNP distances (`declone/rmuc_core.pairwise.tsv.gz`), one strain kept per group. Panel size by cutoff: 0 SNP 149; 2: 137; 5: 126; 10: 117; 20: 104; 50: 93. Popgen's published list minus the 12 flagged strains would give 121.
+- **Decision**: cutoff 5 SNPs (popgen's), representatives re-picked among unflagged strains, by popgen's rule (best genotype quality). Result: 126 strains.
+- **Not handled by this step**: CG001 (120 strains, median about 470 SNPs apart) and the other clone groups at 1e-3 divergence. All our rmuc_core strains belong to a clone group, so the GWAS must model kinship.
+- **Alternatives considered**: popgen's list minus the flagged (121); a 20-SNP cutoff (104).
+- **Revisit if**: a different SNP cutoff is wanted (popgen notes the data show no gap); identity flags are resolved (strains return and groups are re-picked); popgen rebuilds its groups. **How to revisit and be stricter: `analysis/popgen_vcf_check/DECLONE_CUTOFF_NOTES.md`** (panel size at every cutoff, the exact method, and a proposal to store group ids at several cutoffs in the curation table).
+- **Tags**: gwas, declone, panel, decision
+
+### [2026-10-08] D-50 — Old Y-2510 / old-Copper work is jettisoned by tagging, then git rm, with a RETIRED.md (status: method agreed; directory list and execution pending)
+- **Context**: User wants the old GWAS, old Copper data and all Y-2510 reference-genome work thrown out for now; everything should use the new phenotype data in the DB and (later) the DH4148 reference.
+- **Decision**: create a git tag first (for example `pre-y2510-removal`), then `git rm` the retired directories from the working tree. History and the tag keep everything (`git checkout <tag> -- <path>` restores any of it); the older tag `data-v1-pre-metal-replace` already covers the old Copper data. A `RETIRED.md` lists what was removed, why, and how to restore it. Candidate directories (to be confirmed with the user): `analysis/gwas`, `analysis/candidate_gene_alignment`, `analysis/ideas`, `analysis/control_late_timepoint_phenotype`, `analysis/explore_plate_position`, `analysis/growth_rates`, `data/raw/genotypes` (Y-2510 VCF links), old DB importers and design docs, `algorithms/functional_annotation` results (Y-2510 proteome).
+- **Alternatives considered**: move to an `archive/` folder; leave in place and mark retired.
+- **Revisit if**: any retired analysis is needed again (restore from the tag); the DH4148 annotation makes a retired method worth reusing.
+- **Tags**: removal, y2510, archive, decision
+
+### [2026-10-08] D-51 — Population labels: new DH4148 SNP clusters made by us; the old Y-2510-era labels are dropped (status: agreed; not yet built)
+- **Context**: The old labels (`analysis/gwas/data/prior_run_state/pop_assignment_at_run.csv`, 6 populations, 201 strains) came from the old Y-2510 callset and are not wanted. No population-assignment file and no MASH cluster file exists in the popgen project yet (searched 2026-10-08). Available inputs: PCA eigenvectors (`results/pca/rmuc_no_hybrids.eigenvec.tsv`), IQ-TREE trees per group, sourmash read sketches (`Species_ID_db/sketches`).
+- **Decision**: build the labels ourselves from the DH4148 SNPs of the de-cloned panel: PCA and a cut of the `rmuc_core_declone` tree, with k chosen by stability and the two methods compared. Store cluster ids with method and k in the curation table so they can be redone.
+- **Alternatives considered**: MASH (sourmash) k-mer clusters (reference-free, but a clustering run that does not exist yet); waiting for labels supplied by popgen or the user.
+- **Consequences**: until the clusters exist, the population analyses in the a* report (population effects, Figures 7 and 21, population tests) have no labels and are removed or marked pending in the rerun.
+- **Revisit if**: popgen or the user supplies labels; MASH clusters are generated and disagree with the SNP clusters; a different k is preferred.
+- **Tags**: population, clusters, snp, decision
+
+### [2026-10-08] D-52 — Gene-level work waits for the DH4148 gene positions and annotation, to be supplied by the user (status: agreed; waiting on input)
+- **Context**: User said they can give "the new positioning". Clarified: DH4148 gene positions / annotation (not plate layout, not orthology).
+- **Decision**: no gene-level or candidate-gene analysis until the user supplies the DH4148 coordinates and gene models. The old OM429_* (Y-2510) gene ids are not translated. The SnpEff-annotated popgen VCFs exist but are not used for gene calls until then.
+- **Revisit if**: the annotation arrives (then plan GWAS-hit annotation); an orthology table becomes available and a retired result is worth translating.
+- **Tags**: annotation, dh4148, genes, decision
+
+### [2026-10-08] D-53 — In the rerun phenotype figures, the 'R. mucilaginosa' group is pure haploid strains only; hybrids and aff. mucilaginosa are shown as separate groups (status: agreed; not yet applied)
+- **Context**: After D-45 and D-46 the species column has 214 R. mucilaginosa strains: 173 pure haploid rmuc_core strains, 33 hybrid diploids, 7 aff. mucilaginosa strains, and the reference strain DH4148. R. frigidialcoholis becomes a new group of 5.
+- **Decision**: the 'R. mucilaginosa' group in species strata, species tests and phylogeny tests = pure haploid strains (ploidy_status = haploid, no aff_mucilaginosa marker). The 33 hybrid diploids and the 7 aff. strains each get their own panel in the species figures. All of them stay in the overall dose-response figures. The GWAS excludes hybrids, diploids and aff. strains regardless.
+- **Alternatives considered**: all 214 strains in one group as the species column says; pure haploid only with hybrids and aff. left out of species figures.
+- **Revisit if**: the hybrids or aff. strains are too few to show usefully; popgen reclassifies aff. mucilaginosa (D-46).
+- **Tags**: species-strata, hybrids, figures, decision
+
+### [2026-10-08] D-54 — Reference strain DH4148: haploid, in the pure R. mucilaginosa group for phenotype figures, excluded from the GWAS (status: agreed; not yet applied)
+- **Context**: DH4148 is phenotyped (species R. mucilaginosa) but has no sample in the callset, which is called against its own assembly.
+- **Decision**: `ploidy_status = haploid` with a note 'reference assembly strain; no callset sample'. It counts in the pure R. mucilaginosa group for phenotype figures. It is excluded from the GWAS panel with `gwas_exclude_reason = 'reference strain; no genotypes'`.
+- **Alternatives considered**: ploidy unknown and outside the pure group; include it in the GWAS as an all-reference strain.
+- **Revisit if**: popgen adds a DH4148 sample to the callset (for example a resequenced culture).
+- **Tags**: dh4148, reference, ploidy, decision
+
+### [2026-10-08] D-55 — Popgen information enters the repo as a checksummed snapshot; a script generates the curation table from it (status: agreed; not yet built)
+- **Decision**: copy the needed popgen files (`ploidy_overrides.csv`, `hybrid_diploids.tsv`, `population_sets.yaml`, `strain_identity_issues_2026-10-06.tsv`, `rmuc_core.pairwise.tsv.gz`, the sourmash calls, clone and near-identical group files) into `data/raw/popgen-callset-metadata/` with SHA256 checksums and a provenance file, as for earlier ingests. A script generates `data/metadata/strain-curation/strain_curation.csv` from the snapshot plus our decisions (D-45 to D-54). The DB build ingests that CSV.
+- **Alternatives considered**: read the shared popgen directory by path at build time; keep only the final table.
+- **Revisit if**: popgen publishes a new callset or changes its decisions (refresh by re-snapshotting and rerunning the script).
+- **Tags**: provenance, snapshot, ingest, decision
+
+### [2026-10-08] D-56 — Iron and Zinc are held out as 'incomplete source' until complete combined tables exist (status: agreed; not yet applied)
+- **Context**: User worried that the Fe and Zn phenotypic runs failed to combine fully. Checked 2026-10-08 (`Data/Interm` tables we ingested against `old/0.15.1_Analysis/Results` tables), run by run:
+  - Zinc ingested: 2 runs (d000388 4 of 28 plates, d000390 5 of 28), 9 plates, 170 strains, 13,216 rows. 0.15.1: 5 runs (388, 389, 390, 391, 393), 119 plates, 334 strains, 187,862 rows.
+  - Iron ingested: 3 runs (406 and 407 complete, 408 only 6 of 28 plates), 62 plates, 243 strains, 66,506 rows. 0.15.1: 5 runs (406-410), 120 plates, 334 strains, 156,294 rows.
+  - Cr, Cu, Pb: ingested row counts equal the 0.15.1 counts, so they look complete.
+  - Data owner's note `Data/Temp/zinc_sources/ZINC_SOURCES.md` (2026-09-30): the `Data/Interm` Zinc table comes from pipeline run `results_0.18.1`, where 2,121 of 2,275 images failed; it calls the 0.15.1 Zinc table (DinoSam2_nocrop, 2026-09-17) the best source.
+- **Decision**: mark Fe and Zn `incomplete_source` in the database (a status field kept with the curation or dataset metadata). Drop them from the rerun figures, tables and any GWAS trait. Their rows stay in the DB, flagged. The report covers Cr, Cu and Pb; the Fe-vs-Cu contrast, the Zinc section and Fe-based statements are removed or marked pending.
+- **Alternatives considered**: swap in the complete 0.15.1 Fe and Zn tables now (older pipeline run; unclear if the owner fixed the newer combine); keep the partial data with warnings.
+- **Why it matters**: the earlier Zinc layout puzzle (two disjoint strain sets, one plate per dose) was a truncation artifact. Fe and Zn conclusions in the merged reports (for example Fe a* rising) rest on partial runs.
+- **Revisit when**: the owner (cona002) supplies complete combined Fe and Zn tables, or you decide to ingest the 0.15.1 tables. Then ingest as a new dataset version, rerun, and clear the flag.
+- **Tags**: iron, zinc, incomplete, hold-out, decision
+
+### [2026-10-08] D-57 — The figure rerun happens now without population analyses; the SNP clusters are built as a later separate step (status: agreed; not yet applied)
+- **Decision**: rerun every figure with the corrected species (D-45, D-46), the ploidy groups (D-47, D-53) and Cr, Cu, Pb only (D-56). The population sections (population effects, Figures 7 and 21, population tests) are removed and listed as pending. After the rerun, build the DH4148 SNP clusters (D-51), review k with the user, and add a population section.
+- **Alternatives considered**: build the clusters first and rerun once; rerun now with the old Y-2510-era labels (rejected: against the user's instruction).
+- **Revisit if**: the user prefers one combined rerun after the clusters exist.
+- **Tags**: rerun, population, sequencing, decision

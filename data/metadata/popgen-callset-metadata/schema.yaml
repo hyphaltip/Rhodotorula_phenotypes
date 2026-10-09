@@ -1,0 +1,8 @@
+files:
+  popgen/variant_qc/strain_qc.tsv: {key: strain, note: "species column holds popgen's species label"}
+  popgen/ploidy_overrides.csv: {columns: [strain, ploidy]}
+  popgen/variant_qc/hybrid_diploids.tsv: {key: strain, note: "subgroup = affmuc-like or other"}
+  popgen/variant_qc/strain_identity_issues_2026-10-06.tsv: {key: id, columns: [strain, category, finding, status]}
+  popgen/variant_qc/declone/rmuc_core.pairwise.tsv.gz: {columns: [strain_a, strain_b, diffs, compared]}
+  popgen/variant_qc/rmuc_core.missing_by_strain.tsv: {columns: [strain, n_snp_sites, n_missing, missing_frac]}
+  species_id_db/calls_reads.tsv: {columns: [query, best_label, best_ani, best_ref, second_label, second_ani, margin]}
