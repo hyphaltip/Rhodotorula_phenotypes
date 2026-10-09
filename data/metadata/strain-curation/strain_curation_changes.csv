@@ -1,0 +1,59 @@
+strain_id,sample_name,field,old_value,new_value,reason,decision_id,evidence
+192,DBVPG_Y3853,species,Species Not Found,Rhodotorula dairenensis,DBVPG_Y3853 is the same strain as DBVPG_3853 (tree tip Rhodotorula_dairenensis_DBVPG_3853),D-37,user confirmation 2026-10-08
+252,TFCN_48D-1,species,Species Not Found,Rhodotorula paludigena,TFCN_48D-1 treated as TFCN_48D-10 (tree tip Rhodotorula_paludigena_TFCN_48D-10),D-37,user confirmation 2026-10-08
+304,TFCN_17-333M-1,species,Species Not Found,Rhodotorula mucilaginosa,TFCN_17-333M-1 equals TFCN_17_332M_1 in the old table; species from the old strain_metadata.tsv,D-37,user confirmation 2026-10-08
+288,TFCN_1A-1-5,species,Species Not Found,Rhodotorula mucilaginosa,species from the sourmash call of the single 9003 library (unverified batch),D-45,"sourmash read call Rhodotorula mucilaginosa, ANI 1.0000, nearest ref TFCN_106A-1"
+296,TFCN_2M-1-3,species,Species Not Found,Rhodotorula mucilaginosa,species from the sourmash call of the single 9003 library (unverified batch),D-45,"sourmash read call Rhodotorula mucilaginosa, ANI 1.0000, nearest ref TFCN_98C-7"
+261,TFCN_86C-3,species,Species Not Found,Rhodotorula mucilaginosa,species from the sourmash call of the single 9003 library (unverified batch),D-45,"sourmash read call Rhodotorula mucilaginosa, ANI 1.0000, nearest ref EXF_5546"
+270,TFCN_7-6-3,species,Species Not Found,Rhodotorula diobovata,species from the sourmash call of the single 9003 library (unverified batch),D-45,"sourmash read call Rhodotorula diobovata, ANI 0.9998, nearest ref TFCN_7-9-2"
+297,TFCN_211C-2,species,Species Not Found,Rhodotorula aff. babjevae,species from the sourmash call of the single 9003 library (unverified batch),D-45,"sourmash read call Rhodotorula aff. babjevae, ANI 0.9942, nearest ref TFCN_17-328P-3"
+2,TFCN_134A-3,species,Rhodotorula mucilaginosa,Rhodotorula frigidialcoholis,popgen genotype/metadata species differs from the screen label,D-46,popgen strain_qc.tsv species = R. frigidialcoholis
+15,TFCN_3M-1-1,species,Rhodotorula mucilaginosa,Rhodotorula frigidialcoholis,popgen genotype/metadata species differs from the screen label,D-46,popgen strain_qc.tsv species = R. frigidialcoholis
+18,TFCN_25-395P-1,clade_marker,,aff_mucilaginosa,popgen genotypes this strain as R. aff. mucilaginosa; species stays R. mucilaginosa for now (popgen decision),D-46,popgen strain_qc.tsv species = R. aff. mucilaginosa
+42,TFCN_33A-4,clade_marker,,aff_mucilaginosa,popgen genotypes this strain as R. aff. mucilaginosa; species stays R. mucilaginosa for now (popgen decision),D-46,popgen strain_qc.tsv species = R. aff. mucilaginosa
+52,TFCN_1A-14,species,Rhodotorula mucilaginosa,Rhodotorula frigidialcoholis,popgen genotype/metadata species differs from the screen label,D-46,popgen strain_qc.tsv species = R. frigidialcoholis
+86,TFCN_25-333Y-10,clade_marker,,aff_mucilaginosa,popgen genotypes this strain as R. aff. mucilaginosa; species stays R. mucilaginosa for now (popgen decision),D-46,popgen strain_qc.tsv species = R. aff. mucilaginosa
+188,DBVPG_4380,clade_marker,,aff_mucilaginosa,popgen genotypes this strain as R. aff. mucilaginosa; species stays R. mucilaginosa for now (popgen decision),D-46,popgen strain_qc.tsv species = R. aff. mucilaginosa
+190,TFCN_17-332M-1,species,Rhodotorula mucilaginosa,Rhodotorula frigidialcoholis,popgen genotype/metadata species differs from the screen label,D-46,popgen strain_qc.tsv species = R. frigidialcoholis
+227,TFCN_25-334Y-6,clade_marker,,aff_mucilaginosa,popgen genotypes this strain as R. aff. mucilaginosa; species stays R. mucilaginosa for now (popgen decision),D-46,popgen strain_qc.tsv species = R. aff. mucilaginosa
+233,DBVPG_4534,clade_marker,,aff_mucilaginosa,popgen genotypes this strain as R. aff. mucilaginosa; species stays R. mucilaginosa for now (popgen decision),D-46,popgen strain_qc.tsv species = R. aff. mucilaginosa
+257,DBVPG_8043,clade_marker,,aff_mucilaginosa,popgen genotypes this strain as R. aff. mucilaginosa; species stays R. mucilaginosa for now (popgen decision),D-46,popgen strain_qc.tsv species = R. aff. mucilaginosa
+315,DBVPG_6660,species,Rhodotorula mucilaginosa,Rhodotorula frigidialcoholis,popgen genotype/metadata species differs from the screen label,D-46,popgen strain_qc.tsv species = R. frigidialcoholis
+1,TFCN_17-291Y-1,ploidy_status,,diploid_hybrid,ploidy coding,D-47,popgen ploidy_overrides.csv + hybrid_diploids.tsv
+9,TFCN_17-390M-1,ploidy_status,,diploid_hybrid,ploidy coding,D-47,popgen ploidy_overrides.csv + hybrid_diploids.tsv
+15,TFCN_3M-1-1,ploidy_status,,diploid_other,ploidy coding,D-47,popgen ploidy_overrides.csv
+24,TFCN_17-337P-5,ploidy_status,,diploid_hybrid,ploidy coding,D-47,popgen ploidy_overrides.csv + hybrid_diploids.tsv
+27,TFCN_25-0-2E390-1,ploidy_status,,diploid_hybrid,ploidy coding,D-47,popgen ploidy_overrides.csv + hybrid_diploids.tsv
+36,TFCN_17-267M-1,ploidy_status,,diploid_hybrid,ploidy coding,D-47,popgen ploidy_overrides.csv + hybrid_diploids.tsv
+40,TFCN_270H-1,ploidy_status,,diploid_hybrid,ploidy coding,D-47,popgen ploidy_overrides.csv + hybrid_diploids.tsv
+45,TFCN_17Y-278-1,ploidy_status,,diploid_hybrid,ploidy coding,D-47,popgen ploidy_overrides.csv + hybrid_diploids.tsv
+47,TFCN_25-331D-1,ploidy_status,,diploid_hybrid,ploidy coding,D-47,popgen ploidy_overrides.csv + hybrid_diploids.tsv
+54,TFCN_17-0-2E390-1,ploidy_status,,diploid_hybrid,ploidy coding,D-47,popgen ploidy_overrides.csv + hybrid_diploids.tsv
+56,TFCN_22C-4,ploidy_status,,diploid_hybrid,ploidy coding,D-47,popgen ploidy_overrides.csv + hybrid_diploids.tsv
+63,TFCN_17-0-2E390-2,ploidy_status,,diploid_hybrid,ploidy coding,D-47,popgen ploidy_overrides.csv + hybrid_diploids.tsv
+67,TFCN_17-333P-6,ploidy_status,,diploid_hybrid,ploidy coding,D-47,popgen ploidy_overrides.csv + hybrid_diploids.tsv
+100,TFCN_404D-1,ploidy_status,,diploid_hybrid,ploidy coding,D-47,popgen ploidy_overrides.csv + hybrid_diploids.tsv
+125,TFCN_17-334D-6,ploidy_status,,diploid_hybrid,ploidy coding,D-47,popgen ploidy_overrides.csv + hybrid_diploids.tsv
+126,TFCN_17-0-2E334-4,ploidy_status,,diploid_hybrid,ploidy coding,D-47,popgen ploidy_overrides.csv + hybrid_diploids.tsv
+145,TFCN_54D-1,ploidy_status,,diploid_hybrid,ploidy coding,D-47,popgen ploidy_overrides.csv + hybrid_diploids.tsv
+158,TFCN_152A-1,ploidy_status,,diploid_hybrid,ploidy coding,D-47,popgen ploidy_overrides.csv + hybrid_diploids.tsv
+163,TFCN_17-334Y-5,ploidy_status,,diploid_hybrid,ploidy coding,D-47,popgen ploidy_overrides.csv + hybrid_diploids.tsv
+167,DBVPG_3444,ploidy_status,,diploid_hybrid,ploidy coding,D-47,popgen ploidy_overrides.csv + hybrid_diploids.tsv
+174,TFCN_17-0-2E337-3,ploidy_status,,diploid_hybrid,ploidy coding,D-47,popgen ploidy_overrides.csv + hybrid_diploids.tsv
+188,DBVPG_4380,ploidy_status,,diploid_other,ploidy coding,D-47,popgen ploidy_overrides.csv
+204,DBVPG_3854,ploidy_status,,diploid_hybrid,ploidy coding,D-47,popgen ploidy_overrides.csv + hybrid_diploids.tsv
+210,DBVPG_3045,ploidy_status,,diploid_hybrid,ploidy coding,D-47,popgen ploidy_overrides.csv + hybrid_diploids.tsv
+213,DBVPG_3855,ploidy_status,,diploid_hybrid,ploidy coding,D-47,popgen ploidy_overrides.csv + hybrid_diploids.tsv
+217,TFCN_25-0-2E333-1,ploidy_status,,diploid_hybrid,ploidy coding,D-47,popgen ploidy_overrides.csv + hybrid_diploids.tsv
+218,TFCN_25-0-2E334-1,ploidy_status,,diploid_hybrid,ploidy coding,D-47,popgen ploidy_overrides.csv + hybrid_diploids.tsv
+222,DBVPG_3856,ploidy_status,,diploid_hybrid,ploidy coding,D-47,popgen ploidy_overrides.csv + hybrid_diploids.tsv
+231,DBVPG_3857,ploidy_status,,diploid_hybrid,ploidy coding,D-47,popgen ploidy_overrides.csv + hybrid_diploids.tsv
+244,DBVPG_4952,ploidy_status,,diploid_hybrid,ploidy coding,D-47,popgen ploidy_overrides.csv + hybrid_diploids.tsv
+258,DBVPG_3445,ploidy_status,,diploid_hybrid,ploidy coding,D-47,popgen ploidy_overrides.csv + hybrid_diploids.tsv
+267,DBVPG_3446,ploidy_status,,diploid_hybrid,ploidy coding,D-47,popgen ploidy_overrides.csv + hybrid_diploids.tsv
+270,TFCN_7-6-3,ploidy_status,,diploid_other,ploidy coding,D-47,popgen ploidy_overrides.csv
+279,TFCN_186CL④-2,ploidy_status,,diploid_hybrid,ploidy coding,D-47,popgen ploidy_overrides.csv + hybrid_diploids.tsv
+287,TFCN_152A-3,ploidy_status,,diploid_other,ploidy coding,D-47,popgen ploidy_overrides.csv
+297,TFCN_211C-2,ploidy_status,,diploid_other,ploidy coding,D-47,popgen ploidy_overrides.csv
+304,TFCN_17-333M-1,ploidy_status,,diploid_hybrid,ploidy coding,D-47,popgen ploidy_overrides.csv + hybrid_diploids.tsv
+309,DBVPG_6649,ploidy_status,,diploid_hybrid,ploidy coding,D-47,popgen ploidy_overrides.csv + hybrid_diploids.tsv

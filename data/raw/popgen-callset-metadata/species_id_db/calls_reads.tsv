@@ -1,0 +1,41 @@
+query	best_label	best_ani	best_ref	second_label	second_ani	margin
+reads|9003_001|TFCN_102D-1	Rhodotorula mucilaginosa	1.0000	TFCN_152C-5	Rhodotorula frigidialcoholis	0.9738	0.0262
+reads|9003_002|TFCN_BY120-C1	Rhodotorula mucilaginosa	1.0000	TFCN_25-0-2E333-9	Rhodotorula frigidialcoholis	0.9738	0.0262
+reads|9003_003|DBVPG_3239	Rhodotorula mucilaginosa	1.0000	DBVPG_4949	Rhodotorula frigidialcoholis	0.9738	0.0261
+reads|9003_004|DBVPG_3380	Rhodotorula mucilaginosa	1.0000	TFCN_122C-2	Rhodotorula frigidialcoholis	0.9736	0.0264
+reads|9003_005|DBVPG_3445	Rhodotorula mucilaginosa	1.0000	TFCN_107A-6	Rhodotorula frigidialcoholis	0.9738	0.0262
+reads|9003_006|DBVPG_3446	Rhodotorula mucilaginosa	0.9999	DBVPG_3045_hap2	Rhodotorula aff mucilaginosa	0.9790	0.0209
+reads|9003_007|DBVPG_3538	Rhodotorula aff mucilaginosa	1.0000	TFCN_25-395P-1	Rhodotorula mucilaginosa	0.9983	0.0017
+reads|9003_008|DBVPG_3985	Rhodotorula mucilaginosa	1.0000	TFCN_152C-5	Rhodotorula frigidialcoholis	0.9738	0.0262
+reads|9003_009|DBVPG_4379	Rhodotorula mucilaginosa	1.0000	TFCN_25-331D-1	Rhodotorula aff mucilaginosa	0.9985	0.0015
+reads|9003_010|DBVPG_4952	Rhodotorula mucilaginosa	0.9999	C2-MEA2-4	Rhodotorula frigidialcoholis	0.9966	0.0033
+reads|9003_011|DBVPG_6094	Rhodotorula mucilaginosa	1.0000	DBVPG_4957	Rhodotorula frigidialcoholis	0.9738	0.0262
+reads|9003_012|DBVPG_6649	Rhodotorula mucilaginosa	1.0000	TFCN_25-0-2E333-7	Rhodotorula frigidialcoholis	0.9736	0.0264
+reads|9003_013|TFCN_152A-3	Rhodotorula toruloides	1.0000	TFCN_152A-6	Rhodotorula sp.	0.9045	0.0955
+reads|9003_014|TFCN_152C-2	Rhodotorula mucilaginosa	1.0000	TFCN_25-0-2E333-5	Rhodotorula frigidialcoholis	0.9738	0.0262
+reads|9003_015|TFCN_17-333M-1	Rhodotorula mucilaginosa	1.0000	TFCN_17-0-2E390-1	Rhodotorula aff mucilaginosa	0.9985	0.0015
+reads|9003_016|TFCN_186CL-2	Rhodotorula mucilaginosa	1.0000	TFCN_152A-1	Rhodotorula aff mucilaginosa	0.9986	0.0014
+reads|9003_017|TFCN_1A-1-5	Rhodotorula mucilaginosa	1.0000	TFCN_106A-1	Rhodotorula frigidialcoholis	0.9736	0.0264
+reads|9003_018|TFCN_211C-2	Rhodotorula aff babjevae	0.9942	TFCN_17-328P-3	Rhodotorula babjevae	0.9324	0.0618
+reads|9003_019|TFCN_25-332D-2	Rhodotorula mucilaginosa	1.0000	TFCN_105A-2	Rhodotorula frigidialcoholis	0.9737	0.0263
+reads|9003_020|TFCN_25-332M-2	Rhodotorula mucilaginosa	1.0000	TFCN_105A-2	Rhodotorula frigidialcoholis	0.9736	0.0264
+reads|9003_021|TFCN_270H-1	Rhodotorula mucilaginosa	0.9999	TFCN_17-0-2E334-4_hap2	Rhodotorula aff mucilaginosa	0.9985	0.0014
+reads|9003_022|TFCN_2M-1-3	Rhodotorula mucilaginosa	1.0000	TFCN_98C-7	Rhodotorula frigidialcoholis	0.9738	0.0262
+reads|9003_023|TFCN_7-6-3	Rhodotorula diobovata	0.9998	TFCN_7-9-2		0.0000	0.9998
+reads|9003_024|TFCN_7-9-2	Rhodotorula diobovata	0.9998	TFCN_7-9-2		0.0000	0.9998
+reads|9003_025|TFCN_7-9-3	Rhodotorula diobovata	0.9998	TFCN_7-9-2		0.0000	0.9998
+reads|9003_026|TFCN_86A-5	Rhodotorula sphaerocarpa	1.0000	TFCN_86A-6		0.0000	1.0000
+reads|9003_027|TFCN_86C-3	Rhodotorula mucilaginosa	1.0000	EXF_5546	Rhodotorula frigidialcoholis	0.9736	0.0263
+reads|9003_028|TFCN_BY120-C7	Rhodotorula mucilaginosa	1.0000	TFCN_25-0-2E333-9	Rhodotorula frigidialcoholis	0.9738	0.0262
+reads|9003_029|EXF_10854	Rhodotorula sp.	1.0000	JG-1b	Rhodotorula frigidialcoholis	0.9641	0.0359
+reads|9003_030|EXF_10630	Rhodotorula aff babjevae	0.9915	EXF_7045	Rhodotorula babjevae	0.9327	0.0588
+reads|9003_031|EXF_14606	Rhodotorula glutinis	0.9947	public:Rhodotorula_glutinis.fasta	Rhodotorula aff babjevae	0.9896	0.0051
+reads|9003_032|EXF_13500	Rhodotorula dairenensis	0.9963	NRRL_Y-2504		0.0000	0.9963
+reads|9003_033|EXF_13474	Rhodotorula toruloides	1.0000	EXF_13474	Rhodotorula sp.	0.9076	0.0924
+reads|9003_034|EXF_17335	Rhodotorula frigidialcoholis	1.0000	EXF_7386	Rhodotorula sp.	0.9998	0.0002
+reads|9003_035|EXF_12265	Rhodotorula aff babjevae	0.9981	DBVPG_4629	Rhodotorula babjevae	0.9326	0.0655
+reads|orig|DBVPG_4380	Rhodotorula aff mucilaginosa	1.0000	DBVPG_4380	Rhodotorula mucilaginosa	0.9967	0.0032
+reads|orig|EXF_10533	Rhodotorula babjevae	0.9788	public:Rhodotorula_babjevae.fasta	Rhodotorula aff babjevae	0.9327	0.0462
+reads|orig|EXF_3629	Rhodotorula frigidialcoholis	1.0000	EXF_3629	Rhodotorula sp.	0.9998	0.0002
+reads|orig|TFCN_209-6-1	Rhodotorula mucilaginosa	1.0000	TFCN_209-6-1	Rhodotorula frigidialcoholis	0.9736	0.0264
+reads|orig|TFCN_363-1-2	Rhodotorula mucilaginosa	1.0000	TFCN_363-1-2	Rhodotorula frigidialcoholis	0.9737	0.0263

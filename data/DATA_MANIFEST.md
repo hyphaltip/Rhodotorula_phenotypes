@@ -206,3 +206,9 @@ Per-colony shape, intensity, color and texture measurements for five arrayed hea
 All five read as one DuckDB table with `read_parquet(..., union_by_name=true)`; `Metal` is already a column.
 See `HEAVY_METAL_ARRAY_INTERMEDIATE.md` for layout, rebuild commands and caveats.
 
+
+### popgen-callset-metadata
+Checksummed snapshot of popgen QC, ploidy, hybrid, identity, de-clone and species-call files (popgen HEAD 2d5ae40). Raw: `data/raw/popgen-callset-metadata/` (see `POPGEN_CALLSET_METADATA.md`). Metadata: `data/metadata/popgen-callset-metadata/`.
+
+### strain-curation
+Generated strain table with corrected species, ploidy status, GWAS eligibility and de-clone groups, plus a change log. `data/metadata/strain-curation/` (see `STRAIN_CURATION.md`). Built by `scripts/curation/build_strain_curation.py`.

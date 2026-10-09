@@ -416,3 +416,8 @@ tags: [gwas, candidate-gene, sequence-alignment, snpeff, carotenoid, pigment, rh
 - **Main dataset changed**: area >= 2,000 px and Zinc window ending at 80 h (D-42). Original unfiltered outputs: `results/unfiltered/`, `report/sensitivity_unfiltered/`.
 - **New analyses in the report**: colony area cutoff evidence (`scripts/strat/s12_area_floor.py`), per-species strata (`s9_species_strata.R`, `s9_species_plots.py`), b* and morphology (`s10_build_traits.py`, `s10_trait_models.R`, `s10_b_morphology_plots.py`), Zinc rescue (`s11_zinc_rescue.py`).
 - **Run order**: `run.sh` (builds `wells.csv` from `wells_min2000.csv`), `scripts/strat/` s0, s1, s2, s346, s5, s9, s10, s11, s12, `traits_species.py`, `run_minarea.sh`, `s_plots.py`, `s8_minarea_summary.py`, `make_report.py`, `report/build_pdf.sh`.
+
+### popgen_vcf_check
+- **Path**: `analysis/popgen_vcf_check/` (note: `POPGEN_VCF_CHECK.md`; script `scripts/compare_strains.py`; tables in `results/`)
+- **Purpose**: match phenotype strains to the latest DH4148-reference R. mucilaginosa callset and its groups, and list lingering identity and species issues (D-44).
+- **Status**: complete 2026-10-08; inputs read only.

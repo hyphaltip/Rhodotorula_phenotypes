@@ -41,3 +41,8 @@ Scope: the five-metal intermediate data (`data/raw/heavy-metal-array-intermediat
 23. **Gitignored data not covered by the tag.** The old DB and Parquets are not in `data-v1-pre-metal-replace`. A DB backup is in `db/`.
 24. **DB redundancy.** The 6 strain text columns hold 41 MB raw in `heavy_metal_measurement`; the on-disk saving from dropping them is not measured.
 25. **Bugs found and fixed this session.** A datetime unit error (window included all rows) and a plate-relative window flaw. Earlier numbers from those versions were discarded.
+
+## Update 2026-10-08: Fe and Zn tables are incomplete (D-56)
+- Run-by-run comparison with the 0.15.1 tables (`old/0.15.1_Analysis/Results`): ingested Zinc has 2 of 5 runs (9 of 119 plates); ingested Iron has 3 of 5 runs (62 of 120 plates, run 408 only 6 of 28). Cr, Cu and Pb match the 0.15.1 row counts.
+- The data owner's note (`Data/Temp/zinc_sources/ZINC_SOURCES.md`, 2026-09-30) says the `Data/Interm` Zinc table comes from a run where 2,121 of 2,275 images failed.
+- Problem 1 (Zinc layout) above is explained by this truncation. Fe and Zn are held out of the analyses until complete tables exist.
