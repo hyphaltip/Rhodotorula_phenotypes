@@ -8,10 +8,9 @@ Removed because they built or queried the old `colony_measurement` table and its
 | `10_import_experiment.py` | experiment and strain CSV import |
 | `20_import_measurements.py` | `colony_measurement` import |
 | `30_create_views.sql` | `v_phenotype` and related views |
-| `40_data_dictionary.py` | regenerated `SCHEMA.md` |
 | `lib/imagename.py` | image-name parser used only by 05 and 20 |
 | `query_examples/` | queried `v_phenotype` |
 
 Recover with `git checkout pre-old-db-importers-removal -- scripts/db/<file>`.
-Still present: `25_import_heavy_metal.py`, `35_create_strain_view.sql`, `check_heavy_metal_db.py`, `lib/db.py`.
+Still present: `40_data_dictionary.py` (kept, regenerates SCHEMA.md), `25_import_heavy_metal.py`, `35_create_strain_view.sql`, `check_heavy_metal_db.py`, `lib/db.py`.
 Not changed: `DATABASE_DESIGN.md` and `SCHEMA.md` describe the old design and are stale. Analysis folders that read `colony_measurement` are left in place by request.
