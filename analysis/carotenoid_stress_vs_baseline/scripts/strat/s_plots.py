@@ -5,12 +5,12 @@ import numpy as np, pandas as pd
 import matplotlib; matplotlib.use("Agg"); import matplotlib.pyplot as plt
 sys.path.insert(0, "analysis/carotenoid_stress_vs_baseline/scripts/strat")
 from strat_common import *
-T = REP / "tables"; F = REP / "figures"; M4 = ["Chromium", "Copper", "Iron", "Lead"]
+T = REP / "tables"; F = REP / "figures"; M4 = ["Chromium", "Copper", "Lead"]
 short = lambda s: s.replace("Rhodotorula ", "R. ")
 star = lambda p: "***" if p < .001 else "**" if p < .01 else "*" if p < .05 else ""
 # ---- s1 species baseline forest
 b = pd.read_csv(T / "s1_species_baseline.csv"); b = b[b.size_adjusted == True]
-fig, ax = plt.subplots(1, 4, figsize=(19, 5.2), sharey=False)
+fig, ax = plt.subplots(1, 3, figsize=(19, 5.2), sharey=False)
 for k, m in enumerate(M4):
     s = b[b.Metal == m].sort_values("estimate"); y = np.arange(len(s))
     ax[k].errorbar(s.estimate, y, xerr=1.96 * s.se, fmt="o", color=COL[m], capsize=2); ax[k].axvline(0, color="k", lw=.8)
@@ -20,7 +20,7 @@ fig.suptitle("Species effects on baseline a* (mixed model; strain, run, plate ra
 fig.tight_layout(); fig.savefig(F / "s1_species_baseline_forest.png", dpi=170); plt.close(fig)
 # ---- s1 species dose slope forest
 d = pd.read_csv(T / "s1_species_dose_slope.csv")
-fig, ax = plt.subplots(1, 4, figsize=(19, 5.2))
+fig, ax = plt.subplots(1, 3, figsize=(19, 5.2))
 for k, m in enumerate(M4):
     s = d[d.Metal == m].sort_values("slope_full_range"); y = np.arange(len(s))
     ax[k].errorbar(s.slope_full_range, y, xerr=1.96 * s.se, fmt="o", color=COL[m], capsize=2); ax[k].axvline(0, color="k", lw=.8)
@@ -28,19 +28,9 @@ for k, m in enumerate(M4):
     ax[k].set_title(m, fontsize=10); ax[k].set_xlabel("change in a* over the full dose range, at fixed size (95% CI)")
 fig.suptitle("Species-specific dose response of a*. Stars: interaction with R. mucilaginosa, unadjusted p", fontsize=10)
 fig.tight_layout(); fig.savefig(F / "s1_species_slope_forest.png", dpi=170); plt.close(fig)
-# ---- s1 population
-pb = pd.read_csv(T / "s1_population_baseline.csv"); ps = pd.read_csv(T / "s1_population_dose_slope.csv")
-fig, ax = plt.subplots(2, 4, figsize=(19, 8))
-for k, m in enumerate(M4):
-    s = pb[pb.Metal == m]; ax[0, k].errorbar(range(len(s)), s.estimate, yerr=1.96 * s.se, fmt="o", color=COL[m], capsize=2); ax[0, k].axhline(0, color="k", lw=.8)
-    ax[0, k].set_xticks(range(len(s))); ax[0, k].set_xticklabels([f"{p.replace('poppop','pop')}\n(n={int(n)})" for p, n in zip(s.population, s.n_strains)], fontsize=8); ax[0, k].set_title(f"{m}: baseline a* vs pop1 (size-adjusted)", fontsize=9)
-    s = ps[ps.Metal == m]; ax[1, k].errorbar(range(len(s)), s.slope_full_range, yerr=1.96 * s.se, fmt="o", color=COL[m], capsize=2); ax[1, k].axhline(0, color="k", lw=.8)
-    ax[1, k].set_xticks(range(len(s))); ax[1, k].set_xticklabels([f"{p}\n(n={int(n)})" for p, n in zip(s.population, s.n_strains)], fontsize=8); ax[1, k].set_title(f"{m}: a* change over full dose range, by population", fontsize=9)
-fig.suptitle("Population structure within R. mucilaginosa (201 strains with a population label)", fontsize=10)
-fig.tight_layout(); fig.savefig(F / "s1_population.png", dpi=170); plt.close(fig)
 # ---- s3 regimes
 r = pd.read_csv(T / "s3_size_ratio_by_dose.csv"); e = pd.read_csv(T / "s3_dose_effects.csv"); sl = pd.read_csv(T / "s3_regime_slopes.csv")
-fig, ax = plt.subplots(2, 4, figsize=(19, 8))
+fig, ax = plt.subplots(2, 3, figsize=(19, 8))
 for k, m in enumerate(M4):
     x = r[r.Metal == m]; ax[0, k].fill_between(x.conc, x.q25, x.q75, color=COL[m], alpha=.25); ax[0, k].plot(x.conc, x.median_ratio, "-o", color=COL[m]); ax[0, k].axhline(.5, color="k", ls="--", lw=.8)
     for _, z in x.iterrows(): ax[0, k].axvspan(z.conc - .02 * x.conc.max(), z.conc + .02 * x.conc.max(), color=("#999" if z.regime == "inhibitory" else "#fff"), alpha=.25, lw=0)
@@ -61,7 +51,7 @@ ax.set_xticks(np.arange(len(lab)) + .19); ax.set_xticklabels(lab, fontsize=8); a
 fig.tight_layout(); fig.savefig(F / "s3_regime_slopes.png", dpi=170); plt.close(fig)
 # ---- s4 size-matched
 wl = load_wells(species=False); s4 = pd.read_csv(T / "s4_size_matched.csv")
-fig, ax = plt.subplots(3, 4, figsize=(19, 12))
+fig, ax = plt.subplots(3, 3, figsize=(19, 12))
 for k, m in enumerate(M4):
     g = wl[wl.Metal == m].copy(); q = np.quantile(g.lnA, np.linspace(0, 1, 6)); q[0] -= 1e-6; g["sb"] = pd.cut(g.lnA, q, labels=[f"S{i}" for i in range(1, 6)])
     cov = g.groupby(["sb", "conc"], observed=False).size().unstack(fill_value=0)
@@ -86,7 +76,7 @@ for k, m in enumerate(M4):
     ax[k].set_yticks(range(len(z))); ax[k].set_yticklabels([f"{r} ({int(n)} strains)" for r, n in zip(z.run, z.n_strains)], fontsize=7)
     ax[k].set_title(f"{m}: I2={hh.I2:.2f}, Q p={hh.Q_p:.2g}", fontsize=9); ax[k].set_xlabel("a* change over full dose range, fixed size (95% CI)")
 vv = v.set_index("Metal")[["share_strain", "share_run", "share_plate", "share_resid"]].reindex(M4) * 100
-vv.plot.bar(stacked=True, ax=ax[4], color=["#0072B2", "#D55E00", "#999999", "#E69F00"]); ax[4].set_ylabel("% of random variance"); ax[4].set_title("Variance components (run = strain subset)", fontsize=9); ax[4].legend(fontsize=7)
+vv.plot.bar(stacked=True, ax=ax[3], color=["#0072B2", "#D55E00", "#999999", "#E69F00"]); ax[3].set_ylabel("% of random variance"); ax[3].set_title("Variance components (run = strain subset)", fontsize=9); ax[3].legend(fontsize=7)
 fig.suptitle("Batch: dose effect by run (each run is a different strain subset) and variance components", fontsize=10)
 fig.tight_layout(); fig.savefig(F / "s6_batch.png", dpi=170); plt.close(fig)
 print("figures written")

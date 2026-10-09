@@ -6,7 +6,7 @@ import numpy as np, pandas as pd
 import matplotlib; matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from scipy import stats
-METALS = ["Chromium", "Copper", "Iron", "Lead", "Zinc"]
+METALS = ["Chromium", "Copper", "Lead"]
 BLUE, ORANGE = "#0072B2", "#D55E00"
 
 def main():
@@ -14,7 +14,7 @@ def main():
     out = Path(a.out); fig_dir = out / "figures"; fig_dir.mkdir(exist_ok=True)
     w = pd.read_csv(out / "wells.csv"); bl = pd.read_csv(out / "strain_blups.csv"); ms = pd.read_csv(out / "mixed_model_summary.csv")
     # Fig 1: a* vs ln area by dose; each point = median over replicate wells of one strain x dose
-    fig, ax = plt.subplots(1, 5, figsize=(21, 4.3), sharey=True)
+    fig, ax = plt.subplots(1, 3, figsize=(21, 4.3), sharey=True)
     for k, m in enumerate(METALS):
         g = w[w.Metal == m]; doses = sorted(g.conc.unique())
         edges = np.quantile(g.lnA, np.linspace(0, 1, 11)); edges[-1] += 1e-9
@@ -28,7 +28,7 @@ def main():
     fig.suptitle("a* vs colony size by dose. Overlapping curves = size effect only; separated curves = a* shift at the same size", fontsize=10)
     fig.tight_layout(); fig.savefig(fig_dir / "fig1_astar_vs_size_by_dose.png", dpi=170); plt.close(fig)
     # Fig 2: strain baseline vs top dose, mean of replicate wells +- SE (both axes)
-    fig, ax = plt.subplots(2, 5, figsize=(21, 8.3))
+    fig, ax = plt.subplots(2, 3, figsize=(21, 8.3))
     for k, m in enumerate(METALS):
         g = w[w.Metal == m]
         n0 = set(g[g.conc == 0].strain_id)
@@ -48,7 +48,7 @@ def main():
     fig.suptitle("Per-strain a* (top) and colony size (bottom): unstressed vs highest dose. Dashed = no change", fontsize=10)
     fig.tight_layout(); fig.savefig(fig_dir / "fig2_baseline_vs_stressed.png", dpi=170); plt.close(fig)
     # Fig 3: model-based strain effects, total (M0) and at fixed colony size (M1)
-    fig, ax = plt.subplots(2, 5, figsize=(21, 8.2))
+    fig, ax = plt.subplots(2, 3, figsize=(21, 8.2))
     for k, m in enumerate(METALS):
         for r_, mod in enumerate(("M0", "M1")):
             b = bl[(bl.Metal == m) & (bl.model == mod)]; r = ms[(ms.Metal == m) & (ms.model == mod)].iloc[0]
