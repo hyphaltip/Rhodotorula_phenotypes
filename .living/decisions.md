@@ -444,3 +444,8 @@ Append-only log of non-obvious decisions and their rationale.
 - **Revisit if**: Fe and Zn complete tables arrive (change `metal_source_status`); the panel cutoff changes (regenerate the CSV).
 - **Backup**: `db/rhodotorula_phenotypes.pre-curation-20261008.duckdb`.
 - **Tags**: duckdb, curation, strain_info, decision
+
+### [2026-10-08] D-59 — Old DB importer scripts removed; analysis folders and algorithms/functional_annotation kept (status: applied)
+- **Decision**: the user kept the analysis folders and `algorithms/functional_annotation` for now (this narrows D-50 to the DB importers). Removed `scripts/db/00,05,10,20,30,40`, `lib/imagename.py` and `query_examples/`. Tag `pre-old-db-importers-removal` marks the state before removal. See `scripts/db/RETIRED.md`.
+- **Revisit if**: the Y-2510 analysis folders are retired later (use the same tag-then-remove pattern).
+- **Tags**: cleanup, db, decision
