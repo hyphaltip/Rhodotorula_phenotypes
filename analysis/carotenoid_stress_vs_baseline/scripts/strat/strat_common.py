@@ -5,15 +5,15 @@ from pathlib import Path
 
 R = Path("analysis/carotenoid_stress_vs_baseline/results")
 REP = Path("analysis/carotenoid_stress_vs_baseline/report"); (REP / "figures").mkdir(parents=True, exist_ok=True); (REP / "tables").mkdir(parents=True, exist_ok=True)
-METALS = ["Chromium", "Copper", "Iron", "Lead", "Zinc"]
-COL = {"Chromium": "#0072B2", "Copper": "#D55E00", "Iron": "#009E73", "Lead": "#CC79A7", "Zinc": "#E69F00"}
+METALS = ["Chromium", "Copper", "Lead"]
+COL = {"Chromium": "#0072B2", "Copper": "#D55E00", "Lead": "#CC79A7"}
 
 def load_wells(species=True):
     w = pd.read_csv(R / "wells.csv")
     if species:
         st = pd.read_csv(R / "strat/strain_table.csv", dtype={"strain_id": str})
         w["strain_id"] = w.strain_id.astype(str)
-        w = w.merge(st[["strain_id", "sample_name", "species", "pop", "tip"]], on="strain_id", how="left")
+        w = w.merge(st[["strain_id", "sample_name", "species", "tip"]], on="strain_id", how="left")
     return w
 
 def top_dose(g, min_shared=30):

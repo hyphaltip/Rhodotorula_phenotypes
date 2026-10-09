@@ -14,6 +14,7 @@ sel = ", ".join(f'"{v}" as {k}' for k, v in COLS.items())
 df = con.execute(f"""select Metal, run_number, plate_position, Grid_RowNum, Grid_ColNum, Concentration as conc, strain_id, capture_datetime, {sel}
                      from heavy_metal_measurement where strain_id is not null and strain_id not like 'Control%'""").df()
 log(f"rows (named strains): {len(df):,}"); assert len(df) == 502051
+df = df[df.Metal.isin(["Chromium", "Copper", "Lead"])].copy(); log(f"metals kept (Iron and Zinc held out, D-56): {len(df):,}")
 pk = ["Metal", "run_number", "plate_position"]; wk = pk + ["Grid_RowNum", "Grid_ColNum"]
 df["h"] = (df.capture_datetime - df.groupby(pk).capture_datetime.transform("min")).dt.total_seconds() / 3600; assert 90 < df.h.max() < 130
 df = df.sort_values("area", ascending=False).drop_duplicates(wk + ["capture_datetime"])

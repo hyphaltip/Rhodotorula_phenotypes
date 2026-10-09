@@ -5,7 +5,7 @@ import numpy as np, pandas as pd
 import matplotlib; matplotlib.use("Agg"); import matplotlib.pyplot as plt
 sys.path.insert(0, "analysis/carotenoid_stress_vs_baseline/scripts/strat")
 from strat_common import *
-TH = [0, 1000, 2000, 3000, 5000]; M4 = ["Chromium", "Copper", "Iron", "Lead"]
+TH = [0, 1000, 2000, 3000, 5000]; M4 = ["Chromium", "Copper", "Lead"]
 mm, m2, wl, topd = [], [], [], []
 for A in TH:
     d = R / "unfiltered" if A == 0 else R / f"minarea_{A}"; wf = R / "unfiltered" / "wells.csv" if A == 0 else R / f"wells_min{A}.csv"   # 0 = original unfiltered run (median-span window for Zinc)
@@ -19,7 +19,7 @@ for A in TH:
                          median_area_top_px=np.exp(g[g.conc == dm].lnA).median()))
 mm = pd.concat(mm); m2 = pd.concat(m2); wl = pd.concat(wl); topd = pd.DataFrame(topd)
 mm.to_csv(REP / "tables/s8_minarea_models.csv", index=False); m2.to_csv(REP / "tables/s8_minarea_dose_factor.csv", index=False); wl.to_csv(REP / "tables/s8_minarea_wells_by_dose.csv", index=False); topd.to_csv(REP / "tables/s8_minarea_topdose.csv", index=False)
-fig, ax = plt.subplots(3, 4, figsize=(19, 12))
+fig, ax = plt.subplots(3, 3, figsize=(19, 12))
 for k, m in enumerate(M4):
     z = mm[(mm.Metal == m) & (mm.model == "M1")].sort_values("min_area"); z0 = mm[(mm.Metal == m) & (mm.model == "M0")].sort_values("min_area")
     ax[0, k].errorbar(z.min_area, z.dose_effect, yerr=1.96 * z.dose_se, fmt="o-", color=COL[m], label="at fixed size", capsize=2); ax[0, k].errorbar(z0.min_area, z0.dose_effect, yerr=1.96 * z0.dose_se, fmt="s--", color=COL[m], alpha=.5, label="total", capsize=2)

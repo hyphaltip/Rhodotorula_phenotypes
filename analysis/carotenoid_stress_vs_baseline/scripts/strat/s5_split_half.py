@@ -10,8 +10,8 @@ import matplotlib; matplotlib.use("Agg"); import matplotlib.pyplot as plt
 sys.path.insert(0, "analysis/carotenoid_stress_vs_baseline/scripts/strat")
 from strat_common import *
 rng = np.random.default_rng(11); NSPLIT = 1000; NBOOT = 300
-w = load_wells(species=False); rows = []; fig, ax = plt.subplots(2, 4, figsize=(19, 8.4)); store = {}
-for k, m in enumerate(["Chromium", "Copper", "Iron", "Lead"]):
+w = load_wells(species=False); rows = []; fig, ax = plt.subplots(2, 3, figsize=(19, 8.4)); store = {}
+for k, m in enumerate(["Chromium", "Copper", "Lead"]):
     g = w[w.Metal == m].copy(); g["a_adj"], _ = size_adjusted(g); dm = top_dose(g)
     for meas in ("a", "a_adj"):
         cnt = g[g.conc.isin([0, dm])].groupby(["strain_id", "conc"]).size().unstack()
@@ -46,7 +46,7 @@ for k, m in enumerate(["Chromium", "Copper", "Iron", "Lead"]):
         if meas == "a_adj":
             store[m] = (b_all, c_all, one(S)[4])
 tab = pd.DataFrame(rows); tab.to_csv(REP / "tables/s5_split_half.csv", index=False)
-for k, m in enumerate(["Chromium", "Copper", "Iron", "Lead"]):
+for k, m in enumerate(["Chromium", "Copper", "Lead"]):
     b, c, (A0, dB) = store[m]
     for r_, (x, y, ttl) in enumerate(((b, c, "naive: baseline and change from the same wells"), (A0, dB, "split-half: baseline from half A, change from half B"))):
         ax[r_, k].scatter(x, y, s=12, alpha=.6, color=COL[m]); sl, ic, *_ = stats.linregress(x, y); xx = np.array([x.min(), x.max()]); ax[r_, k].plot(xx, ic + sl * xx, "k-", lw=1)

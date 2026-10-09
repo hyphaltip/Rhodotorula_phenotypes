@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """(1) Which traits correlate with a*?  (2) Do species differ in baseline a* and in stress response?
 Same well definition and window as prepare_wells.py (largest object per well-image, window [T-24, T] per metal).
-Species come from strain_info (includes user-confirmed overrides); strains labelled 'Species Not Found' are excluded from species tests.
+Groups come from results/strat/strain_table.csv (curated species; R. mucilaginosa split into pure haploid, hybrid diploid and aff.); strains labelled 'Species Not Found' are excluded from species tests.
 """
 import sys
 from pathlib import Path
@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 
 OUT = Path("analysis/carotenoid_stress_vs_baseline/results"); (OUT / "figures").mkdir(parents=True, exist_ok=True)
 WINDOW_H, MIN_IMG, MIN_STRAINS = 24.0, 2, 5
-METALS = ["Chromium", "Copper", "Iron", "Lead", "Zinc"]
+METALS = ["Chromium", "Copper", "Lead"]
 log = lambda m: print(m, flush=True)
 con = duckdb.connect("db/rhodotorula_phenotypes.duckdb", read_only=True)
 cols = [r[0] for r in con.execute("describe heavy_metal_measurement").fetchall()
@@ -21,8 +21,9 @@ log(f"numeric trait columns: {len(cols)}")
 sel = ", ".join(f'"{c}"' for c in cols)
 df = con.execute(f'''select Metal, run_number, plate_position, Grid_RowNum, Grid_ColNum, Concentration, strain_id, capture_datetime, {sel}
                      from heavy_metal_measurement where strain_id is not null and strain_id not like 'Control%' ''').df()
-si = con.execute("select strain_id, species from strain_info").df().set_index("strain_id").species
-log(f"rows (named strains): {len(df):,}")
+si = pd.read_csv("analysis/carotenoid_stress_vs_baseline/results/strat/strain_table.csv", dtype={"strain_id": str}).set_index("strain_id").species   # analysis group (s0_inputs.py, D-53)
+df = df[df.Metal.isin(["Chromium", "Copper", "Lead"])].copy()   # D-56: Iron and Zinc held out
+log(f"rows (named strains, Cr/Cu/Pb): {len(df):,}")
 pk = ["Metal", "run_number", "plate_position"]; wk = pk + ["Grid_RowNum", "Grid_ColNum"]
 df["h"] = (df.capture_datetime - df.groupby(pk).capture_datetime.transform("min")).dt.total_seconds() / 3600
 assert 90 < df.h.max() < 130
@@ -63,9 +64,9 @@ for sc in ("all_doses", "dose0", "within_strain_dose"):
 top = cor[cor.scope == "all_doses"].assign(ar=lambda d: d.rho.abs()).groupby("trait").ar.mean().sort_values(ascending=False).head(18).index
 piv = cor[(cor.scope == "all_doses") & cor.trait.isin(top)].pivot(index="trait", columns="Metal", values="rho").reindex(top)
 fig, ax = plt.subplots(figsize=(7.5, 7)); im = ax.imshow(piv[METALS].values, cmap="RdBu_r", vmin=-1, vmax=1)
-ax.set_xticks(range(5)); ax.set_xticklabels(METALS, rotation=45, ha="right"); ax.set_yticks(range(len(piv))); ax.set_yticklabels(piv.index, fontsize=7)
+ax.set_xticks(range(3)); ax.set_xticklabels(METALS, rotation=45, ha="right"); ax.set_yticks(range(len(piv))); ax.set_yticklabels(piv.index, fontsize=7)
 for i in range(piv.shape[0]):
-    for j in range(5):
+    for j in range(3):
         v = piv[METALS].values[i, j]
         if not np.isnan(v): ax.text(j, i, f"{v:.2f}", ha="center", va="center", fontsize=6)
 fig.colorbar(im, label="Spearman rho with a*"); ax.set_title("Traits most correlated with a* (well level, all doses)", fontsize=9)
@@ -100,7 +101,7 @@ R = pd.DataFrame(res); R["p_BH"] = np.nan
 idx = R.p.sort_values().index; m_ = len(R); adj = (R.p[idx] * m_ / np.arange(1, m_ + 1)).iloc[::-1].cummin().iloc[::-1].clip(upper=1); R.loc[idx, "p_BH"] = adj.values
 R.to_csv(OUT / "species_tests.csv", index=False); log("\n== species tests (species with >= 5 strains; Kruskal-Wallis; eta2_H = effect size)"); log(R.to_string(index=False))
 sp_n = pd.concat([x.species.value_counts() for x in box.values()], axis=1); log("\nstrains per species by metal (baseline strains):"); log(sp_n.fillna(0).astype(int).to_string())
-fig, ax = plt.subplots(1, 5, figsize=(22, 5.5), sharey=False)
+fig, ax = plt.subplots(1, 3, figsize=(22, 5.5), sharey=False)
 for k, m in enumerate(METALS):
     s = box[m]; order = s.groupby("species").a.median().sort_values().index
     ax[k].boxplot([s[s.species == o].a for o in order], tick_labels=[f"{o.replace('Rhodotorula ','R. ')} ({(s.species==o).sum()})" for o in order], vert=False, showfliers=False)

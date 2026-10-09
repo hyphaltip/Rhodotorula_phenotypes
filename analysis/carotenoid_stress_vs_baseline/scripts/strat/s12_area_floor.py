@@ -9,7 +9,7 @@ from strat_common import *
 F = REP / "figures"; T = REP / "tables"; log = lambda m: print(m, flush=True)
 con = duckdb.connect("db/rhodotorula_phenotypes.duckdb", read_only=True)
 d = con.execute('''select Metal, run_number, plate_position, Grid_RowNum, Grid_ColNum, Concentration as conc, capture_datetime, Shape_Area as area, "ColorLab_a*GeoMedian" as a
-                   from heavy_metal_measurement where strain_id is not null and strain_id not like 'Control%' ''').df()
+                   from heavy_metal_measurement where strain_id is not null and strain_id not like 'Control%' and Metal in ('Chromium','Copper','Lead') ''').df()
 pk = ["Metal", "run_number", "plate_position"]; wk = pk + ["Grid_RowNum", "Grid_ColNum"]
 d["h"] = (d.capture_datetime - d.groupby(pk).capture_datetime.transform("min")).dt.total_seconds() / 3600
 d = d.sort_values("area", ascending=False).drop_duplicates(wk + ["capture_datetime"]); d["lnA"] = np.log(d.area)
@@ -37,7 +37,7 @@ hp = pd.DataFrame(hp); hp.to_csv(T / "s12_area_hinge.csv", index=False); log(hp.
 log("median a* in area bins, dose 0 vs top dose (n>=30):")
 for m, g in tab.groupby("Metal"):
     p = g[g.n >= 30].pivot(index="area_lo", columns="scope", values="median_a").round(1); log(m + "\n" + p.to_string())
-fig, ax = plt.subplots(1, 5, figsize=(22, 4.6), sharey=True)
+fig, ax = plt.subplots(1, 3, figsize=(14, 4.6), sharey=True)
 for k, m in enumerate(METALS):
     g = tab[tab.Metal == m]
     for scope, col, ls in (("dose 0", "#0072B2", "-"), ("top dose", "#D55E00", "-")):

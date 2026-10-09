@@ -6,19 +6,19 @@ import matplotlib; matplotlib.use("Agg"); import matplotlib.pyplot as plt
 from scipy import stats
 sys.path.insert(0, "analysis/carotenoid_stress_vs_baseline/scripts/strat")
 from strat_common import *
-F = REP / "figures"; T = REP / "tables"; M4 = ["Chromium", "Copper", "Iron", "Lead"]; REF = "Rhodotorula mucilaginosa"
+F = REP / "figures"; T = REP / "tables"; M4 = ["Chromium", "Copper", "Lead"]; REF = "Rhodotorula mucilaginosa"
 LAB = {"L": "L* (lightness)", "a": "a* (red-green)", "b": "b* (yellow-blue)", "chroma": "chroma sqrt(a*^2+b*^2)", "hue_deg": "hue angle (deg; 0 = red, 90 = yellow)", "sat": "HSV saturation", "val": "HSV value",
        "circ": "circularity", "solid": "solidity", "ecc": "eccentricity", "compact": "compactness", "extent": "extent", "aspect": "aspect ratio (major/minor)"}
 COLT = ["L", "a", "b", "chroma", "hue_deg"]; MORPH = ["circ", "solid", "ecc", "compact", "extent", "aspect"]
 w = pd.read_csv(R / "wells_traits.csv"); st = pd.read_csv(R / "strat/strain_table.csv", dtype={"strain_id": str}); w["strain_id"] = w.strain_id.astype(str)
-w = w.merge(st[["strain_id", "species", "pop"]], on="strain_id", how="left"); w = w[w.Metal.isin(M4)].copy()
+w = w.merge(st[["strain_id", "species"]], on="strain_id", how="left"); w = w[w.Metal.isin(M4)].copy()
 w["grp"] = np.where(w.species == REF, "R. mucilaginosa", np.where(w.species.notna() & (w.species != "Species Not Found"), "other species", "no species"))
 print("wells:", len(w), w.grp.value_counts().to_dict())
 def line(g, col):
     s = g.groupby(["strain_id", "conc"])[col].mean().reset_index(); z = s.groupby("conc")[col].agg(["mean", "sem", "size"]); return z[z["size"] >= 3]
 GC = {"R. mucilaginosa": "#0072B2", "other species": "#D55E00"}
 def grid(traits, fn, title):
-    fig, ax = plt.subplots(len(traits), 4, figsize=(17, 2.7 * len(traits)), sharex="col")
+    fig, ax = plt.subplots(len(traits), 3, figsize=(17, 2.7 * len(traits)), sharex="col")
     for k, m in enumerate(M4):
         g = w[w.Metal == m]
         for r_, tr in enumerate(traits):
@@ -33,7 +33,7 @@ def grid(traits, fn, title):
 grid(COLT, "bm_colour_response.png", "Colour traits by dose (strain means, 95% CI across strains): R. mucilaginosa and all other species")
 grid(MORPH, "bm_morphology_response.png", "Morphology by dose (strain means, 95% CI across strains): R. mucilaginosa and all other species. Shape metrics of very small colonies are noisy")
 # a*-b* plane
-fig, ax = plt.subplots(1, 4, figsize=(19, 4.8))
+fig, ax = plt.subplots(1, 3, figsize=(19, 4.8))
 for k, m in enumerate(M4):
     g = w[w.Metal == m]; sm = g.groupby(["strain_id", "conc"])[["a", "b"]].mean().reset_index(); doses = sorted(g.conc.unique())
     for i, d in enumerate(doses):
@@ -46,7 +46,7 @@ fig.suptitle("Colour-plane trajectory under stress (colour = dose, labels = conc
 MC = MORPH + ["lnA"]; CC = ["a", "b", "L", "chroma", "hue_deg"]
 def cormat(df, rowt, colt):
     return pd.DataFrame({c: {r: stats.spearmanr(df[r], df[c], nan_policy="omit")[0] for r in rowt} for c in colt})
-fig, ax = plt.subplots(2, 4, figsize=(18, 11.5), gridspec_kw=dict(hspace=0.55, wspace=0.4)); rows = []   # room for rotated x labels between the rows
+fig, ax = plt.subplots(2, 3, figsize=(18, 11.5), gridspec_kw=dict(hspace=0.55, wspace=0.4)); rows = []   # room for rotated x labels between the rows
 for k, m in enumerate(M4):
     g = w[w.Metal == m]; dm = g.conc.max(); s0 = g[g.conc == 0].groupby("strain_id")[MC + CC].mean(); st_ = g[g.conc == dm].groupby("strain_id")[MC + CC].mean()
     dl = (st_ - s0).dropna()
@@ -60,7 +60,7 @@ fig.suptitle("Strain-level correlation of morphology (rows) with colour (columns
 pd.concat(rows).to_csv(T / "s10_morph_colour_corr.csv", index=False)
 # baseline b* and circularity by species
 sp = w[(w.grp != "no species") & w.species.notna()]; cn = sp.groupby(["Metal", "species"]).strain_id.nunique().unstack(0).fillna(0)
-fig, ax = plt.subplots(2, 4, figsize=(19, 9))
+fig, ax = plt.subplots(2, 3, figsize=(19, 9))
 for k, m in enumerate(M4):
     g = sp[(sp.Metal == m) & (sp.conc == 0)]; sm = g.groupby("strain_id").agg(b=("b", "mean"), circ=("circ", "mean"), species=("species", "first"))
     keep = [s for s in cn.index if cn.loc[s, m] >= 5]
@@ -76,9 +76,9 @@ try:
     for r_, ds in enumerate(("main: largest object >= 2000 px", "no area filter")):
         for c_, mod in enumerate(("total", "at fixed size")):
             z = e[(e.dataset == ds) & (e.model == mod)]; pv = z.pivot(index="trait", columns="Metal", values="effect_sd").reindex(COLT + ["sat", "val"] + MORPH)[M4]; pp = z.pivot(index="trait", columns="Metal", values="p").reindex(pv.index)[M4]
-            im = ax[r_, c_].imshow(pv.values, cmap="RdBu_r", vmin=-3, vmax=3, aspect="auto"); ax[r_, c_].set_xticks(range(4)); ax[r_, c_].set_xticklabels(M4, rotation=45, ha="right"); ax[r_, c_].set_yticks(range(len(pv))); ax[r_, c_].set_yticklabels(pv.index)
+            im = ax[r_, c_].imshow(pv.values, cmap="RdBu_r", vmin=-3, vmax=3, aspect="auto"); ax[r_, c_].set_xticks(range(3)); ax[r_, c_].set_xticklabels(M4, rotation=45, ha="right"); ax[r_, c_].set_yticks(range(len(pv))); ax[r_, c_].set_yticklabels(pv.index)
             for i in range(pv.shape[0]):
-                for j in range(4):
+                for j in range(3):
                     v = pv.values[i, j]
                     if not np.isnan(v): ax[r_, c_].text(j, i, f"{v:.1f}{star(pp.values[i, j])}", ha="center", va="center", fontsize=9)
             ax[r_, c_].set_title(f"{ds}; {mod}", fontsize=9)

@@ -163,8 +163,8 @@ axt.legend(handles=[matplotlib.patches.Patch(color=spcol[s_], label=s_) for s_ i
 fig.suptitle("PHYling tree (278 tips), rooted on the outgroup clade Cystobasidium + Pseudomicrostroma, with baseline a* per metal", fontsize=11, y=0.995)
 fig.savefig(REP / "figures/s2_tree_with_astar.png", dpi=130, bbox_inches="tight"); plt.close(fig)
 # --- figure 3: trait distance decay
-fig, ax = plt.subplots(1, 4, figsize=(18, 4))
-for k, m in enumerate(["Chromium", "Copper", "Iron", "Lead"]):
+fig, ax = plt.subplots(1, 3, figsize=(18, 4))
+for k, m in enumerate(["Chromium", "Copper", "Lead"]):
     b, dm = traits[m]; s = b[b.tip.notna() & b.tip.isin(name2i)]; ix = np.array([name2i[t] for t in s.tip]); y = s.a_adj.values
     D = np.add.outer(np.diag(C)[ix], np.diag(C)[ix]) - 2 * C[np.ix_(ix, ix)]; iu = np.triu_indices(len(ix), 1)
     d = D[iu]; dy = np.abs(y[:, None] - y[None, :])[iu]; q = np.quantile(d, np.linspace(0, 1, 13)); bi = np.digitize(d, q[1:-1])

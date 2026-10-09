@@ -449,3 +449,9 @@ Append-only log of non-obvious decisions and their rationale.
 - **Decision**: the user kept the analysis folders and `algorithms/functional_annotation` for now (this narrows D-50 to the DB importers). Removed `scripts/db/00,05,10,20,30,40`, `lib/imagename.py` and `query_examples/`. Tag `pre-old-db-importers-removal` marks the state before removal. See `scripts/db/RETIRED.md`.
 - **Revisit if**: the Y-2510 analysis folders are retired later (use the same tag-then-remove pattern).
 - **Tags**: cleanup, db, decision
+
+### [2026-10-09] D-60 — a* report rerun on the curated database: Cr, Cu, Pb; groups from strain_curation; no populations (status: applied, step 5)
+- **Decision**: `analysis/carotenoid_stress_vs_baseline/run_all.sh` reruns every table and figure. `scripts/strat/s0_inputs.py` builds the analysis group from `strain_info`: "R. mucilaginosa" = pure haploid, plus "hybrid diploid" and "aff. mucilaginosa" groups (D-53). `prepare_wells.py`, `s10_build_traits.py`, `traits_species.py` and `s12_area_floor.py` keep Chromium, Copper and Lead only (D-56). Population models, figures and tables and the Zinc rescue are removed (D-57). REPORT.md and REPORT.pdf are rewritten from the new tables (section 13 states that Fe and Zn are withdrawn).
+- **Result**: pure haploid group 172-173 strains; hybrids 33; aff. 7. Fixed-size dose effects Cr -8.5, Cu -13.4, Pb -4.3 (singular). Hybrids have lower baseline a* and weaker dose response than pure haploids in all three metals.
+- **Revisit if**: Fe and Zn complete tables arrive (extend `METALS_USED` and the lists in the scripts); DH4148 clusters exist (add a population section).
+- **Tags**: report, rerun, decision

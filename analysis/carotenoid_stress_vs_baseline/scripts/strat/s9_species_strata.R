@@ -6,12 +6,12 @@ suppressMessages({library(lme4); library(lmerTest)})
 R <- "analysis/carotenoid_stress_vs_baseline/results"; T <- "analysis/carotenoid_stress_vs_baseline/report/tables"
 w  <- read.csv(file.path(R, "wells.csv"), stringsAsFactors = FALSE)
 st <- read.csv(file.path(R, "strat/strain_table.csv"), stringsAsFactors = FALSE)
-w  <- merge(w, st[, c("strain_id", "species", "pop")], by = "strain_id", all.x = TRUE)
+w  <- merge(w, st[, c("strain_id", "species")], by = "strain_id", all.x = TRUE)
 w  <- w[!is.na(w$species) & w$species != "Species Not Found" & w$Metal != "Zinc", ]
 REF <- "Rhodotorula mucilaginosa"; MINS <- 5
 ctl <- lmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 1e5), check.conv.singular = "ignore")
 mod <- list(); dfc <- list(); cnt <- list()
-for (m in c("Chromium", "Copper", "Iron", "Lead")) {
+for (m in c("Chromium", "Copper", "Lead")) {
   d <- w[w$Metal == m, ]; ns <- tapply(d$strain_id, d$species, function(x) length(unique(x)))
   keep <- names(ns)[ns >= MINS]; strata <- c(REF, setdiff(keep, REF))
   d$stratum <- ifelse(d$species %in% keep, d$species, NA)
@@ -30,7 +30,7 @@ for (m in c("Chromium", "Copper", "Iron", "Lead")) {
 }
 
 # Per-species dose-factor effects at ONE shared size slope (same size treatment as Table 5): a ~ cf*species + lnA_c + (1|strain) + (1|plate)
-for (m in c("Chromium", "Copper", "Iron", "Lead")) {
+for (m in c("Chromium", "Copper", "Lead")) {
   d <- w[w$Metal == m, ]; ns <- tapply(d$strain_id, d$species, function(x) length(unique(x))); keep <- names(ns)[ns >= MINS]
   d <- d[d$species %in% keep, ]; d$species <- relevel(factor(d$species), REF); d$cf <- relevel(factor(d$conc), ref = "0"); d$strain_id <- factor(d$strain_id); d$plate_id <- factor(d$plate_id)
   fit <- tryCatch(lmer(a ~ cf * species + lnA_c + (1|strain_id) + (1|plate_id), d, REML = TRUE, control = ctl), error = function(e) NULL); if (is.null(fit)) next

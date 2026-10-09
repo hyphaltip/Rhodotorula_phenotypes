@@ -27,9 +27,9 @@ _c = pd.read_csv(T / "astar_trait_correlations.csv"); _c = _c[_c.scope == "all_d
 _top = _c.assign(ar=_c.rho.abs()).groupby("trait").ar.mean().sort_values(ascending=False).head(18).index
 _p = _c[_c.trait.isin(_top)].pivot(index="trait", columns="Metal", values="rho").reindex(_top)[METALS]
 fig, ax = plt.subplots(figsize=(8.2, 7.4)); im = ax.imshow(_p.values, cmap="RdBu_r", vmin=-1, vmax=1)
-ax.set_xticks(range(5)); ax.set_xticklabels(METALS, rotation=45, ha="right", fontsize=9); ax.set_yticks(range(len(_p))); ax.set_yticklabels(_p.index, fontsize=7)
+ax.set_xticks(range(3)); ax.set_xticklabels(METALS, rotation=45, ha="right", fontsize=9); ax.set_yticks(range(len(_p))); ax.set_yticklabels(_p.index, fontsize=7)
 for i in range(_p.shape[0]):
-    for j in range(5):
+    for j in range(3):
         v = _p.values[i, j]
         if not np.isnan(v): ax.text(j, i, f"{v:.2f}", ha="center", va="center", fontsize=6)
 fig.colorbar(im, label="Spearman rho with a*"); ax.set_title("Traits most correlated with a* (well level, all doses)", fontsize=9)
@@ -54,8 +54,6 @@ sb = pd.read_csv(T / "s1_species_baseline.csv"); sb = sb[sb.size_adjusted == Tru
 t_sb = md(sb[["Metal", "species", "n_strains", "estimate", "se", "p", "p_BH"]])
 ss = pd.read_csv(T / "s1_species_dose_slope.csv"); ss["species"] = ss.species.str.replace("Rhodotorula ", "R. "); t_ss = md(ss[["Metal", "species", "n_strains", "slope_full_range", "se", "vs_reference_p"]].rename(columns={"vs_reference_p": "p vs mucilaginosa"}))
 po = pd.read_csv(T / "s1_pooled_other_vs_mucilaginosa.csv"); t_po = md(po)
-pb = pd.read_csv(T / "s1_population_baseline.csv"); pb["population"] = pb.population.str.replace("poppop", "pop"); t_pb = md(pb)
-pp = pd.read_csv(T / "s1_population_dose_slope.csv"); t_pp = md(pp)
 t_ph = md(sub[["Metal", "scope", "trait", "n_strains", "pagel_lambda", "p_lambda_gt_0"]].rename(columns={"p_lambda_gt_0": "p (lambda > 0)"}))
 sr = pd.read_csv(T / "s3_size_ratio_by_dose.csv"); t_sr = md(sr[["Metal", "conc", "median_ratio", "q25", "q75", "n_strains", "regime"]])
 rs = pd.read_csv(T / "s3_regime_slopes.csv"); t_rs = md(rs)
@@ -82,30 +80,26 @@ RS["T_S9_MODEL"] = md(pv.reset_index(), "{:.1f}")
 s10 = pd.read_csv(T / "s10_trait_dose_effects.csv"); s10 = s10[s10.dataset.str.startswith("main")]; ordr = ["L", "a", "b", "chroma", "hue_deg", "sat", "val", "circ", "solid", "ecc", "compact", "extent", "aspect"]
 for k_, mod in (("T_S10_TOTAL", "total"), ("T_S10_FIXED", "at fixed size")):
     z_ = s10[s10.model == mod].pivot(index="trait", columns="Metal", values="effect_sd").reindex(ordr); RS[k_] = md(z_.reset_index(), "{:.1f}")
-zc = pd.read_csv(T / "s11_zinc_window_coverage.csv"); zc["plate"] = zc.run_number + "/" + zc.plate_position.astype(str); RS["T_ZN_COVER"] = md(zc[["plate", "conc", "imgs", "span_h", "T=66h", "T=80h", "T=90h", "T=107.6h"]].rename(columns={"conc": "dose", "imgs": "images", "span_h": "span (h)"}), "{:.1f}")
-zp = pd.read_csv(T / "s11_zinc_composite_series.csv"); RS["T_ZN_COMP"] = md(zp, "{:.2f}")
-zn_ = pd.read_csv(T / "s11_zinc_composite_series_nofilter.csv"); RS["T_ZN_COMP_NF"] = md(zn_, "{:.2f}")
 cu_ = pd.read_csv(R / "wells_traits.csv"); cu_ = cu_[cu_.Metal == "Copper"].groupby(["strain_id", "conc"])[["a", "b", "lnA"]].mean().groupby("conc").mean().reset_index(); cu_.to_csv(T / "s10_cu_dose_means.csv", index=False); RS["T_CUB"] = md(cu_.rename(columns={"conc": "dose"}), "{:.1f}")
-zr = pd.read_csv(T / "s11_zinc_rank_consistency.csv"); zr = zr[zr.trait.isin(["a", "lnA"])]; RS["T_ZN_RANK"] = md(zr, "{:.2f}")
 un = pd.read_csv(R / "unfiltered/mixed_model_summary.csv"); mm0 = pd.read_csv(R / "mixed_model_summary.csv")
 sens = un[["Metal", "model", "dose_effect"]].merge(mm0[["Metal", "model", "dose_effect"]], on=["Metal", "model"], suffixes=(" unfiltered", " main")); sens["model"] = sens.model.map({"M0": "total", "M1": "at fixed size"})
 RS["T_SENS_MM"] = md(sens)
 U = REP / "sensitivity_unfiltered/tables"; rows = []
 om_u = pd.read_csv(U / "s1_omnibus_tests.csv"); om_m = pd.read_csv(T / "s1_omnibus_tests.csv")
-for mt in ("Chromium", "Copper", "Iron", "Lead"):
-    for mdl in ("baseline_size_adjusted", "population_baseline_size_adjusted"):
+for mt in ("Chromium", "Copper", "Lead"):
+    for mdl in ("baseline_size_adjusted",):
         a = om_u[(om_u.Metal == mt) & (om_u.model == mdl)].F.iloc[0]; b = om_m[(om_m.Metal == mt) & (om_m.model == mdl)].F.iloc[0]; rows.append(dict(quantity=f"{mt}: omnibus F, {mdl.replace('_', ' ')}", unfiltered=a, main=b))
 s5u = pd.read_csv(U / "s5_split_half.csv"); s5m = pd.read_csv(T / "s5_split_half.csv")
-for mt in ("Chromium", "Copper", "Iron", "Lead"):
+for mt in ("Chromium", "Copper", "Lead"):
     a = s5u[(s5u.Metal == mt) & (s5u.measure == "a_adj")].iloc[0]; b = s5m[(s5m.Metal == mt) & (s5m.measure == "a_adj")].iloc[0]
     rows.append(dict(quantity=f"{mt}: split-half gap (size-adjusted)", unfiltered=a.split_gap_mean, main=b.split_gap_mean)); rows.append(dict(quantity=f"{mt}: reliability of strain change", unfiltered=a.reliability_change_A_vs_B, main=b.reliability_change_A_vs_B))
 h_u = pd.read_csv(U / "s6_run_heterogeneity.csv"); h_m = pd.read_csv(T / "s6_run_heterogeneity.csv")
-for mt in ("Chromium", "Copper", "Iron", "Lead"):
+for mt in ("Chromium", "Copper", "Lead"):
     a = om_u[(om_u.Metal == mt) & (om_u.model == "dose_response_size_adjusted")].F.iloc[0]; b = om_m[(om_m.Metal == mt) & (om_m.model == "dose_response_size_adjusted")].F.iloc[0]; rows.append(dict(quantity=f"{mt}: omnibus F, species by dose", unfiltered=a, main=b))
     a = s5u[(s5u.Metal == mt) & (s5u.measure == "a_adj")].n_strains.iloc[0]; b = s5m[(s5m.Metal == mt) & (s5m.measure == "a_adj")].n_strains.iloc[0]; rows.append(dict(quantity=f"{mt}: strains in the split-half analysis", unfiltered=a, main=b))
 RS["T_SENS_OTHER"] = md(pd.DataFrame(rows))
 body = open("analysis/carotenoid_stress_vs_baseline/scripts/strat/report_text.md").read()
-subs = dict(T_MM=t_mm, T_M2=t_m2, T_COR_ALL=topcor("all_doses"), T_COR_0=topcor("dose0"), T_COR_WITHIN=topcor("within_strain_dose"), T_OM=t_om, T_SB=t_sb, T_SS=t_ss, T_PO=t_po, T_PB=t_pb, T_PP=t_pp,
+subs = dict(T_MM=t_mm, T_M2=t_m2, T_COR_ALL=topcor("all_doses"), T_COR_0=topcor("dose0"), T_COR_WITHIN=topcor("within_strain_dose"), T_OM=t_om, T_SB=t_sb, T_SS=t_ss, T_PO=t_po,
             T_PH=t_ph, T_SR=t_sr, T_RS=t_rs, T_S4=t_s4, T_S5=t_s5, T_H6=t_h6, T_P6=t_p6, T_V6=t_v6, T_SJ=t_sj)
 
 # ---- section 10 (minimum area)

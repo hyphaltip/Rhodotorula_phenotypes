@@ -9,7 +9,7 @@ ctl <- lmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 1e5), check.con
 out <- list()
 for (ds in c("wells_traits", "wells_traits_nofilter")) {
   w <- read.csv(file.path(R, paste0(ds, ".csv")), stringsAsFactors = FALSE); w <- w[w$Metal != "Zinc", ]
-  for (m in c("Chromium", "Copper", "Iron", "Lead")) {
+  for (m in c("Chromium", "Copper", "Lead")) {
     d <- w[w$Metal == m, ]; d$strain_id <- factor(d$strain_id); d$plate_id <- factor(d$plate_id)
     for (tr in TR) {
       d$z <- d[[tr]]; z0 <- d$z[d$conc == 0]; d$z <- (d$z - mean(z0, na.rm = TRUE)) / sd(z0, na.rm = TRUE); x <- d[!is.na(d$z), ]
