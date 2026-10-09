@@ -1,0 +1,9 @@
+partition,lead_trait,lead_snp,strains_with_alt,lineages_with_alt,n_perfectly_linked_snps,n_high,n_moderate,n_genes_high_moderate,keyword_genes_high_moderate
+P1,Cr_relarea_auc [unadjusted],JBZGVR010000015.1:179652:G:A,22,"L05,L06,L07,L09,L11,L12,L14",7,0,0,0,
+P2,Cr_relarea_auc [unadjusted],CM179490.1:981620:C:T,25,"L04,L05,L06,L07,L09,L12,L14",51,1,7,1,
+P3,Cr_relarea_auc [unadjusted],CM179490.1:1242686:A:G,28,"L04,L05,L06,L07,L08,L09,L12,L14",136,0,20,3,
+P4,Cr_relarea_auc [unadjusted],CM179492.1:981812:T:G,29,"L04,L05,L06,L07,L09,L10,L12,L14",72,0,10,3,
+P5,Cr_relarea_auc [unadjusted],CM179490.1:909384:C:T,29,"L04,L05,L06,L07,L09,L12,L13,L14",16,0,0,0,
+P6,Cr_relarea_auc [unadjusted],CM179490.1:132080:A:G,16,"L05,L07,L09,L12,L14",124,0,24,6,
+P7,Cr_relarea_auc [unadjusted],CM179486.1:1276997:A:C,22,"L04,L05,L07,L09,L12,L14",78,0,20,6,
+P8,Cr_relarea_top [unadjusted],CM179496.1:30197:G:A,50,"L02,L05,L06,L07,L09,L10,L13,L14",619,3,92,12,

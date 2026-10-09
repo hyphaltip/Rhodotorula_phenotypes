@@ -9,6 +9,7 @@ Run order (SLURM, from the repo root; `pixi run python` for Python and R):
 4. `scripts/05_make_pheno.py`, `10_lineages_and_adjust.py` GWAS phenotypes, lineages, run adjustment
 5. `scripts/06_run_gemma.sh PHENO OUTDIR [COVAR]` (needs `module load gemma`), `07a_prune.sh`
 6. `scripts/07_gwas_summary.py OUTDIR PHENO TAG [lineage]`, `11_lineage_marker_check.py`, `08_nonadditive.py`, `09_growth_ic50_plots.py`
-7. `scripts/12_make_report.py` (text in `scripts/report_text.md`, tables in `scripts/report_tables.py`), then pandoc.
+7. `scripts/13a_lineage_vcf.sh`, `13b_recombination.py`, `14_cr_tree_signal.py`, `15_candidate_panels.py`, `16_within_lineage_scan.py`
+8. `scripts/12_make_report.py` (text in `scripts/report_text.md`, tables in `scripts/report_tables.py`), then pandoc.
 
 Large files (panel VCF, GEMMA output) are not tracked. Main finding: the panel has 14 clonal lineages (D-61).
