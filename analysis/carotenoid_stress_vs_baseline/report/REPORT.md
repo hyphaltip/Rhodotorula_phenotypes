@@ -18,7 +18,7 @@ Generated 2026-10-08. All numbers come from `report/tables/*.csv`. Scripts are i
 2. **The dose-response is not linear.** Dose-as-factor models at fixed size show Cr a\* rising at low doses (+2.2 and +3.1 at doses 0.2 and 0.4) and falling at the top (-9.8 at 1.2). Pb rises at doses 5-15 (+4.9, +8.0, +9.5) and is near 0 at doses 20-30 (-0.0, -0.3, -0.2). Cu falls from the first doses (-3.2 at dose 10, -12.4 at dose 30), even though colonies are not smaller than control there. Fe rises steadily (+2.5 to +4.9). Zn rises to dose 15 (+7.7) and returns to 0 at dose 30; its standard errors are not valid (section 13).
 3. **a\* depends on colony area even without stress, so the main dataset drops colonies below 2,000 px.** In unstressed colonies a\* is low and rises slowly below about 1,500-2,000 px (slope under 1.7 a\* per ln unit) and then rises three to four times faster (slope 5-7) to about 20 at 33,000 px (section 10). The cutoff was chosen from the unstressed Cr and Cu curves, where stressed and unstressed colonies share the same a\* below about 2,000 px. It is assumed for Pb, Fe and Zn. It removes mostly top-dose wells, so **top-dose estimates describe larger survivors** (Cr top-dose strains 311 to 241; median top-dose area 1,729 to 3,281 px). The cutoff leaves Cu unchanged (-13.4). Cr is nearly unchanged (-8.4 to -8.5). Fe moves from +3.8 to +4.4 (and its size slope from 2.9 to 3.9) when only 9 wells are removed, so treat Fe as stable only within about 0.5 units. Pb is unstable (-6.1 with no cutoff, -4.3 at 2,000 px, +0.2 at 5,000 px), because few Pb colonies at doses 20-30 pass any cutoff.
 4. **Genetic structure matters more than species labels.** R. mucilaginosa populations differ in baseline a\* in all four metals (omnibus p < 0.001, corrected across the 20 omnibus tests). Population 5 is lowest everywhere (Cr -3.4, Cu -2.7, Fe -4.2, Pb -3.6 against population 1). Species effects are metal-specific. R. toruloides, R. dairenensis and R. diobovata have lower estimates than R. mucilaginosa in all four metals, but after correction each is individually significant in only one of them.
-5. **Phylogenetic signal is strong.** Pagel's lambda for baseline a\* is 0.97 (Cr), 0.95 (Cu), 0.90 (Pb) for all strains with a tree tip, and the same inside R. mucilaginosa alone (0.98, 0.95, 0.90). Fe is lower (0.51; 0.33 size-adjusted).
+5. **Phylogenetic signal is present in every metal, but its size depends on the root of the tree.** With the tree rooted on the outgroup clade Cystobasidium + Pseudomicrostroma, Pagel's lambda for baseline a\* is 0.79 (Cr), 0.49 (Cu), 0.84 (Fe), 0.74 (Pb) for all strains with a tree tip, and 0.89, 0.48, 0.91, 0.80 inside R. mucilaginosa alone. All differ from 0 (p < 0.001) except Cu inside R. mucilaginosa (p = 0.036). Zinc (75 strains) is 0.96. The first version of this report used the arbitrary root of the tree file and got different values (Cr 0.97, Cu 0.95, Fe 0.51, Pb 0.90, Zn 0.15), so lambda is sensitive to the root and should be read as a rough size only.
 6. **Regression to the mean inflates the baseline-vs-change pattern.** Selecting the high-baseline third of strains on half of the replicate wells and measuring the change on the other half gives a smaller gap than the naive analysis: Cu -1.6 against -5.0, Cr -3.5 against -5.1, Pb -4.3 against -5.5. Fe is unaffected (+1.8 against +1.6).
 7. **Strain-specific change in a\* is only partly repeatable.** Correlation of the change between replicate halves: Fe 0.70, Pb 0.56, Cr 0.49, Cu 0.11.
 8. **Run (batch) is a small share of variance (0-3%). Only Cr shows clear heterogeneity of the dose effect between runs** (I2 = 0.77, Q p = 0.004; Cu 0.49, p = 0.12; Fe 0.41, p = 0.18; Pb 0.53, p = 0.095). The Cr effect weakens from -13.8 (run d000320) to -4.3 (run d000323). Each run is a different strain subset, so run and strain set cannot be separated.
@@ -333,6 +333,8 @@ Species is a fixed effect (reference R. mucilaginosa). Strain, run and plate are
 
 ## 5. Phylogenetic signal (item 2)
 
+The PHYling tree is rooted on the outgroup clade made of its two non-Rhodotorula tips, Cystobasidium sp. DBVPG_10075 and Pseudomicrostroma phylloplanum DBVPG_6740. The root sits in the middle of the branch that separates them from the Rhodotorula strains. Lambda depends on the root, because the covariance under Brownian motion is built from the distance from the root to the common ancestor of each pair of strains.
+
 ![](figures/s2_phylo_signal.png)
 
 *Figure 9. Pagel's lambda of baseline a\* and of the change in a\* at the top dose.*
@@ -340,36 +342,36 @@ Species is a fixed effect (reference R. mucilaginosa). Strain, run and plate are
 
 | Metal | scope | trait | n_strains | pagel_lambda | p (lambda > 0) |
 |--------|--------------------|----------------------------|---------|------------|--------------|
-| Chromium | all_strains_with_tip | baseline a\* | 255 | 0.97 | <0.001 |
-| Chromium | all_strains_with_tip | baseline a\* (size-adjusted) | 255 | 0.97 | <0.001 |
-| Chromium | all_strains_with_tip | change in a\* at dose 1.2 | 209 | 0.92 | <0.001 |
-| Chromium | R_mucilaginosa_only | baseline a\* | 201 | 0.97 | <0.001 |
-| Chromium | R_mucilaginosa_only | baseline a\* (size-adjusted) | 201 | 0.97 | <0.001 |
-| Chromium | R_mucilaginosa_only | change in a\* at dose 1.2 | 169 | 0.92 | <0.001 |
-| Copper | all_strains_with_tip | baseline a\* | 264 | 0.95 | <0.001 |
-| Copper | all_strains_with_tip | baseline a\* (size-adjusted) | 264 | 0.96 | <0.001 |
-| Copper | all_strains_with_tip | change in a\* at dose 30 | 256 | 0.74 | <0.001 |
-| Copper | R_mucilaginosa_only | baseline a\* | 201 | 0.95 | <0.001 |
-| Copper | R_mucilaginosa_only | baseline a\* (size-adjusted) | 201 | 0.95 | <0.001 |
-| Copper | R_mucilaginosa_only | change in a\* at dose 30 | 201 | 0.73 | <0.001 |
-| Iron | all_strains_with_tip | baseline a\* | 196 | 0.51 | <0.001 |
-| Iron | all_strains_with_tip | baseline a\* (size-adjusted) | 196 | 0.33 | <0.001 |
-| Iron | all_strains_with_tip | change in a\* at dose 30 | 133 | 0.94 | <0.001 |
-| Iron | R_mucilaginosa_only | baseline a\* | 167 | 0.52 | <0.001 |
-| Iron | R_mucilaginosa_only | baseline a\* (size-adjusted) | 167 | 0.35 | <0.001 |
-| Iron | R_mucilaginosa_only | change in a\* at dose 30 | 113 | 0.94 | <0.001 |
-| Lead | all_strains_with_tip | baseline a\* | 249 | 0.90 | <0.001 |
-| Lead | all_strains_with_tip | baseline a\* (size-adjusted) | 249 | 0.91 | <0.001 |
-| Lead | all_strains_with_tip | change in a\* at dose 30 | 164 | 1.00 | <0.001 |
-| Lead | R_mucilaginosa_only | baseline a\* | 199 | 0.91 | <0.001 |
-| Lead | R_mucilaginosa_only | baseline a\* (size-adjusted) | 199 | 0.91 | <0.001 |
-| Lead | R_mucilaginosa_only | change in a\* at dose 30 | 135 | 1.00 | <0.001 |
-| Zinc | all_strains_with_tip | baseline a\* | 75 | 0.15 | 0.11 |
-| Zinc | all_strains_with_tip | baseline a\* (size-adjusted) | 75 | 0.33 | 0.28 |
-| Zinc | all_strains_with_tip | change in a\* at dose 15 | 69 | 0.94 | <0.001 |
-| Zinc | R_mucilaginosa_only | baseline a\* | 65 | 0.20 | 0.15 |
-| Zinc | R_mucilaginosa_only | baseline a\* (size-adjusted) | 65 | 0.53 | 0.17 |
-| Zinc | R_mucilaginosa_only | change in a\* at dose 15 | 64 | 0.96 | <0.001 |
+| Chromium | all_strains_with_tip | baseline a\* | 255 | 0.79 | <0.001 |
+| Chromium | all_strains_with_tip | baseline a\* (size-adjusted) | 255 | 0.79 | <0.001 |
+| Chromium | all_strains_with_tip | change in a\* at dose 1.2 | 209 | 0.62 | <0.001 |
+| Chromium | R_mucilaginosa_only | baseline a\* | 201 | 0.89 | <0.001 |
+| Chromium | R_mucilaginosa_only | baseline a\* (size-adjusted) | 201 | 0.89 | <0.001 |
+| Chromium | R_mucilaginosa_only | change in a\* at dose 1.2 | 169 | 0.88 | <0.001 |
+| Copper | all_strains_with_tip | baseline a\* | 264 | 0.49 | <0.001 |
+| Copper | all_strains_with_tip | baseline a\* (size-adjusted) | 264 | 0.48 | <0.001 |
+| Copper | all_strains_with_tip | change in a\* at dose 30 | 256 | 0.13 | 0.51 |
+| Copper | R_mucilaginosa_only | baseline a\* | 201 | 0.48 | 0.04 |
+| Copper | R_mucilaginosa_only | baseline a\* (size-adjusted) | 201 | 0.47 | 0.04 |
+| Copper | R_mucilaginosa_only | change in a\* at dose 30 | 201 | 0.79 | 0.01 |
+| Iron | all_strains_with_tip | baseline a\* | 196 | 0.84 | <0.001 |
+| Iron | all_strains_with_tip | baseline a\* (size-adjusted) | 196 | 0.87 | <0.001 |
+| Iron | all_strains_with_tip | change in a\* at dose 30 | 133 | 0.96 | <0.001 |
+| Iron | R_mucilaginosa_only | baseline a\* | 167 | 0.91 | <0.001 |
+| Iron | R_mucilaginosa_only | baseline a\* (size-adjusted) | 167 | 0.92 | <0.001 |
+| Iron | R_mucilaginosa_only | change in a\* at dose 30 | 113 | 0.98 | <0.001 |
+| Lead | all_strains_with_tip | baseline a\* | 249 | 0.73 | <0.001 |
+| Lead | all_strains_with_tip | baseline a\* (size-adjusted) | 249 | 0.69 | <0.001 |
+| Lead | all_strains_with_tip | change in a\* at dose 30 | 164 | 0.56 | <0.001 |
+| Lead | R_mucilaginosa_only | baseline a\* | 199 | 0.80 | <0.001 |
+| Lead | R_mucilaginosa_only | baseline a\* (size-adjusted) | 199 | 0.82 | <0.001 |
+| Lead | R_mucilaginosa_only | change in a\* at dose 30 | 135 | 0.76 | <0.001 |
+| Zinc | all_strains_with_tip | baseline a\* | 75 | 0.96 | <0.001 |
+| Zinc | all_strains_with_tip | baseline a\* (size-adjusted) | 75 | 0.95 | <0.001 |
+| Zinc | all_strains_with_tip | change in a\* at dose 15 | 69 | 0.97 | <0.001 |
+| Zinc | R_mucilaginosa_only | baseline a\* | 65 | 0.97 | <0.001 |
+| Zinc | R_mucilaginosa_only | baseline a\* (size-adjusted) | 65 | 0.96 | <0.001 |
+| Zinc | R_mucilaginosa_only | change in a\* at dose 15 | 64 | 0.98 | <0.001 |
 
 *Table 9. Pagel's lambda (maximum likelihood under Brownian motion on the PHYling FastTree). 249-264 strains with a tree tip in Cr, Cu and Pb; 196 in Fe; 75 in Zn.*
 
@@ -380,37 +382,38 @@ Species is a fixed effect (reference R. mucilaginosa). Strain, run and plate are
 
 ![](figures/s2_tree_with_astar.png)
 
-*Figure 11. The tree with baseline a\* per metal.*
+*Figure 11. The tree rooted on the Cystobasidium + Pseudomicrostroma outgroup clade (bottom), with the species of each tip and baseline a\* per metal (strain mean at dose 0, one common colour scale; blank = no data).*
 
 
 **Reading and limits.**
 
-- Closely related strains share baseline a\*. Lambda is 0.90-0.97 for baseline a\* in Cr, Cu and Pb, and also inside R. mucilaginosa alone (0.90-0.98). The pairwise difference in a\* increases with patristic distance. Fe is weaker (0.51 raw, 0.33 size-adjusted).
-- **Blomberg's K was dropped.** The tree has 22 zero-length tips and 74 tips with a neighbour closer than 1e-5, so the covariance matrix is nearly singular (condition number about 1e10). K varied from 1e-7 to 4e-2 with the diagonal jitter (Table 10), so it is not interpretable. Lambda was stable across jitter 1e-8 to 1e-2.
-- Lambda near 1 partly reflects near-identical (clonal) strains with similar a\*. It does not show that a\* evolves under Brownian motion.
-- Lambda of the change in a\* at the top dose (0.73-1.00) mostly restates the baseline. The change is top-dose a\* minus baseline a\*, and top-dose a\* sits on a floor with little variation (Pb SD 0.77 across strains), so the change is mostly minus the baseline.
-- Strains within species and populations are not independent (lambda 0.9-0.97). The species and population tests in section 4 treat strain as the only grouping, so their p-values are too small.
+- Closely related strains share baseline a\*. Lambda is 0.74-0.84 in Cr, Pb and Fe, 0.49 in Cu and 0.96 in Zn for all strains with a tip (Table 9). Inside R. mucilaginosa alone it is 0.89 (Cr), 0.48 (Cu), 0.91 (Fe), 0.80 (Pb) and 0.97 (Zn), so the signal is not only the separation between species. The pairwise difference in size-adjusted a\* increases with patristic distance (Figure 10; patristic distance does not depend on the root).
+- **The root matters.** With the arbitrary root of the tree file the same analysis gave 0.97 (Cr), 0.95 (Cu), 0.51 (Fe), 0.90 (Pb) and 0.15 (Zn) for all strains. The first version of this report quoted those values. The outgroup-rooted values are used here because the outgroup root is the biologically meaningful one.
+- Lambda of the change in a\* at the top dose is 0.62 (Cr), 0.13 (Cu; p = 0.51), 0.96 (Fe), 0.56 (Pb) and 0.97 (Zn) for all strains. The change is top-dose a\* minus baseline a\*, and top-dose a\* sits on a floor with little variation (Pb SD 0.77 across strains), so for Pb, Cr and Cu the change partly restates the baseline.
+- **Blomberg's K was dropped.** The tree has 22 zero-length tips and 74 tips with a neighbour closer than 1e-5, so the covariance matrix is nearly singular (condition number about 2e10 with the outgroup root). K varied from about 0 to 0.08 with the diagonal jitter (Table 10), so it is not interpretable. Lambda was stable across jitter 1e-8 to 1e-2 (for example 0.48-0.49 in Cu).
+- Lambda near 1 (Fe, Zn) partly reflects near-identical (clonal) strains with similar a\*. It does not show that a\* evolves under Brownian motion.
+- Strains within species and populations are not independent (lambda 0.5-0.96). The species and population tests in section 4 treat strain as the only grouping, so their p-values are too small.
 - 266 of 321 strains have a unique tree tip. Strains without a tip are excluded.
 
 | Metal | jitter | cond | lam | K | pK |
 |--------|------|--------|-----|--------|-----|
-| Copper | 1e-08 | 1.17e+10 | 0.95 | 4.88e-07 | 0.145 |
-| Copper | 1e-06 | 1.17e+08 | 0.955 | 1.89e-05 | 0.19 |
-| Copper | 0.0001 | 1.17e+06 | 0.999 | 0.000772 | 0.06 |
-| Copper | 0.001 | 1.17e+05 | 0.999 | 0.00481 | 0.005 |
-| Copper | 0.01 | 1.17e+04 | 0.999 | 0.0309 | 0.005 |
-| Lead | 1e-08 | 9.93e+09 | 0.894 | 9.91e-07 | 0.03 |
-| Lead | 1e-06 | 9.93e+07 | 0.901 | 3.64e-05 | 0.06 |
-| Lead | 0.0001 | 9.93e+05 | 0.998 | 0.00121 | 0.01 |
-| Lead | 0.001 | 9.93e+04 | 0.998 | 0.0066 | 0.005 |
-| Lead | 0.01 | 9.93e+03 | 0.991 | 0.042 | 0.005 |
-| Chromium | 1e-08 | 1.03e+10 | 0.965 | 4.1e-07 | 0.23 |
-| Chromium | 1e-06 | 1.03e+08 | 0.969 | 2.06e-05 | 0.18 |
-| Chromium | 0.0001 | 1.03e+06 | 0.991 | 0.000855 | 0.045 |
-| Chromium | 0.001 | 1.03e+05 | 0.975 | 0.00554 | 0.005 |
-| Chromium | 0.01 | 1.03e+04 | 0.985 | 0.0404 | 0.005 |
+| Copper | 1e-08 | 1.98e+10 | 0.482 | 7.62e-07 | 0.005 |
+| Copper | 1e-06 | 1.98e+08 | 0.482 | 3.82e-05 | 0.005 |
+| Copper | 0.0001 | 1.98e+06 | 0.482 | 0.00147 | 0.005 |
+| Copper | 0.001 | 1.98e+05 | 0.482 | 0.00952 | 0.005 |
+| Copper | 0.01 | 1.98e+04 | 0.487 | 0.0585 | 0.015 |
+| Lead | 1e-08 | 1.95e+10 | 0.686 | 8.72e-07 | 0.005 |
+| Lead | 1e-06 | 1.95e+08 | 0.686 | 4.08e-05 | 0.005 |
+| Lead | 0.0001 | 1.95e+06 | 0.686 | 0.00125 | 0.005 |
+| Lead | 0.001 | 1.95e+05 | 0.688 | 0.00703 | 0.005 |
+| Lead | 0.01 | 1.95e+04 | 0.696 | 0.0407 | 0.005 |
+| Chromium | 1e-08 | 1.97e+10 | 0.789 | 8.03e-07 | 0.005 |
+| Chromium | 1e-06 | 1.97e+08 | 0.789 | 4.88e-05 | 0.005 |
+| Chromium | 0.0001 | 1.97e+06 | 0.789 | 0.00203 | 0.005 |
+| Chromium | 0.001 | 1.97e+05 | 0.789 | 0.0132 | 0.005 |
+| Chromium | 0.01 | 1.97e+04 | 0.799 | 0.0795 | 0.005 |
 
-*Table 10. Sensitivity of lambda and K to the diagonal jitter added to the covariance matrix (run on the unfiltered data).*
+*Table 10. Sensitivity of lambda and K to the diagonal jitter added to the covariance matrix (main dataset, outgroup-rooted tree).*
 
 ## 6. Dose regimes (item 3)
 
@@ -1118,10 +1121,6 @@ The original analysis used no area cutoff and the median-span window for Zinc (1
 | Iron: strains in the split-half analysis | 141.00 | 141.00 |
 | Lead: omnibus F, species by dose | 8.75 | 2.06 |
 | Lead: strains in the split-half analysis | 273.00 | 62.00 |
-| Chromium: Pagel lambda, baseline a\* | 0.97 | 0.97 |
-| Copper: Pagel lambda, baseline a\* | 0.93 | 0.95 |
-| Iron: Pagel lambda, baseline a\* | 0.51 | 0.51 |
-| Lead: Pagel lambda, baseline a\* | 0.90 | 0.90 |
 
 *Table 33. Other key numbers, original and main.*
 
@@ -1129,14 +1128,14 @@ The original analysis used no area cutoff and the median-span window for Zinc (1
 
 - **Cu and Cr are the same in both runs; Fe moves by about 0.5.**
 - **Pb changes most.** The Pb dose-effect estimate moves (-6.1 to -4.3). The species effect on baseline a\* without size adjustment falls (F 15.8 to 6.0), but with size adjustment it does not change (4.3 to 4.3). The species-by-dose test falls from F 8.75 (p < 0.001) to F 2.06 (corrected p = 0.059).
-- **Population effects and phylogenetic signal keep their conclusions.**
+- **The population effects keep their conclusions.** Pagel's lambda is not compared: it changed because the tree was rerooted (section 5), not because of the cutoff.
 - **The comparison is not strictly like with like.** The split-half samples shrink (Cr 289 to 148 strains, Pb 273 to 62, because few strains keep at least 2 top-dose wells), so those rows also reflect fewer strains. Run heterogeneity is not compared: the original run used models without a strain dose slope, and the main run uses the slope.
 - **Zinc changes** because the 80 h window restores plate d000388/41 (dose 15, set A) and the cutoff removes small colonies at the top doses.
 
 ## Limits
 
 - Dose units are not given in the source, and metals are not pooled.
-- Species and population tests treat strains as independent, although relatives share a\* (lambda 0.9-0.97). Their p-values are too small. Benjamini-Hochberg is applied across all 20 omnibus tests together.
+- Species and population tests treat strains as independent, although relatives share a\* (lambda 0.5-0.96). Their p-values are too small. Benjamini-Hochberg is applied across all 20 omnibus tests together.
 - The dose-factor model (Table 2) and the per-species strata (Table 26) have no strain dose slope, so their intervals are optimistic.
 - The regime split (section 6) is defined from colony size, which also relates to a\*.
 - Zinc is not modelled in the stratified analyses. Its plate and dose effects are confounded.
